@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "926116169252",
+    "project_id": "dotdo-autovita",
+    "storage_bucket": "dotdo-autovita.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:926116169252:android:9542d9f680ba63b31d3ab1",
+        "android_client_info": {
+          "package_name": "com.autovita.dotdo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "926116169252-6igin168idp6ieepqckqujnqv6i4r6k2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.autovita.dotdo",
+            "certificate_hash": "60df45cd3705d00b960715bb396c7df404245e51"
+          }
+        },
+        {
+          "client_id": "926116169252-om325elgv82fchtmf19jbihro26dcla9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuafWTmdqImWWwj5M8acBngKfNJV6oBs0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "926116169252-om325elgv82fchtmf19jbihro26dcla9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "926116169252-o1o1n44pmebgnufbbrlgn1m4f2b98h6k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.autovita.dotdo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
