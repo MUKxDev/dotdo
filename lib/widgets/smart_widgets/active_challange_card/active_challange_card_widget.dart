@@ -74,7 +74,11 @@ class ActiveChallangeCardWidget extends StatelessWidget {
                       description,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
-                      style: TextStyle(color: AppColors.darkGreen),
+                      style: TextStyle(
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? AppColors.lightGreen
+                            : AppColors.darkGreen,
+                      ),
                     ),
                     // * Lable
                     Text(
@@ -92,6 +96,10 @@ class ActiveChallangeCardWidget extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(5),
                         child: LinearProgressIndicator(
+                          backgroundColor:
+                              Theme.of(context).brightness == Brightness.light
+                                  ? Colors.black26
+                                  : Colors.white30,
                           value: progressValue,
                         ),
                       ),
