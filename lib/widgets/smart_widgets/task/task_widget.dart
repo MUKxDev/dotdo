@@ -29,9 +29,10 @@ class TaskWidget extends StatelessWidget {
       builder: (BuildContext context, TaskViewModel viewModel, Widget _) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-          child: GestureDetector(
+          child: InkWell(
+            borderRadius: BorderRadius.circular(10),
             onTap: onTap,
-            child: Container(
+            child: Ink(
               height: 68,
               width: double.infinity,
               decoration: BoxDecoration(
@@ -52,9 +53,10 @@ class TaskWidget extends StatelessWidget {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(right: 10.0),
-                                child: GestureDetector(
+                                child: InkWell(
+                                  borderRadius: BorderRadius.circular(5),
                                   onTap: toggleChecked,
-                                  child: Container(
+                                  child: Ink(
                                     height: 19,
                                     width: 19,
                                     decoration: BoxDecoration(
