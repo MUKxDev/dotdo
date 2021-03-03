@@ -50,6 +50,7 @@ class RegisterView extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20.0, vertical: 8),
                       child: TextField(
+                        controller: viewModel.emailController,
                         onChanged: viewModel.updateEmail,
                         style: TextStyle(
                           color:
@@ -125,7 +126,8 @@ class RegisterView extends StatelessWidget {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
                                 ),
-                                onPressed: viewModel.registerWithEmail,
+                                onPressed: viewModel.signupWithEmail,
+                                // onPressed: viewModel.registerWithEmail,
                                 child: Text(
                                   'Register',
                                   style: TextStyle(

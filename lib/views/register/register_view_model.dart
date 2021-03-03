@@ -1,6 +1,7 @@
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/router_constants.dart';
 import 'package:dotdo/core/services/authService.dart';
+import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dotdo/core/logger.dart';
@@ -17,6 +18,8 @@ class RegisterViewModel extends BaseViewModel {
   String get confirmPassword => _password;
   bool _isLoading = false;
   bool get isLoading => _isLoading;
+
+  TextEditingController emailController = TextEditingController(text: '');
 
   AuthService _authService = locator<AuthService>();
   NavigationService _navigationService = locator<NavigationService>();
@@ -58,10 +61,14 @@ class RegisterViewModel extends BaseViewModel {
   //   _authService.signInWithEmail(email: email, password: password);
   // }
 
-  void signupWithEmail() {
-    toggleIsLodaing();
+  void signupWithEmail() async {
     if (_password == _confirmPassword) {
-      _authService.createNewAccount(email: email, password: password);
+      final result = await FirebaseAuthenticationService()
+          .createAccountWithEmail(
+              email: emailController.text, password: password);
+
+      print(emailController.text);
+      print(result.uid);
     } else {
       print('The password not Matched');
     }
