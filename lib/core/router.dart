@@ -7,6 +7,7 @@ import 'package:dotdo/views/splash/splash_view.dart' as view0;
 import 'package:dotdo/views/login/login_view.dart' as view1;
 import 'package:dotdo/views/register/register_view.dart' as view2;
 import 'package:dotdo/views/today/today_view.dart' as view3;
+import 'package:dotdo/views/social/social_view.dart' as view4;
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -18,10 +19,9 @@ class Router {
       case registerViewRoute:
         return MaterialPageRoute(builder: (_) => view2.RegisterView());
       case todayViewRoute:
-        return MaterialPageRoute(
-            builder: (_) => view3.TodayView(
-                // args: settings.arguments,
-                ));
+        return MaterialPageRoute(builder: (_) => view3.TodayView());
+      case socialViewRoute:
+        return MaterialPageRoute(builder: (_) => view4.SocialView());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

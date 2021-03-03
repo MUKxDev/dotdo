@@ -4,3 +4,4 @@ const String splashViewRoute = 'splashViewRoute';
 const String loginViewRoute = 'loginViewRoute';
 const String registerViewRoute = 'registerViewRoute';
 const String todayViewRoute = 'todayViewRoute';
+const String socialViewRoute = 'socialViewRoute';
