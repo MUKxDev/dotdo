@@ -40,8 +40,8 @@ class RegisterView extends StatelessWidget {
                               tag: '_logoSvgDark',
                               child: Container(
                                 child: logoSvgDark,
-                                height: 130,
-                                width: 130,
+                                height: 100,
+                                width: 100,
                               ),
                             ),
                           ),
