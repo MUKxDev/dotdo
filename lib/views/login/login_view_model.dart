@@ -43,8 +43,6 @@ class LoginViewModel extends BaseViewModel {
   // TODO: try putting FirebaseAuthenticationService in the locator to make the third option.
   // ? This is directly from FirebaseAuthenticationService() package.
   void signinWithEmail() async {
-    toggleIsLodaing();
-
     if (_email == '' || _password == '') {
       _snackbarService.showSnackbar(message: 'Please fill the required fields');
     } else {
