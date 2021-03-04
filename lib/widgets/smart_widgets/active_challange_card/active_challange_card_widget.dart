@@ -1,6 +1,9 @@
-import 'package:dotdo/theme/colors.dart';
+import 'package:dotdo/widgets/dumb_widgets/card/card_widget.dart';
+import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
+import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
+import 'package:dotdo/widgets/dumb_widgets/prograss_bar/prograss_bar_widget.dart';
+import 'package:dotdo/widgets/dumb_widgets/public_icon/public_icon_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stacked/stacked.dart';
 import 'active_challange_card_view_model.dart';
 
@@ -28,86 +31,39 @@ class ActiveChallangeCardWidget extends StatelessWidget {
     return ViewModelBuilder<ActiveChallangeCardViewModel>.reactive(
       builder: (BuildContext context, ActiveChallangeCardViewModel viewModel,
           Widget _) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: InkWell(
-            onTap: onTap,
-            borderRadius: BorderRadius.circular(20),
-            child: Ink(
-              height: 100,
-              width: 150,
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.circular(20),
+        return CardWidget(
+          borderRadius: 20,
+          height: 100,
+          width: 150,
+          onTap: onTap,
+          padding: 10,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // * Public Icon
+                  PublicIconWidget(public: public),
+                  // * Challange Icon
+                  Icon(
+                    iconData,
+                    size: 24,
+                    color: iconColor,
+                  ),
+                ],
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        // * Public Icon
-                        public
-                            ? Icon(
-                                FontAwesomeIcons.globeAmericas,
-                                size: 14,
-                                color: Theme.of(context).brightness ==
-                                        Brightness.light
-                                    ? Colors.black38
-                                    : Colors.white38,
-                              )
-                            : Container(),
-                        // * Challange Icon
-                        Icon(
-                          iconData,
-                          size: 24,
-                          color: iconColor,
-                        ),
-                      ],
-                    ),
-                    // * Description
-                    Text(
-                      description,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      style: TextStyle(
-                        color: Theme.of(context).brightness == Brightness.light
-                            ? AppColors.lightGreen
-                            : AppColors.darkGreen,
-                      ),
-                    ),
-                    // * Lable
-                    Text(
-                      lable,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                    // * Prograss bar
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(5),
-                        child: LinearProgressIndicator(
-                          backgroundColor:
-                              Theme.of(context).brightness == Brightness.light
-                                  ? Colors.black26
-                                  : Colors.white30,
-                          value: progressValue,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+              // * Description
+              DescriptionTextWidget(description: description),
+              // * Lable
+              LableTextWidget(lable: lable),
+              // * Prograss bar
+              PrograssBarWidget(
+                progressValue: progressValue,
               ),
-            ),
+            ],
           ),
         );
       },

@@ -15,24 +15,27 @@ class SplashViewModel extends BaseViewModel {
     this.log = getLogger(this.runtimeType.toString());
   }
 
-  final NavigationService _navigationService = locator<NavigationService>();
+  NavigationService _navigationService = locator<NavigationService>();
+  FirebaseAuthenticationService _authenticationService =
+      locator<FirebaseAuthenticationService>();
 
-  Future navigateToLogin() async {
-    _navigationService.pushNamedAndRemoveUntil(loginViewRoute);
+  Future navigateToAuthPage() async {
+    _navigationService.pushNamedAndRemoveUntil(authpageViewRoute);
   }
 
-  Future navigateToToday() async {
-    _navigationService.pushNamedAndRemoveUntil(todayViewRoute);
+  Future navigateToHome() async {
+    _navigationService.pushNamedAndRemoveUntil(homeViewRoute);
   }
 
   Future handelStartup() async {
+    // TODO: Remove this timer after you implement the proper splash screen
     Timer(
       Duration(seconds: 2),
       () {
-        if (FirebaseAuthenticationService().hasUser) {
-          navigateToToday();
+        if (_authenticationService.hasUser) {
+          navigateToHome();
         } else {
-          navigateToLogin();
+          navigateToAuthPage();
         }
       },
     );

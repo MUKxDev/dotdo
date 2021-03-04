@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import './colors.dart';
 
 class AppThemes {
+  // * lightTheme
   static ThemeData lightTheme = ThemeData(
     textTheme: GoogleFonts.assistantTextTheme().apply(
       bodyColor: AppColors.darkBackground,
@@ -36,7 +37,9 @@ class AppThemes {
     ),
   );
 
+  // * darkTheme
   static ThemeData darkTheme = ThemeData(
+    // canvasColor: Colors.transparent,
     textTheme: GoogleFonts.assistantTextTheme().apply(
       bodyColor: AppColors.white,
       displayColor: AppColors.white,

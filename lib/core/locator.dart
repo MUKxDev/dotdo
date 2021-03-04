@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
+import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import 'logger.dart';
@@ -18,5 +19,7 @@ class LocatorInjector {
     locator.registerLazySingleton(() => SnackbarService());
     log.d('Registering Auth Service');
     locator.registerLazySingleton(() => AuthService());
+    log.d('Registering FirebaseAuthentication Service');
+    locator.registerLazySingleton(() => FirebaseAuthenticationService());
   }
 }

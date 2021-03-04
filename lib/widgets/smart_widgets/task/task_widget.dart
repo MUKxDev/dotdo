@@ -1,6 +1,9 @@
-import 'package:dotdo/theme/colors.dart';
+import 'package:dotdo/widgets/dumb_widgets/card/card_widget.dart';
+import 'package:dotdo/widgets/dumb_widgets/check_box/check_box_widget.dart';
+import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
+import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
+import 'package:dotdo/widgets/dumb_widgets/public_icon/public_icon_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stacked/stacked.dart';
 import 'task_view_model.dart';
 
@@ -28,125 +31,65 @@ class TaskWidget extends StatelessWidget {
     return ViewModelBuilder<TaskViewModel>.reactive(
       builder: (BuildContext context, TaskViewModel viewModel, Widget _) {
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(10),
+          padding: const EdgeInsets.all(10),
+          child: CardWidget(
+            borderRadius: 10,
+            height: 70,
+            width: double.infinity,
             onTap: onTap,
-            child: Ink(
-              height: 68,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(right: 10.0),
-                                child: InkWell(
-                                  borderRadius: BorderRadius.circular(5),
-                                  onTap: toggleChecked,
-                                  child: Ink(
-                                    height: 19,
-                                    width: 19,
-                                    decoration: BoxDecoration(
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.light
-                                          ? Colors.white70
-                                          : AppColors.darkBackground,
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
-                                    // * checkbox
-                                    child: checked
-                                        ? Icon(
-                                            FontAwesomeIcons.check,
-                                            size: 14,
-                                            color:
-                                                Theme.of(context).brightness ==
-                                                        Brightness.light
-                                                    ? AppColors.lightGreen
-                                                    : AppColors.darkGreen,
-                                          )
-                                        : Container(),
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                lable,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ],
-                          ),
-                          // * Public Icon
-                          public
-                              ? Icon(
-                                  FontAwesomeIcons.globeAmericas,
-                                  size: 14,
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.light
-                                      ? Colors.black38
-                                      : Colors.white38,
-                                )
-                              : Container(),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Due: ${due.day} at ${due.hour}:${due.minute}',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.light
-                                  ? AppColors.lightGreen
-                                  : AppColors.darkGreen,
-                              fontSize: 14,
+            padding: 10,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        // * CheckBox
+                        CheckBoxWidget(checked: checked, onTap: toggleChecked),
+                        // *lable
+                        LableTextWidget(lable: lable),
+                      ],
+                    ),
+                    // * Public Icon
+                    PublicIconWidget(public: public),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // * DescriptionTextWidget
+                    DescriptionTextWidget(
+                      description:
+                          'Due: ${due.day} at ${due.hour}:${due.minute}',
+                    ),
+                    // * Category
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.adjust,
+                          color: Theme.of(context).accentColor,
+                          size: 16,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: Container(
+                            width: 100,
+                            child: Text(
+                              category,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.adjust,
-                                color: Theme.of(context).accentColor,
-                                size: 16,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 8.0),
-                                child: Container(
-                                  width: 100,
-                                  child: Text(
-                                    category,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ),
+              ],
             ),
           ),
         );

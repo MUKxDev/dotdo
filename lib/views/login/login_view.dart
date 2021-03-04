@@ -1,11 +1,13 @@
-import 'package:dotdo/constant.dart';
-import 'package:dotdo/svg/svg.dart';
 import 'package:dotdo/theme/colors.dart';
+import 'package:dotdo/widgets/dumb_widgets/logo/logo_widget.dart';
+import 'package:dotdo/widgets/dumb_widgets/textfield/textfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'login_view_model.dart';
 
 class LoginView extends StatelessWidget {
+  final Function navigateToIndex;
+  LoginView({this.navigateToIndex});
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<LoginViewModel>.reactive(
@@ -13,116 +15,83 @@ class LoginView extends StatelessWidget {
         // var emailController = useTextEditingController(text: 'hi');
         return GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
-          child: Scaffold(
-            appBar: AppBar(
-              shape: appBarShapeBorder,
-              title: Text('Sign in'),
-            ),
-            body: Center(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  children: [
-                    //* .Do logo svg
-                    Theme.of(context).brightness == Brightness.light
-                        ? Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Hero(
-                              tag: '_logoSvglight',
-                              child: Container(
-                                child: logoSvgLight,
-                                height: 100,
-                                width: 100,
+          child: Center(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                children: [
+                  // * LogoWidget
+                  LogoWidget(),
+                  // * Email textfield
+                  TextfieldWidget(
+                      controller: viewModel.emailController,
+                      obscureText: false,
+                      labelText: 'Email',
+                      hintText: 'Enter Email...'),
+                  // * Password textfield
+                  TextfieldWidget(
+                      controller: viewModel.passwordController,
+                      obscureText: true,
+                      labelText: 'Password',
+                      hintText: 'Enter Password'),
+                  // * Sign in button
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 8),
+                    child: viewModel.isLoading
+                        ? SizedBox(
+                            child: CircularProgressIndicator(),
+                            height: 60,
+                            width: 60,
+                          )
+                        : Container(
+                            height: 60,
+                            width: double.infinity,
+                            child: FlatButton(
+                              color: Theme.of(context).accentColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
                               ),
-                            ))
-                        : Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Hero(
-                              tag: '_logoSvgDark',
-                              child: Container(
-                                child: logoSvgDark,
-                                height: 100,
-                                width: 100,
+                              onPressed: viewModel.signinWithEmail,
+                              child: Text(
+                                'Sign in',
+                                style: TextStyle(
+                                    color: AppColors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18),
                               ),
                             ),
                           ),
-                    // * email textfield
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 8),
-                      child: TextField(
-                        onChanged: viewModel.updateEmail,
+                  ),
+                  // * Or Text
+                  Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        'Or',
                         style: TextStyle(
-                          color:
-                              Theme.of(context).brightness == Brightness.light
-                                  ? AppColors.darkBackground
-                                  : AppColors.white,
-                        ),
-                        autocorrect: false,
-                        autofocus: false,
-                        decoration: InputDecoration(
-                          labelText: 'Email',
-                          hintText: 'Enter Email...',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
                         ),
                       ),
                     ),
-                    // * password textfield
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 8),
-                      child: TextField(
-                        onChanged: viewModel.updatePassword,
-                        style: TextStyle(
-                          color:
-                              Theme.of(context).brightness == Brightness.light
-                                  ? AppColors.darkBackground
-                                  : AppColors.white,
+                  ),
+                  // * Register button
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 8),
+                    child: Container(
+                      height: 60,
+                      width: double.infinity,
+                      child: FlatButton(
+                        color: Theme.of(context).primaryColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
                         ),
-                        autocorrect: false,
-                        autofocus: false,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          hintText: 'Enter Password...',
-                        ),
-                      ),
-                    ),
-
-                    // * Sign in button
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 8),
-                      child: viewModel.isLoading
-                          ? SizedBox(
-                              child: CircularProgressIndicator(),
-                              height: 60,
-                              width: 60,
-                            )
-                          : Container(
-                              height: 60,
-                              width: double.infinity,
-                              child: FlatButton(
-                                color: Theme.of(context).accentColor,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                onPressed: viewModel.signinWithEmail,
-                                child: Text(
-                                  'Sign in',
-                                  style: TextStyle(
-                                      color: AppColors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18),
-                                ),
-                              ),
-                            ),
-                    ),
-                    // * Or Text
-                    Center(
-                      child: Padding(
-                        padding: EdgeInsets.all(10),
+                        // onPressed: viewModel.navigateToRegister,
+                        onPressed: navigateToIndex,
                         child: Text(
-                          'Or',
+                          'Register',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
@@ -130,31 +99,8 @@ class LoginView extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // * Register button
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 8),
-                      child: Container(
-                        height: 60,
-                        width: double.infinity,
-                        child: FlatButton(
-                          color: Theme.of(context).primaryColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          onPressed: viewModel.navigateToRegister,
-                          child: Text(
-                            'Register',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
