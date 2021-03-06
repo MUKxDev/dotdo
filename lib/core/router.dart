@@ -10,6 +10,8 @@ import 'package:dotdo/views/today/today_view.dart' as view3;
 import 'package:dotdo/views/social/social_view.dart' as view4;
 import 'package:dotdo/views/home/home_view.dart' as view5;
 import 'package:dotdo/views/authpage/authpage_view.dart' as view6;
+import 'package:dotdo/views/discover/discover_view.dart' as view7;
+import 'package:dotdo/views/profile/profile_view.dart' as view8;
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -28,6 +30,10 @@ class Router {
         return MaterialPageRoute(builder: (_) => view5.HomeView());
       case authpageViewRoute:
         return MaterialPageRoute(builder: (_) => view6.AuthpageView());
+      case discoverViewRoute:
+        return MaterialPageRoute(builder: (_) => view7.DiscoverView());
+      case profileViewRoute:
+        return MaterialPageRoute(builder: (_) => view8.ProfileView());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

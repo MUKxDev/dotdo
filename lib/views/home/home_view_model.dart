@@ -1,5 +1,7 @@
 import 'package:dotdo/core/locator.dart';
+import 'package:dotdo/core/models/task.dart';
 import 'package:dotdo/core/router_constants.dart';
+import 'package:dotdo/core/services/taskService.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
@@ -65,5 +67,19 @@ class HomeViewModel extends BaseViewModel {
   void logout() {
     FirebaseAuthenticationService().logout();
     _navigationService.pushNamedAndRemoveUntil(authpageViewRoute);
+  }
+
+  TaskService _taskService = locator<TaskService>();
+  void addTask() {
+    Task task = Task(
+        public: false,
+        checked: false,
+        lable: 'A task to be done',
+        due: DateTime.now(),
+        category: 'Work',
+        id: UniqueKey().toString());
+    _taskService.addTask(task);
+    notifyListeners();
+    print(_taskService.taskList.length);
   }
 }

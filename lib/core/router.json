@@ -1,5 +1,5 @@
 {
-    "last_updated": "Thu, 04 Mar 2021 20:21:41 GMT",
+    "last_updated": "Sat, 06 Mar 2021 23:11:34 GMT",
     "routes": [
         {
             "file_path": "views/splash/splash_view.dart",
@@ -35,6 +35,16 @@
             "file_path": "views/authpage/authpage_view.dart",
             "route_name": "authpageViewRoute",
             "view_name": "AuthpageView"
+        },
+        {
+            "file_path": "views/discover/discover_view.dart",
+            "route_name": "discoverViewRoute",
+            "view_name": "DiscoverView"
+        },
+        {
+            "file_path": "views/profile/profile_view.dart",
+            "route_name": "profileViewRoute",
+            "view_name": "ProfileView"
         }
     ]
 }

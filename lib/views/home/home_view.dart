@@ -1,4 +1,6 @@
 import 'package:dotdo/constant.dart';
+import 'package:dotdo/views/discover/discover_view.dart';
+import 'package:dotdo/views/profile/profile_view.dart';
 import 'package:dotdo/views/social/social_view.dart';
 import 'package:dotdo/views/today/today_view.dart';
 import 'package:dotdo/widgets/dumb_widgets/bottom_nav_bar/bottom_nav_bar_widget.dart';
@@ -54,7 +56,9 @@ class HomeView extends StatelessWidget {
           // * FloatingActionButton
           floatingActionButton: FloatingActionButton(
             child: Icon(Icons.add),
-            onPressed: () {},
+            onPressed: () {
+              viewModel.addTask();
+            },
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
@@ -65,6 +69,8 @@ class HomeView extends StatelessWidget {
             children: [
               TodayView(),
               SocialView(),
+              DiscoverView(),
+              ProfileView(),
             ],
           ),
         );

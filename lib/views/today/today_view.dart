@@ -1,10 +1,6 @@
-import 'package:dotdo/core/models/task.dart';
-import 'package:dotdo/theme/colors.dart';
 import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
-import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/active_challange_card/active_challange_card_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/datepicker/datepicker_widget.dart';
-import 'package:dotdo/widgets/smart_widgets/task/task_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/task_list/task_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -23,7 +19,7 @@ class TodayView extends StatelessWidget {
             children: [
               // * DatePicker widget
               Padding(
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                 child: DatepickerWidget(),
               ),
               // * Challanges
@@ -33,12 +29,12 @@ class TodayView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: 20.0,
-                  horizontal: 10,
+                  horizontal: 0,
                 ),
                 child: Container(
                   height: 100,
                   child: ListView(
-                    clipBehavior: Clip.none,
+                    clipBehavior: Clip.hardEdge,
                     scrollDirection: Axis.horizontal,
                     children: [
                       Padding(
@@ -84,64 +80,9 @@ class TodayView extends StatelessWidget {
               // * Today's tasks
               HeaderTextWidget(lable: 'Today\'s Tasks'),
               // * Tasks List
-              // TODO: implement retreving (Tasks List) data from user.
-              TaskListWidget(),
-              // ListView(
-              //   shrinkWrap: true,
-              //   physics: ScrollPhysics(),
-              //   children: [
-              //     TaskWidget(
-              //       id: '1',
-              //       public: true,
-              //       checked: true,
-              //       lable: 'A task to do',
-              //       category: 'Work',
-              //       due: DateTime.now(),
-              //       onTap: () => print('Task tapped'),
-              //       toggleChecked: () => print('checked tapped'),
-              //     ),
-              //     TaskWidget(
-              //       id: '2',
-              //       public: false,
-              //       checked: true,
-              //       lable: 'A task to do',
-              //       category: 'Work',
-              //       due: DateTime.now(),
-              //       onTap: () => print('Task tapped'),
-              //       toggleChecked: () => print('checked tapped'),
-              //     ),
-              //     TaskWidget(
-              //       id: '3',
-              //       public: true,
-              //       checked: true,
-              //       lable: 'A task to do',
-              //       category: 'Work',
-              //       due: DateTime.now(),
-              //       onTap: () => print('Task tapped'),
-              //       toggleChecked: () => print('checked tapped'),
-              //     ),
-              //     TaskWidget(
-              //       id: '4',
-              //       public: false,
-              //       checked: true,
-              //       lable: 'A task to do',
-              //       category: 'Work',
-              //       due: DateTime.now(),
-              //       onTap: () => print('Task tapped'),
-              //       toggleChecked: () => print('checked tapped'),
-              //     ),
-              //     TaskWidget(
-              //       id: '5',
-              //       public: true,
-              //       checked: true,
-              //       lable: 'A task to do',
-              //       category: 'Work',
-              //       due: DateTime.now(),
-              //       onTap: () => print('Task tapped'),
-              //       toggleChecked: () => print('checked tapped'),
-              //     ),
-              //   ],
-              // ),
+              TaskListWidget(
+                list: viewModel.getTodayTaskList(),
+              ),
             ],
           ),
         );

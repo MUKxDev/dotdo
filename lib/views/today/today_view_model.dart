@@ -13,33 +13,17 @@ class TodayViewModel extends BaseViewModel {
   String _title = 'Today';
   String get title => _title;
 
-  List<Task> getTaskList() => _taskService.taskList;
+  // TODO: change to be updated on the DatePicker selected Date
+  List<Task> getTodayTaskList() => _taskService.taskList
+      .where(
+        (element) =>
+            element.checked == false &&
+            (element.due.day == DateTime.now().day &&
+                element.due.month == DateTime.now().month &&
+                element.due.year == DateTime.now().year),
+      )
+      .toList();
 
-  void removeTask(int index) {
-    _taskService.taskList.removeAt(index);
-    notifyListeners();
-  }
-
-  void addTaskAtIndex(int index, Task task) {
-    _taskService.taskList.insert(index, task);
-    notifyListeners();
-  }
-
-  void addNewTask() {}
-
-  void toggleCheckedTask(int index) {
-    bool checked = _taskService.taskList[index].checked;
-    Task task = _taskService.taskList[index].copyWith(checked: !checked);
-    removeTask(index);
-    addTaskAtIndex(index, task);
-    notifyListeners();
-  }
-
-  void onTaskTap(index) {
-    print('task $index tapped');
-  }
-
-  // AuthService _authService = locator<AuthService>();
   NavigationService _navigationService = locator<NavigationService>();
   TaskService _taskService = locator<TaskService>();
 

@@ -48,7 +48,8 @@ class TaskWidget extends StatelessWidget {
                   Row(
                     children: [
                       // * CheckBox
-                      CheckBoxWidget(checked: checked, onTap: toggleChecked),
+                      // TODO: should we keep it or not?
+                      // CheckBoxWidget(checked: checked, onTap: toggleChecked),
                       // *lable
                       LableTextWidget(lable: lable),
                     ],

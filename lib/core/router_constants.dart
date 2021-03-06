@@ -7,3 +7,5 @@ const String todayViewRoute = 'todayViewRoute';
 const String socialViewRoute = 'socialViewRoute';
 const String homeViewRoute = 'homeViewRoute';
 const String authpageViewRoute = 'authpageViewRoute';
+const String discoverViewRoute = 'discoverViewRoute';
+const String profileViewRoute = 'profileViewRoute';

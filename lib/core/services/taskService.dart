@@ -1,8 +1,22 @@
 import 'package:dotdo/core/models/task.dart';
+import 'package:flutter/material.dart';
 
 class TaskService {
   List<Task> get taskList => _taskList;
+  List<Task> get doneTaskList =>
+      _taskList.where((task) => task.checked == true).toList();
+  List<Task> get unDoneTaskList =>
+      _taskList.where((task) => task.checked == false).toList();
 
+  void removeTask(id) {
+    taskList.removeWhere((task) => task.id == id);
+  }
+
+  void addTask(Task task) {
+    taskList.add(task);
+  }
+
+  // TODO: implement retreving (Tasks List) data from user.
   List<Task> _taskList = [
     Task(
         public: true,
@@ -10,34 +24,41 @@ class TaskService {
         lable: 'A task is done',
         due: DateTime.now(),
         category: 'Work',
-        id: '1'),
+        id: UniqueKey().toString()),
     Task(
         public: false,
         checked: false,
         lable: 'A task to be done',
         due: DateTime.now(),
         category: 'Work',
-        id: '2'),
+        id: UniqueKey().toString()),
     Task(
         public: true,
         checked: true,
         lable: 'A task is done',
         due: DateTime.now(),
         category: 'Work',
-        id: '3'),
+        id: UniqueKey().toString()),
     Task(
         public: true,
         checked: false,
         lable: 'A task to be done',
         due: DateTime.now(),
         category: 'Work',
-        id: '4'),
+        id: UniqueKey().toString()),
     Task(
         public: false,
         checked: false,
         lable: 'A task to be done',
         due: DateTime.now(),
         category: 'Work',
-        id: '5'),
+        id: UniqueKey().toString()),
+    Task(
+        public: false,
+        checked: false,
+        lable: 'A task to be done',
+        due: DateTime.utc(2021, 3, 8),
+        category: 'Work',
+        id: UniqueKey().toString()),
   ];
 }
