@@ -1,3 +1,4 @@
+import 'package:dotdo/core/services/taskService.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
@@ -21,5 +22,7 @@ class LocatorInjector {
     locator.registerLazySingleton(() => AuthService());
     log.d('Registering FirebaseAuthentication Service');
     locator.registerLazySingleton(() => FirebaseAuthenticationService());
+    log.d('Registering Task Service');
+    locator.registerLazySingleton(() => TaskService());
   }
 }

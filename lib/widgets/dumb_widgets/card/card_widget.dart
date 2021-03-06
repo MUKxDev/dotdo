@@ -18,24 +18,21 @@ class CardWidget extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: Material(
+    return Material(
+      borderRadius: BorderRadius.circular(borderRadius),
+      child: InkWell(
+        onTap: onTap,
         borderRadius: BorderRadius.circular(borderRadius),
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(borderRadius),
-          child: Ink(
-            height: height,
-            width: width,
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.circular(borderRadius),
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(padding),
-              child: child,
-            ),
+        child: Ink(
+          height: height,
+          width: width,
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
+            borderRadius: BorderRadius.circular(borderRadius),
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(padding),
+            child: child,
           ),
         ),
       ),
