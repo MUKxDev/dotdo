@@ -8,6 +8,7 @@ import 'package:stacked/stacked.dart';
 import 'package:dotdo/core/logger.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:uuid/uuid.dart';
 
 class HomeViewModel extends BaseViewModel {
   Logger log;
@@ -22,6 +23,7 @@ class HomeViewModel extends BaseViewModel {
   PageController pageController = PageController(initialPage: 0);
   String _title = 'Today';
   get title => _title;
+  var uuid = Uuid();
 
   void updateTitle() {
     switch (_selectedIndex) {
@@ -71,15 +73,17 @@ class HomeViewModel extends BaseViewModel {
 
   TaskService _taskService = locator<TaskService>();
   void addTask() {
+    String id = uuid.v4();
     Task task = Task(
         public: false,
         checked: false,
         lable: 'A task to be done',
         due: DateTime.now(),
         category: 'Work',
-        id: UniqueKey().toString());
+        id: id);
     _taskService.addTask(task);
     notifyListeners();
     print(_taskService.taskList.length);
+    print(id);
   }
 }

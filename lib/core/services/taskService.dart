@@ -1,7 +1,11 @@
 import 'package:dotdo/core/models/task.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 class TaskService {
+  // This will generate a uniqe key use .v1() or .v4()
+  var uuid = Uuid();
+
   List<Task> get taskList => _taskList;
   List<Task> get doneTaskList =>
       _taskList.where((task) => task.checked == true).toList();
