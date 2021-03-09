@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import './colors.dart';
@@ -13,8 +14,15 @@ class AppThemes {
     primaryColor: AppColors.lightGray,
     accentColor: AppColors.lightPurple,
     scaffoldBackgroundColor: AppColors.white,
-    textSelectionHandleColor: AppColors.lightGreen,
-    cursorColor: AppColors.lightGreen,
+    textSelectionTheme: TextSelectionThemeData(
+      selectionColor: AppColors.lightGreen,
+      selectionHandleColor: AppColors.lightGreen,
+      cursorColor: AppColors.lightGreen,
+    ),
+    // * Remove this if it went wrong LOL
+    cupertinoOverrideTheme: CupertinoThemeData(
+      primaryColor: AppColors.lightGreen,
+    ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: AppColors.lightGray,
@@ -48,8 +56,15 @@ class AppThemes {
     primaryColor: AppColors.darkGray,
     accentColor: AppColors.darkPurple,
     scaffoldBackgroundColor: AppColors.darkBackground,
-    textSelectionHandleColor: AppColors.darkGreen,
-    cursorColor: AppColors.darkGreen,
+    textSelectionTheme: TextSelectionThemeData(
+      selectionColor: AppColors.darkGreen,
+      selectionHandleColor: AppColors.darkGreen,
+      cursorColor: AppColors.darkGreen,
+    ),
+    // * Remove this if it went wrong LOL
+    cupertinoOverrideTheme: CupertinoThemeData(
+      primaryColor: AppColors.darkGreen,
+    ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: AppColors.darkGray,
