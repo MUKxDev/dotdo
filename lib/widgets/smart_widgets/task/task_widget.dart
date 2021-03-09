@@ -1,5 +1,4 @@
 import 'package:dotdo/widgets/dumb_widgets/card/card_widget.dart';
-import 'package:dotdo/widgets/dumb_widgets/check_box/check_box_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/public_icon/public_icon_widget.dart';

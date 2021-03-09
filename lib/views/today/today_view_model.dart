@@ -13,8 +13,16 @@ class TodayViewModel extends BaseViewModel {
   String _title = 'Today';
   String get title => _title;
 
+  Future handelStartup() async {
+    refreshData();
+  }
+
+  Future refreshData() async {
+    _taskService.updateRxListFromFirebase();
+  }
+
   // TODO: change to be updated on the DatePicker selected Date
-  List<Task> getTodayTaskList() => _taskService.taskList
+  List<Task> getTodayTaskList() => _taskService.rxTaskList
       .where(
         (element) =>
             element.checked == false &&

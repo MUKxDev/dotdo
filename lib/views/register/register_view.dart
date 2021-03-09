@@ -1,7 +1,8 @@
-import 'package:dotdo/theme/colors.dart';
+import 'package:dotdo/widgets/dumb_widgets/button/button_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/logo/logo_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/textfield/textfield_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stacked/stacked.dart';
 import 'register_view_model.dart';
 
@@ -15,95 +16,150 @@ class RegisterView extends StatelessWidget {
       builder: (BuildContext context, RegisterViewModel viewModel, Widget _) {
         return GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
-          child: Center(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // * LogoWidget
-                  LogoWidget(),
-                  // * email textfield
-                  TextfieldWidget(
-                      controller: viewModel.emailController,
-                      obscureText: false,
-                      labelText: 'Email',
-                      hintText: 'Enter Email...'),
-                  // * password textfield
-                  TextfieldWidget(
-                      controller: viewModel.passwordController,
-                      obscureText: true,
-                      labelText: 'New Password',
-                      hintText: 'Enter New Password'),
-                  // * confirm Password textfield
-                  TextfieldWidget(
-                      controller: viewModel.confirmPasswordController,
-                      obscureText: true,
-                      labelText: 'Confirm Password',
-                      hintText: 'Confirm Password...'),
-                  // * Register button
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0, vertical: 8),
-                    child: viewModel.isLoading
-                        ? SizedBox(
-                            child: CircularProgressIndicator(),
-                            height: 60,
-                            width: 60,
-                          )
-                        : Container(
-                            height: 60,
-                            width: double.infinity,
-                            child: FlatButton(
-                              color: Theme.of(context).accentColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              onPressed: viewModel.registerWithEmail,
-                              child: Text(
-                                'Register',
-                                style: TextStyle(
-                                  color: AppColors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // * Logo & Tilte
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // * LogoWidget
+                    LogoWidget(
+                      height: 80,
+                      width: 80,
+                    ),
+                    // * Title widget
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: Text(
+                        'Register a new account',
+                        style: TextStyle(
+                          fontSize: 30,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                // * Form
+                Column(
+                  children: [
+                    // * FullName textfield
+                    TextfieldWidget(
+                        controller: viewModel.fullNameController,
+                        obscureText: false,
+                        labelText: 'Full name',
+                        hintText: 'Enter your full name...'),
+                    // * Email textfield
+                    TextfieldWidget(
+                        controller: viewModel.emailController,
+                        obscureText: false,
+                        labelText: 'Email',
+                        hintText: 'Enter email...'),
+                    // * Password textfield
+                    TextfieldWidget(
+                        controller: viewModel.passwordController,
+                        obscureText: true,
+                        labelText: 'New password',
+                        hintText: 'Enter new password...'),
+                    // * Confirm password textfield
+                    TextfieldWidget(
+                        controller: viewModel.confirmPasswordController,
+                        obscureText: true,
+                        labelText: 'Confirm password',
+                        hintText: 'Confirm password...'),
+                    // * Already have an account? button
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextButton(
+                            onPressed: navigateToIndex,
+                            child: Text(
+                              'Already have an account?',
+                              style: TextStyle(
+                                color: Theme.of(context).accentColor,
+                                fontSize: 16,
                               ),
                             ),
                           ),
-                  ),
-                  // * Or Text
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Text(
-                      'Or',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                        ],
                       ),
                     ),
-                  ),
-                  // * Sign in button
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0, vertical: 8),
-                    child: Container(
-                      height: 60,
-                      width: double.infinity,
-                      child: FlatButton(
-                        color: Theme.of(context).primaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        onPressed: navigateToIndex,
+                    // * Register button
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 8),
+                      child: viewModel.isLoading
+                          ? SizedBox(
+                              child: CircularProgressIndicator(),
+                              height: 60,
+                              width: 60,
+                            )
+                          : ButtonWidget(
+                              onPressed: viewModel.registerWithEmail,
+                              text: 'Register',
+                            ),
+                    ),
+                  ],
+                ),
+                // * Or & Social Media Auth
+                Column(
+                  children: [
+                    // * Or Text
+                    Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(10),
                         child: Text(
-                          'Sign in',
+                          'Or',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
+                    // * Social Media Auth
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          // * Auth with Google
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              shape: BoxShape.circle,
+                            ),
+                            child: IconButton(
+                                icon: Icon(
+                                  FontAwesomeIcons.google,
+                                  color: Theme.of(context).accentColor,
+                                ),
+                                onPressed: viewModel.authWithGoogle),
+                          ),
+                          // * Auth with Apple
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              shape: BoxShape.circle,
+                            ),
+                            child: IconButton(
+                                icon: Icon(
+                                  FontAwesomeIcons.apple,
+                                  color: Theme.of(context).accentColor,
+                                ),
+                                onPressed: viewModel.authWithApple),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
         );

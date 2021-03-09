@@ -1,7 +1,8 @@
-import 'package:dotdo/theme/colors.dart';
+import 'package:dotdo/widgets/dumb_widgets/button/button_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/logo/logo_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/textfield/textfield_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stacked/stacked.dart';
 import 'login_view_model.dart';
 
@@ -15,83 +16,107 @@ class LoginView extends StatelessWidget {
         // var emailController = useTextEditingController(text: 'hi');
         return GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
-          child: Center(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
-                children: [
-                  // * LogoWidget
-                  LogoWidget(),
-                  // * Email textfield
-                  TextfieldWidget(
-                      controller: viewModel.emailController,
-                      obscureText: false,
-                      labelText: 'Email',
-                      hintText: 'Enter Email...'),
-                  // * Password textfield
-                  TextfieldWidget(
-                      controller: viewModel.passwordController,
-                      obscureText: true,
-                      labelText: 'Password',
-                      hintText: 'Enter Password'),
-                  // * Sign in button
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0, vertical: 8),
-                    child: viewModel.isLoading
-                        ? SizedBox(
-                            child: CircularProgressIndicator(),
-                            height: 60,
-                            width: 60,
-                          )
-                        : Container(
-                            height: 60,
-                            width: double.infinity,
-                            child: FlatButton(
-                              color: Theme.of(context).accentColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              onPressed: viewModel.signinWithEmail,
-                              child: Text(
-                                'Sign in',
-                                style: TextStyle(
-                                    color: AppColors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18),
-                              ),
-                            ),
-                          ),
-                  ),
-                  // * Or Text
-                  Center(
-                    child: Padding(
-                      padding: EdgeInsets.all(10),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // * Logo & Tilte
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // * LogoWidget
+                    LogoWidget(
+                      height: 80,
+                      width: 80,
+                    ),
+                    // * Title widget
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
                       child: Text(
-                        'Or',
+                        'Welcome back',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                          fontSize: 30,
                         ),
                       ),
                     ),
-                  ),
-                  // * Register button
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0, vertical: 8),
-                    child: Container(
-                      height: 60,
-                      width: double.infinity,
-                      child: FlatButton(
-                        color: Theme.of(context).primaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                  ],
+                ),
+                // * Form
+                Column(
+                  children: [
+                    // * Email textfield
+                    TextfieldWidget(
+                        controller: viewModel.emailController,
+                        obscureText: false,
+                        labelText: 'Email',
+                        hintText: 'Enter email...'),
+                    // * Password textfield
+                    TextfieldWidget(
+                        controller: viewModel.passwordController,
+                        obscureText: true,
+                        labelText: 'Password',
+                        hintText: 'Enter password...'),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // * Forgot password button
+                            TextButton(
+                              onPressed: viewModel.forgotPassword,
+                              child: Text(
+                                'Forgot password?',
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Theme.of(context).accentColor,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                            // * Register a new account? button
+                            TextButton(
+                              onPressed: navigateToIndex,
+                              child: Text(
+                                'Register a new account?',
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Theme.of(context).accentColor,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        // onPressed: viewModel.navigateToRegister,
-                        onPressed: navigateToIndex,
+                      ),
+                    ),
+                    // * Sign in button
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 8),
+                      child: viewModel.isLoading
+                          ? SizedBox(
+                              child: CircularProgressIndicator(),
+                              height: 60,
+                              width: 60,
+                            )
+                          : ButtonWidget(
+                              onPressed: viewModel.signinWithEmail,
+                              text: 'Sign in'),
+                    ),
+                  ],
+                ),
+                // * Or & Social Media Auth
+                Column(
+                  children: [
+                    // * Or Text
+                    Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(10),
                         child: Text(
-                          'Register',
+                          'Or',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
@@ -99,9 +124,45 @@ class LoginView extends StatelessWidget {
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
+                    // * Social Media Auth
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          // * Auth with Google
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              shape: BoxShape.circle,
+                            ),
+                            child: IconButton(
+                                icon: Icon(
+                                  FontAwesomeIcons.google,
+                                  color: Theme.of(context).accentColor,
+                                ),
+                                onPressed: viewModel.authWithGoogle),
+                          ),
+                          // * Auth with Apple
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              shape: BoxShape.circle,
+                            ),
+                            child: IconButton(
+                                icon: Icon(
+                                  FontAwesomeIcons.apple,
+                                  color: Theme.of(context).accentColor,
+                                ),
+                                onPressed: viewModel.authWithApple),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
         );

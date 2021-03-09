@@ -1,10 +1,10 @@
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/router_constants.dart';
+import 'package:dotdo/core/services/authService.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dotdo/core/logger.dart';
-import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class RegisterViewModel extends BaseViewModel {
@@ -13,6 +13,7 @@ class RegisterViewModel extends BaseViewModel {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
+  TextEditingController fullNameController = TextEditingController(text: '');
   TextEditingController emailController = TextEditingController(text: '');
   TextEditingController passwordController = TextEditingController(text: '');
   TextEditingController confirmPasswordController =
@@ -21,8 +22,7 @@ class RegisterViewModel extends BaseViewModel {
   NavigationService _navigationService = locator<NavigationService>();
   DialogService _dialogService = locator<DialogService>();
   SnackbarService _snackbarService = locator<SnackbarService>();
-  FirebaseAuthenticationService _authenticationService =
-      locator<FirebaseAuthenticationService>();
+  AuthService _authService = locator<AuthService>();
 
   RegisterViewModel() {
     this.log = getLogger(this.runtimeType.toString());
@@ -43,8 +43,10 @@ class RegisterViewModel extends BaseViewModel {
         _snackbarService.showSnackbar(message: 'Passwords does not match');
       } else {
         toggleIsLodaing();
-        final result = await _authenticationService.createAccountWithEmail(
-            email: emailController.text, password: passwordController.text);
+        final result = await _authService.registerWithEmail(
+            fullName: fullNameController.text,
+            email: emailController.text,
+            password: passwordController.text);
 
         if (result.hasError) {
           toggleIsLodaing();
@@ -62,4 +64,10 @@ class RegisterViewModel extends BaseViewModel {
       }
     }
   }
+
+// TODO: Implement authWithGoogle
+  void authWithGoogle() {}
+
+  // TODO: Implement authWithApple
+  void authWithApple() {}
 }

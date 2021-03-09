@@ -1,14 +1,14 @@
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/models/task.dart';
 import 'package:dotdo/core/router_constants.dart';
+import 'package:dotdo/core/services/authService.dart';
 import 'package:dotdo/core/services/taskService.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dotdo/core/logger.dart';
-import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:uuid/uuid.dart';
+// import 'package:uuid/uuid.dart';
 
 class HomeViewModel extends BaseViewModel {
   Logger log;
@@ -23,7 +23,8 @@ class HomeViewModel extends BaseViewModel {
   PageController pageController = PageController(initialPage: 0);
   String _title = 'Today';
   get title => _title;
-  var uuid = Uuid();
+
+  // var uuid = Uuid();
 
   void updateTitle() {
     switch (_selectedIndex) {
@@ -67,13 +68,15 @@ class HomeViewModel extends BaseViewModel {
   }
 
   void logout() {
-    FirebaseAuthenticationService().logout();
+    _authService.logout();
     _navigationService.pushNamedAndRemoveUntil(authpageViewRoute);
   }
 
   TaskService _taskService = locator<TaskService>();
-  void addTask() {
-    String id = uuid.v4();
+  AuthService _authService = locator<AuthService>();
+  void addTask() async {
+    String id = UniqueKey().toString();
+    // String id = uuid.v4();
     Task task = Task(
         public: false,
         checked: false,
@@ -83,7 +86,7 @@ class HomeViewModel extends BaseViewModel {
         id: id);
     _taskService.addTask(task);
     notifyListeners();
-    print(_taskService.taskList.length);
+    print(_taskService.rxTaskList.length);
     print(id);
   }
 }

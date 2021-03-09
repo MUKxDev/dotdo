@@ -6,12 +6,12 @@ import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dotdo/core/logger.dart';
 
-class TaskListViewModel extends BaseViewModel {
+class TaskListViewModel extends ReactiveViewModel {
   Logger log;
-  final globalKey = GlobalKey<AnimatedListState>();
   TaskListViewModel() {
     this.log = getLogger(this.runtimeType.toString());
   }
+  final globalKey = GlobalKey<AnimatedListState>();
 
   void removeTask(int index, String id) {
     _taskService.removeTask(id);
@@ -41,4 +41,7 @@ class TaskListViewModel extends BaseViewModel {
   }
 
   TaskService _taskService = locator<TaskService>();
+
+  @override
+  List<ReactiveServiceMixin> get reactiveServices => [_taskService];
 }

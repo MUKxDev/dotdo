@@ -23,7 +23,8 @@ class TaskListWidget extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: Dismissible(
-                key: UniqueKey(),
+                // key: UniqueKey(),
+                key: Key(list[index].id),
                 background: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Container(

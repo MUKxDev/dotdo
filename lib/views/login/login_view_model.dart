@@ -1,10 +1,10 @@
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/router_constants.dart';
+import 'package:dotdo/core/services/authService.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dotdo/core/logger.dart';
-import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class LoginViewModel extends BaseViewModel {
@@ -18,8 +18,7 @@ class LoginViewModel extends BaseViewModel {
   DialogService _dialogService = locator<DialogService>();
   SnackbarService _snackbarService = locator<SnackbarService>();
   NavigationService _navigationService = locator<NavigationService>();
-  FirebaseAuthenticationService _authenticationService =
-      locator<FirebaseAuthenticationService>();
+  AuthService _authService = locator<AuthService>();
 
   LoginViewModel() {
     log = getLogger(this.runtimeType.toString());
@@ -35,7 +34,7 @@ class LoginViewModel extends BaseViewModel {
     } else {
       toggleIsLodaing();
 
-      final result = await _authenticationService.loginWithEmail(
+      final result = await _authService.signinWithEmail(
           email: emailController.text, password: passwordController.text);
 
       if (result.hasError) {
@@ -54,4 +53,13 @@ class LoginViewModel extends BaseViewModel {
       }
     }
   }
+
+  // TODO: Implement forgotPassword
+  void forgotPassword() {}
+
+  // TODO: Implement authWithGoogle
+  void authWithGoogle() {}
+
+  // TODO: Implement authWithApple
+  void authWithApple() {}
 }

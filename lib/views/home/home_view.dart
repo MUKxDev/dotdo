@@ -20,28 +20,45 @@ class HomeView extends StatelessWidget {
           appBar:
               AppBar(shape: appBarShapeBorder, title: Text(viewModel.title)),
           // * Drawer
-          drawer: ClipRRect(
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(40),
-              bottomRight: Radius.circular(40),
-            ),
-            child: Drawer(
-              child: Container(
-                color: Theme.of(context).scaffoldBackgroundColor,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    LogoWidget(
-                      height: 80,
-                      width: 80,
-                    ),
-                    FlatButton.icon(
-                        onPressed: viewModel.logout,
-                        icon: Icon(Icons.logout),
-                        label: HeaderTextWidget(
-                          lable: 'Logout',
-                        )),
-                  ],
+          drawer: SafeArea(
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(40),
+                bottomRight: Radius.circular(40),
+              ),
+              child: Drawer(
+                child: Container(
+                  color: Theme.of(context).primaryColor,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      LogoWidget(
+                        height: 80,
+                        width: 80,
+                      ),
+                      Expanded(
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TextButton.icon(
+                                onPressed: viewModel.logout,
+                                icon: Icon(
+                                  Icons.logout,
+                                  color: Theme.of(context).accentColor,
+                                ),
+                                label: HeaderTextWidget(
+                                  lable: 'Logout',
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
