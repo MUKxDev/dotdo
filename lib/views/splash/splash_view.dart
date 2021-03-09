@@ -12,8 +12,8 @@ class SplashView extends StatelessWidget {
         return Scaffold(
           body: Center(
             child: LogoWidget(
-              height: 120,
-              width: 120,
+              height: 80,
+              width: 80,
             ),
           ),
         );

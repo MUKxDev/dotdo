@@ -16,8 +16,8 @@ class LogoWidget extends StatelessWidget {
                     padding: const EdgeInsets.all(20.0),
                     child: Container(
                       child: logoSvgLight,
-                      height: height ?? 100,
-                      width: width ?? 100,
+                      height: height ?? 80,
+                      width: width ?? 80,
                     )),
               )
             : Hero(
@@ -26,8 +26,8 @@ class LogoWidget extends StatelessWidget {
                   padding: const EdgeInsets.all(20.0),
                   child: Container(
                     child: logoSvgDark,
-                    height: height ?? 100,
-                    width: width ?? 100,
+                    height: height ?? 80,
+                    width: width ?? 80,
                   ),
                 ),
               );
