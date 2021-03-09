@@ -1,11 +1,10 @@
 import 'dart:async';
-
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/router_constants.dart';
+import 'package:dotdo/core/services/authService.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dotdo/core/logger.dart';
-import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class SplashViewModel extends BaseViewModel {
@@ -16,8 +15,7 @@ class SplashViewModel extends BaseViewModel {
   }
 
   NavigationService _navigationService = locator<NavigationService>();
-  FirebaseAuthenticationService _authenticationService =
-      locator<FirebaseAuthenticationService>();
+  AuthService _authService = locator<AuthService>();
 
   Future navigateToAuthPage() async {
     _navigationService.pushNamedAndRemoveUntil(authpageViewRoute);
@@ -28,16 +26,10 @@ class SplashViewModel extends BaseViewModel {
   }
 
   Future handelStartup() async {
-    // TODO: Remove this timer after you implement the proper splash screen
-    Timer(
-      Duration(seconds: 2),
-      () {
-        if (_authenticationService.hasUser) {
-          navigateToHome();
-        } else {
-          navigateToAuthPage();
-        }
-      },
-    );
+    if (await _authService.hasUser) {
+      navigateToHome();
+    } else {
+      navigateToAuthPage();
+    }
   }
 }
