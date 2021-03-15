@@ -7,6 +7,7 @@ class Task {
   final DateTime due;
   final String category;
   final String id;
+
   Task({
     this.public,
     this.checked,

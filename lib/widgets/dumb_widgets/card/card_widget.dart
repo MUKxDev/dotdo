@@ -7,15 +7,15 @@ class CardWidget extends StatelessWidget {
   final double width;
   final double borderRadius;
   final double padding;
-  const CardWidget(
-      {Key key,
-      @required this.onTap,
-      @required this.child,
-      @required this.height,
-      @required this.width,
-      @required this.borderRadius,
-      @required this.padding})
-      : super(key: key);
+  const CardWidget({
+    Key key,
+    @required this.onTap,
+    @required this.child,
+    @required this.height,
+    @required this.width,
+    this.borderRadius = 20,
+    this.padding = 10,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Material(

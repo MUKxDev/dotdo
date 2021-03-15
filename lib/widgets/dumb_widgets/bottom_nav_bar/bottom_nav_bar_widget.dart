@@ -53,6 +53,7 @@ class BottomNavBarWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5),
                 child: Container(
                   child: Image(
+                    // TODO: bring user avatar
                     image: AssetImage('assets/pp.png'),
                     fit: BoxFit.fill,
                   ),

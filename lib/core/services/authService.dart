@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotdo/core/locator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
@@ -10,6 +11,7 @@ class AuthService {
       locator<FirebaseAuthenticationService>();
 
   final _firebaseAuth = FirebaseAuth.instance;
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
 
   Future getCurrentUser() async {
     _user = _firebaseAuth.currentUser;
@@ -21,8 +23,6 @@ class AuthService {
   }
 
   Future<bool> get hasUser async {
-    // Future<bool> has = await _firebaseAuthenticationService.hasUser;
-    // return _firebaseAuthenticationService.hasUser;
     bool hasUser = _firebaseAuth.currentUser != null;
     return hasUser;
   }
@@ -36,8 +36,26 @@ class AuthService {
   // TODO: Implement using fullName
   Future<FirebaseAuthenticationResult> registerWithEmail(
       {String fullName, String email, String password}) async {
-    return _firebaseAuthenticationService.createAccountWithEmail(
+    final result = await _firebaseAuthenticationService.createAccountWithEmail(
         email: email, password: password);
+
+    if (result.hasError == false) {
+      addUser(fullName: fullName, email: email);
+    }
+
+    return result;
+  }
+
+  // * to be moved
+  Future<void> addUser({String fullName, String email}) {
+    // Call the user's CollectionReference to add a new user
+    return users
+        .add({
+          'full_name': fullName,
+          'email': email,
+        })
+        .then((value) => print("User Added"))
+        .catchError((error) => print("Failed to add user: $error"));
   }
 
   void logout() {
