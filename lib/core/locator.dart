@@ -6,6 +6,7 @@ import 'package:stacked_services/stacked_services.dart';
 
 import 'logger.dart';
 import 'services/authService.dart';
+import 'services/firestoreService.dart';
 
 final GetIt locator = GetIt.instance;
 
@@ -21,6 +22,8 @@ class LocatorInjector {
     log.d('Registering Auth Service');
     locator.registerLazySingleton(() => AuthService());
     log.d('Registering FirebaseAuthentication Service');
+    locator.registerLazySingleton(() => FirestoreService());
+    log.d('Registering Firestore Service');
     locator.registerLazySingleton(() => FirebaseAuthenticationService());
     log.d('Registering Task Service');
     locator.registerLazySingleton(() => TaskService());

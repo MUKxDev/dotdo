@@ -1,7 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotdo/core/locator.dart';
+import 'package:dotdo/core/services/firestoreService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
+
+import '../locator.dart';
 
 class AuthService {
   User _user;
@@ -9,6 +11,8 @@ class AuthService {
 
   final FirebaseAuthenticationService _firebaseAuthenticationService =
       locator<FirebaseAuthenticationService>();
+
+  final FirestoreService _firestoreService = locator<FirestoreService>();
 
   final _firebaseAuth = FirebaseAuth.instance;
 
@@ -39,24 +43,11 @@ class AuthService {
         email: email, password: password);
 
     if (result.hasError == false) {
-      addUser(fullName: fullName, email: email);
+      _firestoreService.addUser(
+          uid: result.uid, fullName: fullName, email: email);
     }
 
     return result;
-  }
-
-  // * to be moved
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
-
-  Future<void> addUser({String fullName, String email}) {
-    // Call the user's CollectionReference to add a new user
-    return users
-        .add({
-          'full_name': fullName,
-          'email': email,
-        })
-        .then((value) => print("User Added"))
-        .catchError((error) => print("Failed to add user: $error"));
   }
 
   void logout() {
