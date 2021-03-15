@@ -11,7 +11,6 @@ class AuthService {
       locator<FirebaseAuthenticationService>();
 
   final _firebaseAuth = FirebaseAuth.instance;
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
 
   Future getCurrentUser() async {
     _user = _firebaseAuth.currentUser;
@@ -47,6 +46,8 @@ class AuthService {
   }
 
   // * to be moved
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
+
   Future<void> addUser({String fullName, String email}) {
     // Call the user's CollectionReference to add a new user
     return users
