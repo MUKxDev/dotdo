@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/services/firestoreService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
