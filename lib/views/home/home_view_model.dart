@@ -49,10 +49,8 @@ class HomeViewModel extends BaseViewModel {
     if (_selectedIndex != index) {
       _selectedIndex = index;
       updateTitle();
-      pageController.animateToPage(
+      pageController.jumpToPage(
         _selectedIndex,
-        curve: Curves.easeInOutQuart,
-        duration: Duration(milliseconds: 500),
       );
     } else {
       print('you are on the same page !!');

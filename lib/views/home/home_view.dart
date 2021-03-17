@@ -1,4 +1,4 @@
-import 'package:dotdo/constant.dart';
+import 'package:dotdo/shared/constant.dart';
 import 'package:dotdo/views/discover/discover_view.dart';
 import 'package:dotdo/views/profile/profile_view.dart';
 import 'package:dotdo/views/social/social_view.dart';
@@ -51,6 +51,18 @@ class HomeView extends StatelessWidget {
                                 ),
                                 label: HeaderTextWidget(
                                   lable: 'Logout',
+                                ),
+                              ),
+                              // TODO: Implement navigation to setting
+                              TextButton.icon(
+                                onPressed: () =>
+                                    print('Implement navigation to setting'),
+                                icon: Icon(
+                                  Icons.settings,
+                                  color: Theme.of(context).accentColor,
+                                ),
+                                label: HeaderTextWidget(
+                                  lable: 'Settings',
                                 ),
                               ),
                             ],

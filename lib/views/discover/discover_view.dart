@@ -1,3 +1,4 @@
+import 'package:dotdo/shared/ui_helpers.dart';
 import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/textfield/textfield_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/inactive_challange_card/inactive_challange_card_widget.dart';
@@ -13,179 +14,182 @@ class DiscoverView extends StatelessWidget {
       builder: (BuildContext context, DiscoverViewModel viewModel, Widget _) {
         return GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // * Search Textfield
-              TextfieldWidget(
-                controller: viewModel.searchController,
-                obscureText: false,
-                labelText: 'Search',
-                hintText: 'search...',
-              ),
-              // * Routines Header
-              HeaderTextWidget(lable: 'Routines'),
-              // * Routines list
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  height: 200,
-                  child: GridView.count(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.6,
-                    scrollDirection: Axis.horizontal,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 20,
-                    children: [
-                      InactiveChallangeCardWidget(
-                        public: true,
-                        iconData: FontAwesomeIcons.glassWhiskey,
-                        iconColor: Colors.indigo,
-                        lable: 'Drink water in the bathroom',
-                        onTap: () => print('Challenge Tapped'),
-                      ),
-                      InactiveChallangeCardWidget(
-                        public: false,
-                        iconData: FontAwesomeIcons.book,
-                        iconColor: Colors.orangeAccent,
-                        lable: 'Read',
-                        onTap: () => print('Challenge Tapped'),
-                      ),
-                      InactiveChallangeCardWidget(
-                        public: true,
-                        iconData: FontAwesomeIcons.solidKissWinkHeart,
-                        iconColor: Colors.red,
-                        lable: 'T-bag',
-                        onTap: () => print('Challenge Tapped'),
-                      ),
-                      InactiveChallangeCardWidget(
-                        public: true,
-                        iconData: FontAwesomeIcons.glassWhiskey,
-                        iconColor: Colors.indigo,
-                        lable: 'Drink water in the bathroom',
-                        onTap: () => print('Challenge Tapped'),
-                      ),
-                      InactiveChallangeCardWidget(
-                        public: false,
-                        iconData: FontAwesomeIcons.book,
-                        iconColor: Colors.orangeAccent,
-                        lable: 'Read',
-                        onTap: () => print('Challenge Tapped'),
-                      ),
-                      InactiveChallangeCardWidget(
-                        public: true,
-                        iconData: FontAwesomeIcons.solidKissWinkHeart,
-                        iconColor: Colors.red,
-                        lable: 'T-bag',
-                        onTap: () => print('Challenge Tapped'),
-                      ),
-                      InactiveChallangeCardWidget(
-                        public: true,
-                        iconData: FontAwesomeIcons.glassWhiskey,
-                        iconColor: Colors.indigo,
-                        lable: 'Drink water in the bathroom',
-                        onTap: () => print('Challenge Tapped'),
-                      ),
-                      InactiveChallangeCardWidget(
-                        public: false,
-                        iconData: FontAwesomeIcons.book,
-                        iconColor: Colors.orangeAccent,
-                        lable: 'Read',
-                        onTap: () => print('Challenge Tapped'),
-                      ),
-                      InactiveChallangeCardWidget(
-                        public: true,
-                        iconData: FontAwesomeIcons.solidKissWinkHeart,
-                        iconColor: Colors.red,
-                        lable: 'T-bag',
-                        onTap: () => print('Challenge Tapped'),
-                      ),
-                    ],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                verticalSpaceXSmall(context),
+                // * Search Textfield
+                TextfieldWidget(
+                  controller: viewModel.searchController,
+                  obscureText: false,
+                  labelText: 'Search',
+                  hintText: 'search...',
+                ),
+                // * Routines Header
+                HeaderTextWidget(lable: 'Routines'),
+                // * Routines list
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                    height: 220,
+                    child: GridView.count(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.65,
+                      scrollDirection: Axis.horizontal,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 20,
+                      children: [
+                        InactiveChallangeCardWidget(
+                          public: true,
+                          iconData: FontAwesomeIcons.glassWhiskey,
+                          iconColor: Colors.indigo,
+                          lable: 'Drink water in the bathroom',
+                          onTap: () => print('Challenge Tapped'),
+                        ),
+                        InactiveChallangeCardWidget(
+                          public: false,
+                          iconData: FontAwesomeIcons.book,
+                          iconColor: Colors.orangeAccent,
+                          lable: 'Read',
+                          onTap: () => print('Challenge Tapped'),
+                        ),
+                        InactiveChallangeCardWidget(
+                          public: true,
+                          iconData: FontAwesomeIcons.solidKissWinkHeart,
+                          iconColor: Colors.red,
+                          lable: 'T-bag',
+                          onTap: () => print('Challenge Tapped'),
+                        ),
+                        InactiveChallangeCardWidget(
+                          public: true,
+                          iconData: FontAwesomeIcons.glassWhiskey,
+                          iconColor: Colors.indigo,
+                          lable: 'Drink water in the bathroom',
+                          onTap: () => print('Challenge Tapped'),
+                        ),
+                        InactiveChallangeCardWidget(
+                          public: false,
+                          iconData: FontAwesomeIcons.book,
+                          iconColor: Colors.orangeAccent,
+                          lable: 'Read',
+                          onTap: () => print('Challenge Tapped'),
+                        ),
+                        InactiveChallangeCardWidget(
+                          public: true,
+                          iconData: FontAwesomeIcons.solidKissWinkHeart,
+                          iconColor: Colors.red,
+                          lable: 'T-bag',
+                          onTap: () => print('Challenge Tapped'),
+                        ),
+                        InactiveChallangeCardWidget(
+                          public: true,
+                          iconData: FontAwesomeIcons.glassWhiskey,
+                          iconColor: Colors.indigo,
+                          lable: 'Drink water in the bathroom',
+                          onTap: () => print('Challenge Tapped'),
+                        ),
+                        InactiveChallangeCardWidget(
+                          public: false,
+                          iconData: FontAwesomeIcons.book,
+                          iconColor: Colors.orangeAccent,
+                          lable: 'Read',
+                          onTap: () => print('Challenge Tapped'),
+                        ),
+                        InactiveChallangeCardWidget(
+                          public: true,
+                          iconData: FontAwesomeIcons.solidKissWinkHeart,
+                          iconColor: Colors.red,
+                          lable: 'T-bag',
+                          onTap: () => print('Challenge Tapped'),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              // * Challanges Header
-              HeaderTextWidget(lable: 'Challanges'),
-              // * Challanges list
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  height: 200,
-                  child: GridView.count(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.6,
-                    scrollDirection: Axis.horizontal,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 20,
-                    children: [
-                      InactiveChallangeCardWidget(
-                        public: true,
-                        iconData: FontAwesomeIcons.glassWhiskey,
-                        iconColor: Colors.indigo,
-                        lable: 'Drink water in the bathroom',
-                        onTap: () => print('Challenge Tapped'),
-                      ),
-                      InactiveChallangeCardWidget(
-                        public: false,
-                        iconData: FontAwesomeIcons.book,
-                        iconColor: Colors.orangeAccent,
-                        lable: 'Read',
-                        onTap: () => print('Challenge Tapped'),
-                      ),
-                      InactiveChallangeCardWidget(
-                        public: true,
-                        iconData: FontAwesomeIcons.solidKissWinkHeart,
-                        iconColor: Colors.red,
-                        lable: 'T-bag',
-                        onTap: () => print('Challenge Tapped'),
-                      ),
-                      InactiveChallangeCardWidget(
-                        public: true,
-                        iconData: FontAwesomeIcons.glassWhiskey,
-                        iconColor: Colors.indigo,
-                        lable: 'Drink water in the bathroom',
-                        onTap: () => print('Challenge Tapped'),
-                      ),
-                      InactiveChallangeCardWidget(
-                        public: false,
-                        iconData: FontAwesomeIcons.book,
-                        iconColor: Colors.orangeAccent,
-                        lable: 'Read',
-                        onTap: () => print('Challenge Tapped'),
-                      ),
-                      InactiveChallangeCardWidget(
-                        public: true,
-                        iconData: FontAwesomeIcons.solidKissWinkHeart,
-                        iconColor: Colors.red,
-                        lable: 'T-bag',
-                        onTap: () => print('Challenge Tapped'),
-                      ),
-                      InactiveChallangeCardWidget(
-                        public: true,
-                        iconData: FontAwesomeIcons.glassWhiskey,
-                        iconColor: Colors.indigo,
-                        lable: 'Drink water in the bathroom',
-                        onTap: () => print('Challenge Tapped'),
-                      ),
-                      InactiveChallangeCardWidget(
-                        public: false,
-                        iconData: FontAwesomeIcons.book,
-                        iconColor: Colors.orangeAccent,
-                        lable: 'Read',
-                        onTap: () => print('Challenge Tapped'),
-                      ),
-                      InactiveChallangeCardWidget(
-                        public: true,
-                        iconData: FontAwesomeIcons.solidKissWinkHeart,
-                        iconColor: Colors.red,
-                        lable: 'T-bag',
-                        onTap: () => print('Challenge Tapped'),
-                      ),
-                    ],
+                // * Challanges Header
+                HeaderTextWidget(lable: 'Challanges'),
+                // * Challanges list
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                    height: 220,
+                    child: GridView.count(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.65,
+                      scrollDirection: Axis.horizontal,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 20,
+                      children: [
+                        InactiveChallangeCardWidget(
+                          public: true,
+                          iconData: FontAwesomeIcons.glassWhiskey,
+                          iconColor: Colors.indigo,
+                          lable: 'Drink water in the bathroom',
+                          onTap: () => print('Challenge Tapped'),
+                        ),
+                        InactiveChallangeCardWidget(
+                          public: false,
+                          iconData: FontAwesomeIcons.book,
+                          iconColor: Colors.orangeAccent,
+                          lable: 'Read',
+                          onTap: () => print('Challenge Tapped'),
+                        ),
+                        InactiveChallangeCardWidget(
+                          public: true,
+                          iconData: FontAwesomeIcons.solidKissWinkHeart,
+                          iconColor: Colors.red,
+                          lable: 'T-bag',
+                          onTap: () => print('Challenge Tapped'),
+                        ),
+                        InactiveChallangeCardWidget(
+                          public: true,
+                          iconData: FontAwesomeIcons.glassWhiskey,
+                          iconColor: Colors.indigo,
+                          lable: 'Drink water in the bathroom',
+                          onTap: () => print('Challenge Tapped'),
+                        ),
+                        InactiveChallangeCardWidget(
+                          public: false,
+                          iconData: FontAwesomeIcons.book,
+                          iconColor: Colors.orangeAccent,
+                          lable: 'Read',
+                          onTap: () => print('Challenge Tapped'),
+                        ),
+                        InactiveChallangeCardWidget(
+                          public: true,
+                          iconData: FontAwesomeIcons.solidKissWinkHeart,
+                          iconColor: Colors.red,
+                          lable: 'T-bag',
+                          onTap: () => print('Challenge Tapped'),
+                        ),
+                        InactiveChallangeCardWidget(
+                          public: true,
+                          iconData: FontAwesomeIcons.glassWhiskey,
+                          iconColor: Colors.indigo,
+                          lable: 'Drink water in the bathroom',
+                          onTap: () => print('Challenge Tapped'),
+                        ),
+                        InactiveChallangeCardWidget(
+                          public: false,
+                          iconData: FontAwesomeIcons.book,
+                          iconColor: Colors.orangeAccent,
+                          lable: 'Read',
+                          onTap: () => print('Challenge Tapped'),
+                        ),
+                        InactiveChallangeCardWidget(
+                          public: true,
+                          iconData: FontAwesomeIcons.solidKissWinkHeart,
+                          iconColor: Colors.red,
+                          lable: 'T-bag',
+                          onTap: () => print('Challenge Tapped'),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },

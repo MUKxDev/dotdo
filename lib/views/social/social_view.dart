@@ -1,9 +1,4 @@
-import 'package:dotdo/widgets/dumb_widgets/card/card_widget.dart';
-import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
-import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
-import 'package:dotdo/widgets/dumb_widgets/prograss_bar/prograss_bar_widget.dart';
-import 'package:dotdo/widgets/dumb_widgets/pvp_profile/pvp_profile_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/active_challange_card/active_challange_card_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/group_challange/group_challange_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/inactive_challange_card/inactive_challange_card_widget.dart';
