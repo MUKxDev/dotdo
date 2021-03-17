@@ -7,13 +7,13 @@ class TextfieldWidget extends StatelessWidget {
   final String labelText;
   final String hintText;
 
-  const TextfieldWidget(
-      {Key key,
-      @required this.controller,
-      @required this.obscureText,
-      @required this.labelText,
-      @required this.hintText})
-      : super(key: key);
+  const TextfieldWidget({
+    Key key,
+    @required this.controller,
+    @required this.obscureText,
+    @required this.labelText,
+    @required this.hintText,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(

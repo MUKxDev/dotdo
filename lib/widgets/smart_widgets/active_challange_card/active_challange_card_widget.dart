@@ -1,3 +1,4 @@
+import 'package:dotdo/theme/colors.dart';
 import 'package:dotdo/widgets/dumb_widgets/card/card_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
@@ -18,9 +19,9 @@ class ActiveChallangeCardWidget extends StatelessWidget {
 
   const ActiveChallangeCardWidget(
       {Key key,
-      @required this.public,
-      @required this.iconData,
-      @required this.iconColor,
+      this.public = false,
+      this.iconData,
+      this.iconColor,
       @required this.lable,
       @required this.description,
       @required this.progressValue,
@@ -48,11 +49,18 @@ class ActiveChallangeCardWidget extends StatelessWidget {
                   // * Public Icon
                   PublicIconWidget(public: public),
                   // * Challange Icon
-                  Icon(
-                    iconData,
-                    size: 24,
-                    color: iconColor,
-                  ),
+                  iconData != null
+                      ? Icon(
+                          iconData,
+                          size: 24,
+                          color: iconColor ??
+                              (Theme.of(context).brightness == Brightness.light
+                                  ? AppColors.lightGreen
+                                  : AppColors.darkGreen),
+                        )
+                      : Container(
+                          height: 24,
+                        ),
                 ],
               ),
               // * Description

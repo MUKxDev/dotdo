@@ -1,4 +1,3 @@
-import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/prograss_bar/prograss_bar_widget.dart';
 import 'package:flutter/material.dart';
 
