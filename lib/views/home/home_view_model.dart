@@ -76,12 +76,13 @@ class HomeViewModel extends BaseViewModel {
     String id = UniqueKey().toString();
     // String id = uuid.v4();
     Task task = Task(
-        public: false,
-        checked: false,
-        lable: 'A task to be done',
-        due: DateTime.now(),
-        category: 'Work',
-        id: id);
+      public: false,
+      checked: false,
+      lable: 'A task to be done',
+      due: DateTime.now(),
+      category: 'Work',
+      id: id,
+    );
     _taskService.addTask(task);
     notifyListeners();
     print(_taskService.rxTaskList.length);
