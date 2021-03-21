@@ -9,3 +9,4 @@ const String homeViewRoute = 'homeViewRoute';
 const String authpageViewRoute = 'authpageViewRoute';
 const String discoverViewRoute = 'discoverViewRoute';
 const String profileViewRoute = 'profileViewRoute';
+const String taskDetailsViewRoute = 'taskDetailsViewRoute';

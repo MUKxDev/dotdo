@@ -70,22 +70,35 @@ class HomeViewModel extends BaseViewModel {
     _navigationService.pushNamedAndRemoveUntil(authpageViewRoute);
   }
 
-  TaskService _taskService = locator<TaskService>();
+  // TaskService _taskService = locator<TaskService>();
   AuthService _authService = locator<AuthService>();
-  void addTask() async {
-    String id = UniqueKey().toString();
-    // String id = uuid.v4();
-    Task task = Task(
-      public: false,
-      checked: false,
-      lable: 'A task to be done',
-      due: DateTime.now(),
-      category: 'Work',
-      id: id,
-    );
-    _taskService.addTask(task);
-    notifyListeners();
-    print(_taskService.rxTaskList.length);
-    print(id);
+  // void addTask() async {
+  //   String id = UniqueKey().toString();
+  //   // String id = uuid.v4();
+  //   Task task = Task(
+  //     public: false,
+  //     checked: false,
+  //     lable: 'A task to be done',
+  //     due: DateTime.now(),
+  //     category: 'Work',
+  //     id: id,
+  //   );
+  //   _taskService.addTask(task);
+  //   notifyListeners();
+  //   print(_taskService.rxTaskList.length);
+  //   print(id);
+  // }
+
+  addTask() {
+    _navigationService.navigateTo(taskDetailsViewRoute);
   }
+
+  // TODO: navigate to  routineDetailsViewRoute
+  addRoutine() async {
+    String uid = await _authService.getCurrentUserId();
+    print(uid);
+  }
+
+  // TODO: navigate to  challangeDetailsViewRoute
+  addChallange() {}
 }

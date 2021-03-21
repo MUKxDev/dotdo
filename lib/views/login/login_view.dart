@@ -46,18 +46,32 @@ class LoginView extends StatelessWidget {
                 // * Form
                 Column(
                   children: [
-                    // * Email textfield
-                    TextfieldWidget(
-                        controller: viewModel.emailController,
-                        obscureText: false,
-                        labelText: 'Email',
-                        hintText: 'Enter email...'),
-                    // * Password textfield
-                    TextfieldWidget(
-                        controller: viewModel.passwordController,
-                        obscureText: true,
-                        labelText: 'Password',
-                        hintText: 'Enter password...'),
+                    AutofillGroup(
+                      child: Column(
+                        children: [
+                          // * Email textfield
+                          TextfieldWidget(
+                              controller: viewModel.emailController,
+                              obscureText: false,
+                              keyboardType: TextInputType.emailAddress,
+                              autofillHints: AutofillHints.email,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (value) =>
+                                  viewModel.validateEmail(value),
+                              labelText: 'Email',
+                              hintText: 'Enter email...'),
+                          // * Password textfield
+                          TextfieldWidget(
+                              controller: viewModel.passwordController,
+                              obscureText: true,
+                              keyboardType: TextInputType.text,
+                              autofillHints: AutofillHints.password,
+                              labelText: 'Password',
+                              hintText: 'Enter password...'),
+                        ],
+                      ),
+                    ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: Container(

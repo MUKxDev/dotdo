@@ -36,6 +36,24 @@ class AppThemes {
           width: 2,
         ),
       ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(10),
+        ),
+        borderSide: BorderSide(
+          color: AppColors.lightRed,
+          width: 2,
+        ),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(10),
+        ),
+        borderSide: BorderSide(
+          color: AppColors.lightRed.withAlpha(100),
+          width: 2,
+        ),
+      ),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(10),
@@ -75,6 +93,24 @@ class AppThemes {
         ),
         borderSide: BorderSide(
           color: AppColors.darkPurple,
+          width: 2,
+        ),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(10),
+        ),
+        borderSide: BorderSide(
+          color: AppColors.darkRed,
+          width: 2,
+        ),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(10),
+        ),
+        borderSide: BorderSide(
+          color: AppColors.darkRed.withAlpha(100),
           width: 2,
         ),
       ),

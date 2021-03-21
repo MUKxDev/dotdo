@@ -81,6 +81,7 @@ class TodayView extends StatelessWidget {
                 // * Today's tasks
                 HeaderTextWidget(lable: 'Today\'s Tasks'),
                 // * Tasks List
+                // ! change this to not animated
                 TodayTaskWidget(),
               ],
             ),

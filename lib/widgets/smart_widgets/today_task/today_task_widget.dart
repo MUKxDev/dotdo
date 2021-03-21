@@ -1,4 +1,5 @@
 import 'package:dotdo/theme/colors.dart';
+import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/task/task_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -28,7 +29,9 @@ class TodayTaskWidget extends StatelessWidget {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: AppColors.darkGreen,
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? AppColors.lightGreen
+                            : AppColors.darkGreen,
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
@@ -36,8 +39,9 @@ class TodayTaskWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Done!',
+                            LableTextWidget(
+                              lable: 'Done!',
+                              color: Colors.white,
                             ),
                           ],
                         ),
@@ -49,7 +53,9 @@ class TodayTaskWidget extends StatelessWidget {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: AppColors.darkGreen,
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? AppColors.lightGreen
+                            : AppColors.darkGreen,
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
@@ -57,8 +63,9 @@ class TodayTaskWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text(
-                              'Done!',
+                            LableTextWidget(
+                              lable: 'Done!',
+                              color: Colors.white,
                             ),
                           ],
                         ),

@@ -1,5 +1,5 @@
 {
-    "last_updated": "Sat, 06 Mar 2021 23:11:34 GMT",
+    "last_updated": "Sun, 21 Mar 2021 08:45:52 GMT",
     "routes": [
         {
             "file_path": "views/splash/splash_view.dart",
@@ -45,6 +45,11 @@
             "file_path": "views/profile/profile_view.dart",
             "route_name": "profileViewRoute",
             "view_name": "ProfileView"
+        },
+        {
+            "file_path": "views/task_details/task_details_view.dart",
+            "route_name": "task_detailsViewRoute",
+            "view_name": "TaskDetailsView"
         }
     ]
 }

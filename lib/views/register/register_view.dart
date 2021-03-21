@@ -45,30 +45,52 @@ class RegisterView extends StatelessWidget {
                 // * Form
                 Column(
                   children: [
-                    // * FullName textfield
-                    TextfieldWidget(
-                        controller: viewModel.fullNameController,
-                        obscureText: false,
-                        labelText: 'Full name',
-                        hintText: 'Enter your full name...'),
-                    // * Email textfield
-                    TextfieldWidget(
-                        controller: viewModel.emailController,
-                        obscureText: false,
-                        labelText: 'Email',
-                        hintText: 'Enter email...'),
-                    // * Password textfield
-                    TextfieldWidget(
-                        controller: viewModel.passwordController,
-                        obscureText: true,
-                        labelText: 'New password',
-                        hintText: 'Enter new password...'),
-                    // * Confirm password textfield
-                    TextfieldWidget(
-                        controller: viewModel.confirmPasswordController,
-                        obscureText: true,
-                        labelText: 'Confirm password',
-                        hintText: 'Confirm password...'),
+                    AutofillGroup(
+                      child: Column(
+                        children: [
+                          // * FullName textfield
+                          TextfieldWidget(
+                              controller: viewModel.fullNameController,
+                              obscureText: false,
+                              keyboardType: TextInputType.name,
+                              autofillHints: AutofillHints.name,
+                              labelText: 'Full name',
+                              hintText: 'Enter your full name...'),
+                          // * Email textfield
+                          TextfieldWidget(
+                              controller: viewModel.emailController,
+                              obscureText: false,
+                              keyboardType: TextInputType.emailAddress,
+                              autofillHints: AutofillHints.email,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (value) =>
+                                  viewModel.validateEmail(value),
+                              labelText: 'Email',
+                              hintText: 'Enter email...'),
+                          // * Password textfield
+                          TextfieldWidget(
+                              controller: viewModel.passwordController,
+                              obscureText: true,
+                              keyboardType: TextInputType.text,
+                              autofillHints: AutofillHints.newPassword,
+                              labelText: 'New password',
+                              hintText: 'Enter new password...'),
+                          // * Confirm password textfield
+                          TextfieldWidget(
+                              controller: viewModel.confirmPasswordController,
+                              obscureText: true,
+                              keyboardType: TextInputType.text,
+                              autofillHints: AutofillHints.newPassword,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (value) =>
+                                  viewModel.validatePassword(value),
+                              labelText: 'Confirm password',
+                              hintText: 'Confirm password...'),
+                        ],
+                      ),
+                    ),
                     // * Already have an account? button
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20),

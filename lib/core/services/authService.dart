@@ -16,8 +16,9 @@ class AuthService {
 
   final _firebaseAuth = FirebaseAuth.instance;
 
-  Future getCurrentUser() async {
+  Future<User> getCurrentUser() async {
     _user = _firebaseAuth.currentUser;
+    return _user;
   }
 
   Future<String> getCurrentUserId() async {
