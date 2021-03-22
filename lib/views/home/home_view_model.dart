@@ -1,8 +1,8 @@
+import 'package:dotdo/core/services/taskService.dart';
+import 'package:intl/intl.dart';
 import 'package:dotdo/core/locator.dart';
-import 'package:dotdo/core/models/task.dart';
 import 'package:dotdo/core/router_constants.dart';
 import 'package:dotdo/core/services/authService.dart';
-import 'package:dotdo/core/services/taskService.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
@@ -10,18 +10,23 @@ import 'package:dotdo/core/logger.dart';
 import 'package:stacked_services/stacked_services.dart';
 // import 'package:uuid/uuid.dart';
 
-class HomeViewModel extends BaseViewModel {
+class HomeViewModel extends ReactiveViewModel {
   Logger log;
   HomeViewModel() {
     this.log = getLogger(this.runtimeType.toString());
   }
+
+  // final dateFormat = DateFormat('MMM-dd');
+
   NavigationService _navigationService = locator<NavigationService>();
+  TaskService _taskService = locator<TaskService>();
 
   int _selectedIndex = 0;
   int get selectedIndex => _selectedIndex;
+  DateTime get currentDate => _taskService.date.value;
 
   PageController pageController = PageController(initialPage: 0);
-  String _title = 'Today';
+  String _title = '.Do';
   get title => _title;
 
   // var uuid = Uuid();
@@ -29,7 +34,7 @@ class HomeViewModel extends BaseViewModel {
   void updateTitle() {
     switch (_selectedIndex) {
       case 0:
-        _title = 'Today';
+        _title = '.Do';
         break;
       case 1:
         _title = 'Social';
@@ -101,4 +106,9 @@ class HomeViewModel extends BaseViewModel {
 
   // TODO: navigate to  challangeDetailsViewRoute
   addChallange() {}
+
+  Key fabKey = UniqueKey();
+
+  @override
+  List<ReactiveServiceMixin> get reactiveServices => [_taskService];
 }

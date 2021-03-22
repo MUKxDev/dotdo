@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:animated_stack/animated_stack.dart';
 import 'package:dotdo/shared/constant.dart';
+import 'package:dotdo/theme/colors.dart';
 import 'package:dotdo/views/discover/discover_view.dart';
 import 'package:dotdo/views/profile/profile_view.dart';
 import 'package:dotdo/views/social/social_view.dart';
@@ -100,6 +101,7 @@ class HomeView extends StatelessWidget {
           //     FloatingActionButtonLocation.miniEndFloat,
           // * PageView
           body: AnimatedStack(
+            key: viewModel.fabKey,
             foregroundWidget: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),

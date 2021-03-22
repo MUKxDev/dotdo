@@ -19,6 +19,8 @@ class TaskDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<TaskDetailsViewModel>.reactive(
+      onModelReady: (TaskDetailsViewModel viewModel) =>
+          viewModel.handelStartup(),
       builder:
           (BuildContext context, TaskDetailsViewModel viewModel, Widget _) {
         return GestureDetector(
@@ -43,12 +45,12 @@ class TaskDetailsView extends StatelessWidget {
                           padding: const EdgeInsets.all(10.0),
                           child: Column(
                             children: [
-                              // Task lable
+                              // Task title
                               TextField(
                                 maxLines: 2,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
-                                  hintText: 'Enter a new task...',
+                                  hintText: 'Enter a new title...',
                                   fillColor:
                                       Theme.of(context).scaffoldBackgroundColor,
                                 ),
@@ -110,9 +112,11 @@ class TaskDetailsView extends StatelessWidget {
                                               viewModel.updateDueDate(
                                             showDatePicker(
                                               context: context,
-                                              initialDate: DateTime.now(),
-                                              firstDate: DateTime.now(),
-                                              lastDate: DateTime(2101),
+                                              initialDate:
+                                                  viewModel.currentDate,
+                                              firstDate: viewModel.today,
+                                              lastDate: DateTime(
+                                                  viewModel.today.year + 10),
                                             ),
                                           ),
                                           child: LableTextWidget(

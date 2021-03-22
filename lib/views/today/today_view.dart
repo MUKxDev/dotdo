@@ -1,6 +1,7 @@
 import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/active_challange_card/active_challange_card_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/datepicker/datepicker_widget.dart';
+import 'package:dotdo/widgets/smart_widgets/task_list/task_list_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/today_task/today_task_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -79,10 +80,20 @@ class TodayView extends StatelessWidget {
                   ),
                 ),
                 // * Today's tasks
-                HeaderTextWidget(lable: 'Today\'s Tasks'),
+                DateTime(
+                            viewModel.currentDate.year,
+                            viewModel.currentDate.month,
+                            viewModel.currentDate.day) ==
+                        DateTime(DateTime.now().year, DateTime.now().month,
+                            DateTime.now().day)
+                    ? HeaderTextWidget(lable: 'Today\'s Tasks')
+                    : HeaderTextWidget(
+                        lable:
+                            '${viewModel.dateFormat.format(viewModel.currentDate)}  Tasks'),
                 // * Tasks List
                 // ! change this to not animated
                 TodayTaskWidget(),
+                // TaskListWidget(list: viewModel.getTodayTaskList())
               ],
             ),
           ),

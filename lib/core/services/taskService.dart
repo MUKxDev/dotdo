@@ -7,13 +7,20 @@ import 'package:observable_ish/observable_ish.dart';
 class TaskService with ReactiveServiceMixin {
   // This will generate a uniqe key use .v1() or .v4()
   // var uuid = Uuid();
-  final todayTaskListKey = GlobalKey<AnimatedListState>();
+
+  // DateTime _date = DateTime.now();
+  RxValue<DateTime> _date = RxValue(initial: DateTime.now());
+  RxValue<DateTime> get date => _date;
 
   RxList<Task> _rxList = RxList();
   RxList<Task> get rxTaskList => _rxList;
 
   TaskService() {
-    listenToReactiveValues([_rxList]);
+    listenToReactiveValues([_rxList, _date]);
+  }
+
+  void updateDate(DateTime date) {
+    _date.value = date;
   }
 
   void updateRxListFromFirebase() {
@@ -37,7 +44,8 @@ class TaskService with ReactiveServiceMixin {
   void addTask(Task task) {
     // taskList.add(task);
     _rxList.add(task);
-    todayTaskListKey.currentState.insertItem(0);
+    notifyListeners();
+    // todayTaskListKey.currentState.insertItem(0);s
   }
 
   void toggleCheckedTask(Task task) {

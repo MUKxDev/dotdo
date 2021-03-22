@@ -1,7 +1,7 @@
+import 'package:intl/intl.dart';
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/models/task.dart';
 import 'package:dotdo/core/services/taskService.dart';
-import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dotdo/core/logger.dart';
@@ -12,14 +12,21 @@ class TodayTaskViewModel extends ReactiveViewModel {
   TodayTaskViewModel() {
     this.log = getLogger(this.runtimeType.toString());
   }
+  final dateFormat = DateFormat('MMM-dd');
 
-  List<Task> get todayTaskList => _taskService.rxTaskList.toList();
-  GlobalKey<AnimatedListState> get globalKey => _taskService.todayTaskListKey;
+  DateTime get currentDate => _taskService.date.value;
+  List<Task> get allTaskList => _taskService.rxTaskList.toList();
+  List<Task> get todayTaskList => allTaskList
+      .where(
+        (element) =>
+            element.checked == false &&
+            (DateTime(element.due.year, element.due.month, element.due.day) ==
+                DateTime(currentDate.year, currentDate.month, currentDate.day)),
+      )
+      .toList();
 
   void removeTask(int index, String id) {
     _taskService.removeTask(id);
-    globalKey.currentState
-        .removeItem(index, (context, animation) => Container());
     notifyListeners();
   }
 
@@ -27,7 +34,6 @@ class TodayTaskViewModel extends ReactiveViewModel {
   void addNewTask(Task task) {
     // ? should we remove the above list?
     _taskService.addTask(task);
-    globalKey.currentState.insertItem(0);
   }
 
   void toggleCheckedTask(int index, Task task) {
@@ -46,6 +52,5 @@ class TodayTaskViewModel extends ReactiveViewModel {
 
   TaskService _taskService = locator<TaskService>();
   @override
-  // TODO: implement reactiveServices
   List<ReactiveServiceMixin> get reactiveServices => [_taskService];
 }

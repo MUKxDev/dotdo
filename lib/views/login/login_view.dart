@@ -1,3 +1,4 @@
+import 'package:dotdo/shared/ui_helpers.dart';
 import 'package:dotdo/widgets/dumb_widgets/button/button_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/logo/logo_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/textfield/textfield_widget.dart';
@@ -75,6 +76,7 @@ class LoginView extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: Container(
+                        width: screenWidth(context),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

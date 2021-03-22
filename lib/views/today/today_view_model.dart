@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/models/task.dart';
 import 'package:dotdo/core/router_constants.dart';
@@ -8,13 +9,17 @@ import 'package:dotdo/core/logger.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class TodayViewModel extends BaseViewModel {
+class TodayViewModel extends ReactiveViewModel {
   Logger log;
   String _title = 'Today';
   String get title => _title;
 
+  DateTime get currentDate => _taskService.date.value;
+  final dateFormat = DateFormat('MMM-dd');
+
   Future handelStartup() async {
-    refreshData();
+    // TODO: see if you need this
+    // refreshData();
   }
 
   Future refreshData() async {
@@ -43,4 +48,7 @@ class TodayViewModel extends BaseViewModel {
     FirebaseAuthenticationService().logout();
     _navigationService.pushNamedAndRemoveUntil(loginViewRoute);
   }
+
+  @override
+  List<ReactiveServiceMixin> get reactiveServices => [_taskService];
 }

@@ -16,11 +16,26 @@ class TaskDetailsViewModel extends BaseViewModel {
   TaskDetailsViewModel() {
     this.log = getLogger(this.runtimeType.toString());
   }
-  String _category = 'Work';
+  handelStartup() {
+    _dueDate =
+        DateTime(currentDate.year, currentDate.month, currentDate.day, 23, 59);
+    notifyListeners();
+  }
+
+  DateTime get currentDate => _taskService.date.value;
+
+  DateTime get today => DateTime.now();
+
+  // variables
+  TextEditingController labelController = TextEditingController(text: '');
+  TextEditingController noteController = TextEditingController(text: '');
+
+  String _category = 'Index';
   String get category => _category;
 
-  DateTime _dueDate = DateTime.now();
+  DateTime _dueDate;
   DateTime get dueDate => _dueDate;
+
   bool _public = false;
   bool get public => _public;
 
@@ -37,12 +52,11 @@ class TaskDetailsViewModel extends BaseViewModel {
 
   updateDueDate(Future<DateTime> due) async {
     DateTime date = await due;
-    _dueDate = DateTime(date.year, date.month, date.day, 23, 59);
-    notifyListeners();
+    if (date != null) {
+      _dueDate = DateTime(date.year, date.month, date.day, 23, 59);
+      notifyListeners();
+    }
   }
-
-  TextEditingController labelController = TextEditingController(text: '');
-  TextEditingController noteController = TextEditingController(text: '');
 
   updateDueTime(Future<TimeOfDay> showTimePicker) async {
     TimeOfDay dueTime = await showTimePicker;
@@ -58,9 +72,12 @@ class TaskDetailsViewModel extends BaseViewModel {
 
   // addTask() {}
   TaskService _taskService = locator<TaskService>();
+  SnackbarService _snackbarService = locator<SnackbarService>();
   void addTask() async {
     if (labelController.text.trim() == '') {
-      print('lable is empty');
+      print('title is empty');
+      _snackbarService.showSnackbar(
+          message: 'Please provide a title for the task');
     } else {
       String id = UniqueKey().toString();
       // String id = uuid.v4();
@@ -76,6 +93,8 @@ class TaskDetailsViewModel extends BaseViewModel {
       notifyListeners();
       print(_taskService.rxTaskList.length);
       print(id);
+      _navigationService.back();
+      _snackbarService.showSnackbar(message: 'Task added');
     }
   }
 

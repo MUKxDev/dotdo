@@ -4,15 +4,27 @@ class FirestoreService {
   // * References
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   // ? methods
-  Future<void> addUser({String uid, String fullName, String email}) {
+  Future<void> addUser({String uid, String userName, String email}) {
     // Call the user's CollectionReference to add a new user
     return users
         .doc(uid)
         .set({
-          'full_name': fullName,
+          'userName': userName,
           'email': email,
         })
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));
+  }
+
+  Future<bool> userNameAvailable(String userName) async {
+    bool available =
+        await users.where('userName', isEqualTo: userName).get().then((value) {
+      if (value.docs.isEmpty) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    return available;
   }
 }

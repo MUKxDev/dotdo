@@ -62,9 +62,17 @@ class TaskWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // * DescriptionTextWidget
-                  DescriptionTextWidget(
-                    description: 'Due: ${due.day} at ${due.hour}:${due.minute}',
-                  ),
+                  DateTime(due.year, due.month, due.day) ==
+                          DateTime(DateTime.now().year, DateTime.now().month,
+                              DateTime.now().day)
+                      ? DescriptionTextWidget(
+                          description:
+                              'Due: Today at ${viewModel.timeFormat.format(due)}',
+                        )
+                      : DescriptionTextWidget(
+                          description:
+                              'Due: ${viewModel.dateFormat.format(due)} at ${viewModel.timeFormat.format(due)}',
+                        ),
                   // * Category
                   Row(
                     children: [

@@ -32,7 +32,7 @@ class RegisterViewModel extends BaseViewModel {
       return null;
   }
 
-  TextEditingController fullNameController = TextEditingController(text: '');
+  TextEditingController userNameController = TextEditingController(text: '');
   TextEditingController emailController = TextEditingController(text: '');
   TextEditingController passwordController = TextEditingController(text: '');
   TextEditingController confirmPasswordController =
@@ -63,7 +63,7 @@ class RegisterViewModel extends BaseViewModel {
       } else {
         toggleIsLodaing();
         final result = await _authService.registerWithEmail(
-            fullName: fullNameController.text.trim(),
+            userName: userNameController.text.trim(),
             email: emailController.text.trim(),
             password: passwordController.text.trim());
 

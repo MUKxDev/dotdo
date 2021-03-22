@@ -19,7 +19,7 @@ class DatepickerWidget extends StatelessWidget {
             child: DatePicker(
               DateTime.now(),
               height: 82,
-              initialSelectedDate: DateTime.now(),
+              initialSelectedDate: viewModel.currentDate,
               selectionColor: Theme.of(context).accentColor,
               selectedTextColor: Colors.white,
               dayTextStyle: defaultDayTextStyle.copyWith(

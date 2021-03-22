@@ -48,14 +48,14 @@ class RegisterView extends StatelessWidget {
                     AutofillGroup(
                       child: Column(
                         children: [
-                          // * FullName textfield
+                          // * userName textfield
                           TextfieldWidget(
-                              controller: viewModel.fullNameController,
+                              controller: viewModel.userNameController,
                               obscureText: false,
                               keyboardType: TextInputType.name,
                               autofillHints: AutofillHints.name,
-                              labelText: 'Full name',
-                              hintText: 'Enter your full name...'),
+                              labelText: 'Username',
+                              hintText: 'Enter your username...'),
                           // * Email textfield
                           TextfieldWidget(
                               controller: viewModel.emailController,
