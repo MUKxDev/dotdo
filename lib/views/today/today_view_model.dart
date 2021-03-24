@@ -17,26 +17,6 @@ class TodayViewModel extends ReactiveViewModel {
   DateTime get currentDate => _taskService.date.value;
   final dateFormat = DateFormat('MMM-dd');
 
-  Future handelStartup() async {
-    // TODO: see if you need this
-    // refreshData();
-  }
-
-  Future refreshData() async {
-    _taskService.updateRxListFromFirebase();
-  }
-
-  // TODO: change to be updated on the DatePicker selected Date
-  List<Task> getTodayTaskList() => _taskService.rxTaskList
-      .where(
-        (element) =>
-            element.checked == false &&
-            (element.due.day == DateTime.now().day &&
-                element.due.month == DateTime.now().month &&
-                element.due.year == DateTime.now().year),
-      )
-      .toList();
-
   NavigationService _navigationService = locator<NavigationService>();
   TaskService _taskService = locator<TaskService>();
 

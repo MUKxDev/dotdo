@@ -12,15 +12,34 @@ import 'package:stacked_services/stacked_services.dart';
 
 class TaskDetailsViewModel extends BaseViewModel {
   Logger log;
-
+  String _taskId;
   TaskDetailsViewModel() {
     this.log = getLogger(this.runtimeType.toString());
   }
-  handelStartup() {
-    _dueDate =
-        DateTime(currentDate.year, currentDate.month, currentDate.day, 23, 59);
-    notifyListeners();
+  handelStartup(String taskId) async {
+    _taskId = taskId;
+    if (isTaskIdNull == false) {
+      _isBusy = true;
+      print(taskId);
+      _task = await _taskService.getUTask(_taskId);
+      labelController.text = _task.taskName;
+      noteController.text = _task.taskNote;
+      _category = _task.category;
+      _dueDate = _task.dueDate;
+      _complated = _task.completed;
+      _isBusy = false;
+      notifyListeners();
+    } else {
+      _dueDate = DateTime(
+          currentDate.year, currentDate.month, currentDate.day, 23, 59);
+      notifyListeners();
+    }
   }
+
+  bool _isBusy = false;
+  bool get isBusy => _isBusy;
+  bool get isTaskIdNull => _taskId == null;
+  Task _task;
 
   DateTime get currentDate => _taskService.date.value;
 
@@ -36,8 +55,8 @@ class TaskDetailsViewModel extends BaseViewModel {
   DateTime _dueDate;
   DateTime get dueDate => _dueDate;
 
-  bool _public = false;
-  bool get public => _public;
+  bool _complated = false;
+  bool get complated => _complated;
 
   final dateFormat = DateFormat('yyyy-MMM-dd');
   final timeFormat = DateFormat('hh:mm a');
@@ -65,12 +84,11 @@ class TaskDetailsViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void updatePublic(bool value) {
-    _public = value;
+  void updateComplated(bool value) {
+    _complated = value;
     notifyListeners();
   }
 
-  // addTask() {}
   TaskService _taskService = locator<TaskService>();
   SnackbarService _snackbarService = locator<SnackbarService>();
   void addTask() async {
@@ -79,22 +97,39 @@ class TaskDetailsViewModel extends BaseViewModel {
       _snackbarService.showSnackbar(
           message: 'Please provide a title for the task');
     } else {
-      String id = UniqueKey().toString();
-      // String id = uuid.v4();
       Task task = Task(
-        public: public,
-        checked: false,
-        lable: labelController.text.trim(),
-        due: dueDate,
+        taskName: labelController.text.trim(),
+        taskNote: noteController.text.trim(),
+        dueDate: dueDate,
+        completed: false,
         category: category,
-        id: id,
       );
-      _taskService.addTask(task);
+      // TODO: implement show the snackbar with the real result Sucsses or failure
+      _taskService.addUTask(task);
       notifyListeners();
-      print(_taskService.rxTaskList.length);
-      print(id);
       _navigationService.back();
       _snackbarService.showSnackbar(message: 'Task added');
+    }
+  }
+
+  void updateUTask() async {
+    if (labelController.text.trim() == '') {
+      print('title is empty');
+      _snackbarService.showSnackbar(
+          message: 'Please provide a title for the task');
+    } else {
+      Task task = Task(
+        taskName: labelController.text.trim(),
+        taskNote: noteController.text.trim(),
+        dueDate: dueDate,
+        completed: false,
+        category: category,
+      );
+      // TODO: implement show the snackbar with the real result Sucsses or failure
+      _taskService.updateUTask(_taskId, task);
+      notifyListeners();
+      _navigationService.back();
+      _snackbarService.showSnackbar(message: 'Task updated');
     }
   }
 

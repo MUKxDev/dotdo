@@ -74,7 +74,6 @@ class AuthService {
     return userNameWithHash;
   }
 
-  // TODO: Implement using userName
   Future<FirebaseAuthenticationResult> registerWithEmail(
       {String userName, String email, String password}) async {
     final result = await _firebaseAuthenticationService.createAccountWithEmail(
@@ -82,7 +81,7 @@ class AuthService {
     String userNameWithHash = await checkUsername(userName);
     print(userNameWithHash);
     if (result.hasError == false) {
-      _firestoreService.addUser(
+      _firestoreService.createUser(
           uid: result.uid, userName: userNameWithHash, email: email);
     }
 

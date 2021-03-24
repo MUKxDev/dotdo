@@ -1,32 +1,23 @@
+import 'package:dotdo/core/models/task.dart';
 import 'package:dotdo/widgets/dumb_widgets/card/card_widget.dart';
+import 'package:dotdo/widgets/dumb_widgets/check_box/check_box_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
-import 'package:dotdo/widgets/dumb_widgets/public_icon/public_icon_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'task_view_model.dart';
 
 class TaskWidget extends StatelessWidget {
-  final bool public;
-  final bool checked;
-  final String lable;
-  final DateTime due;
-  final String category;
+  final Task task;
   final Function onTap;
-  final Function toggleChecked;
-  final String id;
+  final Function togglecompleted;
 
-  const TaskWidget(
-      {Key key,
-      @required this.public,
-      @required this.checked,
-      @required this.lable,
-      @required this.due,
-      @required this.category,
-      @required this.onTap,
-      @required this.toggleChecked,
-      @required this.id})
-      : super(key: key);
+  const TaskWidget({
+    Key key,
+    @required this.onTap,
+    @required this.task,
+    @required this.togglecompleted,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<TaskViewModel>.reactive(
@@ -47,14 +38,14 @@ class TaskWidget extends StatelessWidget {
                   Row(
                     children: [
                       // * CheckBox
-                      // TODO: should we keep it or not?
-                      // CheckBoxWidget(checked: checked, onTap: toggleChecked),
-                      // *lable
-                      LableTextWidget(lable: lable),
+                      CheckBoxWidget(
+                          checked: task.completed, onTap: togglecompleted),
+                      // *taskName
+                      LableTextWidget(lable: task.taskName),
                     ],
                   ),
-                  // * Public Icon
-                  PublicIconWidget(public: public),
+                  // // * Public Icon
+                  // PublicIconWidget(public: public),
                 ],
               ),
               Row(
@@ -62,16 +53,17 @@ class TaskWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // * DescriptionTextWidget
-                  DateTime(due.year, due.month, due.day) ==
+                  DateTime(task.dueDate.year, task.dueDate.month,
+                              task.dueDate.day) ==
                           DateTime(DateTime.now().year, DateTime.now().month,
                               DateTime.now().day)
                       ? DescriptionTextWidget(
                           description:
-                              'Due: Today at ${viewModel.timeFormat.format(due)}',
+                              'dueDate: Today at ${viewModel.timeFormat.format(task.dueDate)}',
                         )
                       : DescriptionTextWidget(
                           description:
-                              'Due: ${viewModel.dateFormat.format(due)} at ${viewModel.timeFormat.format(due)}',
+                              'dueDate: ${viewModel.dateFormat.format(task.dueDate)} at ${viewModel.timeFormat.format(task.dueDate)}',
                         ),
                   // * Category
                   Row(
@@ -86,7 +78,7 @@ class TaskWidget extends StatelessWidget {
                         child: Container(
                           width: 100,
                           child: Text(
-                            category,
+                            task.category,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),

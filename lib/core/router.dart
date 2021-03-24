@@ -36,7 +36,10 @@ class Router {
       case profileViewRoute:
         return MaterialPageRoute(builder: (_) => view8.ProfileView());
       case taskDetailsViewRoute:
-        return MaterialPageRoute(builder: (_) => view9.TaskDetailsView());
+        return MaterialPageRoute(
+            builder: (_) => view9.TaskDetailsView(
+                  taskId: settings.arguments,
+                ));
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

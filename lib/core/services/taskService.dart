@@ -1,4 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/models/task.dart';
+import 'package:dotdo/core/services/authService.dart';
+import 'package:dotdo/core/services/firestoreService.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 // import 'package:uuid/uuid.dart';
@@ -12,91 +16,67 @@ class TaskService with ReactiveServiceMixin {
   RxValue<DateTime> _date = RxValue(initial: DateTime.now());
   RxValue<DateTime> get date => _date;
 
-  RxList<Task> _rxList = RxList();
-  RxList<Task> get rxTaskList => _rxList;
-
   TaskService() {
-    listenToReactiveValues([_rxList, _date]);
+    listenToReactiveValues([_date]);
   }
 
   void updateDate(DateTime date) {
     _date.value = date;
   }
 
-  void updateRxListFromFirebase() {
-    _rxList.assignAll(_taskList);
-    // notifyListeners();
+  FirestoreService _firestoreService = locator<FirestoreService>();
+  AuthService _authService = locator<AuthService>();
+
+  Stream<QuerySnapshot> getUTasksStream() async* {
+    String _uid = await _authService.getCurrentUserId();
+    yield* _firestoreService.users
+        .doc(_uid)
+        .collection('UTasks')
+        .orderBy('completed')
+        .orderBy('dueDate')
+        .snapshots();
   }
 
-  List<Task> get taskList => _taskList;
-  List<Task> get doneTaskList =>
-      _taskList.where((task) => task.checked == true).toList();
-  List<Task> get unDoneTaskList =>
-      _taskList.where((task) => task.checked == false).toList();
-
-  void removeTask(id) {
-    // taskList.removeWhere((task) => task.id == id);
-    _rxList.removeWhere((task) => task.id == id);
-    // notifyListeners();
+  Future<Task> getUTask(String taskId) async {
+    Task task;
+    await _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .collection('UTasks')
+        .doc(taskId)
+        .get()
+        .then((value) => task = Task.fromMap(value.data()));
+    print(task.toString());
+    return task;
   }
 
-  // * This will update the today Task list
-  void addTask(Task task) {
-    // taskList.add(task);
-    _rxList.add(task);
-    notifyListeners();
-    // todayTaskListKey.currentState.insertItem(0);s
+  Future addUTask(Task task) async {
+    _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .collection('UTasks')
+        .add(task.toMap())
+        .then((value) => print('task with id ${value.id} added'))
+        .onError(
+            (error, stackTrace) => print('error with adding task: $error'));
   }
 
-  void toggleCheckedTask(Task task) {
-    bool checked = task.checked;
-    Task newTask = task.copyWith(checked: !checked);
-    _rxList.add(newTask);
+  Future toggleCompletedUTask(String taskId, bool currentCompleted) async {
+    _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .collection('UTasks')
+        .doc(taskId)
+        .update({'completed': !(currentCompleted)})
+        .then((value) => print('task with id $taskId updated'))
+        .onError(
+            (error, stackTrace) => print('error with adding task: $error'));
   }
 
-  // TODO: implement retreving (Tasks List) data from user.
-  List<Task> _taskList = [
-    Task(
-        public: true,
-        checked: true,
-        lable: 'A task is done',
-        due: DateTime.now(),
-        category: 'Work',
-        id: UniqueKey().toString()),
-    Task(
-        public: false,
-        checked: false,
-        lable: 'A task to be done',
-        due: DateTime.now(),
-        category: 'Work',
-        id: UniqueKey().toString()),
-    Task(
-        public: true,
-        checked: true,
-        lable: 'A task is done',
-        due: DateTime.now(),
-        category: 'Work',
-        id: UniqueKey().toString()),
-    Task(
-        public: true,
-        checked: false,
-        lable: 'A task to be done',
-        due: DateTime.now(),
-        category: 'Work',
-        id: UniqueKey().toString()),
-    Task(
-        public: false,
-        checked: false,
-        lable: 'A task to be done',
-        due: DateTime.now(),
-        category: 'Work',
-        id: UniqueKey().toString()),
-    Task(
-        public: false,
-        checked: false,
-        lable: 'A task to be done',
-        due: DateTime.utc(2021, 3, 8),
-        category: 'Work',
-        id: UniqueKey().toString()),
-  ];
+  Future updateUTask(String taskId, Task task) async {
+    _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .collection('UTasks')
+        .doc(taskId)
+        .update(task.toMap());
+  }
+
+  void deleteUTask(String taskId) {}
 }
