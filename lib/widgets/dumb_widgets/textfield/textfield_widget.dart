@@ -1,10 +1,12 @@
 import 'package:dotdo/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/cupertino.dart';
 
 class TextfieldWidget extends StatelessWidget {
   final TextEditingController controller;
   final bool obscureText;
+  final bool autocorrect;
   final String labelText;
   final String hintText;
   final int maxLine;
@@ -24,6 +26,7 @@ class TextfieldWidget extends StatelessWidget {
     this.autofillHints,
     this.autovalidateMode,
     this.validator,
+    this.autocorrect = true,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -41,7 +44,7 @@ class TextfieldWidget extends StatelessWidget {
               ? AppColors.darkBackground
               : AppColors.white,
         ),
-        autocorrect: false,
+        autocorrect: autocorrect,
         autofocus: false,
         obscureText: obscureText,
         decoration: InputDecoration(

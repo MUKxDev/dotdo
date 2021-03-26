@@ -66,7 +66,11 @@ class LoginView extends StatelessWidget {
                           TextfieldWidget(
                               controller: viewModel.passwordController,
                               obscureText: true,
-                              keyboardType: TextInputType.text,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (value) =>
+                                  viewModel.validatePassword(value),
+                              keyboardType: TextInputType.visiblePassword,
                               autofillHints: AutofillHints.password,
                               labelText: 'Password',
                               hintText: 'Enter password...'),

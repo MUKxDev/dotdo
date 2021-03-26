@@ -20,6 +20,19 @@ class TodayTasksListWidget extends StatelessWidget {
         return StreamBuilder(
           stream: viewModel.stream,
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            List<QueryDocumentSnapshot> taskList;
+            if (snapshot.hasData) {
+              taskList = snapshot.data.docs;
+
+              taskList.sort((a, b) {
+                int aInt = a.get('completed') == false ? 0 : 1;
+                int bInt = b.get('completed') == false ? 0 : 1;
+                return aInt.compareTo(bInt);
+              });
+            } else {
+              taskList = [];
+            }
+
             return (snapshot.hasData == false || snapshot.data.size == 0)
                 ? Padding(
                     padding: const EdgeInsets.only(top: 40),
@@ -42,7 +55,7 @@ class TodayTasksListWidget extends StatelessWidget {
                   )
                 : ListView.builder(
                     key: UniqueKey(),
-                    itemCount: snapshot.data.docs.length,
+                    itemCount: taskList.length,
                     itemBuilder: (
                       BuildContext context,
                       int index,
@@ -51,32 +64,65 @@ class TodayTasksListWidget extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 10),
                       child: Dismissible(
-                        key: Key(snapshot.data.docs[index].id),
-                        background: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Theme.of(context).brightness ==
-                                      Brightness.light
-                                  ? AppColors.lightGreen
-                                  : AppColors.darkGreen,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  LableTextWidget(
-                                    lable: 'Done!',
-                                    color: Colors.white,
+                        key: Key(taskList[index].id),
+                        background: taskList[index]['completed']
+                            ? Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.light
+                                        ? AppColors.lightNote
+                                        : AppColors.darkNote,
                                   ),
-                                ],
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        LableTextWidget(
+                                          lable: 'Not completed?',
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.light
+                                              ? AppColors.darkGray
+                                              : AppColors.white,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.light
+                                        ? AppColors.lightGreen
+                                        : AppColors.darkGreen,
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        LableTextWidget(
+                                          lable: 'Done!',
+                                          color: Colors.white,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        ),
                         secondaryBackground: Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Container(
@@ -84,8 +130,8 @@ class TodayTasksListWidget extends StatelessWidget {
                               borderRadius: BorderRadius.circular(10),
                               color: Theme.of(context).brightness ==
                                       Brightness.light
-                                  ? AppColors.lightGreen
-                                  : AppColors.darkGreen,
+                                  ? AppColors.lightRed
+                                  : AppColors.darkRed,
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(10.0),
@@ -94,7 +140,7 @@ class TodayTasksListWidget extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   LableTextWidget(
-                                    lable: 'Done!',
+                                    lable: 'Delete!',
                                     color: Colors.white,
                                   ),
                                 ],
@@ -104,17 +150,18 @@ class TodayTasksListWidget extends StatelessWidget {
                         ),
                         direction: DismissDirection.horizontal,
                         onDismissed: (direction) {
-                          viewModel.toggleCompletedUTask(
-                              snapshot.data.docs[index].id,
-                              snapshot.data.docs[index]['completed']);
+                          if (direction == DismissDirection.startToEnd) {
+                            viewModel.toggleCompletedUTask(taskList[index].id,
+                                taskList[index]['completed']);
+                          } else {
+                            viewModel.deleteUTask(taskList[index].id);
+                          }
                         },
                         child: TaskWidget(
-                          task: Task.fromMap(snapshot.data.docs[index].data()),
-                          onTap: () => viewModel
-                              .taskTapped(snapshot.data.docs[index].id),
+                          task: Task.fromMap(taskList[index].data()),
+                          onTap: () => viewModel.taskTapped(taskList[index].id),
                           togglecompleted: () => viewModel.toggleCompletedUTask(
-                              snapshot.data.docs[index].id,
-                              snapshot.data.docs[index]['completed']),
+                              taskList[index].id, taskList[index]['completed']),
                         ),
                       ),
                     ),

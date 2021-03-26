@@ -20,11 +20,21 @@ class DiscoverView extends StatelessWidget {
               children: [
                 verticalSpaceXSmall(context),
                 // * Search Textfield
-                TextfieldWidget(
-                  controller: viewModel.searchController,
-                  obscureText: false,
-                  labelText: 'Search',
-                  hintText: 'search...',
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Container(
+                    height: 60,
+                    child: TextField(
+                      autocorrect: true,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        hintText: 'Search...',
+                        fillColor: Theme.of(context).primaryColor,
+                      ),
+                      controller: viewModel.searchController,
+                      onSubmitted: (searchValue) => print(searchValue),
+                    ),
+                  ),
                 ),
                 // * Routines Header
                 HeaderTextWidget(lable: 'Routines'),

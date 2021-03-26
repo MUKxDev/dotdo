@@ -1,8 +1,5 @@
-import 'dart:math';
-
 import 'package:animated_stack/animated_stack.dart';
 import 'package:dotdo/shared/constant.dart';
-import 'package:dotdo/theme/colors.dart';
 import 'package:dotdo/views/discover/discover_view.dart';
 import 'package:dotdo/views/profile/profile_view.dart';
 import 'package:dotdo/views/social/social_view.dart';
@@ -102,6 +99,8 @@ class HomeView extends StatelessWidget {
           // * PageView
           body: AnimatedStack(
             key: viewModel.fabKey,
+            fabBackgroundColor: Theme.of(context).accentColor,
+            fabIconColor: Colors.white,
             foregroundWidget: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),

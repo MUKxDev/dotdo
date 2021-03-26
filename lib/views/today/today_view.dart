@@ -1,6 +1,8 @@
+import 'package:dotdo/shared/ui_helpers.dart';
 import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/active_challange_card/active_challange_card_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/datepicker/datepicker_widget.dart';
+import 'package:dotdo/widgets/smart_widgets/overdue_tasks_list%20/overdue_tasks_list_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/today_tasks_list/today_tasks_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -20,61 +22,64 @@ class TodayView extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                 child: DatepickerWidget(),
               ),
-              // * Challanges
-              HeaderTextWidget(lable: 'challanges'),
-              // * Active Challange card List
-              // TODO: implement retreving (Active Challange card List) data from user.
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 20.0,
-                  horizontal: 0,
-                ),
-                child: Container(
-                  height: 100,
-                  child: ListView(
-                    clipBehavior: Clip.hardEdge,
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: ActiveChallangeCardWidget(
-                          public: true,
-                          iconData: FontAwesomeIcons.glassWhiskey,
-                          iconColor: Colors.indigo,
-                          lable: 'Drink water',
-                          description: '5 cups a day',
-                          progressValue: 0.2,
-                          onTap: () => print('Challenge Tapped'),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: ActiveChallangeCardWidget(
-                          public: false,
-                          iconData: FontAwesomeIcons.book,
-                          iconColor: Colors.orangeAccent,
-                          lable: 'Read',
-                          description: '20 pages a day',
-                          progressValue: 0.5,
-                          onTap: () => print('Challenge Tapped'),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: ActiveChallangeCardWidget(
-                          public: true,
-                          iconData: FontAwesomeIcons.solidKissWinkHeart,
-                          iconColor: Colors.red,
-                          lable: 'T-bag',
-                          description: '3 T-bag a day',
-                          progressValue: 0.3,
-                          onTap: () => print('Challenge Tapped'),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              // // * Challanges
+              // HeaderTextWidget(lable: 'challanges'),
+              // // * Active Challange card List
+              // // TODO: implement retreving (Active Challange card List) data from user.
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(
+              //     vertical: 20.0,
+              //     horizontal: 0,
+              //   ),
+              //   child: Container(
+              //     height: 100,
+              //     child: ListView(
+              //       clipBehavior: Clip.hardEdge,
+              //       scrollDirection: Axis.horizontal,
+              //       children: [
+              //         Padding(
+              //           padding: const EdgeInsets.symmetric(horizontal: 10),
+              //           child: ActiveChallangeCardWidget(
+              //             public: true,
+              //             iconData: FontAwesomeIcons.glassWhiskey,
+              //             iconColor: Colors.indigo,
+              //             lable: 'Drink water',
+              //             description: '5 cups a day',
+              //             progressValue: 0.2,
+              //             onTap: () => print('Challenge Tapped'),
+              //           ),
+              //         ),
+              //         Padding(
+              //           padding: const EdgeInsets.symmetric(horizontal: 10),
+              //           child: ActiveChallangeCardWidget(
+              //             public: false,
+              //             iconData: FontAwesomeIcons.book,
+              //             iconColor: Colors.orangeAccent,
+              //             lable: 'Read',
+              //             description: '20 pages a day',
+              //             progressValue: 0.5,
+              //             onTap: () => print('Challenge Tapped'),
+              //           ),
+              //         ),
+              //         Padding(
+              //           padding: const EdgeInsets.symmetric(horizontal: 10),
+              //           child: ActiveChallangeCardWidget(
+              //             public: true,
+              //             iconData: FontAwesomeIcons.solidKissWinkHeart,
+              //             iconColor: Colors.red,
+              //             lable: 'T-bag',
+              //             description: '3 T-bag a day',
+              //             progressValue: 0.3,
+              //             onTap: () => print('Challenge Tapped'),
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
+
+              // * Overdue list
+              OverdueTasksListWidget(),
               // * Today's tasks
               DateTime(viewModel.currentDate.year, viewModel.currentDate.month,
                           viewModel.currentDate.day) ==
@@ -86,6 +91,7 @@ class TodayView extends StatelessWidget {
                           '${viewModel.dateFormat.format(viewModel.currentDate)}  Tasks'),
               // * Tasks List
               TodayTasksListWidget(),
+              verticalSpaceLarge(context),
             ],
           ),
         );

@@ -20,7 +20,6 @@ class TaskDetailsViewModel extends BaseViewModel {
     _taskId = taskId;
     if (isTaskIdNull == false) {
       _isBusy = true;
-      print(taskId);
       _task = await _taskService.getUTask(_taskId);
       labelController.text = _task.taskName;
       noteController.text = _task.taskNote;
@@ -44,6 +43,7 @@ class TaskDetailsViewModel extends BaseViewModel {
   DateTime get currentDate => _taskService.date.value;
 
   DateTime get today => DateTime.now();
+  DateTime get firstDate => DateTime(2021);
 
   // variables
   TextEditingController labelController = TextEditingController(text: '');
@@ -79,9 +79,11 @@ class TaskDetailsViewModel extends BaseViewModel {
 
   updateDueTime(Future<TimeOfDay> showTimePicker) async {
     TimeOfDay dueTime = await showTimePicker;
-    _dueDate = DateTime(
-        dueDate.year, dueDate.month, dueDate.day, dueTime.hour, dueTime.minute);
-    notifyListeners();
+    if (dueTime != null) {
+      _dueDate = DateTime(dueDate.year, dueDate.month, dueDate.day,
+          dueTime.hour, dueTime.minute);
+      notifyListeners();
+    }
   }
 
   void updateComplated(bool value) {
@@ -131,6 +133,12 @@ class TaskDetailsViewModel extends BaseViewModel {
       _navigationService.back();
       _snackbarService.showSnackbar(message: 'Task updated');
     }
+  }
+
+  void deleteUTask() {
+    _taskService.deleteUTask(_taskId);
+    _navigationService.back();
+    _snackbarService.showSnackbar(message: 'Task deleted');
   }
 
   NavigationService _navigationService = locator<NavigationService>();

@@ -5,6 +5,7 @@ import 'package:dotdo/shared/ui_helpers.dart';
 import 'package:dotdo/theme/colors.dart';
 import 'package:dotdo/widgets/dumb_widgets/button/button_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'task_details_view_model.dart';
@@ -48,6 +49,7 @@ class TaskDetailsView extends StatelessWidget {
                                   children: [
                                     // Task title
                                     TextField(
+                                      autocorrect: true,
                                       maxLines: 2,
                                       keyboardType: TextInputType.text,
                                       decoration: InputDecoration(
@@ -61,6 +63,7 @@ class TaskDetailsView extends StatelessWidget {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 10),
                                       child: TextField(
+                                        autocorrect: true,
                                         maxLines: 6,
                                         keyboardType: TextInputType.text,
                                         decoration: InputDecoration(
@@ -124,7 +127,8 @@ class TaskDetailsView extends StatelessWidget {
                                                             .isTaskIdNull
                                                         ? viewModel.currentDate
                                                         : viewModel.dueDate,
-                                                    firstDate: viewModel.today,
+                                                    firstDate:
+                                                        viewModel.firstDate,
                                                     lastDate: DateTime(
                                                         viewModel.today.year +
                                                             10),
@@ -173,6 +177,8 @@ class TaskDetailsView extends StatelessWidget {
                                               LableTextWidget(
                                                   lable: 'Complated'),
                                               Switch(
+                                                activeColor: Theme.of(context)
+                                                    .accentColor,
                                                 value: viewModel.complated,
                                                 onChanged:
                                                     viewModel.updateComplated,
@@ -199,8 +205,12 @@ class TaskDetailsView extends StatelessWidget {
                                     backgroundColor:
                                         Theme.of(context).brightness ==
                                                 Brightness.light
-                                            ? AppColors.lightRed
-                                            : AppColors.darkRed,
+                                            ? AppColors.lightGray
+                                            : AppColors.darkGray,
+                                    textColor: Theme.of(context).brightness ==
+                                            Brightness.light
+                                        ? AppColors.darkGray
+                                        : AppColors.white,
                                   ),
                                 ),
                                 viewModel.isTaskIdNull
@@ -219,7 +229,21 @@ class TaskDetailsView extends StatelessWidget {
                                         ),
                                       ),
                               ],
-                            )
+                            ),
+                            viewModel.isTaskIdNull
+                                ? Container()
+                                : Padding(
+                                    padding: const EdgeInsets.only(top: 20),
+                                    child: ButtonWidget(
+                                      onPressed: viewModel.deleteUTask,
+                                      text: 'Delete',
+                                      backgroundColor:
+                                          Theme.of(context).brightness ==
+                                                  Brightness.light
+                                              ? AppColors.lightRed
+                                              : AppColors.darkRed,
+                                    ),
+                                  ),
                           ],
                         ),
                       ),

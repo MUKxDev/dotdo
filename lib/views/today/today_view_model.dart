@@ -1,6 +1,5 @@
 import 'package:intl/intl.dart';
 import 'package:dotdo/core/locator.dart';
-import 'package:dotdo/core/models/task.dart';
 import 'package:dotdo/core/router_constants.dart';
 import 'package:dotdo/core/services/taskService.dart';
 import 'package:logger/logger.dart';

@@ -1,4 +1,5 @@
 import 'package:dotdo/core/models/task.dart';
+import 'package:dotdo/theme/colors.dart';
 import 'package:dotdo/widgets/dumb_widgets/card/card_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/check_box/check_box_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
@@ -52,19 +53,41 @@ class TaskWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // * DescriptionTextWidget
-                  DateTime(task.dueDate.year, task.dueDate.month,
-                              task.dueDate.day) ==
-                          DateTime(DateTime.now().year, DateTime.now().month,
-                              DateTime.now().day)
-                      ? DescriptionTextWidget(
-                          description:
-                              'dueDate: Today at ${viewModel.timeFormat.format(task.dueDate)}',
-                        )
-                      : DescriptionTextWidget(
-                          description:
-                              'dueDate: ${viewModel.dateFormat.format(task.dueDate)} at ${viewModel.timeFormat.format(task.dueDate)}',
-                        ),
+                  // * DueDateWidget
+                  (task.dueDate.isBefore(DateTime.now()) &&
+                          task.completed == false)
+                      ? (DateTime(task.dueDate.year, task.dueDate.month,
+                                  task.dueDate.day) ==
+                              DateTime(DateTime.now().year,
+                                  DateTime.now().month, DateTime.now().day)
+                          ? DescriptionTextWidget(
+                              color: (Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? AppColors.lightRed
+                                  : AppColors.darkRed),
+                              description:
+                                  'Overdue: Today at ${viewModel.timeFormat.format(task.dueDate)}',
+                            )
+                          : DescriptionTextWidget(
+                              color: (Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? AppColors.lightRed
+                                  : AppColors.darkRed),
+                              description:
+                                  'Overdue: ${viewModel.dateFormat.format(task.dueDate)} at ${viewModel.timeFormat.format(task.dueDate)}',
+                            ))
+                      : (DateTime(task.dueDate.year, task.dueDate.month,
+                                  task.dueDate.day) ==
+                              DateTime(DateTime.now().year,
+                                  DateTime.now().month, DateTime.now().day)
+                          ? DescriptionTextWidget(
+                              description:
+                                  'Due date: Today at ${viewModel.timeFormat.format(task.dueDate)}',
+                            )
+                          : DescriptionTextWidget(
+                              description:
+                                  'Due date: ${viewModel.dateFormat.format(task.dueDate)} at ${viewModel.timeFormat.format(task.dueDate)}',
+                            )),
                   // * Category
                   Row(
                     children: [

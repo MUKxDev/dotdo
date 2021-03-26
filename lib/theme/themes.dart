@@ -13,6 +13,10 @@ class AppThemes {
     brightness: Brightness.light,
     primaryColor: AppColors.lightGray,
     accentColor: AppColors.lightPurple,
+    colorScheme: ColorScheme.light().copyWith(
+      primary: AppColors.lightGreen,
+      onPrimary: Colors.white,
+    ),
     scaffoldBackgroundColor: AppColors.white,
     textSelectionTheme: TextSelectionThemeData(
       selectionColor: AppColors.lightGreen,
@@ -73,6 +77,14 @@ class AppThemes {
     brightness: Brightness.dark,
     primaryColor: AppColors.darkGray,
     accentColor: AppColors.darkPurple,
+    colorScheme: ColorScheme.dark().copyWith(
+      primary: AppColors.darkGreen,
+      onPrimary: Colors.white,
+      surface: AppColors.darkGray,
+
+      // onSurface: AppColors.darkGray,
+      // secondary: AppColors.darkGray,
+    ),
     scaffoldBackgroundColor: AppColors.darkBackground,
     textSelectionTheme: TextSelectionThemeData(
       selectionColor: AppColors.darkGreen,

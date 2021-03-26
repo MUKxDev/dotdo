@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class FirestoreService {
   // * References
   CollectionReference users = FirebaseFirestore.instance.collection('users');
+
   // ? methods
   Future<void> createUser({String uid, String userName, String email}) {
     // Call the user's CollectionReference to add a new user

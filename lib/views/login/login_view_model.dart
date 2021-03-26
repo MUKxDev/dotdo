@@ -12,16 +12,34 @@ class LoginViewModel extends BaseViewModel {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
+  bool isEmailCorrect = false;
+  bool isPasswordCorrect = false;
+
   String validateEmail(String value) {
     Pattern pattern =
         r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
         r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
         r"{0,253}[a-zA-Z0-9])?)*$";
     RegExp regex = new RegExp(pattern);
-    if (!regex.hasMatch(value) || value == null)
+    if (!regex.hasMatch(value) ||
+        value == null ||
+        emailController.text.trim() == '') {
+      isEmailCorrect = false;
       return 'Enter a valid email address';
-    else
+    } else {
+      isEmailCorrect = true;
       return null;
+    }
+  }
+
+  String validatePassword(String value) {
+    if (passwordController.text.trim() == '') {
+      isPasswordCorrect = false;
+      return 'The passwords is empty';
+    } else {
+      isPasswordCorrect = true;
+      return null;
+    }
   }
 
   TextEditingController emailController = TextEditingController(text: '');
@@ -41,7 +59,7 @@ class LoginViewModel extends BaseViewModel {
   }
 
   void signinWithEmail() async {
-    if (emailController.text == '' || passwordController.text == '') {
+    if (!(isEmailCorrect) || !(isPasswordCorrect)) {
       _snackbarService.showSnackbar(message: 'Please fill the required fields');
     } else {
       toggleIsLodaing();

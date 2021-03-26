@@ -45,51 +45,53 @@ class RegisterView extends StatelessWidget {
                 // * Form
                 Column(
                   children: [
-                    AutofillGroup(
-                      child: Column(
-                        children: [
-                          // * userName textfield
-                          TextfieldWidget(
-                              controller: viewModel.userNameController,
-                              obscureText: false,
-                              keyboardType: TextInputType.name,
-                              autofillHints: AutofillHints.name,
-                              labelText: 'Username',
-                              hintText: 'Enter your username...'),
-                          // * Email textfield
-                          TextfieldWidget(
-                              controller: viewModel.emailController,
-                              obscureText: false,
-                              keyboardType: TextInputType.emailAddress,
-                              autofillHints: AutofillHints.email,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              validator: (value) =>
-                                  viewModel.validateEmail(value),
-                              labelText: 'Email',
-                              hintText: 'Enter email...'),
-                          // * Password textfield
-                          TextfieldWidget(
-                              controller: viewModel.passwordController,
-                              obscureText: true,
-                              keyboardType: TextInputType.text,
-                              autofillHints: AutofillHints.newPassword,
-                              labelText: 'New password',
-                              hintText: 'Enter new password...'),
-                          // * Confirm password textfield
-                          TextfieldWidget(
-                              controller: viewModel.confirmPasswordController,
-                              obscureText: true,
-                              keyboardType: TextInputType.text,
-                              autofillHints: AutofillHints.newPassword,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              validator: (value) =>
-                                  viewModel.validatePassword(value),
-                              labelText: 'Confirm password',
-                              hintText: 'Confirm password...'),
-                        ],
-                      ),
+                    Column(
+                      children: [
+                        // * userName textfield
+                        TextfieldWidget(
+                          controller: viewModel.userNameController,
+                          obscureText: false,
+                          keyboardType: TextInputType.name,
+                          autofillHints: AutofillHints.newUsername,
+                          labelText: 'Username',
+                          hintText: 'Enter your username...',
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: (value) =>
+                              viewModel.validateUsername(value),
+                        ),
+                        // * Email textfield
+                        TextfieldWidget(
+                            controller: viewModel.emailController,
+                            obscureText: false,
+                            keyboardType: TextInputType.emailAddress,
+                            autofillHints: AutofillHints.email,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            validator: (value) =>
+                                viewModel.validateEmail(value),
+                            labelText: 'Email',
+                            hintText: 'Enter email...'),
+                        // * Password textfield
+                        TextfieldWidget(
+                            controller: viewModel.passwordController,
+                            obscureText: true,
+                            // keyboardType: TextInputType.visiblePassword,
+                            autofillHints: AutofillHints.newPassword,
+                            labelText: 'New password',
+                            hintText: 'Enter new password...'),
+                        // * Confirm password textfield
+                        TextfieldWidget(
+                            controller: viewModel.confirmPasswordController,
+                            obscureText: true,
+                            // keyboardType: TextInputType.visiblePassword,
+                            autofillHints: AutofillHints.newPassword,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            validator: (value) =>
+                                viewModel.validatePassword(value),
+                            labelText: 'Confirm password',
+                            hintText: 'Confirm password...'),
+                      ],
                     ),
                     // * Already have an account? button
                     Padding(
