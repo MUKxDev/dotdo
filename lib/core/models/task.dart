@@ -1,17 +1,21 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+
 class Task {
   final String taskName;
   final String taskNote;
   final DateTime dueDate;
   final bool completed;
-  final String category;
+  final IconData iconData;
+  final Color iconColor;
   Task({
     this.taskName,
     this.taskNote,
     this.dueDate,
     this.completed,
-    this.category,
+    this.iconData,
+    this.iconColor,
   });
 
   Task copyWith({
@@ -19,14 +23,16 @@ class Task {
     String taskNote,
     DateTime dueDate,
     bool completed,
-    String category,
+    IconData iconData,
+    Color iconColor,
   }) {
     return Task(
       taskName: taskName ?? this.taskName,
       taskNote: taskNote ?? this.taskNote,
       dueDate: dueDate ?? this.dueDate,
       completed: completed ?? this.completed,
-      category: category ?? this.category,
+      iconData: iconData ?? this.iconData,
+      iconColor: iconColor ?? this.iconColor,
     );
   }
 
@@ -36,7 +42,8 @@ class Task {
       'taskNote': taskNote,
       'dueDate': dueDate?.millisecondsSinceEpoch,
       'completed': completed,
-      'category': category,
+      'iconData': iconData?.codePoint,
+      'iconColor': iconColor?.value,
     };
   }
 
@@ -48,7 +55,8 @@ class Task {
       taskNote: map['taskNote'],
       dueDate: DateTime.fromMillisecondsSinceEpoch(map['dueDate']),
       completed: map['completed'],
-      category: map['category'],
+      iconData: IconData(map['iconData'], fontFamily: 'MaterialIcons'),
+      iconColor: Color(map['iconColor']),
     );
   }
 
@@ -58,7 +66,7 @@ class Task {
 
   @override
   String toString() {
-    return 'Task(taskName: $taskName, taskNote: $taskNote, dueDate: $dueDate, completed: $completed, category: $category)';
+    return 'Task(taskName: $taskName, taskNote: $taskNote, dueDate: $dueDate, completed: $completed, iconData: $iconData, iconColor: $iconColor)';
   }
 
   @override
@@ -70,7 +78,8 @@ class Task {
         o.taskNote == taskNote &&
         o.dueDate == dueDate &&
         o.completed == completed &&
-        o.category == category;
+        o.iconData == iconData &&
+        o.iconColor == iconColor;
   }
 
   @override
@@ -79,6 +88,7 @@ class Task {
         taskNote.hashCode ^
         dueDate.hashCode ^
         completed.hashCode ^
-        category.hashCode;
+        iconData.hashCode ^
+        iconColor.hashCode;
   }
 }

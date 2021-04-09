@@ -1,11 +1,12 @@
 import 'package:dotdo/shared/ui_helpers.dart';
+import 'package:dotdo/theme/colors.dart';
+import 'package:dotdo/widgets/dumb_widgets/button/button_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
-import 'package:dotdo/widgets/smart_widgets/active_challange_card/active_challange_card_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/datepicker/datepicker_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/overdue_tasks_list%20/overdue_tasks_list_widget.dart';
+import 'package:dotdo/widgets/smart_widgets/task_list/task_list_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/today_tasks_list/today_tasks_list_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stacked/stacked.dart';
 import 'today_view_model.dart';
 
@@ -17,80 +18,103 @@ class TodayView extends StatelessWidget {
         return SafeArea(
           child: ListView(
             children: [
-              // * DatePicker widget
+              // * Tap bar
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-                child: DatepickerWidget(),
+                padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
+                child: Container(
+                  height: 50,
+                  width: screenWidth(context),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ButtonWidget(
+                          onPressed: () => viewModel.toggleMode(),
+                          text: 'Day',
+                          width: screenWidth(context) * 0.44,
+                          borderRadius: 5,
+                          fontSize: 14,
+                          backgroundColor: viewModel.isDayMode
+                              ? Theme.of(context).accentColor
+                              : Theme.of(context).accentColor.withAlpha(0),
+                          textColor:
+                              Theme.of(context).brightness == Brightness.light
+                                  ? (viewModel.isDayMode
+                                      ? AppColors.white
+                                      : AppColors.darkBackground.withAlpha(200))
+                                  : (viewModel.isDayMode
+                                      ? AppColors.white
+                                      : AppColors.white.withAlpha(100)),
+                        ),
+                        ButtonWidget(
+                          onPressed: () => viewModel.toggleMode(),
+                          text: 'Up Coming',
+                          width: screenWidth(context) * 0.44,
+                          borderRadius: 5,
+                          fontSize: 14,
+                          backgroundColor: viewModel.isDayMode
+                              ? Theme.of(context).accentColor.withAlpha(0)
+                              : Theme.of(context).accentColor,
+                          textColor:
+                              Theme.of(context).brightness == Brightness.light
+                                  ? (viewModel.isDayMode
+                                      ? AppColors.darkBackground.withAlpha(200)
+                                      : AppColors.white)
+                                  : (viewModel.isDayMode
+                                      ? AppColors.white.withAlpha(100)
+                                      : AppColors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
-              // // * Challanges
-              // HeaderTextWidget(lable: 'challanges'),
-              // // * Active Challange card List
-              // // TODO: implement retreving (Active Challange card List) data from user.
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(
-              //     vertical: 20.0,
-              //     horizontal: 0,
-              //   ),
-              //   child: Container(
-              //     height: 100,
-              //     child: ListView(
-              //       clipBehavior: Clip.hardEdge,
-              //       scrollDirection: Axis.horizontal,
-              //       children: [
-              //         Padding(
-              //           padding: const EdgeInsets.symmetric(horizontal: 10),
-              //           child: ActiveChallangeCardWidget(
-              //             public: true,
-              //             iconData: FontAwesomeIcons.glassWhiskey,
-              //             iconColor: Colors.indigo,
-              //             lable: 'Drink water',
-              //             description: '5 cups a day',
-              //             progressValue: 0.2,
-              //             onTap: () => print('Challenge Tapped'),
-              //           ),
-              //         ),
-              //         Padding(
-              //           padding: const EdgeInsets.symmetric(horizontal: 10),
-              //           child: ActiveChallangeCardWidget(
-              //             public: false,
-              //             iconData: FontAwesomeIcons.book,
-              //             iconColor: Colors.orangeAccent,
-              //             lable: 'Read',
-              //             description: '20 pages a day',
-              //             progressValue: 0.5,
-              //             onTap: () => print('Challenge Tapped'),
-              //           ),
-              //         ),
-              //         Padding(
-              //           padding: const EdgeInsets.symmetric(horizontal: 10),
-              //           child: ActiveChallangeCardWidget(
-              //             public: true,
-              //             iconData: FontAwesomeIcons.solidKissWinkHeart,
-              //             iconColor: Colors.red,
-              //             lable: 'T-bag',
-              //             description: '3 T-bag a day',
-              //             progressValue: 0.3,
-              //             onTap: () => print('Challenge Tapped'),
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
+              viewModel.isDayMode
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // * DatePicker widget
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 10),
+                          child: DatepickerWidget(),
+                        ),
+                        // * Overdue list
+                        OverdueTasksListWidget(),
+                        // * Today's tasks
+                        DateTime(
+                                    viewModel.currentDate.year,
+                                    viewModel.currentDate.month,
+                                    viewModel.currentDate.day) ==
+                                DateTime(DateTime.now().year,
+                                    DateTime.now().month, DateTime.now().day)
+                            ? HeaderTextWidget(lable: 'Today\'s Tasks')
+                            : HeaderTextWidget(
+                                lable:
+                                    '${viewModel.dateFormat.format(viewModel.currentDate)}  Tasks'),
+                        // * Tasks List
+                        TodayTasksListWidget(),
+                      ],
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // * Overdue list
+                          OverdueTasksListWidget(),
+                          // * Up Coming Tasks
+                          HeaderTextWidget(lable: 'Up Coming Tasks'),
+                          TaskListWidget(),
+                        ],
+                      ),
+                    ),
 
-              // * Overdue list
-              OverdueTasksListWidget(),
-              // * Today's tasks
-              DateTime(viewModel.currentDate.year, viewModel.currentDate.month,
-                          viewModel.currentDate.day) ==
-                      DateTime(DateTime.now().year, DateTime.now().month,
-                          DateTime.now().day)
-                  ? HeaderTextWidget(lable: 'Today\'s Tasks')
-                  : HeaderTextWidget(
-                      lable:
-                          '${viewModel.dateFormat.format(viewModel.currentDate)}  Tasks'),
-              // * Tasks List
-              TodayTasksListWidget(),
               verticalSpaceLarge(context),
             ],
           ),

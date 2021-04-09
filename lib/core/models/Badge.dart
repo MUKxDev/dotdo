@@ -1,24 +1,24 @@
 import 'dart:convert';
 
-class badges {
+class Badge {
   final String picture;
   final String name;
   final String details;
   final int noOfFDone;
-  badges({
+  Badge({
     this.picture,
     this.name,
     this.details,
     this.noOfFDone,
   });
 
-  badges copyWith({
+  Badge copyWith({
     String picture,
     String name,
     String details,
     int noOfFDone,
   }) {
-    return badges(
+    return Badge(
       picture: picture ?? this.picture,
       name: name ?? this.name,
       details: details ?? this.details,
@@ -35,10 +35,10 @@ class badges {
     };
   }
 
-  factory badges.fromMap(Map<String, dynamic> map) {
+  factory Badge.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
 
-    return badges(
+    return Badge(
       picture: map['picture'],
       name: map['name'],
       details: map['details'],
@@ -48,18 +48,18 @@ class badges {
 
   String toJson() => json.encode(toMap());
 
-  factory badges.fromJson(String source) => badges.fromMap(json.decode(source));
+  factory Badge.fromJson(String source) => Badge.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'badges(picture: $picture, name: $name, details: $details, noOfFDone: $noOfFDone)';
+    return 'Badge(picture: $picture, name: $name, details: $details, noOfFDone: $noOfFDone)';
   }
 
   @override
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
 
-    return o is badges &&
+    return o is Badge &&
         o.picture == picture &&
         o.name == name &&
         o.details == details &&

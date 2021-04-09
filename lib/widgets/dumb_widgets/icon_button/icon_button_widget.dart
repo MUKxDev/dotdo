@@ -8,6 +8,7 @@ class IconButtonWidget extends StatelessWidget {
   final double width;
   final IconData iconData;
   final double iconSize;
+  final double elevation;
 
   const IconButtonWidget(
       {Key key,
@@ -17,7 +18,8 @@ class IconButtonWidget extends StatelessWidget {
       this.width = 50,
       this.iconColor,
       @required this.iconData,
-      this.iconSize = 24})
+      this.iconSize = 24,
+      this.elevation = 2})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,7 @@ class IconButtonWidget extends StatelessWidget {
         ),
       ),
       style: ButtonStyle(
+        elevation: MaterialStateProperty.all<double>(elevation),
         backgroundColor: MaterialStateProperty.all<Color>(
           backgroundColor ?? Theme.of(context).primaryColor,
         ),

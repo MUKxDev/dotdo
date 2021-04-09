@@ -13,6 +13,14 @@ class TodayViewModel extends ReactiveViewModel {
   String _title = 'Today';
   String get title => _title;
 
+  bool _isDayMode = true;
+  bool get isDayMode => _isDayMode;
+
+  void toggleMode() {
+    _isDayMode = !_isDayMode;
+    notifyListeners();
+  }
+
   DateTime get currentDate => _taskService.date.value;
   final dateFormat = DateFormat('MMM-dd');
 

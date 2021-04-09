@@ -1,16 +1,18 @@
 import 'dart:convert';
 
-class uGeneral {
+class UGeneral {
   final int noOfFollowers;
   final int noOfFollowing;
+  final int noOfGroups;
   final int noOfBadges;
   final int noOfTaskCompleted;
   final int noOfChallangeCompleted;
   final int noOfLikes;
   final String lastBadge;
-  uGeneral({
+  UGeneral({
     this.noOfFollowers,
     this.noOfFollowing,
+    this.noOfGroups,
     this.noOfBadges,
     this.noOfTaskCompleted,
     this.noOfChallangeCompleted,
@@ -18,18 +20,20 @@ class uGeneral {
     this.lastBadge,
   });
 
-  uGeneral copyWith({
+  UGeneral copyWith({
     int noOfFollowers,
     int noOfFollowing,
+    int noOfGroups,
     int noOfBadges,
     int noOfTaskCompleted,
     int noOfChallangeCompleted,
     int noOfLikes,
     String lastBadge,
   }) {
-    return uGeneral(
+    return UGeneral(
       noOfFollowers: noOfFollowers ?? this.noOfFollowers,
       noOfFollowing: noOfFollowing ?? this.noOfFollowing,
+      noOfGroups: noOfGroups ?? this.noOfGroups,
       noOfBadges: noOfBadges ?? this.noOfBadges,
       noOfTaskCompleted: noOfTaskCompleted ?? this.noOfTaskCompleted,
       noOfChallangeCompleted:
@@ -43,6 +47,7 @@ class uGeneral {
     return {
       'noOfFollowers': noOfFollowers,
       'noOfFollowing': noOfFollowing,
+      'noOfGroups': noOfGroups,
       'noOfBadges': noOfBadges,
       'noOfTaskCompleted': noOfTaskCompleted,
       'noOfChallangeCompleted': noOfChallangeCompleted,
@@ -51,12 +56,13 @@ class uGeneral {
     };
   }
 
-  factory uGeneral.fromMap(Map<String, dynamic> map) {
+  factory UGeneral.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
 
-    return uGeneral(
+    return UGeneral(
       noOfFollowers: map['noOfFollowers'],
       noOfFollowing: map['noOfFollowing'],
+      noOfGroups: map['noOfGroups'],
       noOfBadges: map['noOfBadges'],
       noOfTaskCompleted: map['noOfTaskCompleted'],
       noOfChallangeCompleted: map['noOfChallangeCompleted'],
@@ -67,21 +73,22 @@ class uGeneral {
 
   String toJson() => json.encode(toMap());
 
-  factory uGeneral.fromJson(String source) =>
-      uGeneral.fromMap(json.decode(source));
+  factory UGeneral.fromJson(String source) =>
+      UGeneral.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'uGeneral(noOfFollowers: $noOfFollowers, noOfFollowing: $noOfFollowing, noOfBadges: $noOfBadges, noOfTaskCompleted: $noOfTaskCompleted, noOfChallangeCompleted: $noOfChallangeCompleted, noOfLikes: $noOfLikes, lastBadge: $lastBadge)';
+    return 'UGeneral(noOfFollowers: $noOfFollowers, noOfFollowing: $noOfFollowing, noOfGroups: $noOfGroups, noOfBadges: $noOfBadges, noOfTaskCompleted: $noOfTaskCompleted, noOfChallangeCompleted: $noOfChallangeCompleted, noOfLikes: $noOfLikes, lastBadge: $lastBadge)';
   }
 
   @override
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
 
-    return o is uGeneral &&
+    return o is UGeneral &&
         o.noOfFollowers == noOfFollowers &&
         o.noOfFollowing == noOfFollowing &&
+        o.noOfGroups == noOfGroups &&
         o.noOfBadges == noOfBadges &&
         o.noOfTaskCompleted == noOfTaskCompleted &&
         o.noOfChallangeCompleted == noOfChallangeCompleted &&
@@ -93,6 +100,7 @@ class uGeneral {
   int get hashCode {
     return noOfFollowers.hashCode ^
         noOfFollowing.hashCode ^
+        noOfGroups.hashCode ^
         noOfBadges.hashCode ^
         noOfTaskCompleted.hashCode ^
         noOfChallangeCompleted.hashCode ^

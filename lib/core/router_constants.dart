@@ -10,3 +10,5 @@ const String authpageViewRoute = 'authpageViewRoute';
 const String discoverViewRoute = 'discoverViewRoute';
 const String profileViewRoute = 'profileViewRoute';
 const String taskDetailsViewRoute = 'taskDetailsViewRoute';
+const String newChallangeViewRoute = 'newChallangeViewRoute';
+const String challangeDetailsViewRoute = 'challangeDetailsViewRoute';

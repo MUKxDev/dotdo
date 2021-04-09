@@ -3,9 +3,8 @@ import 'package:dotdo/widgets/dumb_widgets/card/card_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
-import 'package:dotdo/widgets/smart_widgets/active_challange_card/active_challange_card_widget.dart';
+import 'package:dotdo/widgets/smart_widgets/two_row_grid_active_challange_stream/two_row_grid_active_challange_stream_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stacked/stacked.dart';
 import 'profile_view_model.dart';
 
@@ -43,8 +42,8 @@ class ProfileView extends StatelessWidget {
                 ),
                 child: LableTextWidget(lable: 'Mohamed Mukhtar'),
               ),
-              // * profile karma
-              DescriptionTextWidget(description: 'Karma: 135'),
+              // * profile dots
+              DescriptionTextWidget(description: 'Dots: 135'),
               // * profile points
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
@@ -209,99 +208,13 @@ class ProfileView extends StatelessWidget {
                   ),
                 ),
               ),
-              // * profile categories
+              // * challanges grid
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  HeaderTextWidget(lable: 'categories'),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Container(
-                      height: 205,
-                      child: GridView.count(
-                        crossAxisCount: 2,
-                        childAspectRatio: 0.65,
-                        scrollDirection: Axis.horizontal,
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 20,
-                        children: [
-                          ActiveChallangeCardWidget(
-                            lable: 'Index',
-                            onTap: () => print('Challenge Tapped'),
-                            progressValue: 0.5,
-                            description: '13 Tasks',
-                          ),
-                          ActiveChallangeCardWidget(
-                            iconData: FontAwesomeIcons.book,
-                            iconColor: Colors.orangeAccent,
-                            lable: 'Reading',
-                            onTap: () => print('Challenge Tapped'),
-                            progressValue: 0.8,
-                            description: '13 Tasks',
-                          ),
-                          ActiveChallangeCardWidget(
-                            public: true,
-                            iconData: FontAwesomeIcons.artstation,
-                            lable: 'Draw',
-                            onTap: () => print('Challenge Tapped'),
-                            progressValue: 0.5,
-                            description: '13 Tasks',
-                          ),
-                          ActiveChallangeCardWidget(
-                            public: true,
-                            iconData: FontAwesomeIcons.pen,
-                            iconColor: Colors.indigo,
-                            lable: 'Work',
-                            onTap: () => print('Challenge Tapped'),
-                            progressValue: 0.2,
-                            description: '13 Tasks',
-                          ),
-                          ActiveChallangeCardWidget(
-                            iconData: FontAwesomeIcons.book,
-                            iconColor: Colors.orangeAccent,
-                            lable: 'University',
-                            onTap: () => print('Challenge Tapped'),
-                            progressValue: 0.2,
-                            description: '13 Tasks',
-                          ),
-                          ActiveChallangeCardWidget(
-                            public: true,
-                            iconData: FontAwesomeIcons.solidKissWinkHeart,
-                            iconColor: Colors.red,
-                            lable: 'Workout',
-                            onTap: () => print('Challenge Tapped'),
-                            progressValue: 0.5,
-                            description: '13 Tasks',
-                          ),
-                          ActiveChallangeCardWidget(
-                            public: true,
-                            iconData: FontAwesomeIcons.glassWhiskey,
-                            iconColor: Colors.indigo,
-                            lable: 'Developing',
-                            onTap: () => print('Challenge Tapped'),
-                            progressValue: 0.2,
-                            description: '13 Tasks',
-                          ),
-                          ActiveChallangeCardWidget(
-                            iconData: FontAwesomeIcons.book,
-                            iconColor: Colors.orangeAccent,
-                            lable: 'Cleaning',
-                            onTap: () => print('Challenge Tapped'),
-                            progressValue: 0.2,
-                            description: '13 Tasks',
-                          ),
-                          ActiveChallangeCardWidget(
-                            public: true,
-                            iconData: FontAwesomeIcons.solidKissWinkHeart,
-                            iconColor: Colors.red,
-                            lable: 'Photography',
-                            onTap: () => print('Challenge Tapped'),
-                            progressValue: 0.2,
-                            description: '13 Tasks',
-                          ),
-                        ],
-                      ),
-                    ),
+                  HeaderTextWidget(lable: 'challanges'),
+                  TwoRowGridActiveChallangeStreamWidget(
+                    stream: viewModel.stream,
                   ),
                 ],
               ),

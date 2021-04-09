@@ -13,6 +13,9 @@ import 'package:dotdo/views/authpage/authpage_view.dart' as view6;
 import 'package:dotdo/views/discover/discover_view.dart' as view7;
 import 'package:dotdo/views/profile/profile_view.dart' as view8;
 import 'package:dotdo/views/task_details/task_details_view.dart' as view9;
+import 'package:dotdo/views/new_challange/new_challange_view.dart' as view10;
+import 'package:dotdo/views/challange_details/challange_details_view.dart'
+    as view11;
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -39,6 +42,13 @@ class Router {
         return MaterialPageRoute(
             builder: (_) => view9.TaskDetailsView(
                   taskId: settings.arguments,
+                ));
+      case newChallangeViewRoute:
+        return MaterialPageRoute(builder: (_) => view10.NewChallangeView());
+      case challangeDetailsViewRoute:
+        return MaterialPageRoute(
+            builder: (_) => view11.ChallangeDetailsView(
+                  args: settings.arguments,
                 ));
       default:
         return MaterialPageRoute(

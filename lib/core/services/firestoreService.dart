@@ -12,8 +12,8 @@ class FirestoreService {
         .set({
           'userName': userName,
           'email': email,
-          'karma': 0,
-          'profilePic': ''
+          'dots': 0,
+          'profilePic': '',
         })
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));

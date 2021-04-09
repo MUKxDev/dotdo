@@ -7,6 +7,7 @@ class CardWidget extends StatelessWidget {
   final double width;
   final double borderRadius;
   final double padding;
+  final Color backgroundcolor;
   const CardWidget({
     Key key,
     @required this.onTap,
@@ -15,6 +16,7 @@ class CardWidget extends StatelessWidget {
     @required this.width,
     this.borderRadius = 20,
     this.padding = 10,
+    this.backgroundcolor,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class CardWidget extends StatelessWidget {
           height: height,
           width: width,
           decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
+            color: backgroundcolor ?? Theme.of(context).primaryColor,
             borderRadius: BorderRadius.circular(borderRadius),
           ),
           child: Padding(

@@ -1,36 +1,54 @@
 import 'dart:convert';
 
-class Challanges {
+import 'package:flutter/material.dart';
+
+class Challange {
   final String name;
   final String note;
   final DateTime startDate;
   final DateTime endDate;
   final bool completed;
   final int noOfParticipants;
-  Challanges({
+  final int noOfTasks;
+  final int noOfCompletedTasks;
+  final IconData iconData;
+  final Color iconColor;
+  Challange({
     this.name,
     this.note,
     this.startDate,
     this.endDate,
     this.completed,
     this.noOfParticipants,
+    this.noOfTasks,
+    this.noOfCompletedTasks,
+    this.iconData,
+    this.iconColor,
   });
 
-  Challanges copyWith({
+  Challange copyWith({
     String name,
     String note,
     DateTime startDate,
     DateTime endDate,
     bool completed,
     int noOfParticipants,
+    int noOfTasks,
+    int noOfCompletedTasks,
+    IconData iconData,
+    Color iconColor,
   }) {
-    return Challanges(
+    return Challange(
       name: name ?? this.name,
       note: note ?? this.note,
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
       completed: completed ?? this.completed,
       noOfParticipants: noOfParticipants ?? this.noOfParticipants,
+      noOfTasks: noOfTasks ?? this.noOfTasks,
+      noOfCompletedTasks: noOfCompletedTasks ?? this.noOfCompletedTasks,
+      iconData: iconData ?? this.iconData,
+      iconColor: iconColor ?? this.iconColor,
     );
   }
 
@@ -42,43 +60,55 @@ class Challanges {
       'endDate': endDate?.millisecondsSinceEpoch,
       'completed': completed,
       'noOfParticipants': noOfParticipants,
+      'noOfTasks': noOfTasks,
+      'noOfCompletedTasks': noOfCompletedTasks,
+      'iconData': iconData?.codePoint,
+      'iconColor': iconColor?.value,
     };
   }
 
-  factory Challanges.fromMap(Map<String, dynamic> map) {
+  factory Challange.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
 
-    return Challanges(
+    return Challange(
       name: map['name'],
       note: map['note'],
       startDate: DateTime.fromMillisecondsSinceEpoch(map['startDate']),
       endDate: DateTime.fromMillisecondsSinceEpoch(map['endDate']),
       completed: map['completed'],
       noOfParticipants: map['noOfParticipants'],
+      noOfTasks: map['noOfTasks'],
+      noOfCompletedTasks: map['noOfCompletedTasks'],
+      iconData: IconData(map['iconData'], fontFamily: 'MaterialIcons'),
+      iconColor: Color(map['iconColor']),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Challanges.fromJson(String source) =>
-      Challanges.fromMap(json.decode(source));
+  factory Challange.fromJson(String source) =>
+      Challange.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'Challanges(name: $name, note: $note, startDate: $startDate, endDate: $endDate, completed: $completed, noOfParticipants: $noOfParticipants)';
+    return 'Challange(name: $name, note: $note, startDate: $startDate, endDate: $endDate, completed: $completed, noOfParticipants: $noOfParticipants, noOfTasks: $noOfTasks, noOfCompletedTasks: $noOfCompletedTasks, iconData: $iconData, iconColor: $iconColor)';
   }
 
   @override
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
 
-    return o is Challanges &&
+    return o is Challange &&
         o.name == name &&
         o.note == note &&
         o.startDate == startDate &&
         o.endDate == endDate &&
         o.completed == completed &&
-        o.noOfParticipants == noOfParticipants;
+        o.noOfParticipants == noOfParticipants &&
+        o.noOfTasks == noOfTasks &&
+        o.noOfCompletedTasks == noOfCompletedTasks &&
+        o.iconData == iconData &&
+        o.iconColor == iconColor;
   }
 
   @override
@@ -88,6 +118,10 @@ class Challanges {
         startDate.hashCode ^
         endDate.hashCode ^
         completed.hashCode ^
-        noOfParticipants.hashCode;
+        noOfParticipants.hashCode ^
+        noOfTasks.hashCode ^
+        noOfCompletedTasks.hashCode ^
+        iconData.hashCode ^
+        iconColor.hashCode;
   }
 }

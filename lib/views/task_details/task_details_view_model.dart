@@ -2,6 +2,8 @@ import 'dart:core';
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/models/task.dart';
 import 'package:dotdo/core/services/taskService.dart';
+import 'package:dotdo/theme/colors.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 import 'package:flutter/material.dart';
@@ -23,9 +25,11 @@ class TaskDetailsViewModel extends BaseViewModel {
       _task = await _taskService.getUTask(_taskId);
       labelController.text = _task.taskName;
       noteController.text = _task.taskNote;
-      _category = _task.category;
+      _iconColor = _task.iconColor;
+      _iconData = _task.iconData;
       _dueDate = _task.dueDate;
       _complated = _task.completed;
+
       _isBusy = false;
       notifyListeners();
     } else {
@@ -61,13 +65,11 @@ class TaskDetailsViewModel extends BaseViewModel {
   final dateFormat = DateFormat('yyyy-MMM-dd');
   final timeFormat = DateFormat('hh:mm a');
 
-  List<String> _categoryList = ['Work', 'University', 'Developing', 'Index'];
-  List<String> get categoryList => _categoryList;
+  IconData _iconData = FontAwesomeIcons.tasks;
+  IconData get iconData => _iconData;
 
-  updateCategory(String category) {
-    _category = category;
-    notifyListeners();
-  }
+  Color _iconColor = AppColors.iconColors[2];
+  Color get iconColor => _iconColor;
 
   updateDueDate(Future<DateTime> due) async {
     DateTime date = await due;
@@ -91,6 +93,16 @@ class TaskDetailsViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  colorTapped(Color iconColor) {
+    _iconColor = iconColor;
+    notifyListeners();
+  }
+
+  void iconTapped(IconData iconData) {
+    _iconData = iconData;
+    notifyListeners();
+  }
+
   TaskService _taskService = locator<TaskService>();
   SnackbarService _snackbarService = locator<SnackbarService>();
   void addTask() async {
@@ -104,7 +116,8 @@ class TaskDetailsViewModel extends BaseViewModel {
         taskNote: noteController.text.trim(),
         dueDate: dueDate,
         completed: false,
-        category: category,
+        iconColor: iconColor,
+        iconData: iconData,
       );
       // TODO: implement show the snackbar with the real result Sucsses or failure
       _taskService.addUTask(task);
@@ -125,7 +138,8 @@ class TaskDetailsViewModel extends BaseViewModel {
         taskNote: noteController.text.trim(),
         dueDate: dueDate,
         completed: false,
-        category: category,
+        iconColor: iconColor,
+        iconData: iconData,
       );
       // TODO: implement show the snackbar with the real result Sucsses or failure
       _taskService.updateUTask(_taskId, task);

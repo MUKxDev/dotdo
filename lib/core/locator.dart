@@ -1,3 +1,4 @@
+import 'package:dotdo/core/services/challangeService.dart';
 import 'package:dotdo/core/services/taskService.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
@@ -27,5 +28,7 @@ class LocatorInjector {
     locator.registerLazySingleton(() => FirebaseAuthenticationService());
     log.d('Registering Task Service');
     locator.registerLazySingleton(() => TaskService());
+    log.d('Registering Challange Service');
+    locator.registerLazySingleton(() => ChallangeService());
   }
 }

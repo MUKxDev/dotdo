@@ -1,5 +1,6 @@
 import 'package:animated_stack/animated_stack.dart';
 import 'package:dotdo/shared/constant.dart';
+import 'package:dotdo/theme/colors.dart';
 import 'package:dotdo/views/discover/discover_view.dart';
 import 'package:dotdo/views/profile/profile_view.dart';
 import 'package:dotdo/views/social/social_view.dart';
@@ -9,6 +10,7 @@ import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/icon_button/icon_button_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/logo/logo_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stacked/stacked.dart';
 import 'home_view_model.dart';
@@ -85,70 +87,55 @@ class HomeView extends StatelessWidget {
               viewModel.updateSelectedNavbarItem(index);
             },
           ),
-          // extendBody: true,
-          // extendBodyBehindAppBar: true,
-          // // * FloatingActionButton
-          // floatingActionButton: FloatingActionButton(
-          //   child: Icon(Icons.add),
-          //   onPressed: () {
-          //     viewModel.addTask();
-          //   },
-          // ),
-          // floatingActionButtonLocation:
-          //     FloatingActionButtonLocation.miniEndFloat,
+          floatingActionButton: SpeedDial(
+            icon: Icons.add,
+            foregroundColor: AppColors.white,
+            backgroundColor: Theme.of(context).accentColor,
+            children: [
+              SpeedDialChild(
+                label: 'Add Task',
+                onTap: viewModel.addTask,
+                backgroundColor: Theme.of(context).accentColor,
+                foregroundColor: AppColors.white,
+                child: Icon(
+                  FontAwesomeIcons.clipboardCheck,
+                  size: 20,
+                ),
+              ),
+              SpeedDialChild(
+                label: 'Add Routine',
+                onTap: viewModel.addRoutine,
+                backgroundColor: Theme.of(context).accentColor,
+                foregroundColor: AppColors.white,
+                child: Icon(
+                  FontAwesomeIcons.redoAlt,
+                  size: 20,
+                ),
+              ),
+              SpeedDialChild(
+                label: 'Add Challange',
+                onTap: viewModel.addChallange,
+                backgroundColor: Theme.of(context).accentColor,
+                foregroundColor: AppColors.white,
+                child: Icon(
+                  FontAwesomeIcons.crosshairs,
+                  size: 20,
+                ),
+              ),
+            ],
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.miniEndFloat,
           // * PageView
-          body: AnimatedStack(
-            key: viewModel.fabKey,
-            fabBackgroundColor: Theme.of(context).accentColor,
-            fabIconColor: Colors.white,
-            foregroundWidget: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Theme.of(context).scaffoldBackgroundColor,
-              ),
-              clipBehavior: Clip.hardEdge,
-              child: PageView(
-                onPageChanged: (index) => viewModel.updateSelectedIndex(index),
-                controller: viewModel.pageController,
-                children: [
-                  TodayView(),
-                  SocialView(),
-                  DiscoverView(),
-                  ProfileView(),
-                ],
-              ),
-            ),
-            // Fab button list
-            columnWidget: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: IconButtonWidget(
-                    onTap: viewModel.addChallange,
-                    iconData: FontAwesomeIcons.crosshairs,
-                    iconSize: 22,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: IconButtonWidget(
-                    onTap: viewModel.addRoutine,
-                    iconData: FontAwesomeIcons.redoAlt,
-                    iconSize: 22,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: IconButtonWidget(
-                    onTap: viewModel.addTask,
-                    iconData: FontAwesomeIcons.clipboardCheck,
-                    iconSize: 22,
-                  ),
-                ),
-              ],
-            ),
-            bottomWidget: null,
+          body: PageView(
+            onPageChanged: (index) => viewModel.updateSelectedIndex(index),
+            controller: viewModel.pageController,
+            children: [
+              TodayView(),
+              SocialView(),
+              DiscoverView(),
+              ProfileView(),
+            ],
           ),
         );
       },

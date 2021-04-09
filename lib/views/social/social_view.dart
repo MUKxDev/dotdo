@@ -72,8 +72,8 @@ class SocialView extends StatelessWidget {
                   ),
                   GroupChallangeWidget(
                     onTap: () {},
-                    lable: 'Fuck challange',
-                    groupName: 'FuckSchool',
+                    lable: 'Developing challange',
+                    groupName: 'DevSchool',
                     rank: 2,
                     image: AssetImage('assets/Icon.png'),
                   ),

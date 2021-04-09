@@ -1,21 +1,21 @@
 import 'dart:convert';
 
-class groups {
+class Group {
   final String name;
   final String picture;
   final int noOfmemeber;
-  groups({
+  Group({
     this.name,
     this.picture,
     this.noOfmemeber,
   });
 
-  groups copyWith({
+  Group copyWith({
     String name,
     String picture,
     int noOfmemeber,
   }) {
-    return groups(
+    return Group(
       name: name ?? this.name,
       picture: picture ?? this.picture,
       noOfmemeber: noOfmemeber ?? this.noOfmemeber,
@@ -30,10 +30,10 @@ class groups {
     };
   }
 
-  factory groups.fromMap(Map<String, dynamic> map) {
+  factory Group.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
 
-    return groups(
+    return Group(
       name: map['name'],
       picture: map['picture'],
       noOfmemeber: map['noOfmemeber'],
@@ -42,17 +42,17 @@ class groups {
 
   String toJson() => json.encode(toMap());
 
-  factory groups.fromJson(String source) => groups.fromMap(json.decode(source));
+  factory Group.fromJson(String source) => Group.fromMap(json.decode(source));
 
   @override
   String toString() =>
-      'groups(name: $name, picture: $picture, noOfmemeber: $noOfmemeber)';
+      'Group(name: $name, picture: $picture, noOfmemeber: $noOfmemeber)';
 
   @override
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
 
-    return o is groups &&
+    return o is Group &&
         o.name == name &&
         o.picture == picture &&
         o.noOfmemeber == noOfmemeber;

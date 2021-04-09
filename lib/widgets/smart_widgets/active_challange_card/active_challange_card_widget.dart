@@ -64,7 +64,10 @@ class ActiveChallangeCardWidget extends StatelessWidget {
                 ],
               ),
               // * Description
-              DescriptionTextWidget(description: description),
+              DescriptionTextWidget(
+                description: description,
+                // color: AppColors.darkRoutine,
+              ),
               // * Lable
               LableTextWidget(lable: lable),
               // * Prograss bar

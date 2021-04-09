@@ -36,6 +36,18 @@ class TaskService with ReactiveServiceMixin {
         .snapshots();
   }
 
+  // * Get Up Coming UTasks
+  Stream<QuerySnapshot> getUpComingUTasksStream() async* {
+    String _uid = await _authService.getCurrentUserId();
+    DateTime date = DateTime.now();
+    yield* _firestoreService.users
+        .doc(_uid)
+        .collection('UTasks')
+        .orderBy('dueDate')
+        .where('dueDate', isGreaterThanOrEqualTo: date.millisecondsSinceEpoch)
+        .snapshots();
+  }
+
   // * Get Date UTasks
   Stream<QuerySnapshot> getDateUTasksStream(DateTime date) async* {
     String _uid = await _authService.getCurrentUserId();

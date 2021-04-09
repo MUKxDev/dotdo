@@ -1,47 +1,32 @@
-// import 'package:dotdo/core/locator.dart';
-// import 'package:dotdo/core/models/task.dart';
-// import 'package:dotdo/core/services/taskService.dart';
-// import 'package:flutter/material.dart';
-// import 'package:logger/logger.dart';
-// import 'package:stacked/stacked.dart';
-// import 'package:dotdo/core/logger.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dotdo/core/locator.dart';
+import 'package:dotdo/core/router_constants.dart';
+import 'package:dotdo/core/services/taskService.dart';
+import 'package:logger/logger.dart';
+import 'package:stacked/stacked.dart';
+import 'package:dotdo/core/logger.dart';
+import 'package:stacked_services/stacked_services.dart';
 
-// class TaskListViewModel extends ReactiveViewModel {
-//   Logger log;
-//   TaskListViewModel() {
-//     this.log = getLogger(this.runtimeType.toString());
-//   }
-//   final globalKey = GlobalKey<AnimatedListState>();
+class TaskListViewModel extends BaseViewModel {
+  Logger log;
+  TaskListViewModel() {
+    this.log = getLogger(this.runtimeType.toString());
+  }
 
-//   void removeTask(int index, String id) {
-//     _taskService.removeTask(id);
-//     globalKey.currentState
-//         .removeItem(index, (context, animation) => Container());
-//     notifyListeners();
-//   }
+  TaskService _taskService = locator<TaskService>();
+  NavigationService _navigationService = locator<NavigationService>();
 
-// // TODO: add function constructer to add to list
-//   void addNewTask(Task task, List<Task> list) {
-//     // ? should we remove the above list?
-//     _taskService.addTask(task);
-//     globalKey.currentState.insertItem(0);
-//   }
+  Stream<QuerySnapshot> get stream => _taskService.getUpComingUTasksStream();
 
-//   void toggleCheckedTask(int index, Task task) {
-//     String id = task.id;
-//     bool checked = task.checked;
-//     Task newTask = task.copyWith(checked: !checked);
-//     removeTask(index, id);
-//     _taskService.addTask(newTask);
-//     notifyListeners();
-//   }
+  void toggleCompletedUTask(String taskId, bool currentCompleted) {
+    _taskService.toggleCompletedUTask(taskId, currentCompleted);
+  }
 
-//   void onTaskTap(Task task) {
-//     print('task with id ${task.id} tapped');
-//   }
+  taskTapped(String taskId) async {
+    _navigationService.navigateTo(taskDetailsViewRoute, arguments: taskId);
+  }
 
-//   TaskService _taskService = locator<TaskService>();
-
-//   @override
-//   List<ReactiveServiceMixin> get reactiveServices => [_taskService];
-// }
+  void deleteUTask(String taskId) {
+    _taskService.deleteUTask(taskId);
+  }
+}
