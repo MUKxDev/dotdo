@@ -104,14 +104,37 @@ class TaskService with ReactiveServiceMixin {
   }
 
   Future toggleCompletedUTask(String taskId, bool currentCompleted) async {
+    int _noOfTaskCompleted = await _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .collection('uGeneral')
+        .doc('generalData')
+        .get()
+        .then((value) => value.data()['noOfTaskCompleted']);
+//-----------------------------------------
+    int _plus = _noOfTaskCompleted + 1;
+    int _minus = _noOfTaskCompleted - 1;
+//-----------------------------------------
     _firestoreService.users
         .doc(await _authService.getCurrentUserId())
         .collection('UTasks')
         .doc(taskId)
-        .update({'completed': !(currentCompleted)})
-        .then((value) => print('task with id $taskId updated'))
-        .onError(
-            (error, stackTrace) => print('error with adding task: $error'));
+        .update({'completed': !(currentCompleted)}).then((value) async {
+      if (currentCompleted == false) {
+        _firestoreService.users
+            .doc(await _authService.getCurrentUserId())
+            .collection("uGeneral")
+            .doc('generalData')
+            .update({'noOfTaskCompleted': _plus});
+      } else {
+        _firestoreService.users
+            .doc(await _authService.getCurrentUserId())
+            .collection("uGeneral")
+            .doc('generalData')
+            .update({'noOfTaskCompleted': _minus});
+      }
+    }).onError((error, stackTrace) {
+      print('error with adding task: $error');
+    });
   }
 
   Future updateUTask(String taskId, Task task) async {

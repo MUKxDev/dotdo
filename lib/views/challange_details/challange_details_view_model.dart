@@ -42,21 +42,9 @@ class ChallangeDetailsViewModel extends BaseViewModel {
   handelStartup(Map args) async {
     _challangeId = args['challangeId'];
     _isEdit = args['isEdit'];
-
-    _challange = await _challangeService.getUChallange(_challangeId);
-    _numberOfDays =
-        _challange.endDate.difference(_challange.startDate).inDays + 1;
-
     _selectedDate = _challange.startDate;
-    print(_numberOfDays);
-    if (_numberOfDays == 0) {
-      _numberOfDays = 1;
-    }
-
-    updateProgressBar();
     _isBusy = false;
     notifyListeners();
-    print(_challange.toString());
   }
 
   void updateSelectedValue({DateTime date}) {
@@ -69,14 +57,14 @@ class ChallangeDetailsViewModel extends BaseViewModel {
         _challangeId,
         Task(
             taskName: 'hi: $_selectedDate',
-            dueDate: _selectedDate,
+            dueDate: DateTime(_selectedDate.year, _selectedDate.month,
+                _selectedDate.day, 23, 59, 59),
             completed: false,
             iconColor: _challange.iconColor,
             iconData: _challange.iconData,
             taskNote: 'note'),
         _challange.noOfTasks);
-    _challange = await _challangeService.getUChallange(_challangeId);
-    updateProgressBar();
+    // _challange = await _challangeService.getUChallange(_challangeId);
     toggleCompleteedChallange();
     notifyListeners();
   }
@@ -85,15 +73,16 @@ class ChallangeDetailsViewModel extends BaseViewModel {
 
   final dateFormat = DateFormat('MMM-dd');
 
-  Stream<QuerySnapshot> get stream =>
+  Stream<DocumentSnapshot> get challangeStream =>
+      _challangeService.getUChallangeStream(challangeId);
+
+  Stream<QuerySnapshot> get tasksStream =>
       _challangeService.getDateUCTasksStream(_challangeId, _selectedDate);
 
   Future<void> toggleCompletedUTask(
       String taskId, bool currentCompleted) async {
     await _challangeService.toggleCompletedUCTask(
         taskId, _challangeId, currentCompleted, _challange.noOfCompletedTasks);
-    _challange = await _challangeService.getUChallange(_challangeId);
-    updateProgressBar();
     toggleCompleteedChallange();
     notifyListeners();
   }
@@ -106,13 +95,8 @@ class ChallangeDetailsViewModel extends BaseViewModel {
     // _challangeService.(taskId);
   }
 
-  updateProgressBar() {
-    if (_challange.noOfTasks == 0 || _challange.noOfTasks == null) {
-      _prograssBarValue = 0;
-    } else {
-      _prograssBarValue = _challange.noOfCompletedTasks / _challange.noOfTasks;
-    }
-    notifyListeners();
+  updateChallange(Challange newChallange) {
+    _challange = newChallange;
   }
 
   toggleCompleteedChallange() {

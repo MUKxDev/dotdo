@@ -50,13 +50,17 @@ class ActiveChallangeCardWidget extends StatelessWidget {
                   PublicIconWidget(public: public),
                   // * Challange Icon
                   iconData != null
-                      ? Icon(
-                          iconData,
-                          size: 24,
-                          color: iconColor ??
-                              (Theme.of(context).brightness == Brightness.light
-                                  ? AppColors.lightGreen
-                                  : AppColors.darkGreen),
+                      ? Padding(
+                          padding: const EdgeInsets.only(right: 5),
+                          child: Icon(
+                            iconData,
+                            size: 24,
+                            color: iconColor ??
+                                (Theme.of(context).brightness ==
+                                        Brightness.light
+                                    ? AppColors.lightGreen
+                                    : AppColors.darkGreen),
+                          ),
                         )
                       : Container(
                           height: 24,

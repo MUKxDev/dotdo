@@ -37,82 +37,43 @@ class IconPickerAlterDialogWidget extends StatelessWidget {
           ),
           backgroundColor: Theme.of(context).primaryColor,
           content: Container(
-            height: screenHeight(context) * 0.5,
-            child: Column(
-              children: [
-                // Top
-                Container(
-                  height: screenHeight(context) * 0.05,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        LableTextWidget(lable: 'Choose an icon'),
-                        Icon(
-                          IconDataSolid(viewModel.iconData.codePoint),
-                          color: viewModel.iconColor,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                // Color
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    DescriptionTextWidget(description: 'Pick a Color'),
-                    verticalSpaceXSmall(context),
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Theme.of(context).scaffoldBackgroundColor),
-                      height: screenHeight(context) * 0.07,
-                      width: 300,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: AppColors.iconColors.length,
-                        itemBuilder: (context, int index) => Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: IconButtonWidget(
-                            elevation: 0,
-                            height: 40,
-                            width: 40,
-                            iconSize: 20,
-                            iconColor: AppColors.iconColors[index],
-                            backgroundColor: viewModel.iconColor ==
-                                    AppColors.iconColors[index]
-                                ? Theme.of(context).primaryColor
-                                : Theme.of(context).scaffoldBackgroundColor,
-                            // backgroundColor: Theme.of(context).primaryColor,
-                            iconData: FontAwesomeIcons.solidCircle,
-                            onTap: () {
-                              setIconColor(viewModel
-                                  .colorTapped(AppColors.iconColors[index]));
-                            },
+            // height: screenHeight(context) * 0.5,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  // Top
+                  Container(
+                    // height: screenHeight(context) * 0.05,
+                    // color: Colors.red,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          LableTextWidget(lable: 'Choose an icon'),
+                          Icon(
+                            IconDataSolid(viewModel.iconData.codePoint),
+                            color: viewModel.iconColor,
                           ),
-                        ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-                // Icon
-                Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: Column(
+                  ),
+                  // Color
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      DescriptionTextWidget(description: 'Pick an Icon'),
+                      DescriptionTextWidget(description: 'Pick a Color'),
                       verticalSpaceXSmall(context),
                       Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: Theme.of(context).scaffoldBackgroundColor),
-                        height: screenHeight(context) * 0.3,
+                        height: screenHeight(context) * 0.07,
                         width: 300,
-                        child: GridView.builder(
-                          scrollDirection: Axis.vertical,
-                          itemCount: iconDataList.length,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: AppColors.iconColors.length,
                           itemBuilder: (context, int index) => Padding(
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             child: IconButtonWidget(
@@ -120,28 +81,70 @@ class IconPickerAlterDialogWidget extends StatelessWidget {
                               height: 40,
                               width: 40,
                               iconSize: 20,
-                              iconColor: viewModel.iconColor,
-                              backgroundColor: viewModel.iconData ==
-                                      iconDataList[index]
+                              iconColor: AppColors.iconColors[index],
+                              backgroundColor: viewModel.iconColor ==
+                                      AppColors.iconColors[index]
                                   ? Theme.of(context).primaryColor
                                   : Theme.of(context).scaffoldBackgroundColor,
-                              iconData: iconDataList[index],
+                              // backgroundColor: Theme.of(context).primaryColor,
+                              iconData: FontAwesomeIcons.solidCircle,
                               onTap: () {
-                                setIconData(
-                                    viewModel.iconTapped(iconDataList[index]));
+                                setIconColor(viewModel
+                                    .colorTapped(AppColors.iconColors[index]));
                               },
                             ),
-                          ),
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 4,
                           ),
                         ),
                       ),
                     ],
                   ),
-                )
-              ],
+                  // Icon
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        DescriptionTextWidget(description: 'Pick an Icon'),
+                        verticalSpaceXSmall(context),
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Theme.of(context).scaffoldBackgroundColor),
+                          height: screenHeight(context) * 0.3,
+                          width: 300,
+                          child: GridView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemCount: iconDataList.length,
+                            itemBuilder: (context, int index) => Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: IconButtonWidget(
+                                elevation: 0,
+                                height: 40,
+                                width: 40,
+                                iconSize: 20,
+                                iconColor: viewModel.iconColor,
+                                backgroundColor: viewModel.iconData ==
+                                        iconDataList[index]
+                                    ? Theme.of(context).primaryColor
+                                    : Theme.of(context).scaffoldBackgroundColor,
+                                iconData: iconDataList[index],
+                                onTap: () {
+                                  setIconData(viewModel
+                                      .iconTapped(iconDataList[index]));
+                                },
+                              ),
+                            ),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 4,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         );

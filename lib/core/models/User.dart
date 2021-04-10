@@ -2,25 +2,25 @@ import 'dart:convert';
 
 class User {
   final String email;
-  final String user;
+  final String userName;
   final int dots;
   final String profilePic;
   User({
     this.email,
-    this.user,
+    this.userName,
     this.dots,
     this.profilePic,
   });
 
   User copyWith({
     String email,
-    String user,
+    String userName,
     int dots,
     String profilePic,
   }) {
     return User(
       email: email ?? this.email,
-      user: user ?? this.user,
+      userName: userName ?? this.userName,
       dots: dots ?? this.dots,
       profilePic: profilePic ?? this.profilePic,
     );
@@ -29,7 +29,7 @@ class User {
   Map<String, dynamic> toMap() {
     return {
       'email': email,
-      'user': user,
+      'userName': userName,
       'dots': dots,
       'profilePic': profilePic,
     };
@@ -40,7 +40,7 @@ class User {
 
     return User(
       email: map['email'],
-      user: map['user'],
+      userName: map['userName'],
       dots: map['dots'],
       profilePic: map['profilePic'],
     );
@@ -52,7 +52,7 @@ class User {
 
   @override
   String toString() {
-    return 'User(email: $email, user: $user, dots: $dots, profilePic: $profilePic)';
+    return 'User(email: $email, userName: $userName, dots: $dots, profilePic: $profilePic)';
   }
 
   @override
@@ -61,13 +61,16 @@ class User {
 
     return o is User &&
         o.email == email &&
-        o.user == user &&
+        o.userName == userName &&
         o.dots == dots &&
         o.profilePic == profilePic;
   }
 
   @override
   int get hashCode {
-    return email.hashCode ^ user.hashCode ^ dots.hashCode ^ profilePic.hashCode;
+    return email.hashCode ^
+        userName.hashCode ^
+        dots.hashCode ^
+        profilePic.hashCode;
   }
 }

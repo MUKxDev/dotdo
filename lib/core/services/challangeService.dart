@@ -152,6 +152,14 @@ class ChallangeService {
     });
   }
 
+  Stream<DocumentSnapshot> getUChallangeStream(String challangeId) async* {
+    yield* _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .collection('UChallanges')
+        .doc(challangeId)
+        .snapshots();
+  }
+
   // * Get Date UCTasks
   Stream<QuerySnapshot> getDateUCTasksStream(
       String challangeId, DateTime date) async* {

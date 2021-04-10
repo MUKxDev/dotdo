@@ -43,7 +43,7 @@ class NewChallangeView extends StatelessWidget {
                               TextField(
                                 autocorrect: true,
                                 maxLines: 1,
-                                maxLength: 30,
+                                maxLength: 50,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                   hintText: 'Enter challange name...',
@@ -58,7 +58,7 @@ class NewChallangeView extends StatelessWidget {
                                 child: TextField(
                                   autocorrect: true,
                                   maxLines: 1,
-                                  maxLength: 30,
+                                  maxLength: 50,
                                   keyboardType: TextInputType.text,
                                   decoration: InputDecoration(
                                     hintText: 'Note...',
