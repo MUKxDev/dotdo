@@ -7,8 +7,10 @@ import 'package:dotdo/shared/constant.dart';
 import 'package:dotdo/shared/ui_helpers.dart';
 import 'package:dotdo/theme/colors.dart';
 import 'package:dotdo/widgets/dumb_widgets/button/button_widget.dart';
+import 'package:dotdo/widgets/dumb_widgets/card/card_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
+import 'package:dotdo/widgets/dumb_widgets/long_challange_card/long_challange_card_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/prograss_bar/prograss_bar_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/task/task_widget.dart';
 import 'package:flutter/material.dart';
@@ -32,49 +34,36 @@ class ChallangeDetailsView extends StatelessWidget {
             title: Text('Challange'),
             shape: appBarShapeBorder,
           ),
-          bottomNavigationBar: //  * Add new task button
+          bottomNavigationBar: viewModel.isBusy
+              ? Container()
+              :
+              //  * Add new task button
               Container(
-            decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                )),
-            child: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 10, right: 10, left: 10),
-                child: ButtonWidget(
-                    borderRadius: 10,
-                    onPressed: () => viewModel.addNewTask(),
-                    text: 'Add new task'),
-              ),
-            ),
-          ),
-
-          // floatingActionButton: FloatingActionButton(
-          //   backgroundColor: Theme.of(context).accentColor,
-          //   child: Icon(
-          //     Icons.add,
-          //     color: AppColors.white,
-          //   ),
-          //   onPressed: () => viewModel.addNewTask(),
-          // ),
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      )),
+                  child: SafeArea(
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(top: 10, right: 10, left: 10),
+                      child: ButtonWidget(
+                          borderRadius: 10,
+                          onPressed: () => viewModel.addNewTask(),
+                          text: 'Add new task'),
+                    ),
+                  ),
+                ),
           body: SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  viewModel.isBusy
-                      // CircularProgressIndicator
-                      ? Container(
-                          width: screenWidth(context),
-                          height: screenHeight(context),
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Center(child: CircularProgressIndicator()),
-                        )
-                      : Padding(
+            child: viewModel.isBusy
+                // CircularProgressIndicator
+                ? Center(child: CircularProgressIndicator())
+                : SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -94,91 +83,18 @@ class ChallangeDetailsView extends StatelessWidget {
                                       viewModel.updateChallange(newChallange);
                                     }
 
-                                    return snapshot.hasData == false
+                                    return (snapshot.hasData == false ||
+                                            snapshot.data.exists == false)
                                         ? Container()
                                         : Column(
                                             children: [
-                                              // * Challange card
-                                              Container(
-                                                width: screenWidth(context),
-                                                height: 100,
-                                                decoration: BoxDecoration(
-                                                  color: Theme.of(context)
-                                                      .primaryColor,
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                ),
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(10),
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .symmetric(
-                                                                horizontal: 10),
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .end,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            // * Challange Icon
-                                                            viewModel.challange
-                                                                        .iconData !=
-                                                                    null
-                                                                ? Icon(
-                                                                    IconDataSolid(viewModel
-                                                                        .challange
-                                                                        .iconData
-                                                                        .codePoint),
-                                                                    size: 24,
-                                                                    color: viewModel
-                                                                            .challange
-                                                                            .iconColor ??
-                                                                        (Theme.of(context).brightness ==
-                                                                                Brightness.light
-                                                                            ? AppColors.lightGreen
-                                                                            : AppColors.darkGreen),
-                                                                  )
-                                                                : Container(
-                                                                    height: 24,
-                                                                  ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      // * Description
-                                                      DescriptionTextWidget(
-                                                          description: viewModel
-                                                              .challange.note),
-                                                      // * Lable
-                                                      LableTextWidget(
-                                                          lable: viewModel
-                                                              .challange.name),
-                                                      // * Prograss bar
-                                                      PrograssBarWidget(
-                                                        progressValue: newChallange
-                                                                    .noOfTasks ==
-                                                                0
-                                                            ? 0
-                                                            : newChallange
-                                                                    .noOfCompletedTasks /
-                                                                newChallange
-                                                                    .noOfTasks,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
+                                              LongChallangeCardWidget(
+                                                challange: newChallange,
+                                                onTap: () =>
+                                                    viewModel.challangeTapped(
+                                                        snapshot.data.id),
                                               ),
+
                                               // * Date Picker
                                               Padding(
                                                 padding: const EdgeInsets.only(
@@ -254,14 +170,6 @@ class ChallangeDetailsView extends StatelessWidget {
                                   },
                                 ),
                               ),
-
-                              // //  * Add new task button
-                              // Padding(
-                              //   padding: const EdgeInsets.all(0.0),
-                              //   child: ButtonWidget(
-                              //       onPressed: () => viewModel.addNewTask(),
-                              //       text: 'Add new task'),
-                              // ),
 
                               // * CUTasks
                               Padding(
@@ -535,9 +443,9 @@ class ChallangeDetailsView extends StatelessWidget {
                             ],
                           ),
                         ),
-                ],
-              ),
-            ),
+                      ],
+                    ),
+                  ),
           ),
         );
       },

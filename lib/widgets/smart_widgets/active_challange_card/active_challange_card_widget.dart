@@ -33,6 +33,9 @@ class ActiveChallangeCardWidget extends StatelessWidget {
       builder: (BuildContext context, ActiveChallangeCardViewModel viewModel,
           Widget _) {
         return CardWidget(
+          backgroundcolor: Theme.of(context).brightness == Brightness.light
+              ? AppColors.lightChallange
+              : AppColors.darkChallange,
           borderRadius: 20,
           height: 100,
           width: 150,
@@ -70,10 +73,18 @@ class ActiveChallangeCardWidget extends StatelessWidget {
               // * Description
               DescriptionTextWidget(
                 description: description,
+                color: Theme.of(context).brightness == Brightness.light
+                    ? AppColors.white.withAlpha(200)
+                    : null,
                 // color: AppColors.darkRoutine,
               ),
               // * Lable
-              LableTextWidget(lable: lable),
+              LableTextWidget(
+                lable: lable,
+                color: Theme.of(context).brightness == Brightness.light
+                    ? AppColors.white
+                    : null,
+              ),
               // * Prograss bar
               PrograssBarWidget(
                 progressValue: progressValue,

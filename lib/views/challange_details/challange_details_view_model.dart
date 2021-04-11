@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/models/challange.dart';
 import 'package:dotdo/core/models/task.dart';
+import 'package:dotdo/core/router_constants.dart';
 import 'package:dotdo/core/services/challangeService.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
@@ -23,12 +24,6 @@ class ChallangeDetailsViewModel extends BaseViewModel {
   Challange _challange;
   Challange get challange => _challange;
 
-  int _numberOfDays;
-  int get numberOfDays => _numberOfDays;
-
-  double _prograssBarValue = 0;
-  double get prograssBarValue => _prograssBarValue;
-
   bool _isEdit = false;
   bool get isEdit => _isEdit;
 
@@ -38,36 +33,6 @@ class ChallangeDetailsViewModel extends BaseViewModel {
   DateTime _selectedDate;
   DateTime get selectedDate => _selectedDate;
   // Map _args;
-
-  handelStartup(Map args) async {
-    _challangeId = args['challangeId'];
-    _isEdit = args['isEdit'];
-    _selectedDate = _challange.startDate;
-    _isBusy = false;
-    notifyListeners();
-  }
-
-  void updateSelectedValue({DateTime date}) {
-    _selectedDate = date;
-    notifyListeners();
-  }
-
-  addNewTask() async {
-    await _challangeService.addUCTask(
-        _challangeId,
-        Task(
-            taskName: 'hi: $_selectedDate',
-            dueDate: DateTime(_selectedDate.year, _selectedDate.month,
-                _selectedDate.day, 23, 59, 59),
-            completed: false,
-            iconColor: _challange.iconColor,
-            iconData: _challange.iconData,
-            taskNote: 'note'),
-        _challange.noOfTasks);
-    // _challange = await _challangeService.getUChallange(_challangeId);
-    toggleCompleteedChallange();
-    notifyListeners();
-  }
 
   NavigationService _navigationService = locator<NavigationService>();
 
@@ -79,32 +44,62 @@ class ChallangeDetailsViewModel extends BaseViewModel {
   Stream<QuerySnapshot> get tasksStream =>
       _challangeService.getDateUCTasksStream(_challangeId, _selectedDate);
 
-  Future<void> toggleCompletedUTask(
-      String taskId, bool currentCompleted) async {
-    await _challangeService.toggleCompletedUCTask(
-        taskId, _challangeId, currentCompleted, _challange.noOfCompletedTasks);
-    toggleCompleteedChallange();
+  handelStartup(Map args) async {
+    print(args);
+    _challangeId = args['challangeId'];
+    _isEdit = args['isEdit'];
+
+    _challange = await _challangeService.getUChallange(_challangeId);
+
+    _selectedDate = _challange.startDate;
+
+    _isBusy = false;
     notifyListeners();
   }
 
-  taskTapped(String taskId) async {
-    // _navigationService.navigateTo(taskDetailsViewRoute, arguments: taskId);
+  Future<void> toggleCompletedUTask(
+      String taskId, bool currentCompleted) async {
+    await _challangeService.toggleCompletedUCTask(
+        taskId, _challangeId, currentCompleted);
+    notifyListeners();
   }
 
-  void deleteUTask(String taskId) {
-    // _challangeService.(taskId);
+  void updateSelectedValue({DateTime date}) {
+    _selectedDate = date;
+    notifyListeners();
+  }
+
+  addNewTask() {
+    Map args = {
+      'taskId': null,
+      'challangeId': _challangeId,
+      'date': _selectedDate,
+      'icon': _challange.iconData,
+      'color': _challange.iconColor,
+    };
+    _navigationService.navigateTo(ctaskDetailsViewRoute, arguments: args);
+  }
+
+  taskTapped(String taskId) async {
+    Map args = {
+      'taskId': taskId,
+      'challangeId': _challangeId,
+      'date': _selectedDate,
+      'icon': null,
+      'color': null,
+    };
+    _navigationService.navigateTo(ctaskDetailsViewRoute, arguments: args);
+  }
+
+  deleteUTask(String taskId) {
+    _challangeService.deleteUCTask(taskId, _challangeId);
   }
 
   updateChallange(Challange newChallange) {
     _challange = newChallange;
   }
 
-  toggleCompleteedChallange() {
-    if (_challange.noOfTasks != _challange.noOfCompletedTasks ||
-        _challange.noOfTasks == 0) {
-      _challangeService.toggleCompletedUChalllange(challangeId, false);
-    } else {
-      _challangeService.toggleCompletedUChalllange(challangeId, true);
-    }
+  challangeTapped(String id) {
+    _navigationService.navigateTo(newChallangeViewRoute, arguments: id);
   }
 }

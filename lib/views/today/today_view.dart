@@ -3,6 +3,7 @@ import 'package:dotdo/theme/colors.dart';
 import 'package:dotdo/widgets/dumb_widgets/button/button_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/datepicker/datepicker_widget.dart';
+import 'package:dotdo/widgets/smart_widgets/home_uc_tasks/home_uc_tasks_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/overdue_tasks_list%20/overdue_tasks_list_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/task_list/task_list_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/today_tasks_list/today_tasks_list_widget.dart';
@@ -84,6 +85,9 @@ class TodayView extends StatelessWidget {
                               vertical: 20, horizontal: 10),
                           child: DatepickerWidget(),
                         ),
+                        // * Chllanges/Routine list
+                        // challanges list
+                        HomeUcTasksWidget(),
                         // * Overdue list
                         OverdueTasksListWidget(),
                         // * Today's tasks

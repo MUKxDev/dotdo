@@ -12,3 +12,4 @@ const String profileViewRoute = 'profileViewRoute';
 const String taskDetailsViewRoute = 'taskDetailsViewRoute';
 const String newChallangeViewRoute = 'newChallangeViewRoute';
 const String challangeDetailsViewRoute = 'challangeDetailsViewRoute';
+const String ctaskDetailsViewRoute = 'ctaskDetailsViewRoute';

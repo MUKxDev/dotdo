@@ -1,28 +1,32 @@
-import 'dart:core';
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/models/task.dart';
-import 'package:dotdo/core/services/taskService.dart';
+import 'package:dotdo/core/services/challangeService.dart';
 import 'package:dotdo/theme/colors.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
-
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dotdo/core/logger.dart';
+import 'package:intl/intl.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class TaskDetailsViewModel extends BaseViewModel {
+class CtaskDetailsViewModel extends BaseViewModel {
   Logger log;
-  TaskDetailsViewModel() {
+
+  CtaskDetailsViewModel() {
     this.log = getLogger(this.runtimeType.toString());
   }
+
   String _taskId;
-  handelStartup(String taskId) async {
+  String _challangeId;
+  handelStartup(String taskId, String challangeId, DateTime date, IconData icon,
+      Color color) async {
+    _challangeId = challangeId;
     _taskId = taskId;
+    _currentDate = date;
     if (isTaskIdNull == false) {
       _isBusy = true;
-      _task = await _taskService.getUTask(_taskId);
+      _task = await _challangeService.getUCTask(_challangeId, _taskId);
       labelController.text = _task.taskName;
       noteController.text = _task.taskNote;
       _iconColor = _task.iconColor;
@@ -33,6 +37,8 @@ class TaskDetailsViewModel extends BaseViewModel {
       _isBusy = false;
       notifyListeners();
     } else {
+      _iconColor = color;
+      _iconData = icon;
       _dueDate = DateTime(
           currentDate.year, currentDate.month, currentDate.day, 23, 59);
       notifyListeners();
@@ -44,7 +50,8 @@ class TaskDetailsViewModel extends BaseViewModel {
   bool get isTaskIdNull => _taskId == null;
   Task _task;
 
-  DateTime get currentDate => _taskService.date.value;
+  DateTime _currentDate;
+  DateTime get currentDate => _currentDate;
 
   DateTime get today => DateTime.now();
   DateTime get firstDate => DateTime(2021);
@@ -52,9 +59,6 @@ class TaskDetailsViewModel extends BaseViewModel {
   // variables
   TextEditingController labelController = TextEditingController(text: '');
   TextEditingController noteController = TextEditingController(text: '');
-
-  String _category = 'Index';
-  String get category => _category;
 
   DateTime _dueDate;
   DateTime get dueDate => _dueDate;
@@ -88,11 +92,6 @@ class TaskDetailsViewModel extends BaseViewModel {
     }
   }
 
-  void updateComplated(bool value) {
-    _complated = value;
-    notifyListeners();
-  }
-
   colorTapped(Color iconColor) {
     _iconColor = iconColor;
     notifyListeners();
@@ -103,7 +102,7 @@ class TaskDetailsViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  TaskService _taskService = locator<TaskService>();
+  ChallangeService _challangeService = locator<ChallangeService>();
   SnackbarService _snackbarService = locator<SnackbarService>();
   void addTask() async {
     if (labelController.text.trim() == '') {
@@ -120,7 +119,7 @@ class TaskDetailsViewModel extends BaseViewModel {
         iconData: iconData,
       );
       // TODO: implement show the snackbar with the real result Sucsses or failure
-      _taskService.addUTask(task);
+      _challangeService.addUCTask(_challangeId, task);
       notifyListeners();
       _navigationService.back();
       _snackbarService.showSnackbar(message: 'Task added');
@@ -142,7 +141,7 @@ class TaskDetailsViewModel extends BaseViewModel {
         iconData: iconData,
       );
       // TODO: implement show the snackbar with the real result Sucsses or failure
-      _taskService.updateUTask(_taskId, task);
+      _challangeService.updateUCTask(_challangeId, _taskId, task);
       notifyListeners();
       _navigationService.back();
       _snackbarService.showSnackbar(message: 'Task updated');
@@ -150,7 +149,7 @@ class TaskDetailsViewModel extends BaseViewModel {
   }
 
   void deleteUTask() {
-    _taskService.deleteUTask(_taskId);
+    _challangeService.deleteUCTask(_taskId, _challangeId);
     _navigationService.back();
     _snackbarService.showSnackbar(message: 'Task deleted');
   }

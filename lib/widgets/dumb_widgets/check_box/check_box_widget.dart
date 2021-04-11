@@ -13,6 +13,9 @@ class CheckBoxWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 10.0),
       child: Material(
+        color: Theme.of(context).brightness == Brightness.light
+            ? AppColors.white.withAlpha(200)
+            : AppColors.darkBackground.withAlpha(200),
         borderRadius: BorderRadius.circular(5),
         child: InkWell(
           borderRadius: BorderRadius.circular(5),
@@ -21,9 +24,6 @@ class CheckBoxWidget extends StatelessWidget {
             height: 19,
             width: 19,
             decoration: BoxDecoration(
-              color: Theme.of(context).brightness == Brightness.light
-                  ? Colors.white70
-                  : AppColors.darkBackground,
               borderRadius: BorderRadius.circular(5),
             ),
             child: checked

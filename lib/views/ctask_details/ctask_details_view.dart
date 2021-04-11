@@ -6,41 +6,45 @@ import 'package:dotdo/widgets/dumb_widgets/icon_button/icon_button_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/icon_picker_alter_dialog/icon_picker_alter_dialog_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stacked/stacked.dart';
-import 'new_challange_view_model.dart';
+import 'ctask_details_view_model.dart';
 
-class NewChallangeView extends StatelessWidget {
-  final String challangeId;
+class CtaskDetailsView extends StatelessWidget {
+  final Map args;
 
-  const NewChallangeView({Key key, this.challangeId}) : super(key: key);
+  const CtaskDetailsView({
+    Key key,
+    this.args,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<NewChallangeViewModel>.reactive(
-      onModelReady: (NewChallangeViewModel viewModel) =>
-          viewModel.handelStartup(challangeId),
+    return ViewModelBuilder<CtaskDetailsViewModel>.reactive(
+      onModelReady: (CtaskDetailsViewModel viewModel) =>
+          viewModel.handelStartup(args['taskId'], args['challangeId'],
+              args['date'], args['icon'], args['color']),
       builder:
-          (BuildContext context, NewChallangeViewModel viewModel, Widget _) {
+          (BuildContext context, CtaskDetailsViewModel viewModel, Widget _) {
         return GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
           child: Scaffold(
             appBar: AppBar(
-              title: challangeId == null
-                  ? Text('New Challange')
-                  : Text('Challange'),
+              title: Text('Challange Task'),
               shape: appBarShapeBorder,
             ),
-            body: viewModel.isBusy
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : SingleChildScrollView(
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
+            body: Padding(
+              padding: const EdgeInsets.all(20),
+              child: viewModel.isBusy
+                  ? Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : SingleChildScrollView(
+                      child: Center(
                         child: Column(
                           children: [
                             Container(
                               decoration: BoxDecoration(
+                                // color: Theme.of(context).primaryColor,
                                 color: Theme.of(context).brightness ==
                                         Brightness.light
                                     ? AppColors.lightChallange
@@ -51,26 +55,25 @@ class NewChallangeView extends StatelessWidget {
                                 padding: const EdgeInsets.all(10.0),
                                 child: Column(
                                   children: [
-                                    // Challange name
+                                    // Task title
                                     TextField(
                                       autocorrect: true,
                                       maxLines: 2,
-                                      maxLength: 50,
                                       keyboardType: TextInputType.text,
                                       decoration: InputDecoration(
-                                        hintText: 'Enter challange name...',
+                                        hintText: 'Enter a new title...',
                                         fillColor: Theme.of(context)
-                                            .scaffoldBackgroundColor,
+                                            .scaffoldBackgroundColor
+                                            .withAlpha(200),
                                       ),
-                                      controller: viewModel.nameController,
+                                      controller: viewModel.labelController,
                                     ),
-                                    // Challange Note
+                                    // Task Note
                                     Padding(
                                       padding: const EdgeInsets.only(top: 10),
                                       child: TextField(
                                         autocorrect: true,
-                                        maxLines: 2,
-                                        maxLength: 50,
+                                        maxLines: 6,
                                         keyboardType: TextInputType.text,
                                         decoration: InputDecoration(
                                           hintText: 'Note...',
@@ -87,25 +90,22 @@ class NewChallangeView extends StatelessWidget {
                                     ),
                                     // options list
                                     Padding(
-                                      padding: const EdgeInsets.only(
-                                        top: 20,
-                                        bottom: 0,
-                                        right: 10,
-                                        left: 10,
-                                      ),
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 20, horizontal: 10),
                                       child: Column(
                                         children: [
-                                          // Challange Icon
+                                          // Task Icon
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               LableTextWidget(
-                                                lable: 'Icon',
-                                                color: AppColors.white,
-                                              ),
+                                                  lable: 'Icon',
+                                                  color: AppColors.white),
                                               IconButtonWidget(
-                                                iconData: viewModel.iconData,
+                                                iconData: IconDataSolid(
+                                                    viewModel
+                                                        .iconData.codePoint),
                                                 iconColor: viewModel.iconColor,
                                                 backgroundColor:
                                                     Theme.of(context)
@@ -137,72 +137,25 @@ class NewChallangeView extends StatelessWidget {
                                               ),
                                             ],
                                           ),
-                                          // Challange startDate
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               LableTextWidget(
-                                                lable: 'Start Date',
-                                                color: AppColors.white,
-                                              ),
+                                                  lable: 'Due Time',
+                                                  color: AppColors.white),
                                               TextButton(
-                                                onPressed: () =>
-                                                    viewModel.updateStartDate(
-                                                  showDatePicker(
-                                                    context: context,
-                                                    initialDate:
-                                                        viewModel.currentDate,
-                                                    firstDate:
-                                                        viewModel.firstDate,
-                                                    lastDate: DateTime(
-                                                        viewModel.today.year +
-                                                            10),
-                                                  ),
-                                                ),
+                                                onPressed: () => viewModel
+                                                    .updateDueTime(showTimePicker(
+                                                        context: context,
+                                                        initialTime: TimeOfDay
+                                                            .fromDateTime(
+                                                                viewModel
+                                                                    .dueDate))),
                                                 child: LableTextWidget(
-                                                  lable: viewModel.dateFormat
+                                                  lable: viewModel.timeFormat
                                                       .format(
-                                                          viewModel.startDate),
-                                                  color: Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.light
-                                                      ? AppColors.white
-                                                          .withAlpha(200)
-                                                      : AppColors.darkGreen,
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                          // Challange endDate
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              LableTextWidget(
-                                                lable: 'End Date',
-                                                color: AppColors.white,
-                                              ),
-                                              TextButton(
-                                                onPressed: () =>
-                                                    viewModel.updateEndDate(
-                                                  showDatePicker(
-                                                    context: context,
-                                                    initialDate: challangeId ==
-                                                            null
-                                                        ? viewModel.currentDate
-                                                        : viewModel.endDate,
-                                                    firstDate:
-                                                        viewModel.firstDate,
-                                                    lastDate: DateTime(
-                                                        viewModel.today.year +
-                                                            10),
-                                                  ),
-                                                ),
-                                                child: LableTextWidget(
-                                                  lable: viewModel.dateFormat
-                                                      .format(
-                                                          viewModel.endDate),
+                                                          viewModel.dueDate),
                                                   color: Theme.of(context)
                                                               .brightness ==
                                                           Brightness.light
@@ -225,57 +178,62 @@ class NewChallangeView extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                challangeId == null
+                                Container(
+                                  width: screenWidth(context) * 0.4,
+                                  child: ButtonWidget(
+                                    onPressed: viewModel.cancel,
+                                    text: 'Cancel',
+                                    backgroundColor:
+                                        Theme.of(context).brightness ==
+                                                Brightness.light
+                                            ? AppColors.lightGray
+                                            : AppColors.darkGray,
+                                    textColor: Theme.of(context).brightness ==
+                                            Brightness.light
+                                        ? AppColors.darkGray
+                                        : AppColors.white,
+                                  ),
+                                ),
+                                viewModel.isTaskIdNull
                                     ? Container(
                                         width: screenWidth(context) * 0.4,
                                         child: ButtonWidget(
-                                          onPressed: viewModel.cancel,
-                                          text: 'Cancel',
-                                          backgroundColor:
-                                              Theme.of(context).brightness ==
-                                                      Brightness.light
-                                                  ? AppColors.lightGray
-                                                  : AppColors.darkGray,
-                                          textColor:
-                                              Theme.of(context).brightness ==
-                                                      Brightness.light
-                                                  ? AppColors.darkGray
-                                                  : AppColors.white,
+                                          onPressed: viewModel.addTask,
+                                          text: 'Add',
                                         ),
                                       )
                                     : Container(
                                         width: screenWidth(context) * 0.4,
                                         child: ButtonWidget(
-                                          onPressed: viewModel.delete,
-                                          text: 'Delete',
-                                          backgroundColor:
-                                              Theme.of(context).brightness ==
-                                                      Brightness.light
-                                                  ? AppColors.lightRed
-                                                  : AppColors.darkRed,
-                                          textColor: AppColors.white,
+                                          onPressed: viewModel.updateUTask,
+                                          text: 'Update',
                                         ),
                                       ),
-                                Container(
-                                  width: screenWidth(context) * 0.4,
-                                  child: ButtonWidget(
-                                    onPressed: challangeId == null
-                                        ? viewModel.next
-                                        : viewModel.save,
-                                    text: challangeId == null ? 'Next' : 'Save',
-                                  ),
-                                )
                               ],
                             ),
+                            viewModel.isTaskIdNull
+                                ? Container()
+                                : Padding(
+                                    padding: const EdgeInsets.only(top: 20),
+                                    child: ButtonWidget(
+                                      onPressed: viewModel.deleteUTask,
+                                      text: 'Delete',
+                                      backgroundColor:
+                                          Theme.of(context).brightness ==
+                                                  Brightness.light
+                                              ? AppColors.lightRed
+                                              : AppColors.darkRed,
+                                    ),
+                                  ),
                           ],
                         ),
                       ),
                     ),
-                  ),
+            ),
           ),
         );
       },
-      viewModelBuilder: () => NewChallangeViewModel(),
+      viewModelBuilder: () => CtaskDetailsViewModel(),
     );
   }
 }

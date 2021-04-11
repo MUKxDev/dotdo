@@ -16,6 +16,7 @@ import 'package:dotdo/views/task_details/task_details_view.dart' as view9;
 import 'package:dotdo/views/new_challange/new_challange_view.dart' as view10;
 import 'package:dotdo/views/challange_details/challange_details_view.dart'
     as view11;
+import 'package:dotdo/views/ctask_details/ctask_details_view.dart' as view12;
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -44,10 +45,18 @@ class Router {
                   taskId: settings.arguments,
                 ));
       case newChallangeViewRoute:
-        return MaterialPageRoute(builder: (_) => view10.NewChallangeView());
+        return MaterialPageRoute(
+            builder: (_) => view10.NewChallangeView(
+                  challangeId: settings.arguments,
+                ));
       case challangeDetailsViewRoute:
         return MaterialPageRoute(
             builder: (_) => view11.ChallangeDetailsView(
+                  args: settings.arguments,
+                ));
+      case ctaskDetailsViewRoute:
+        return MaterialPageRoute(
+            builder: (_) => view12.CtaskDetailsView(
                   args: settings.arguments,
                 ));
       default:
