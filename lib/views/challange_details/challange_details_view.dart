@@ -47,8 +47,7 @@ class ChallangeDetailsView extends StatelessWidget {
                       )),
                   child: SafeArea(
                     child: Padding(
-                      padding:
-                          const EdgeInsets.only(top: 10, right: 10, left: 10),
+                      padding: const EdgeInsets.all(10),
                       child: ButtonWidget(
                           borderRadius: 10,
                           onPressed: () => viewModel.addNewTask(),

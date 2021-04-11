@@ -66,15 +66,27 @@ class TaskWidget extends StatelessWidget {
                                   DateTime.now().month, DateTime.now().day)
                           ? DescriptionTextWidget(
                               color: backgroundcolor == null
-                                  ? null
-                                  : AppColors.darkChallange.withAlpha(200),
+                                  ? (Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? AppColors.lightRed
+                                      : AppColors.darkRed)
+                                  : (Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? AppColors.darkChallange.withAlpha(200)
+                                      : AppColors.darkRed),
                               description:
                                   'Overdue: Today at ${viewModel.timeFormat.format(task.dueDate)}',
                             )
                           : DescriptionTextWidget(
                               color: backgroundcolor == null
-                                  ? null
-                                  : AppColors.darkChallange.withAlpha(200),
+                                  ? (Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? AppColors.lightRed
+                                      : AppColors.darkRed)
+                                  : (Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? AppColors.darkChallange.withAlpha(200)
+                                      : AppColors.darkRed),
                               description:
                                   'Overdue: ${viewModel.dateFormat.format(task.dueDate)} at ${viewModel.timeFormat.format(task.dueDate)}',
                             ))

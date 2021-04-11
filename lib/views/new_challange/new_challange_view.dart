@@ -60,7 +60,8 @@ class NewChallangeView extends StatelessWidget {
                                       decoration: InputDecoration(
                                         hintText: 'Enter challange name...',
                                         fillColor: Theme.of(context)
-                                            .scaffoldBackgroundColor,
+                                            .scaffoldBackgroundColor
+                                            .withAlpha(200),
                                       ),
                                       controller: viewModel.nameController,
                                     ),

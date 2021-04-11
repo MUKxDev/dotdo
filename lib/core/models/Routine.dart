@@ -5,11 +5,15 @@ class Routine {
   final String note;
   final int noOfLikes;
   final bool active;
+  final int noOfTask;
+  final int noOfCompletedTask;
   Routine({
     this.name,
     this.note,
     this.noOfLikes,
     this.active,
+    this.noOfTask,
+    this.noOfCompletedTask,
   });
 
   Routine copyWith({
@@ -17,12 +21,16 @@ class Routine {
     String note,
     int noOfLikes,
     bool active,
+    int noOfTask,
+    int noOfCompletedTask,
   }) {
     return Routine(
       name: name ?? this.name,
       note: note ?? this.note,
       noOfLikes: noOfLikes ?? this.noOfLikes,
       active: active ?? this.active,
+      noOfTask: noOfTask ?? this.noOfTask,
+      noOfCompletedTask: noOfCompletedTask ?? this.noOfCompletedTask,
     );
   }
 
@@ -32,6 +40,8 @@ class Routine {
       'note': note,
       'noOfLikes': noOfLikes,
       'active': active,
+      'noOfTask': noOfTask,
+      'noOfCompletedTask': noOfCompletedTask,
     };
   }
 
@@ -43,6 +53,8 @@ class Routine {
       note: map['note'],
       noOfLikes: map['noOfLikes'],
       active: map['active'],
+      noOfTask: map['noOfTask'],
+      noOfCompletedTask: map['noOfCompletedTask'],
     );
   }
 
@@ -53,7 +65,7 @@ class Routine {
 
   @override
   String toString() {
-    return 'Routine(name: $name, note: $note, noOfLikes: $noOfLikes, active: $active)';
+    return 'Routine(name: $name, note: $note, noOfLikes: $noOfLikes, active: $active, noOfTask: $noOfTask, noOfCompletedTask: $noOfCompletedTask)';
   }
 
   @override
@@ -64,11 +76,18 @@ class Routine {
         o.name == name &&
         o.note == note &&
         o.noOfLikes == noOfLikes &&
-        o.active == active;
+        o.active == active &&
+        o.noOfTask == noOfTask &&
+        o.noOfCompletedTask == noOfCompletedTask;
   }
 
   @override
   int get hashCode {
-    return name.hashCode ^ note.hashCode ^ noOfLikes.hashCode ^ active.hashCode;
+    return name.hashCode ^
+        note.hashCode ^
+        noOfLikes.hashCode ^
+        active.hashCode ^
+        noOfTask.hashCode ^
+        noOfCompletedTask.hashCode;
   }
 }
