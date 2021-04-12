@@ -152,8 +152,10 @@ class NewChallangeView extends StatelessWidget {
                                                     viewModel.updateStartDate(
                                                   showDatePicker(
                                                     context: context,
-                                                    initialDate:
-                                                        viewModel.currentDate,
+                                                    initialDate: challangeId ==
+                                                            null
+                                                        ? viewModel.currentDate
+                                                        : viewModel.startDate,
                                                     firstDate:
                                                         viewModel.firstDate,
                                                     lastDate: DateTime(

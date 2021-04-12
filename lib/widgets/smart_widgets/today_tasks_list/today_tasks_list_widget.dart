@@ -27,11 +27,16 @@ class TodayTasksListWidget extends StatelessWidget {
                 int bInt = b.get('completed') == false ? 0 : 1;
                 return aInt.compareTo(bInt);
               });
+
+              taskList.retainWhere((element) =>
+                  element.data()['dueDate'] >=
+                      DateTime.now().millisecondsSinceEpoch ||
+                  element.data()['completed']);
             } else {
               taskList = [];
             }
 
-            return (snapshot.hasData == false || snapshot.data.size == 0)
+            return (snapshot.hasData == false || taskList.length == 0)
                 ? Padding(
                     padding: const EdgeInsets.only(top: 40),
                     child: Center(

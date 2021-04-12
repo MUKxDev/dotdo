@@ -214,7 +214,7 @@ class ProfileView extends StatelessWidget {
                 children: [
                   HeaderTextWidget(lable: 'challanges'),
                   TwoRowGridActiveChallangeStreamWidget(
-                    stream: viewModel.stream,
+                    stream: viewModel.getActiveUChallange,
                   ),
                 ],
               ),

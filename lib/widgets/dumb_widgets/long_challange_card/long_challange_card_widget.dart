@@ -19,6 +19,8 @@ class LongChallangeCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return // * Challange card
         CardWidget(
+      height: 80,
+      width: screenWidth(context),
       backgroundcolor: Theme.of(context).brightness == Brightness.light
           ? AppColors.lightChallange
           : AppColors.darkChallange,
@@ -33,20 +35,22 @@ class LongChallangeCardWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // * Description
-                    DescriptionTextWidget(
-                      description: challange.note,
-                      color: AppColors.white.withAlpha(200),
-                    ),
-                    // * Lable
-                    LableTextWidget(
-                      lable: challange.name,
-                      color: AppColors.white,
-                    ),
-                  ],
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // * Description
+                      DescriptionTextWidget(
+                        description: challange.note,
+                        color: AppColors.white.withAlpha(200),
+                      ),
+                      // * Lable
+                      LableTextWidget(
+                        lable: challange.name,
+                        color: AppColors.white,
+                      ),
+                    ],
+                  ),
                 ),
 
                 // * Challange Icon
@@ -74,8 +78,6 @@ class LongChallangeCardWidget extends StatelessWidget {
           ],
         ),
       ),
-      height: 80,
-      width: screenWidth(context),
     );
   }
 }

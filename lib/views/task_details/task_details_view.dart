@@ -184,22 +184,22 @@ class TaskDetailsView extends StatelessWidget {
                                               )
                                             ],
                                           ),
-                                          // Task Complated
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              LableTextWidget(
-                                                  lable: 'Complated'),
-                                              Switch(
-                                                activeColor: Theme.of(context)
-                                                    .accentColor,
-                                                value: viewModel.complated,
-                                                onChanged:
-                                                    viewModel.updateComplated,
-                                              ),
-                                            ],
-                                          ),
+                                          // // Task Complated
+                                          // Row(
+                                          //   mainAxisAlignment:
+                                          //       MainAxisAlignment.spaceBetween,
+                                          //   children: [
+                                          //     LableTextWidget(
+                                          //         lable: 'Complated'),
+                                          //     Switch(
+                                          //       activeColor: Theme.of(context)
+                                          //           .accentColor,
+                                          //       value: viewModel.complated,
+                                          //       onChanged:
+                                          //           viewModel.updateComplated,
+                                          //     ),
+                                          //   ],
+                                          // ),
                                         ],
                                       ),
                                     ),

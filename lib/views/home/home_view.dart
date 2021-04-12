@@ -1,4 +1,3 @@
-import 'package:animated_stack/animated_stack.dart';
 import 'package:dotdo/shared/constant.dart';
 import 'package:dotdo/theme/colors.dart';
 import 'package:dotdo/views/discover/discover_view.dart';
@@ -7,7 +6,6 @@ import 'package:dotdo/views/social/social_view.dart';
 import 'package:dotdo/views/today/today_view.dart';
 import 'package:dotdo/widgets/dumb_widgets/bottom_nav_bar/bottom_nav_bar_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
-import 'package:dotdo/widgets/dumb_widgets/icon_button/icon_button_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/logo/logo_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -126,6 +124,7 @@ class HomeView extends StatelessWidget {
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.miniEndFloat,
+
           // * PageView
           body: PageView(
             onPageChanged: (index) => viewModel.updateSelectedIndex(index),

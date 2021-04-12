@@ -173,6 +173,18 @@ class ChallangeService {
   }
 
   // *get --------------------------------
+  //
+  // Stream<QuerySnapshot> getHomeActiveUChallange() async* {
+  //   String _userId = await _authService.getCurrentUserId();
+  //   DateTime date = DateTime.now();
+  //   yield* _firestoreService.users
+  //       .doc(_userId)
+  //       .collection('UChallanges')
+  //       .where('endDate', isGreaterThanOrEqualTo: date.millisecondsSinceEpoch)
+  //       .where('completed', isEqualTo: false)
+  //       .snapshots();
+  // }
+
   Stream<QuerySnapshot> getActiveUChallange() async* {
     String _userId = await _authService.getCurrentUserId();
     DateTime date = DateTime.now();
@@ -263,12 +275,6 @@ class ChallangeService {
         .collection('UChallanges')
         .doc()
         .collection('UCTasks')
-        .where('dueDate',
-            isLessThanOrEqualTo:
-                DateTime(date.year, date.month, date.day, 23, 59, 59)
-                    .millisecondsSinceEpoch)
-        .where('dueDate', isGreaterThanOrEqualTo: date.millisecondsSinceEpoch)
-        .orderBy('dueDate')
         .snapshots();
   }
 

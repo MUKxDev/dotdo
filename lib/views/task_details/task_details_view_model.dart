@@ -88,10 +88,10 @@ class TaskDetailsViewModel extends BaseViewModel {
     }
   }
 
-  void updateComplated(bool value) {
-    _complated = value;
-    notifyListeners();
-  }
+  // void updateComplated(bool value) {
+  //   _complated = value;
+  //   notifyListeners();
+  // }
 
   colorTapped(Color iconColor) {
     _iconColor = iconColor;

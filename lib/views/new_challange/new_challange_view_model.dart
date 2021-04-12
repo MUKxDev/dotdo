@@ -90,6 +90,10 @@ class NewChallangeViewModel extends BaseViewModel {
     DateTime date = await startDate;
     if (date != null) {
       _startDate = DateTime(date.year, date.month, date.day);
+      if (_endDate.difference(_startDate).isNegative) {
+        _endDate =
+            DateTime(_startDate.year, _startDate.month, _startDate.day, 23, 59);
+      }
       notifyListeners();
     }
   }
@@ -98,6 +102,10 @@ class NewChallangeViewModel extends BaseViewModel {
     DateTime date = await endDate;
     if (date != null) {
       _endDate = DateTime(date.year, date.month, date.day, 23, 59);
+      if (_startDate.difference(_endDate).isNegative == false) {
+        _startDate =
+            DateTime(_endDate.year, _endDate.month, _endDate.day, 23, 59);
+      }
       notifyListeners();
     }
   }

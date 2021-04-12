@@ -33,28 +33,37 @@ class ChallangeDetailsView extends StatelessWidget {
           appBar: AppBar(
             title: Text('Challange'),
             shape: appBarShapeBorder,
+            actions: [
+              IconButton(
+                  icon: Icon(
+                    viewModel.isEdit ? Icons.edit_off : Icons.edit,
+                  ),
+                  onPressed: () => viewModel.toggleIsEdit())
+            ],
           ),
           bottomNavigationBar: viewModel.isBusy
-              ? Container()
-              :
-              //  * Add new task button
-              Container(
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                      )),
-                  child: SafeArea(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: ButtonWidget(
-                          borderRadius: 10,
-                          onPressed: () => viewModel.addNewTask(),
-                          text: 'Add new task'),
-                    ),
-                  ),
-                ),
+              ? null
+              : viewModel.isEdit
+                  ?
+                  //  * Add new task button
+                  Container(
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                          )),
+                      child: SafeArea(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: ButtonWidget(
+                              borderRadius: 10,
+                              onPressed: () => viewModel.addNewTask(),
+                              text: 'Add new task'),
+                        ),
+                      ),
+                    )
+                  : null,
           body: SafeArea(
             child: viewModel.isBusy
                 // CircularProgressIndicator
@@ -120,6 +129,10 @@ class ChallangeDetailsView extends StatelessWidget {
                                                                       .startDate)
                                                               .inDays +
                                                           1),
+                                                      activeDates: viewModel
+                                                              .isEdit
+                                                          ? null
+                                                          : [DateTime.now()],
                                                       initialSelectedDate:
                                                           DateTime.now(),
                                                       selectionColor:
@@ -347,48 +360,124 @@ class ChallangeDetailsView extends StatelessWidget {
                                                                 ),
                                                               ),
                                                     secondaryBackground:
-                                                        Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              10.0),
-                                                      child: Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                          color: Theme.of(context)
-                                                                      .brightness ==
-                                                                  Brightness
-                                                                      .light
-                                                              ? AppColors
-                                                                  .lightRed
-                                                              : AppColors
-                                                                  .darkRed,
-                                                        ),
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(10.0),
-                                                          child: Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .end,
-                                                            children: [
-                                                              LableTextWidget(
-                                                                lable:
-                                                                    'Delete!',
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
+                                                        viewModel.isEdit
+                                                            ? Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        10.0),
+                                                                child:
+                                                                    Container(
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            10),
+                                                                    color: Theme.of(context).brightness ==
+                                                                            Brightness
+                                                                                .light
+                                                                        ? AppColors
+                                                                            .lightRed
+                                                                        : AppColors
+                                                                            .darkRed,
+                                                                  ),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: const EdgeInsets
+                                                                            .all(
+                                                                        10.0),
+                                                                    child:
+                                                                        Column(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .end,
+                                                                      children: [
+                                                                        LableTextWidget(
+                                                                          lable:
+                                                                              'Delete!',
+                                                                          color:
+                                                                              Colors.white,
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            : (taskList[index][
+                                                                    'completed']
+                                                                ? Padding(
+                                                                    padding: const EdgeInsets
+                                                                            .all(
+                                                                        10.0),
+                                                                    child:
+                                                                        Container(
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10),
+                                                                        color: Theme.of(context).brightness ==
+                                                                                Brightness.light
+                                                                            ? AppColors.lightNote
+                                                                            : AppColors.darkNote,
+                                                                      ),
+                                                                      child:
+                                                                          Padding(
+                                                                        padding:
+                                                                            const EdgeInsets.all(10.0),
+                                                                        child:
+                                                                            Column(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.end,
+                                                                          children: [
+                                                                            LableTextWidget(
+                                                                              lable: 'Not completed?',
+                                                                              color: Theme.of(context).brightness == Brightness.light ? AppColors.darkGray : AppColors.white,
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  )
+                                                                : Padding(
+                                                                    padding: const EdgeInsets
+                                                                            .all(
+                                                                        10.0),
+                                                                    child:
+                                                                        Container(
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10),
+                                                                        color: Theme.of(context).brightness ==
+                                                                                Brightness.light
+                                                                            ? AppColors.lightGreen
+                                                                            : AppColors.darkGreen,
+                                                                      ),
+                                                                      child:
+                                                                          Padding(
+                                                                        padding:
+                                                                            const EdgeInsets.all(10.0),
+                                                                        child:
+                                                                            Column(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.end,
+                                                                          children: [
+                                                                            LableTextWidget(
+                                                                              lable: 'Done!',
+                                                                              color: Colors.white,
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  )),
                                                     direction: DismissDirection
                                                         .horizontal,
                                                     onDismissed: (direction) {
@@ -402,8 +491,17 @@ class ChallangeDetailsView extends StatelessWidget {
                                                                 taskList[index][
                                                                     'completed']);
                                                       } else {
-                                                        viewModel.deleteUTask(
-                                                            taskList[index].id);
+                                                        viewModel.isEdit
+                                                            ? viewModel
+                                                                .deleteUTask(
+                                                                    taskList[
+                                                                            index]
+                                                                        .id)
+                                                            : viewModel.toggleCompletedUTask(
+                                                                taskList[index]
+                                                                    .id,
+                                                                taskList[index][
+                                                                    'completed']);
                                                       }
                                                     },
                                                     child: TaskWidget(

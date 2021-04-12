@@ -13,5 +13,5 @@ class ProfileViewModel extends BaseViewModel {
 
   ChallangeService _challangeService = locator<ChallangeService>();
 
-  Stream get stream => _challangeService.getActiveUChallange();
+  Stream get getActiveUChallange => _challangeService.getActiveUChallange();
 }

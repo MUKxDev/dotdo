@@ -102,4 +102,9 @@ class ChallangeDetailsViewModel extends BaseViewModel {
   challangeTapped(String id) {
     _navigationService.navigateTo(newChallangeViewRoute, arguments: id);
   }
+
+  toggleIsEdit() {
+    _isEdit = !_isEdit;
+    notifyListeners();
+  }
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class PrograssBarWidget extends StatelessWidget {
   final double progressValue;
-
   const PrograssBarWidget({Key key, @required this.progressValue})
       : super(key: key);
   @override

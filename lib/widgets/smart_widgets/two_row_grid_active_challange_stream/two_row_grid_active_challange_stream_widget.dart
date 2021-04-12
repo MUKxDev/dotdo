@@ -25,6 +25,15 @@ class TwoRowGridActiveChallangeStreamWidget extends StatelessWidget {
         return StreamBuilder<QuerySnapshot>(
             stream: stream,
             builder: (context, snapshot) {
+              List<QueryDocumentSnapshot> list;
+              if (snapshot.hasData) {
+                list = snapshot.data.docs;
+                // Retain only the not completed and startDate is started
+                list.retainWhere(
+                    (element) => element.data()['completed'] == false);
+              } else {
+                list = [];
+              }
               return Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: snapshot.hasData == false
@@ -39,7 +48,7 @@ class TwoRowGridActiveChallangeStreamWidget extends StatelessWidget {
                         child: Center(child: CircularProgressIndicator()),
                       )
                     // * Challange Stream grid
-                    : snapshot.data.size == 0
+                    : list.length == 0
                         // CircularProgressIndicator
                         ? Container(
                             width: screenWidth(context),
@@ -51,7 +60,7 @@ class TwoRowGridActiveChallangeStreamWidget extends StatelessWidget {
                             child: Center(
                               child: DescriptionTextWidget(
                                   description:
-                                      'You don\'t have any active challanges'),
+                                      'You don\'t have any upcoming challanges'),
                             ),
                           )
                         // * Challange Stream grid
@@ -66,10 +75,10 @@ class TwoRowGridActiveChallangeStreamWidget extends StatelessWidget {
                                   crossAxisSpacing: 10,
                                   mainAxisSpacing: 20,
                                 ),
-                                itemCount: snapshot.data.size,
+                                itemCount: list.length,
                                 itemBuilder: (BuildContext context, index) {
-                                  Challange _challange = Challange.fromMap(
-                                      snapshot.data.docs[index].data());
+                                  Challange _challange =
+                                      Challange.fromMap(list[index].data());
                                   return ActiveChallangeCardWidget(
                                       iconColor: _challange.iconColor,
                                       iconData: IconDataSolid(
@@ -82,8 +91,8 @@ class TwoRowGridActiveChallangeStreamWidget extends StatelessWidget {
                                               ? 0
                                               : (_challange.noOfCompletedTasks /
                                                   _challange.noOfTasks),
-                                      onTap: () => viewModel.challangeTapped(
-                                          snapshot.data.docs[index].id));
+                                      onTap: () => viewModel
+                                          .challangeTapped(list[index].id));
                                 }),
                           ),
               );
