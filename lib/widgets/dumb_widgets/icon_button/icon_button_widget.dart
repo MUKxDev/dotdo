@@ -9,6 +9,7 @@ class IconButtonWidget extends StatelessWidget {
   final IconData iconData;
   final double iconSize;
   final double elevation;
+  final double borderRadius;
 
   const IconButtonWidget(
       {Key key,
@@ -19,7 +20,8 @@ class IconButtonWidget extends StatelessWidget {
       this.iconColor,
       @required this.iconData,
       this.iconSize = 24,
-      this.elevation = 2})
+      this.elevation = 2,
+      this.borderRadius})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -39,9 +41,15 @@ class IconButtonWidget extends StatelessWidget {
         backgroundColor: MaterialStateProperty.all<Color>(
           backgroundColor ?? Theme.of(context).primaryColor,
         ),
-        shape: MaterialStateProperty.all<CircleBorder>(
-          CircleBorder(),
-        ),
+        shape: borderRadius != null
+            ? MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              )
+            : MaterialStateProperty.all<CircleBorder>(
+                CircleBorder(),
+              ),
       ),
     );
   }

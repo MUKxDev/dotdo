@@ -25,6 +25,7 @@ class AppColors {
 
   static const List<Color> iconColors = [
     Color(0xff5F3BED),
+    Color(0xff3B8DED),
     Color(0xff4A9F80),
     Color(0xffF5A476),
     Color(0xffEB4154),

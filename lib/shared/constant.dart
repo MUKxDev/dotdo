@@ -23,4 +23,5 @@ const List<IconData> iconDataList = [
   FontAwesomeIcons.bong,
   FontAwesomeIcons.boxOpen,
   FontAwesomeIcons.broom,
+  FontAwesomeIcons.glassWhiskey
 ];

@@ -1,3 +1,4 @@
+import 'package:dotdo/shared/ui_helpers.dart';
 import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/active_challange_card/active_challange_card_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/group_challange/group_challange_widget.dart';
@@ -94,7 +95,7 @@ class SocialView extends StatelessWidget {
             ),
             // * Global challange List
             Container(
-              height: 100,
+              height: 105,
               child: ListView(
                 clipBehavior: Clip.hardEdge,
                 scrollDirection: Axis.horizontal,

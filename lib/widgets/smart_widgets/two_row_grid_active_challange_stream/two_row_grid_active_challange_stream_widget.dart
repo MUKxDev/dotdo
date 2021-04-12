@@ -65,7 +65,7 @@ class TwoRowGridActiveChallangeStreamWidget extends StatelessWidget {
                           )
                         // * Challange Stream grid
                         : Container(
-                            height: 205,
+                            height: 225,
                             child: GridView.builder(
                                 scrollDirection: Axis.horizontal,
                                 gridDelegate:

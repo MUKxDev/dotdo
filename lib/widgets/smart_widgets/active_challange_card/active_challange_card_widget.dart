@@ -5,6 +5,7 @@ import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/prograss_bar/prograss_bar_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/public_icon/public_icon_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stacked/stacked.dart';
 import 'active_challange_card_view_model.dart';
 
@@ -37,7 +38,7 @@ class ActiveChallangeCardWidget extends StatelessWidget {
               ? AppColors.lightChallange
               : AppColors.darkChallange,
           borderRadius: 20,
-          height: 100,
+          height: 120,
           width: 150,
           onTap: onTap,
           padding: 10,
@@ -53,16 +54,19 @@ class ActiveChallangeCardWidget extends StatelessWidget {
                   PublicIconWidget(public: public),
                   // * Challange Icon
                   iconData != null
-                      ? Padding(
-                          padding: const EdgeInsets.only(right: 5),
+                      ? Container(
+                          height: 30,
+                          width: 30,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context)
+                                .scaffoldBackgroundColor
+                                .withAlpha(150),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                           child: Icon(
-                            iconData,
-                            size: 24,
-                            color: iconColor ??
-                                (Theme.of(context).brightness ==
-                                        Brightness.light
-                                    ? AppColors.lightGreen
-                                    : AppColors.darkGreen),
+                            IconDataSolid(iconData.codePoint),
+                            size: 20,
+                            color: iconColor,
                           ),
                         )
                       : Container(

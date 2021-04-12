@@ -110,10 +110,17 @@ class TaskWidget extends StatelessWidget {
                             )),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              Container(
+                height: 50,
+                width: 50,
+                decoration: BoxDecoration(
+                  color:
+                      Theme.of(context).scaffoldBackgroundColor.withAlpha(150),
+                  borderRadius: BorderRadius.circular(8),
+                ),
                 child: Icon(
                   IconDataSolid(task.iconData.codePoint),
+                  size: 24,
                   color: task.iconColor,
                 ),
               ),

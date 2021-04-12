@@ -25,58 +25,62 @@ class LongChallangeCardWidget extends StatelessWidget {
           ? AppColors.lightChallange
           : AppColors.darkChallange,
       onTap: () => onTap(),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // * Description
-                      DescriptionTextWidget(
-                        description: challange.note,
-                        color: AppColors.white.withAlpha(200),
-                      ),
-                      // * Lable
-                      LableTextWidget(
-                        lable: challange.name,
-                        color: AppColors.white,
-                      ),
-                    ],
-                  ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // * Description
+                    DescriptionTextWidget(
+                      description: challange.note,
+                      color: AppColors.white.withAlpha(200),
+                    ),
+                    // * Lable
+                    LableTextWidget(
+                      lable: challange.name,
+                      color: AppColors.white,
+                    ),
+                  ],
                 ),
+              ),
 
-                // * Challange Icon
-                challange.iconData != null
-                    ? Icon(
+              // * Challange Icon
+              challange.iconData != null
+                  ? Container(
+                      height: 45,
+                      width: 45,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context)
+                            .scaffoldBackgroundColor
+                            .withAlpha(150),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Icon(
                         IconDataSolid(challange.iconData.codePoint),
                         size: 24,
-                        color: challange.iconColor ??
-                            (Theme.of(context).brightness == Brightness.light
-                                ? AppColors.lightGreen
-                                : AppColors.darkGreen),
-                      )
-                    : Container(
-                        height: 24,
+                        color: challange.iconColor,
                       ),
-              ],
-            ),
+                    )
+                  : Container(
+                      height: 45,
+                    ),
+            ],
+          ),
 
-            // * Prograss bar
-            PrograssBarWidget(
-              progressValue: challange.noOfTasks == 0
-                  ? 0
-                  : challange.noOfCompletedTasks / challange.noOfTasks,
-            ),
-          ],
-        ),
+          // * Prograss bar
+          PrograssBarWidget(
+            progressValue: challange.noOfTasks == 0
+                ? 0
+                : challange.noOfCompletedTasks / challange.noOfTasks,
+          ),
+        ],
       ),
     );
   }
