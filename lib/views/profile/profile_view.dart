@@ -3,7 +3,7 @@ import 'package:dotdo/widgets/dumb_widgets/card/card_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
-import 'package:dotdo/widgets/smart_widgets/two_row_grid_active_challange_stream/two_row_grid_active_challange_stream_widget.dart';
+import 'package:dotdo/widgets/smart_widgets/two_row_grid_active_challenge_stream/two_row_grid_active_challenge_stream_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'profile_view_model.dart';
@@ -102,7 +102,7 @@ class ProfileView extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              'Challanges',
+                                              'Challenges',
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                             ),
@@ -208,13 +208,13 @@ class ProfileView extends StatelessWidget {
                   ),
                 ),
               ),
-              // * challanges grid
+              // * challenges grid
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  HeaderTextWidget(lable: 'challanges'),
-                  TwoRowGridActiveChallangeStreamWidget(
-                    stream: viewModel.getActiveUChallange,
+                  HeaderTextWidget(lable: 'challenges'),
+                  TwoRowGridActiveChallengeStreamWidget(
+                    stream: viewModel.getActiveUChallenge,
                   ),
                 ],
               ),

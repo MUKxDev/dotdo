@@ -113,8 +113,8 @@ class HomeUcTasksWidget extends StatelessWidget {
                             child: TaskWidget(
                               backgroundcolor: Theme.of(context).brightness ==
                                       Brightness.light
-                                  ? AppColors.lightChallange
-                                  : AppColors.darkChallange,
+                                  ? AppColors.lightChallenge
+                                  : AppColors.darkChallenge,
                               task: Task.fromMap(taskList[index].data()),
                               onTap: () =>
                                   viewModel.taskTapped(taskList[index].id),

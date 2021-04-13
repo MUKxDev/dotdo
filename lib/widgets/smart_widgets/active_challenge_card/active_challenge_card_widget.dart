@@ -7,9 +7,9 @@ import 'package:dotdo/widgets/dumb_widgets/public_icon/public_icon_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stacked/stacked.dart';
-import 'active_challange_card_view_model.dart';
+import 'active_challenge_card_view_model.dart';
 
-class ActiveChallangeCardWidget extends StatelessWidget {
+class ActiveChallengeCardWidget extends StatelessWidget {
   final bool public;
   final IconData iconData;
   final Color iconColor;
@@ -18,7 +18,7 @@ class ActiveChallangeCardWidget extends StatelessWidget {
   final double progressValue;
   final Function onTap;
 
-  const ActiveChallangeCardWidget(
+  const ActiveChallengeCardWidget(
       {Key key,
       this.public = false,
       this.iconData,
@@ -30,13 +30,13 @@ class ActiveChallangeCardWidget extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<ActiveChallangeCardViewModel>.reactive(
-      builder: (BuildContext context, ActiveChallangeCardViewModel viewModel,
+    return ViewModelBuilder<ActiveChallengeCardViewModel>.reactive(
+      builder: (BuildContext context, ActiveChallengeCardViewModel viewModel,
           Widget _) {
         return CardWidget(
           backgroundcolor: Theme.of(context).brightness == Brightness.light
-              ? AppColors.lightChallange
-              : AppColors.darkChallange,
+              ? AppColors.lightChallenge
+              : AppColors.darkChallenge,
           borderRadius: 20,
           height: 120,
           width: 150,
@@ -52,7 +52,7 @@ class ActiveChallangeCardWidget extends StatelessWidget {
                 children: [
                   // * Public Icon
                   PublicIconWidget(public: public),
-                  // * Challange Icon
+                  // * Challenge Icon
                   iconData != null
                       ? Container(
                           height: 30,
@@ -97,7 +97,7 @@ class ActiveChallangeCardWidget extends StatelessWidget {
           ),
         );
       },
-      viewModelBuilder: () => ActiveChallangeCardViewModel(),
+      viewModelBuilder: () => ActiveChallengeCardViewModel(),
     );
   }
 }

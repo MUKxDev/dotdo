@@ -7,26 +7,26 @@ import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/icon_picker_alter_dialog/icon_picker_alter_dialog_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'new_challange_view_model.dart';
+import 'new_challenge_view_model.dart';
 
-class NewChallangeView extends StatelessWidget {
-  final String challangeId;
+class NewChallengeView extends StatelessWidget {
+  final String challengeId;
 
-  const NewChallangeView({Key key, this.challangeId}) : super(key: key);
+  const NewChallengeView({Key key, this.challengeId}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<NewChallangeViewModel>.reactive(
-      onModelReady: (NewChallangeViewModel viewModel) =>
-          viewModel.handelStartup(challangeId),
+    return ViewModelBuilder<NewChallengeViewModel>.reactive(
+      onModelReady: (NewChallengeViewModel viewModel) =>
+          viewModel.handelStartup(challengeId),
       builder:
-          (BuildContext context, NewChallangeViewModel viewModel, Widget _) {
+          (BuildContext context, NewChallengeViewModel viewModel, Widget _) {
         return GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
           child: Scaffold(
             appBar: AppBar(
-              title: challangeId == null
-                  ? Text('New Challange')
-                  : Text('Challange'),
+              title: challengeId == null
+                  ? Text('New Challenge')
+                  : Text('Challenge'),
               shape: appBarShapeBorder,
             ),
             body: viewModel.isBusy
@@ -43,29 +43,29 @@ class NewChallangeView extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: Theme.of(context).brightness ==
                                         Brightness.light
-                                    ? AppColors.lightChallange
-                                    : AppColors.darkChallange,
+                                    ? AppColors.lightChallenge
+                                    : AppColors.darkChallenge,
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Column(
                                   children: [
-                                    // Challange name
+                                    // Challenge name
                                     TextField(
                                       autocorrect: true,
                                       maxLines: 2,
                                       maxLength: 50,
                                       keyboardType: TextInputType.text,
                                       decoration: InputDecoration(
-                                        hintText: 'Enter challange name...',
+                                        hintText: 'Enter challenge name...',
                                         fillColor: Theme.of(context)
                                             .scaffoldBackgroundColor
                                             .withAlpha(200),
                                       ),
                                       controller: viewModel.nameController,
                                     ),
-                                    // Challange Note
+                                    // Challenge Note
                                     Padding(
                                       padding: const EdgeInsets.only(top: 10),
                                       child: TextField(
@@ -96,7 +96,7 @@ class NewChallangeView extends StatelessWidget {
                                       ),
                                       child: Column(
                                         children: [
-                                          // Challange Icon
+                                          // Challenge Icon
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
@@ -139,7 +139,7 @@ class NewChallangeView extends StatelessWidget {
                                               ),
                                             ],
                                           ),
-                                          // Challange startDate
+                                          // Challenge startDate
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
@@ -153,7 +153,7 @@ class NewChallangeView extends StatelessWidget {
                                                     viewModel.updateStartDate(
                                                   showDatePicker(
                                                     context: context,
-                                                    initialDate: challangeId ==
+                                                    initialDate: challengeId ==
                                                             null
                                                         ? viewModel.currentDate
                                                         : viewModel.startDate,
@@ -178,7 +178,7 @@ class NewChallangeView extends StatelessWidget {
                                               )
                                             ],
                                           ),
-                                          // Challange endDate
+                                          // Challenge endDate
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
@@ -192,7 +192,7 @@ class NewChallangeView extends StatelessWidget {
                                                     viewModel.updateEndDate(
                                                   showDatePicker(
                                                     context: context,
-                                                    initialDate: challangeId ==
+                                                    initialDate: challengeId ==
                                                             null
                                                         ? viewModel.currentDate
                                                         : viewModel.endDate,
@@ -229,7 +229,7 @@ class NewChallangeView extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                challangeId == null
+                                challengeId == null
                                     ? Container(
                                         width: screenWidth(context) * 0.4,
                                         child: ButtonWidget(
@@ -263,10 +263,10 @@ class NewChallangeView extends StatelessWidget {
                                 Container(
                                   width: screenWidth(context) * 0.4,
                                   child: ButtonWidget(
-                                    onPressed: challangeId == null
+                                    onPressed: challengeId == null
                                         ? viewModel.next
                                         : viewModel.save,
-                                    text: challangeId == null ? 'Next' : 'Save',
+                                    text: challengeId == null ? 'Next' : 'Save',
                                   ),
                                 )
                               ],
@@ -279,7 +279,7 @@ class NewChallangeView extends StatelessWidget {
           ),
         );
       },
-      viewModelBuilder: () => NewChallangeViewModel(),
+      viewModelBuilder: () => NewChallengeViewModel(),
     );
   }
 }

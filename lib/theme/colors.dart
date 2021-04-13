@@ -15,13 +15,8 @@ class AppColors {
   static const darkNote = Color(0xff383838);
   static const darkRoutine = Color(0xff235845);
   static const lightRoutine = Color(0xffAFE5D2);
-  // static const darkChallange = Color(0xffB68F40);
-  static const darkChallange = Color(0xff761C3C);
-  static const lightChallange = Color(0xffFE5F55);
-  // static const lightChallange = Color(0xffFE5F55);
-  // static const lightChallange = Color(0xffEF476F);
-  // static const lightChallange = Color(0xffDC7F9B);
-  // static const lightChallange = Color(0xffF4B3C3);
+  static const darkChallenge = Color(0xff761C3C);
+  static const lightChallenge = Color(0xffFE5F55);
 
   static const List<Color> iconColors = [
     Color(0xff5F3BED),

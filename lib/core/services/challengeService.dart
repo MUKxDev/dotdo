@@ -1,44 +1,44 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../locator.dart';
-import '../models/challange.dart';
+import '../models/challenge.dart';
 import '../models/task.dart';
 import 'authService.dart';
 import 'firestoreService.dart';
 
-class ChallangeService {
+class ChallengeService {
   FirestoreService _firestoreService = locator<FirestoreService>();
   AuthService _authService = locator<AuthService>();
 // *ADD --------------------------------
-  Future<String> addUChallange(Challange challange) async {
+  Future<String> addUChallenge(Challenge challenge) async {
     String _userId = await _authService.getCurrentUserId();
-    String challangeId = await _firestoreService.users
+    String challengeId = await _firestoreService.users
         .doc(_userId)
-        .collection('UChallanges')
-        .add(challange.toMap())
+        .collection('UChallenges')
+        .add(challenge.toMap())
         .then((value) {
-      print('challange with id ${value.id} added');
+      print('challenge with id ${value.id} added');
       return value.id;
     }).onError((error, stackTrace) {
-      print('erorr with adding challange: $error');
+      print('erorr with adding challenge: $error');
       return null;
     });
-    return challangeId;
+    return challengeId;
   }
 
-  Future<bool> addUCTask(String challangeId, Task task) async {
+  Future<bool> addUCTask(String challengeId, Task task) async {
     String _userId = await _authService.getCurrentUserId();
     int _totalUCTask = await _firestoreService.users
         .doc(_userId)
-        .collection('UChallanges')
-        .doc(challangeId)
+        .collection('UChallenges')
+        .doc(challengeId)
         .get()
         .then((value) => value.data()['noOfTasks']);
 
     bool added = await _firestoreService.users
         .doc(_userId)
-        .collection('UChallanges')
-        .doc(challangeId)
+        .collection('UChallenges')
+        .doc(challengeId)
         .collection('UCTasks')
         .add(task.toMap())
         .then((value) {
@@ -46,10 +46,10 @@ class ChallangeService {
       int _tplus = _totalUCTask + 1;
       _firestoreService.users
           .doc(_userId)
-          .collection('UChallanges')
-          .doc(challangeId)
+          .collection('UChallenges')
+          .doc(challengeId)
           .update({'noOfTasks': _tplus});
-      toggleCompletedUChalllange(challangeId);
+      toggleCompletedUChalllange(challengeId);
       return true;
     }).onError((error, stackTrace) {
       print('error with adding task: $error');
@@ -60,40 +60,40 @@ class ChallangeService {
   }
 
 // *completed --------------------------------
-  Future toggleCompletedUChalllange(String challangeId) async {
+  Future toggleCompletedUChalllange(String challengeId) async {
     String _userId = await _authService.getCurrentUserId();
     int _totalUCTask = await _firestoreService.users
         .doc(_userId)
-        .collection('UChallanges')
-        .doc(challangeId)
+        .collection('UChallenges')
+        .doc(challengeId)
         .get()
         .then((value) => value.data()['noOfTasks']);
 
     int _totalCompletedUCTask = await _firestoreService.users
         .doc(_userId)
-        .collection('UChallanges')
-        .doc(challangeId)
+        .collection('UChallenges')
+        .doc(challengeId)
         .get()
         .then((value) => value.data()['noOfCompletedTasks']);
 //-----------------------------------
     if (_totalUCTask == _totalCompletedUCTask && _totalUCTask != 0) {
       await _firestoreService.users
           .doc(_userId)
-          .collection('UChallanges')
-          .doc(challangeId)
+          .collection('UChallenges')
+          .doc(challengeId)
           .update({'completed': true});
     } else {
       await _firestoreService.users
           .doc(_userId)
-          .collection('UChallanges')
-          .doc(challangeId)
+          .collection('UChallenges')
+          .doc(challengeId)
           .update({'completed': false});
     }
-    noOfChallangeCompleted();
+    noOfChallengeCompleted();
   }
 
   Future toggleCompletedUCTask(
-      String taskId, String challangeId, bool currentCompleted) async {
+      String taskId, String challengeId, bool currentCompleted) async {
     String _userId = await _authService.getCurrentUserId();
     int _noOfTaskCompleted = await _firestoreService.users
         .doc(_userId)
@@ -104,8 +104,8 @@ class ChallangeService {
 
     int _noOfCTaskCompleted = await _firestoreService.users
         .doc(_userId)
-        .collection('UChallanges')
-        .doc(challangeId)
+        .collection('UChallenges')
+        .doc(challengeId)
         .get()
         .then((value) => value.data()['noOfCompletedTasks']);
 //------------------------
@@ -117,8 +117,8 @@ class ChallangeService {
 //
     await _firestoreService.users
         .doc(_userId)
-        .collection('UChallanges')
-        .doc(challangeId)
+        .collection('UChallenges')
+        .doc(challengeId)
         .collection('UCTasks')
         .doc(taskId)
         .update({'completed': !(currentCompleted)}).then((value) async {
@@ -130,8 +130,8 @@ class ChallangeService {
             .update({'noOfTaskCompleted': _plus});
         _firestoreService.users
             .doc(_userId)
-            .collection('UChallanges')
-            .doc(challangeId)
+            .collection('UChallenges')
+            .doc(challengeId)
             .update({'noOfCompletedTasks': _tplus});
       } else {
         _firestoreService.users
@@ -141,32 +141,32 @@ class ChallangeService {
             .update({'noOfTaskCompleted': _minus});
         _firestoreService.users
             .doc(_userId)
-            .collection('UChallanges')
-            .doc(challangeId)
+            .collection('UChallenges')
+            .doc(challengeId)
             .update({'noOfCompletedTasks': _tminus});
       }
-      toggleCompletedUChalllange(challangeId);
+      toggleCompletedUChalllange(challengeId);
     }).onError((error, stackTrace) {
       print('error with adding task: $error');
     });
   }
 
   // *update --------------------------------
-  Future updateUChalllange(String challangeId, Challange challange) async {
+  Future updateUChalllange(String challengeId, Challenge challenge) async {
     String _userId = await _authService.getCurrentUserId();
     _firestoreService.users
         .doc(_userId)
-        .collection('UChallanges')
-        .doc(challangeId)
-        .update(challange.toMap());
+        .collection('UChallenges')
+        .doc(challengeId)
+        .update(challenge.toMap());
   }
 
-  Future updateUCTask(String challangeId, String taskId, Task task) async {
+  Future updateUCTask(String challengeId, String taskId, Task task) async {
     String _userId = await _authService.getCurrentUserId();
     _firestoreService.users
         .doc(_userId)
-        .collection('UChallanges')
-        .doc(challangeId)
+        .collection('UChallenges')
+        .doc(challengeId)
         .collection('UCTasks')
         .doc(taskId)
         .update(task.toMap());
@@ -174,61 +174,61 @@ class ChallangeService {
 
   // *get --------------------------------
   //
-  // Stream<QuerySnapshot> getHomeActiveUChallange() async* {
+  // Stream<QuerySnapshot> getHomeActiveUChallenge() async* {
   //   String _userId = await _authService.getCurrentUserId();
   //   DateTime date = DateTime.now();
   //   yield* _firestoreService.users
   //       .doc(_userId)
-  //       .collection('UChallanges')
+  //       .collection('UChallenges')
   //       .where('endDate', isGreaterThanOrEqualTo: date.millisecondsSinceEpoch)
   //       .where('completed', isEqualTo: false)
   //       .snapshots();
   // }
 
-  Stream<QuerySnapshot> getActiveUChallange() async* {
+  Stream<QuerySnapshot> getActiveUChallenge() async* {
     String _userId = await _authService.getCurrentUserId();
     DateTime date = DateTime.now();
     yield* _firestoreService.users
         .doc(_userId)
-        .collection('UChallanges')
+        .collection('UChallenges')
         .orderBy('endDate')
         .where('endDate', isGreaterThanOrEqualTo: date.millisecondsSinceEpoch)
         .snapshots();
   }
 
-  Stream<QuerySnapshot> getHistoryUChallange() async* {
+  Stream<QuerySnapshot> getHistoryUChallenge() async* {
     String _userId = await _authService.getCurrentUserId();
     DateTime date = DateTime.now();
     yield* _firestoreService.users
         .doc(_userId)
-        .collection('UChallanges')
+        .collection('UChallenges')
         .orderBy('endDate')
         .where('endDate', isLessThan: date.millisecondsSinceEpoch)
         .snapshots();
   }
 
-  Future<Challange> getUChallange(String challangeId) async {
+  Future<Challenge> getUChallenge(String challengeId) async {
     String _userId = await _authService.getCurrentUserId();
     return _firestoreService.users
         .doc(_userId)
-        .collection('UChallanges')
-        .doc(challangeId)
+        .collection('UChallenges')
+        .doc(challengeId)
         .get()
         .then((value) {
-      Challange _challange = Challange.fromMap(value.data());
-      return _challange;
+      Challenge _challenge = Challenge.fromMap(value.data());
+      return _challenge;
     }).onError((error, stackTrace) {
       print('An error has occurred: $error');
       return null;
     });
   }
 
-  Future<Task> getUCTask(String challangeId, String taskId) async {
+  Future<Task> getUCTask(String challengeId, String taskId) async {
     String _userId = await _authService.getCurrentUserId();
     return _firestoreService.users
         .doc(_userId)
-        .collection('UChallanges')
-        .doc(challangeId)
+        .collection('UChallenges')
+        .doc(challengeId)
         .collection('UCTasks')
         .doc(taskId)
         .get()
@@ -241,23 +241,23 @@ class ChallangeService {
     });
   }
 
-  Stream<DocumentSnapshot> getUChallangeStream(String challangeId) async* {
+  Stream<DocumentSnapshot> getUChallengeStream(String challengeId) async* {
     String _userId = await _authService.getCurrentUserId();
     yield* _firestoreService.users
         .doc(_userId)
-        .collection('UChallanges')
-        .doc(challangeId)
+        .collection('UChallenges')
+        .doc(challengeId)
         .snapshots();
   }
 
   // * Get Date UCTasks
   Stream<QuerySnapshot> getDateUCTasksStream(
-      String challangeId, DateTime date) async* {
+      String challengeId, DateTime date) async* {
     String _userId = await _authService.getCurrentUserId();
     yield* _firestoreService.users
         .doc(_userId)
-        .collection('UChallanges')
-        .doc(challangeId)
+        .collection('UChallenges')
+        .doc(challengeId)
         .collection('UCTasks')
         .where('dueDate',
             isLessThanOrEqualTo:
@@ -272,58 +272,58 @@ class ChallangeService {
     String _userId = await _authService.getCurrentUserId();
     yield* _firestoreService.users
         .doc(_userId)
-        .collection('UChallanges')
+        .collection('UChallenges')
         .doc()
         .collection('UCTasks')
         .snapshots();
   }
 
-  Future<int> noOfChallangeCompleted() async {
+  Future<int> noOfChallengeCompleted() async {
     String _userId = await _authService.getCurrentUserId();
-    int _noOfcompletedChallange = await _firestoreService.users
+    int _noOfcompletedChallenge = await _firestoreService.users
         .doc(_userId)
-        .collection('UChallanges')
+        .collection('UChallenges')
         .where('completed', isEqualTo: true)
         .get()
         .then((value) => value.size);
-    print(_noOfcompletedChallange);
+    print(_noOfcompletedChallenge);
     return _firestoreService.users
         .doc(_userId)
         .collection('uGeneral')
         .doc('generalData')
-        .update({'noOfChallangeCompleted': _noOfcompletedChallange}).then(
-            (value) => _noOfcompletedChallange);
+        .update({'noOfChallengeCompleted': _noOfcompletedChallenge}).then(
+            (value) => _noOfcompletedChallenge);
   }
 
-  Future deleteUChallange(String challangeId) async {
+  Future deleteUChallenge(String challengeId) async {
     String _userId = await _authService.getCurrentUserId();
     _firestoreService.users
         .doc(_userId)
-        .collection('UChallanges')
-        .doc(challangeId)
+        .collection('UChallenges')
+        .doc(challengeId)
         .delete();
   }
 
-  Future deleteUCTask(String taskId, String challangeId) async {
+  Future deleteUCTask(String taskId, String challengeId) async {
     String _userId = await _authService.getCurrentUserId();
     int _totalUCTask = await _firestoreService.users
         .doc(_userId)
-        .collection('UChallanges')
-        .doc(challangeId)
+        .collection('UChallenges')
+        .doc(challengeId)
         .get()
         .then((value) => value.data()['noOfTasks']);
 
     int _totalCompletedUCTask = await _firestoreService.users
         .doc(_userId)
-        .collection('UChallanges')
-        .doc(challangeId)
+        .collection('UChallenges')
+        .doc(challengeId)
         .get()
         .then((value) => value.data()['noOfCompletedTasks']);
 
     bool currentStats = await _firestoreService.users
         .doc(_userId)
-        .collection('UChallanges')
-        .doc(challangeId)
+        .collection('UChallenges')
+        .doc(challengeId)
         .collection('UCTasks')
         .doc(taskId)
         .get()
@@ -335,19 +335,19 @@ class ChallangeService {
     if (currentStats == true) {
       _firestoreService.users
           .doc(_userId)
-          .collection('UChallanges')
-          .doc(challangeId)
+          .collection('UChallenges')
+          .doc(challengeId)
           .update({'noOfCompletedTasks': _cminus});
     }
     _firestoreService.users
         .doc(_userId)
-        .collection('UChallanges')
-        .doc(challangeId)
+        .collection('UChallenges')
+        .doc(challengeId)
         .update({'noOfTasks': _tminus});
     _firestoreService.users
         .doc(_userId)
-        .collection('UChallanges')
-        .doc(challangeId)
+        .collection('UChallenges')
+        .doc(challengeId)
         .collection('UCTasks')
         .doc(taskId)
         .delete();

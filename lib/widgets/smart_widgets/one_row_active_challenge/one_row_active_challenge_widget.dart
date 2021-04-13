@@ -1,27 +1,27 @@
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dotdo/core/models/challange.dart';
+import 'package:dotdo/core/models/challenge.dart';
 import 'package:dotdo/shared/ui_helpers.dart';
 import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
-import 'package:dotdo/widgets/dumb_widgets/long_challange_card/long_challange_card_widget.dart';
-import 'package:dotdo/widgets/smart_widgets/active_challange_card/active_challange_card_widget.dart';
+import 'package:dotdo/widgets/dumb_widgets/long_challenge_card/long_challenge_card_widget.dart';
+import 'package:dotdo/widgets/smart_widgets/active_challenge_card/active_challenge_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stacked/stacked.dart';
-import 'one_row_active_challange_view_model.dart';
+import 'one_row_active_challenge_view_model.dart';
 
-class OneRowActiveChallangeWidget extends StatelessWidget {
+class OneRowActiveChallengeWidget extends StatelessWidget {
   // final Stream stream;
 
-  const OneRowActiveChallangeWidget({Key key}) : super(key: key);
+  const OneRowActiveChallengeWidget({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<OneRowActiveChallangeViewModel>.reactive(
-      builder: (BuildContext context, OneRowActiveChallangeViewModel viewModel,
+    return ViewModelBuilder<OneRowActiveChallengeViewModel>.reactive(
+      builder: (BuildContext context, OneRowActiveChallengeViewModel viewModel,
           Widget _) {
         return StreamBuilder<QuerySnapshot>(
-            stream: viewModel.getActiveUChallange,
+            stream: viewModel.getActiveUChallenge,
             builder: (context, snapshot) {
               List<QueryDocumentSnapshot> list;
               if (snapshot.hasData) {
@@ -59,10 +59,10 @@ class OneRowActiveChallangeWidget extends StatelessWidget {
                             child: Center(
                               child: DescriptionTextWidget(
                                   description:
-                                      'You don\'t have any active challanges'),
+                                      'You don\'t have any active challenges'),
                             ),
                           )
-                        // * Challange Stream list
+                        // * Challenge Stream list
                         : Container(
                             height: 80,
                             child: ListView.builder(
@@ -71,41 +71,41 @@ class OneRowActiveChallangeWidget extends StatelessWidget {
                                 scrollDirection: Axis.horizontal,
                                 itemCount: list.length,
                                 itemBuilder: (BuildContext context, index) {
-                                  Challange _challange =
-                                      Challange.fromMap(list[index].data());
+                                  Challenge _challenge =
+                                      Challenge.fromMap(list[index].data());
                                   // return Padding(
                                   //   padding: const EdgeInsets.symmetric(
                                   //       horizontal: 10),
-                                  //   child: ActiveChallangeCardWidget(
-                                  //       iconColor: _challange.iconColor,
+                                  //   child: ActiveChallengeCardWidget(
+                                  //       iconColor: _challenge.iconColor,
                                   //       iconData: IconDataSolid(
-                                  //           _challange.iconData.codePoint),
-                                  //       lable: _challange.name,
-                                  //       description: _challange.note,
-                                  //       progressValue: (_challange.noOfTasks ==
+                                  //           _challenge.iconData.codePoint),
+                                  //       lable: _challenge.name,
+                                  //       description: _challenge.note,
+                                  //       progressValue: (_challenge.noOfTasks ==
                                   //                   0 ||
-                                  //               _challange.noOfTasks == null)
+                                  //               _challenge.noOfTasks == null)
                                   //           ? 0
-                                  //           : (_challange.noOfCompletedTasks /
-                                  //               _challange.noOfTasks),
+                                  //           : (_challenge.noOfCompletedTasks /
+                                  //               _challenge.noOfTasks),
                                   //       onTap: () => viewModel
-                                  //           .challangeTapped(list[index].id)),
+                                  //           .challengeTapped(list[index].id)),
                                   // );
                                   return Padding(
                                     padding: (index + 1 == list.length)
                                         ? const EdgeInsets.only(right: 0)
                                         : const EdgeInsets.only(right: 10),
-                                    child: LongChallangeCardWidget(
-                                        challange: _challange,
+                                    child: LongChallengeCardWidget(
+                                        challenge: _challenge,
                                         onTap: () => viewModel
-                                            .challangeTapped(list[index].id)),
+                                            .challengeTapped(list[index].id)),
                                   );
                                 }),
                           ),
               );
             });
       },
-      viewModelBuilder: () => OneRowActiveChallangeViewModel(),
+      viewModelBuilder: () => OneRowActiveChallengeViewModel(),
     );
   }
 }

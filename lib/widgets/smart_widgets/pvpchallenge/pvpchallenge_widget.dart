@@ -3,9 +3,9 @@ import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/pvp_profile/pvp_profile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'pvpchallange_view_model.dart';
+import 'pvpchallenge_view_model.dart';
 
-class PvpchallangeWidget extends StatelessWidget {
+class PvpchallengeWidget extends StatelessWidget {
   final Function onTap;
   final String lable;
 
@@ -18,7 +18,7 @@ class PvpchallangeWidget extends StatelessWidget {
   final ImageProvider<Object> profile2Image;
 
   // ? I don't know about this
-  const PvpchallangeWidget({
+  const PvpchallengeWidget({
     Key key,
     @required this.onTap,
     @required this.lable,
@@ -32,9 +32,9 @@ class PvpchallangeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<PvpchallangeViewModel>.reactive(
+    return ViewModelBuilder<PvpchallengeViewModel>.reactive(
       builder:
-          (BuildContext context, PvpchallangeViewModel viewModel, Widget _) {
+          (BuildContext context, PvpchallengeViewModel viewModel, Widget _) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: CardWidget(
@@ -73,7 +73,7 @@ class PvpchallangeWidget extends StatelessWidget {
           ),
         );
       },
-      viewModelBuilder: () => PvpchallangeViewModel(),
+      viewModelBuilder: () => PvpchallengeViewModel(),
     );
   }
 }

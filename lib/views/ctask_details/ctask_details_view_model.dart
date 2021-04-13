@@ -1,6 +1,6 @@
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/models/task.dart';
-import 'package:dotdo/core/services/challangeService.dart';
+import 'package:dotdo/core/services/challengeService.dart';
 import 'package:dotdo/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -18,15 +18,15 @@ class CtaskDetailsViewModel extends BaseViewModel {
   }
 
   String _taskId;
-  String _challangeId;
-  handelStartup(String taskId, String challangeId, DateTime date, IconData icon,
+  String _challengeId;
+  handelStartup(String taskId, String challengeId, DateTime date, IconData icon,
       Color color) async {
-    _challangeId = challangeId;
+    _challengeId = challengeId;
     _taskId = taskId;
     _currentDate = date;
     if (isTaskIdNull == false) {
       _isBusy = true;
-      _task = await _challangeService.getUCTask(_challangeId, _taskId);
+      _task = await _challengeService.getUCTask(_challengeId, _taskId);
       labelController.text = _task.taskName;
       noteController.text = _task.taskNote;
       _iconColor = _task.iconColor;
@@ -102,7 +102,7 @@ class CtaskDetailsViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  ChallangeService _challangeService = locator<ChallangeService>();
+  ChallengeService _challengeService = locator<ChallengeService>();
   SnackbarService _snackbarService = locator<SnackbarService>();
   void addTask() async {
     if (labelController.text.trim() == '') {
@@ -119,7 +119,7 @@ class CtaskDetailsViewModel extends BaseViewModel {
         iconData: iconData,
       );
       // TODO: implement show the snackbar with the real result Sucsses or failure
-      _challangeService.addUCTask(_challangeId, task);
+      _challengeService.addUCTask(_challengeId, task);
       notifyListeners();
       _navigationService.back();
       _snackbarService.showSnackbar(message: 'Task added');
@@ -141,7 +141,7 @@ class CtaskDetailsViewModel extends BaseViewModel {
         iconData: iconData,
       );
       // TODO: implement show the snackbar with the real result Sucsses or failure
-      _challangeService.updateUCTask(_challangeId, _taskId, task);
+      _challengeService.updateUCTask(_challengeId, _taskId, task);
       notifyListeners();
       _navigationService.back();
       _snackbarService.showSnackbar(message: 'Task updated');
@@ -149,7 +149,7 @@ class CtaskDetailsViewModel extends BaseViewModel {
   }
 
   void deleteUTask() {
-    _challangeService.deleteUCTask(_taskId, _challangeId);
+    _challengeService.deleteUCTask(_taskId, _challengeId);
     _navigationService.back();
     _snackbarService.showSnackbar(message: 'Task deleted');
   }

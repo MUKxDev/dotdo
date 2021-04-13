@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotdo/core/locator.dart';
-import 'package:dotdo/core/services/challangeService.dart';
+import 'package:dotdo/core/services/challengeService.dart';
 import 'package:dotdo/core/services/taskService.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
@@ -15,26 +15,26 @@ class HomeUcTasksViewModel extends BaseViewModel {
     this.log = getLogger(this.runtimeType.toString());
   }
 
-  ChallangeService _challangeService = locator<ChallangeService>();
+  ChallengeService _challengeService = locator<ChallengeService>();
   NavigationService _navigationService = locator<NavigationService>();
 
   DateTime get currentDate => DateTime.now();
   final dateFormat = DateFormat('MMM-dd');
 
   Stream<QuerySnapshot> get stream =>
-      _challangeService.getDateUCTasksStreamHome(currentDate);
+      _challengeService.getDateUCTasksStreamHome(currentDate);
 
   void toggleCompletedUTask(
-      String taskId, bool currentCompleted, String challangeId) {
-    _challangeService.toggleCompletedUCTask(
-        taskId, challangeId, currentCompleted);
+      String taskId, bool currentCompleted, String challengeId) {
+    _challengeService.toggleCompletedUCTask(
+        taskId, challengeId, currentCompleted);
   }
 
   taskTapped(String taskId) async {
     // _navigationService.navigateTo(taskDetailsViewRoute, arguments: taskId);
   }
 
-  void deleteUTask(String taskId, String challangeId) {
-    _challangeService.deleteUCTask(taskId, challangeId);
+  void deleteUTask(String taskId, String challengeId) {
+    _challengeService.deleteUCTask(taskId, challengeId);
   }
 }

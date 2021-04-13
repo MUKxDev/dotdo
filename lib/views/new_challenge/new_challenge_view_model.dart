@@ -1,7 +1,7 @@
 import 'package:dotdo/core/locator.dart';
-import 'package:dotdo/core/models/challange.dart';
+import 'package:dotdo/core/models/challenge.dart';
 import 'package:dotdo/core/router_constants.dart';
-import 'package:dotdo/core/services/challangeService.dart';
+import 'package:dotdo/core/services/challengeService.dart';
 import 'package:dotdo/core/services/taskService.dart';
 import 'package:dotdo/theme/colors.dart';
 import 'package:flutter/material.dart';
@@ -12,15 +12,15 @@ import 'package:dotdo/core/logger.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class NewChallangeViewModel extends BaseViewModel {
+class NewChallengeViewModel extends BaseViewModel {
   Logger log;
 
-  NewChallangeViewModel() {
+  NewChallengeViewModel() {
     this.log = getLogger(this.runtimeType.toString());
   }
 
   TaskService _taskService = locator<TaskService>();
-  ChallangeService _challangeService = locator<ChallangeService>();
+  ChallengeService _challengeService = locator<ChallengeService>();
   NavigationService _navigationService = locator<NavigationService>();
   SnackbarService _snackbarService = locator<SnackbarService>();
 
@@ -30,10 +30,10 @@ class NewChallangeViewModel extends BaseViewModel {
   final dateFormat = DateFormat('yyyy-MMM-dd');
   final timeFormat = DateFormat('hh:mm a');
 
-  String _challangeId;
-  bool get ischallangeIdNull => _challangeId == null;
+  String _challengeId;
+  bool get ischallengeIdNull => _challengeId == null;
 
-  Challange _challange;
+  Challenge _challenge;
 
   bool _isBusy = false;
   bool get isBusy => _isBusy;
@@ -59,21 +59,21 @@ class NewChallangeViewModel extends BaseViewModel {
   Color _iconColor = AppColors.darkPurple;
   Color get iconColor => _iconColor;
 
-  handelStartup(String challangeId) async {
-    _challangeId = challangeId;
-    if (ischallangeIdNull == false) {
+  handelStartup(String challengeId) async {
+    _challengeId = challengeId;
+    if (ischallengeIdNull == false) {
       _isBusy = true;
-      _challange = await _challangeService.getUChallange(_challangeId);
-      nameController.text = _challange.name;
-      noteController.text = _challange.note;
-      _iconColor = _challange.iconColor;
-      _iconData = IconDataSolid(_challange.iconData.codePoint);
-      _startDate = _challange.startDate;
-      _endDate = _challange.endDate;
+      _challenge = await _challengeService.getUChallenge(_challengeId);
+      nameController.text = _challenge.name;
+      noteController.text = _challenge.note;
+      _iconColor = _challenge.iconColor;
+      _iconData = IconDataSolid(_challenge.iconData.codePoint);
+      _startDate = _challenge.startDate;
+      _endDate = _challenge.endDate;
 
-      _completed = _challange.completed;
-      _noOfTasks = _challange.noOfTasks;
-      _noOfCompletedTasks = _challange.noOfCompletedTasks;
+      _completed = _challenge.completed;
+      _noOfTasks = _challenge.noOfTasks;
+      _noOfCompletedTasks = _challenge.noOfCompletedTasks;
 
       _isBusy = false;
       notifyListeners();
@@ -115,8 +115,8 @@ class NewChallangeViewModel extends BaseViewModel {
   }
 
   next() async {
-    String challangeID;
-    Challange challange = Challange(
+    String challengeID;
+    Challenge challenge = Challenge(
       name: nameController.text.trim(),
       note: noteController.text.trim(),
       iconData: _iconData,
@@ -128,23 +128,23 @@ class NewChallangeViewModel extends BaseViewModel {
       noOfCompletedTasks: _noOfCompletedTasks,
     );
     if (nameController.text.trim() != '') {
-      challangeID = await _challangeService.addUChallange(challange);
-      print(challangeID);
-      if (challangeID != null) {
+      challengeID = await _challengeService.addUChallenge(challenge);
+      print(challengeID);
+      if (challengeID != null) {
         Map<String, dynamic> args = {
-          'challangeId': challangeID,
+          'challengeId': challengeID,
           'isEdit': true,
         };
-        _navigationService.navigateTo(challangeDetailsViewRoute,
+        _navigationService.navigateTo(challengeDetailsViewRoute,
             arguments: args);
       }
     } else {
-      _snackbarService.showSnackbar(message: 'Challange name is empty');
+      _snackbarService.showSnackbar(message: 'Challenge name is empty');
     }
   }
 
   save() async {
-    Challange challange = Challange(
+    Challenge challenge = Challenge(
       name: nameController.text.trim(),
       note: noteController.text.trim(),
       iconData: _iconData,
@@ -157,20 +157,20 @@ class NewChallangeViewModel extends BaseViewModel {
     );
 
     if (nameController.text.trim() != '') {
-      await _challangeService.updateUChalllange(_challangeId, challange);
+      await _challengeService.updateUChalllange(_challengeId, challenge);
       // Map args = {
-      //   'challangeId': _challangeId,
+      //   'challengeId': _challengeId,
       //   'isEdit': true,
       // };
-      // _navigationService.navigateTo(challangeDetailsViewRoute, arguments: args);
+      // _navigationService.navigateTo(challengeDetailsViewRoute, arguments: args);
       _navigationService.back();
     } else {
-      _snackbarService.showSnackbar(message: 'Challange name is empty');
+      _snackbarService.showSnackbar(message: 'Challenge name is empty');
     }
   }
 
   delete() {
-    _challangeService.deleteUChallange(_challangeId);
+    _challengeService.deleteUChallenge(_challengeId);
     _navigationService.pushNamedAndRemoveUntil(homeViewRoute);
   }
 

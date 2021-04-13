@@ -2,10 +2,10 @@ import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dotdo/core/logger.dart';
 
-class ActiveChallangeCardViewModel extends BaseViewModel {
+class NewRoutineViewModel extends BaseViewModel {
   Logger log;
 
-  ActiveChallangeCardViewModel() {
+  NewRoutineViewModel() {
     this.log = getLogger(this.runtimeType.toString());
   }
 }

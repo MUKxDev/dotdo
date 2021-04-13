@@ -3,16 +3,16 @@ import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_wid
 import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'group_challange_view_model.dart';
+import 'group_challenge_view_model.dart';
 
-class GroupChallangeWidget extends StatelessWidget {
+class GroupChallengeWidget extends StatelessWidget {
   final Function onTap;
   final String lable;
   final String groupName;
   final int rank;
   final ImageProvider<Object> image;
 
-  const GroupChallangeWidget(
+  const GroupChallengeWidget(
       {Key key,
       @required this.onTap,
       @required this.lable,
@@ -22,9 +22,9 @@ class GroupChallangeWidget extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<GroupChallangeViewModel>.reactive(
+    return ViewModelBuilder<GroupChallengeViewModel>.reactive(
       builder:
-          (BuildContext context, GroupChallangeViewModel viewModel, Widget _) {
+          (BuildContext context, GroupChallengeViewModel viewModel, Widget _) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: CardWidget(
@@ -54,7 +54,7 @@ class GroupChallangeWidget extends StatelessWidget {
           ),
         );
       },
-      viewModelBuilder: () => GroupChallangeViewModel(),
+      viewModelBuilder: () => GroupChallengeViewModel(),
     );
   }
 }

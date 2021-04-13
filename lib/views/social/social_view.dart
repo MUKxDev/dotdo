@@ -1,9 +1,9 @@
 import 'package:dotdo/shared/ui_helpers.dart';
 import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
-import 'package:dotdo/widgets/smart_widgets/active_challange_card/active_challange_card_widget.dart';
-import 'package:dotdo/widgets/smart_widgets/group_challange/group_challange_widget.dart';
-import 'package:dotdo/widgets/smart_widgets/inactive_challange_card/inactive_challange_card_widget.dart';
-import 'package:dotdo/widgets/smart_widgets/pvpchallange/pvpchallange_widget.dart';
+import 'package:dotdo/widgets/smart_widgets/active_challenge_card/active_challenge_card_widget.dart';
+import 'package:dotdo/widgets/smart_widgets/group_challenge/group_challenge_widget.dart';
+import 'package:dotdo/widgets/smart_widgets/inactive_challenge_card/inactive_challenge_card_widget.dart';
+import 'package:dotdo/widgets/smart_widgets/pvpchallenge/pvpchallenge_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stacked/stacked.dart';
@@ -16,21 +16,21 @@ class SocialView extends StatelessWidget {
       builder: (BuildContext context, SocialViewModel viewModel, Widget _) {
         return ListView(
           children: [
-            // * PVP challange Header
+            // * PVP challenge Header
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
-              child: HeaderTextWidget(lable: 'PvP challanges'),
+              child: HeaderTextWidget(lable: 'PvP challenges'),
             ),
-            // * PVP challange list
+            // * PVP challenge list
             Container(
               height: 140,
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  // * PVP challange widget
-                  PvpchallangeWidget(
+                  // * PVP challenge widget
+                  PvpchallengeWidget(
                     onTap: () {},
-                    lable: 'Drinking water challange',
+                    lable: 'Drinking water challenge',
                     profile1Named: 'mukxdev',
                     profile1ProgressValue: 0.5,
                     profile1Image: AssetImage('assets/pp.png'),
@@ -38,10 +38,10 @@ class SocialView extends StatelessWidget {
                     profile2ProgressValue: 0.3,
                     profile2Image: AssetImage('assets/Icon.png'),
                   ),
-                  // * PVP challange widget
-                  PvpchallangeWidget(
+                  // * PVP challenge widget
+                  PvpchallengeWidget(
                     onTap: () {},
-                    lable: 'Reading challange',
+                    lable: 'Reading challenge',
                     profile1Named: 'mukxdev',
                     profile1ProgressValue: 0.9,
                     profile1Image: AssetImage('assets/pp.png'),
@@ -52,35 +52,35 @@ class SocialView extends StatelessWidget {
                 ],
               ),
             ),
-            // * Group Challange Header
+            // * Group Challenge Header
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
-              child: HeaderTextWidget(lable: 'Group challanges'),
+              child: HeaderTextWidget(lable: 'Group challenges'),
             ),
-            // * Group challange list
+            // * Group challenge list
             Container(
               height: 140,
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  // * Group challange Widget
-                  GroupChallangeWidget(
+                  // * Group challenge Widget
+                  GroupChallengeWidget(
                     onTap: () {},
-                    lable: 'Workout challange',
+                    lable: 'Workout challenge',
                     groupName: 'AutoVita',
                     rank: 2,
                     image: AssetImage('assets/pp.png'),
                   ),
-                  GroupChallangeWidget(
+                  GroupChallengeWidget(
                     onTap: () {},
-                    lable: 'Developing challange',
+                    lable: 'Developing challenge',
                     groupName: 'DevSchool',
                     rank: 2,
                     image: AssetImage('assets/Icon.png'),
                   ),
-                  GroupChallangeWidget(
+                  GroupChallengeWidget(
                     onTap: () {},
-                    lable: 'LOL challange',
+                    lable: 'LOL challenge',
                     groupName: 'Leage of Leagends',
                     rank: 2,
                     image: AssetImage('assets/Icon.png'),
@@ -88,12 +88,12 @@ class SocialView extends StatelessWidget {
                 ],
               ),
             ),
-            // * Global challange Header
+            // * Global challenge Header
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
-              child: HeaderTextWidget(lable: 'Global challanges'),
+              child: HeaderTextWidget(lable: 'Global challenges'),
             ),
-            // * Global challange List
+            // * Global challenge List
             Container(
               height: 105,
               child: ListView(
@@ -102,7 +102,7 @@ class SocialView extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: ActiveChallangeCardWidget(
+                    child: ActiveChallengeCardWidget(
                       public: true,
                       iconData: FontAwesomeIcons.glassWhiskey,
                       iconColor: Colors.indigo,
@@ -114,7 +114,7 @@ class SocialView extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: ActiveChallangeCardWidget(
+                    child: ActiveChallengeCardWidget(
                       public: false,
                       iconData: FontAwesomeIcons.book,
                       iconColor: Colors.orangeAccent,
@@ -126,7 +126,7 @@ class SocialView extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: ActiveChallangeCardWidget(
+                    child: ActiveChallengeCardWidget(
                       public: true,
                       iconData: FontAwesomeIcons.solidKissWinkHeart,
                       iconColor: Colors.red,
@@ -153,7 +153,7 @@ class SocialView extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: InactiveChallangeCardWidget(
+                    child: InactiveChallengeCardWidget(
                       public: true,
                       iconData: FontAwesomeIcons.glassWhiskey,
                       iconColor: Colors.indigo,
@@ -163,7 +163,7 @@ class SocialView extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: InactiveChallangeCardWidget(
+                    child: InactiveChallengeCardWidget(
                       public: false,
                       iconData: FontAwesomeIcons.book,
                       iconColor: Colors.orangeAccent,
@@ -173,7 +173,7 @@ class SocialView extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: InactiveChallangeCardWidget(
+                    child: InactiveChallengeCardWidget(
                       public: true,
                       iconData: FontAwesomeIcons.solidKissWinkHeart,
                       iconColor: Colors.red,
@@ -184,12 +184,12 @@ class SocialView extends StatelessWidget {
                 ],
               ),
             ),
-            // * Top liked challange header
+            // * Top liked challenge header
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
-              child: HeaderTextWidget(lable: 'Top liked challange'),
+              child: HeaderTextWidget(lable: 'Top liked challenge'),
             ),
-            // * Top liked challange list
+            // * Top liked challenge list
             Padding(
               padding: const EdgeInsets.only(bottom: 30),
               child: Container(
@@ -200,7 +200,7 @@ class SocialView extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: InactiveChallangeCardWidget(
+                      child: InactiveChallengeCardWidget(
                         public: true,
                         iconData: FontAwesomeIcons.glassWhiskey,
                         iconColor: Colors.indigo,
@@ -210,7 +210,7 @@ class SocialView extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: InactiveChallangeCardWidget(
+                      child: InactiveChallengeCardWidget(
                         public: false,
                         iconData: FontAwesomeIcons.book,
                         iconColor: Colors.orangeAccent,
@@ -220,7 +220,7 @@ class SocialView extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: InactiveChallangeCardWidget(
+                      child: InactiveChallengeCardWidget(
                         public: true,
                         iconData: FontAwesomeIcons.solidKissWinkHeart,
                         iconColor: Colors.red,

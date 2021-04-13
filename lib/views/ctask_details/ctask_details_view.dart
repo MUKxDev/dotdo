@@ -21,7 +21,7 @@ class CtaskDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<CtaskDetailsViewModel>.reactive(
       onModelReady: (CtaskDetailsViewModel viewModel) =>
-          viewModel.handelStartup(args['taskId'], args['challangeId'],
+          viewModel.handelStartup(args['taskId'], args['challengeId'],
               args['date'], args['icon'], args['color']),
       builder:
           (BuildContext context, CtaskDetailsViewModel viewModel, Widget _) {
@@ -29,7 +29,7 @@ class CtaskDetailsView extends StatelessWidget {
           onTap: () => FocusScope.of(context).unfocus(),
           child: Scaffold(
             appBar: AppBar(
-              title: Text('Challange Task'),
+              title: Text('Challenge Task'),
               shape: appBarShapeBorder,
             ),
             body: Padding(
@@ -47,8 +47,8 @@ class CtaskDetailsView extends StatelessWidget {
                                 // color: Theme.of(context).primaryColor,
                                 color: Theme.of(context).brightness ==
                                         Brightness.light
-                                    ? AppColors.lightChallange
-                                    : AppColors.darkChallange,
+                                    ? AppColors.lightChallenge
+                                    : AppColors.darkChallenge,
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: Padding(

@@ -4,7 +4,7 @@ import 'package:dotdo/widgets/dumb_widgets/button/button_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/datepicker/datepicker_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/home_uc_tasks/home_uc_tasks_widget.dart';
-import 'package:dotdo/widgets/smart_widgets/one_row_active_challange/one_row_active_challange_widget.dart';
+import 'package:dotdo/widgets/smart_widgets/one_row_active_challenge/one_row_active_challenge_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/overdue_tasks_list%20/overdue_tasks_list_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/task_list/task_list_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/today_tasks_list/today_tasks_list_widget.dart';
@@ -21,8 +21,8 @@ class TodayView extends StatelessWidget {
           child: ListView(
             children: [
               verticalSpaceSmall(context),
-              HeaderTextWidget(lable: 'Challanges/Routines'),
-              OneRowActiveChallangeWidget(),
+              HeaderTextWidget(lable: 'Challenges/Routines'),
+              OneRowActiveChallengeWidget(),
               // * Tap bar
               Padding(
                 padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
@@ -90,7 +90,7 @@ class TodayView extends StatelessWidget {
                           child: DatepickerWidget(),
                         ),
                         // // * Chllanges/Routine list
-                        // // challanges list
+                        // // challenges list
                         // HomeUcTasksWidget(),
                         // * Overdue list
                         OverdueTasksListWidget(),

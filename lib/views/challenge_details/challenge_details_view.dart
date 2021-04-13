@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:date_picker_timeline/extra/style.dart';
-import 'package:dotdo/core/models/challange.dart';
+import 'package:dotdo/core/models/challenge.dart';
 import 'package:dotdo/core/models/task.dart';
 import 'package:dotdo/shared/constant.dart';
 import 'package:dotdo/shared/ui_helpers.dart';
@@ -10,28 +10,28 @@ import 'package:dotdo/widgets/dumb_widgets/button/button_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/card/card_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
-import 'package:dotdo/widgets/dumb_widgets/long_challange_card/long_challange_card_widget.dart';
+import 'package:dotdo/widgets/dumb_widgets/long_challenge_card/long_challenge_card_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/prograss_bar/prograss_bar_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/task/task_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stacked/stacked.dart';
-import 'challange_details_view_model.dart';
+import 'challenge_details_view_model.dart';
 
-class ChallangeDetailsView extends StatelessWidget {
+class ChallengeDetailsView extends StatelessWidget {
   final Map args;
 
-  const ChallangeDetailsView({Key key, this.args}) : super(key: key);
+  const ChallengeDetailsView({Key key, this.args}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<ChallangeDetailsViewModel>.reactive(
-      onModelReady: (ChallangeDetailsViewModel viewModel) =>
+    return ViewModelBuilder<ChallengeDetailsViewModel>.reactive(
+      onModelReady: (ChallengeDetailsViewModel viewModel) =>
           viewModel.handelStartup(args),
-      builder: (BuildContext context, ChallangeDetailsViewModel viewModel,
+      builder: (BuildContext context, ChallengeDetailsViewModel viewModel,
           Widget _) {
         return Scaffold(
           appBar: AppBar(
-            title: Text('Challange'),
+            title: Text('Challenge'),
             shape: appBarShapeBorder,
             actions: [
               IconButton(
@@ -80,15 +80,15 @@ class ChallangeDetailsView extends StatelessWidget {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 10),
                                 child: StreamBuilder(
-                                  stream: viewModel.challangeStream,
+                                  stream: viewModel.challengeStream,
                                   builder: (BuildContext context,
                                       AsyncSnapshot<DocumentSnapshot>
                                           snapshot) {
-                                    Challange newChallange;
+                                    Challenge newChallenge;
                                     if (snapshot.hasData) {
-                                      newChallange = Challange.fromMap(
+                                      newChallenge = Challenge.fromMap(
                                           snapshot.data.data());
-                                      viewModel.updateChallange(newChallange);
+                                      viewModel.updateChallenge(newChallenge);
                                     }
 
                                     return (snapshot.hasData == false ||
@@ -96,10 +96,10 @@ class ChallangeDetailsView extends StatelessWidget {
                                         ? Container()
                                         : Column(
                                             children: [
-                                              LongChallangeCardWidget(
-                                                challange: newChallange,
+                                              LongChallengeCardWidget(
+                                                challenge: newChallenge,
                                                 onTap: () =>
-                                                    viewModel.challangeTapped(
+                                                    viewModel.challengeTapped(
                                                         snapshot.data.id),
                                               ),
 
@@ -120,12 +120,12 @@ class ChallangeDetailsView extends StatelessWidget {
                                                         const EdgeInsets.all(
                                                             10),
                                                     child: DatePicker(
-                                                      newChallange.startDate,
+                                                      newChallenge.startDate,
                                                       height: 82,
-                                                      daysCount: (newChallange
+                                                      daysCount: (newChallenge
                                                               .endDate
                                                               .difference(
-                                                                  newChallange
+                                                                  newChallenge
                                                                       .startDate)
                                                               .inDays +
                                                           1),
@@ -510,9 +510,9 @@ class ChallangeDetailsView extends StatelessWidget {
                                                                   .brightness ==
                                                               Brightness.light
                                                           ? AppColors
-                                                              .lightChallange
+                                                              .lightChallenge
                                                           : AppColors
-                                                              .darkChallange,
+                                                              .darkChallenge,
                                                       task: Task.fromMap(
                                                           taskList[index]
                                                               .data()),
@@ -546,7 +546,7 @@ class ChallangeDetailsView extends StatelessWidget {
           ),
         );
       },
-      viewModelBuilder: () => ChallangeDetailsViewModel(),
+      viewModelBuilder: () => ChallengeDetailsViewModel(),
     );
   }
 }

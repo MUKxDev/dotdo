@@ -28,7 +28,7 @@ class FirestoreService {
         noOfBadges: 0,
         noOfTaskCompleted: 0,
         noOfLikes: 0,
-        noOfChallangeCompleted: 0,
+        noOfChallengeCompleted: 0,
         lastBadge: "");
     users
         .doc(uid)

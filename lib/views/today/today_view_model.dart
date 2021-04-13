@@ -1,4 +1,4 @@
-import 'package:dotdo/core/services/challangeService.dart';
+import 'package:dotdo/core/services/challengeService.dart';
 import 'package:intl/intl.dart';
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/router_constants.dart';
@@ -22,14 +22,14 @@ class TodayViewModel extends ReactiveViewModel {
     notifyListeners();
   }
 
-  // Stream get getHomeActiveUChallange => _challangeService.getActiveUChallange();
+  // Stream get getHomeActiveUChallenge => _challengeService.getActiveUChallenge();
 
   DateTime get currentDate => _taskService.date.value;
   final dateFormat = DateFormat('MMM-dd');
 
   NavigationService _navigationService = locator<NavigationService>();
   TaskService _taskService = locator<TaskService>();
-  // ChallangeService _challangeService = locator<ChallangeService>();
+  // ChallengeService _challengeService = locator<ChallengeService>();
 
   TodayViewModel() {
     this.log = getLogger(this.runtimeType.toString());

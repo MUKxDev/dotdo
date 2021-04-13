@@ -3,16 +3,16 @@ import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/public_icon/public_icon_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'inactive_challange_card_view_model.dart';
+import 'inactive_challenge_card_view_model.dart';
 
-class InactiveChallangeCardWidget extends StatelessWidget {
+class InactiveChallengeCardWidget extends StatelessWidget {
   final bool public;
   final IconData iconData;
   final Color iconColor;
   final String lable;
   final Function onTap;
 
-  const InactiveChallangeCardWidget(
+  const InactiveChallengeCardWidget(
       {Key key,
       this.public = false,
       @required this.iconData,
@@ -22,8 +22,8 @@ class InactiveChallangeCardWidget extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<InactiveChallangeCardViewModel>.reactive(
-      builder: (BuildContext context, InactiveChallangeCardViewModel viewModel,
+    return ViewModelBuilder<InactiveChallengeCardViewModel>.reactive(
+      builder: (BuildContext context, InactiveChallengeCardViewModel viewModel,
           Widget _) {
         return CardWidget(
           borderRadius: 20,
@@ -41,7 +41,7 @@ class InactiveChallangeCardWidget extends StatelessWidget {
                 children: [
                   // * Public Icon
                   PublicIconWidget(public: public),
-                  // * Challange Icon
+                  // * Challenge Icon
                   Icon(
                     iconData,
                     size: 24,
@@ -58,7 +58,7 @@ class InactiveChallangeCardWidget extends StatelessWidget {
           ),
         );
       },
-      viewModelBuilder: () => InactiveChallangeCardViewModel(),
+      viewModelBuilder: () => InactiveChallengeCardViewModel(),
     );
   }
 }

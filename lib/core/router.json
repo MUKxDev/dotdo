@@ -1,5 +1,5 @@
 {
-    "last_updated": "Sat, 10 Apr 2021 23:45:53 GMT",
+    "last_updated": "Tue, 13 Apr 2021 21:03:20 GMT",
     "routes": [
         {
             "file_path": "views/splash/splash_view.dart",
@@ -52,19 +52,24 @@
             "view_name": "TaskDetailsView"
         },
         {
-            "file_path": "views/new_challange/new_challange_view.dart",
-            "route_name": "new_challangeViewRoute",
-            "view_name": "NewChallangeView"
+            "file_path": "views/new_challenge/new_challenge_view.dart",
+            "route_name": "new_challengeViewRoute",
+            "view_name": "NewChallengeView"
         },
         {
-            "file_path": "views/challange_details/challange_details_view.dart",
-            "route_name": "challange_detailsViewRoute",
-            "view_name": "ChallangeDetailsView"
+            "file_path": "views/challenge_details/challenge_details_view.dart",
+            "route_name": "challenge_detailsViewRoute",
+            "view_name": "ChallengeDetailsView"
         },
         {
             "file_path": "views/ctask_details/ctask_details_view.dart",
             "route_name": "ctask_detailsViewRoute",
             "view_name": "CtaskDetailsView"
+        },
+        {
+            "file_path": "views/new_routine/new_routine_view.dart",
+            "route_name": "new_routineViewRoute",
+            "view_name": "NewRoutineView"
         }
     ]
 }

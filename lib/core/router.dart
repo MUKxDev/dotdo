@@ -13,10 +13,10 @@ import 'package:dotdo/views/authpage/authpage_view.dart' as view6;
 import 'package:dotdo/views/discover/discover_view.dart' as view7;
 import 'package:dotdo/views/profile/profile_view.dart' as view8;
 import 'package:dotdo/views/task_details/task_details_view.dart' as view9;
-import 'package:dotdo/views/new_challange/new_challange_view.dart' as view10;
-import 'package:dotdo/views/challange_details/challange_details_view.dart'
-    as view11;
+import 'package:dotdo/views/new_challenge/new_challenge_view.dart' as view10;
+import 'package:dotdo/views/challenge_details/challenge_details_view.dart' as view11;
 import 'package:dotdo/views/ctask_details/ctask_details_view.dart' as view12;
+import 'package:dotdo/views/new_routine/new_routine_view.dart' as view13;
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -40,25 +40,15 @@ class Router {
       case profileViewRoute:
         return MaterialPageRoute(builder: (_) => view8.ProfileView());
       case taskDetailsViewRoute:
-        return MaterialPageRoute(
-            builder: (_) => view9.TaskDetailsView(
-                  taskId: settings.arguments,
-                ));
-      case newChallangeViewRoute:
-        return MaterialPageRoute(
-            builder: (_) => view10.NewChallangeView(
-                  challangeId: settings.arguments,
-                ));
-      case challangeDetailsViewRoute:
-        return MaterialPageRoute(
-            builder: (_) => view11.ChallangeDetailsView(
-                  args: settings.arguments,
-                ));
+        return MaterialPageRoute(builder: (_) => view9.TaskDetailsView());
+      case newChallengeViewRoute:
+        return MaterialPageRoute(builder: (_) => view10.NewChallengeView());
+      case challengeDetailsViewRoute:
+        return MaterialPageRoute(builder: (_) => view11.ChallengeDetailsView());
       case ctaskDetailsViewRoute:
-        return MaterialPageRoute(
-            builder: (_) => view12.CtaskDetailsView(
-                  args: settings.arguments,
-                ));
+        return MaterialPageRoute(builder: (_) => view12.CtaskDetailsView());
+      case newRoutineViewRoute:
+        return MaterialPageRoute(builder: (_) => view13.NewRoutineView());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

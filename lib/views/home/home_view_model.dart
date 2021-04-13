@@ -86,9 +86,9 @@ class HomeViewModel extends ReactiveViewModel {
     print(uid);
   }
 
-  // TODO: navigate to  challangeDetailsViewRoute
-  addChallange() {
-    _navigationService.navigateTo(newChallangeViewRoute);
+  // TODO: navigate to  challengeDetailsViewRoute
+  addChallenge() {
+    _navigationService.navigateTo(newChallengeViewRoute);
   }
 
   Key fabKey = UniqueKey();

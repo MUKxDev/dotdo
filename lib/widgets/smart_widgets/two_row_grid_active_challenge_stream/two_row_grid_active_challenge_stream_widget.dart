@@ -1,27 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dotdo/core/models/challange.dart';
+import 'package:dotdo/core/models/challenge.dart';
 import 'package:dotdo/shared/ui_helpers.dart';
 import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
-import 'package:dotdo/widgets/smart_widgets/active_challange_card/active_challange_card_widget.dart';
+import 'package:dotdo/widgets/smart_widgets/active_challenge_card/active_challenge_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stacked/stacked.dart';
-import 'two_row_grid_active_challange_stream_view_model.dart';
+import 'two_row_grid_active_challenge_stream_view_model.dart';
 
-class TwoRowGridActiveChallangeStreamWidget extends StatelessWidget {
+class TwoRowGridActiveChallengeStreamWidget extends StatelessWidget {
   final Stream stream;
   final Widget widget;
 
-  const TwoRowGridActiveChallangeStreamWidget(
+  const TwoRowGridActiveChallengeStreamWidget(
       {Key key, @required this.stream, this.widget})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<TwoRowGridActiveChallangeStreamViewModel>.reactive(
-      onModelReady: (TwoRowGridActiveChallangeStreamViewModel viewModel) =>
+    return ViewModelBuilder<TwoRowGridActiveChallengeStreamViewModel>.reactive(
+      onModelReady: (TwoRowGridActiveChallengeStreamViewModel viewModel) =>
           viewModel.handleStartUp(),
       builder: (BuildContext context,
-          TwoRowGridActiveChallangeStreamViewModel viewModel, Widget _) {
+          TwoRowGridActiveChallengeStreamViewModel viewModel, Widget _) {
         return StreamBuilder<QuerySnapshot>(
             stream: stream,
             builder: (context, snapshot) {
@@ -47,7 +47,7 @@ class TwoRowGridActiveChallangeStreamWidget extends StatelessWidget {
                         ),
                         child: Center(child: CircularProgressIndicator()),
                       )
-                    // * Challange Stream grid
+                    // * Challenge Stream grid
                     : list.length == 0
                         // CircularProgressIndicator
                         ? Container(
@@ -60,10 +60,10 @@ class TwoRowGridActiveChallangeStreamWidget extends StatelessWidget {
                             child: Center(
                               child: DescriptionTextWidget(
                                   description:
-                                      'You don\'t have any upcoming challanges'),
+                                      'You don\'t have any upcoming challenges'),
                             ),
                           )
-                        // * Challange Stream grid
+                        // * Challenge Stream grid
                         : Container(
                             height: 225,
                             child: GridView.builder(
@@ -77,28 +77,28 @@ class TwoRowGridActiveChallangeStreamWidget extends StatelessWidget {
                                 ),
                                 itemCount: list.length,
                                 itemBuilder: (BuildContext context, index) {
-                                  Challange _challange =
-                                      Challange.fromMap(list[index].data());
-                                  return ActiveChallangeCardWidget(
-                                      iconColor: _challange.iconColor,
+                                  Challenge _challenge =
+                                      Challenge.fromMap(list[index].data());
+                                  return ActiveChallengeCardWidget(
+                                      iconColor: _challenge.iconColor,
                                       iconData: IconDataSolid(
-                                          _challange.iconData.codePoint),
-                                      lable: _challange.name,
-                                      description: _challange.note,
+                                          _challenge.iconData.codePoint),
+                                      lable: _challenge.name,
+                                      description: _challenge.note,
                                       progressValue:
-                                          (_challange.noOfTasks == 0 ||
-                                                  _challange.noOfTasks == null)
+                                          (_challenge.noOfTasks == 0 ||
+                                                  _challenge.noOfTasks == null)
                                               ? 0
-                                              : (_challange.noOfCompletedTasks /
-                                                  _challange.noOfTasks),
+                                              : (_challenge.noOfCompletedTasks /
+                                                  _challenge.noOfTasks),
                                       onTap: () => viewModel
-                                          .challangeTapped(list[index].id));
+                                          .challengeTapped(list[index].id));
                                 }),
                           ),
               );
             });
       },
-      viewModelBuilder: () => TwoRowGridActiveChallangeStreamViewModel(),
+      viewModelBuilder: () => TwoRowGridActiveChallengeStreamViewModel(),
     );
   }
 }
@@ -110,7 +110,7 @@ class TwoRowGridActiveChallangeStreamWidget extends StatelessWidget {
 //                     crossAxisSpacing: 10,
 //                     mainAxisSpacing: 20,
 //                     children: [
-//                       ActiveChallangeCardWidget(
+//                       ActiveChallengeCardWidget(
 //                         lable: 'Index',
 //                         onTap: () => print('Challenge Tapped'),
 //                         progressValue: 0.5,

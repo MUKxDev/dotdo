@@ -111,8 +111,8 @@ class HomeView extends StatelessWidget {
                 ),
               ),
               SpeedDialChild(
-                label: 'Add Challange',
-                onTap: viewModel.addChallange,
+                label: 'Add Challenge',
+                onTap: viewModel.addChallenge,
                 backgroundColor: Theme.of(context).accentColor,
                 foregroundColor: AppColors.white,
                 child: Icon(

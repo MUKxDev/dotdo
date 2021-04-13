@@ -2,10 +2,10 @@ import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dotdo/core/logger.dart';
 
-class PvpchallangeViewModel extends BaseViewModel {
+class ActiveChallengeCardViewModel extends BaseViewModel {
   Logger log;
 
-  PvpchallangeViewModel() {
+  ActiveChallengeCardViewModel() {
     this.log = getLogger(this.runtimeType.toString());
   }
 }

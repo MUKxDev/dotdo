@@ -1,28 +1,28 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotdo/core/locator.dart';
-import 'package:dotdo/core/models/challange.dart';
+import 'package:dotdo/core/models/challenge.dart';
 import 'package:dotdo/core/models/task.dart';
 import 'package:dotdo/core/router_constants.dart';
-import 'package:dotdo/core/services/challangeService.dart';
+import 'package:dotdo/core/services/challengeService.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dotdo/core/logger.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:intl/intl.dart';
 
-class ChallangeDetailsViewModel extends BaseViewModel {
+class ChallengeDetailsViewModel extends BaseViewModel {
   Logger log;
 
-  ChallangeDetailsViewModel() {
+  ChallengeDetailsViewModel() {
     this.log = getLogger(this.runtimeType.toString());
   }
-  ChallangeService _challangeService = locator<ChallangeService>();
+  ChallengeService _challengeService = locator<ChallengeService>();
 
-  String _challangeId;
-  String get challangeId => _challangeId;
+  String _challengeId;
+  String get challengeId => _challengeId;
 
-  Challange _challange;
-  Challange get challange => _challange;
+  Challenge _challenge;
+  Challenge get challenge => _challenge;
 
   bool _isEdit = false;
   bool get isEdit => _isEdit;
@@ -38,20 +38,20 @@ class ChallangeDetailsViewModel extends BaseViewModel {
 
   final dateFormat = DateFormat('MMM-dd');
 
-  Stream<DocumentSnapshot> get challangeStream =>
-      _challangeService.getUChallangeStream(challangeId);
+  Stream<DocumentSnapshot> get challengeStream =>
+      _challengeService.getUChallengeStream(challengeId);
 
   Stream<QuerySnapshot> get tasksStream =>
-      _challangeService.getDateUCTasksStream(_challangeId, _selectedDate);
+      _challengeService.getDateUCTasksStream(_challengeId, _selectedDate);
 
   handelStartup(Map args) async {
     print(args);
-    _challangeId = args['challangeId'];
+    _challengeId = args['challengeId'];
     _isEdit = args['isEdit'];
 
-    _challange = await _challangeService.getUChallange(_challangeId);
+    _challenge = await _challengeService.getUChallenge(_challengeId);
 
-    _selectedDate = _challange.startDate;
+    _selectedDate = _challenge.startDate;
 
     _isBusy = false;
     notifyListeners();
@@ -59,8 +59,8 @@ class ChallangeDetailsViewModel extends BaseViewModel {
 
   Future<void> toggleCompletedUTask(
       String taskId, bool currentCompleted) async {
-    await _challangeService.toggleCompletedUCTask(
-        taskId, _challangeId, currentCompleted);
+    await _challengeService.toggleCompletedUCTask(
+        taskId, _challengeId, currentCompleted);
     notifyListeners();
   }
 
@@ -72,10 +72,10 @@ class ChallangeDetailsViewModel extends BaseViewModel {
   addNewTask() {
     Map args = {
       'taskId': null,
-      'challangeId': _challangeId,
+      'challengeId': _challengeId,
       'date': _selectedDate,
-      'icon': _challange.iconData,
-      'color': _challange.iconColor,
+      'icon': _challenge.iconData,
+      'color': _challenge.iconColor,
     };
     _navigationService.navigateTo(ctaskDetailsViewRoute, arguments: args);
   }
@@ -83,7 +83,7 @@ class ChallangeDetailsViewModel extends BaseViewModel {
   taskTapped(String taskId) async {
     Map args = {
       'taskId': taskId,
-      'challangeId': _challangeId,
+      'challengeId': _challengeId,
       'date': _selectedDate,
       'icon': null,
       'color': null,
@@ -92,15 +92,15 @@ class ChallangeDetailsViewModel extends BaseViewModel {
   }
 
   deleteUTask(String taskId) {
-    _challangeService.deleteUCTask(taskId, _challangeId);
+    _challengeService.deleteUCTask(taskId, _challengeId);
   }
 
-  updateChallange(Challange newChallange) {
-    _challange = newChallange;
+  updateChallenge(Challenge newChallenge) {
+    _challenge = newChallenge;
   }
 
-  challangeTapped(String id) {
-    _navigationService.navigateTo(newChallangeViewRoute, arguments: id);
+  challengeTapped(String id) {
+    _navigationService.navigateTo(newChallengeViewRoute, arguments: id);
   }
 
   toggleIsEdit() {

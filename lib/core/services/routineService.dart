@@ -17,10 +17,10 @@ class RoutineService {
         .collection('URoutines')
         .add(routine.toMap())
         .then((value) {
-      print('challange with id ${value.id} added');
+      print('challenge with id ${value.id} added');
       return value.id;
     }).onError((error, stackTrace) {
-      print('erorr with adding challange: $error');
+      print('erorr with adding challenge: $error');
       return null;
     });
     startingpack(routineId);
@@ -74,10 +74,10 @@ class RoutineService {
           .doc(routineId)
           .update({'noOfTask': _plusTask});
 
-      print('challange with id ${value.id} added');
+      print('challenge with id ${value.id} added');
       return value.id;
     }).onError((error, stackTrace) {
-      print('erorr with adding challange: $error');
+      print('erorr with adding challenge: $error');
       return null;
     });
     return urtaskId;

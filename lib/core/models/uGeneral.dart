@@ -6,7 +6,7 @@ class UGeneral {
   final int noOfGroups;
   final int noOfBadges;
   final int noOfTaskCompleted;
-  final int noOfChallangeCompleted;
+  final int noOfChallengeCompleted;
   final int noOfLikes;
   final String lastBadge;
   UGeneral({
@@ -15,7 +15,7 @@ class UGeneral {
     this.noOfGroups,
     this.noOfBadges,
     this.noOfTaskCompleted,
-    this.noOfChallangeCompleted,
+    this.noOfChallengeCompleted,
     this.noOfLikes,
     this.lastBadge,
   });
@@ -26,7 +26,7 @@ class UGeneral {
     int noOfGroups,
     int noOfBadges,
     int noOfTaskCompleted,
-    int noOfChallangeCompleted,
+    int noOfChallengeCompleted,
     int noOfLikes,
     String lastBadge,
   }) {
@@ -36,8 +36,8 @@ class UGeneral {
       noOfGroups: noOfGroups ?? this.noOfGroups,
       noOfBadges: noOfBadges ?? this.noOfBadges,
       noOfTaskCompleted: noOfTaskCompleted ?? this.noOfTaskCompleted,
-      noOfChallangeCompleted:
-          noOfChallangeCompleted ?? this.noOfChallangeCompleted,
+      noOfChallengeCompleted:
+          noOfChallengeCompleted ?? this.noOfChallengeCompleted,
       noOfLikes: noOfLikes ?? this.noOfLikes,
       lastBadge: lastBadge ?? this.lastBadge,
     );
@@ -50,7 +50,7 @@ class UGeneral {
       'noOfGroups': noOfGroups,
       'noOfBadges': noOfBadges,
       'noOfTaskCompleted': noOfTaskCompleted,
-      'noOfChallangeCompleted': noOfChallangeCompleted,
+      'noOfChallengeCompleted': noOfChallengeCompleted,
       'noOfLikes': noOfLikes,
       'lastBadge': lastBadge,
     };
@@ -65,7 +65,7 @@ class UGeneral {
       noOfGroups: map['noOfGroups'],
       noOfBadges: map['noOfBadges'],
       noOfTaskCompleted: map['noOfTaskCompleted'],
-      noOfChallangeCompleted: map['noOfChallangeCompleted'],
+      noOfChallengeCompleted: map['noOfChallengeCompleted'],
       noOfLikes: map['noOfLikes'],
       lastBadge: map['lastBadge'],
     );
@@ -78,7 +78,7 @@ class UGeneral {
 
   @override
   String toString() {
-    return 'UGeneral(noOfFollowers: $noOfFollowers, noOfFollowing: $noOfFollowing, noOfGroups: $noOfGroups, noOfBadges: $noOfBadges, noOfTaskCompleted: $noOfTaskCompleted, noOfChallangeCompleted: $noOfChallangeCompleted, noOfLikes: $noOfLikes, lastBadge: $lastBadge)';
+    return 'UGeneral(noOfFollowers: $noOfFollowers, noOfFollowing: $noOfFollowing, noOfGroups: $noOfGroups, noOfBadges: $noOfBadges, noOfTaskCompleted: $noOfTaskCompleted, noOfChallengeCompleted: $noOfChallengeCompleted, noOfLikes: $noOfLikes, lastBadge: $lastBadge)';
   }
 
   @override
@@ -91,7 +91,7 @@ class UGeneral {
         o.noOfGroups == noOfGroups &&
         o.noOfBadges == noOfBadges &&
         o.noOfTaskCompleted == noOfTaskCompleted &&
-        o.noOfChallangeCompleted == noOfChallangeCompleted &&
+        o.noOfChallengeCompleted == noOfChallengeCompleted &&
         o.noOfLikes == noOfLikes &&
         o.lastBadge == lastBadge;
   }
@@ -103,7 +103,7 @@ class UGeneral {
         noOfGroups.hashCode ^
         noOfBadges.hashCode ^
         noOfTaskCompleted.hashCode ^
-        noOfChallangeCompleted.hashCode ^
+        noOfChallengeCompleted.hashCode ^
         noOfLikes.hashCode ^
         lastBadge.hashCode;
   }

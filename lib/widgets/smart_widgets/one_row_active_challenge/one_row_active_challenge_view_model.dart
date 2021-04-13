@@ -1,26 +1,28 @@
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/router_constants.dart';
+import 'package:dotdo/core/services/challengeService.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dotdo/core/logger.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class TwoRowGridActiveChallangeStreamViewModel extends BaseViewModel {
+class OneRowActiveChallengeViewModel extends BaseViewModel {
   Logger log;
 
-  TwoRowGridActiveChallangeStreamViewModel() {
+  OneRowActiveChallengeViewModel() {
     this.log = getLogger(this.runtimeType.toString());
   }
 
   NavigationService _navigationService = locator<NavigationService>();
+  ChallengeService _challengeService = locator<ChallengeService>();
 
-  handleStartUp() {}
+  Stream get getActiveUChallenge => _challengeService.getActiveUChallenge();
 
-  challangeTapped(String id) {
+  challengeTapped(String id) {
     Map args = {
-      'challangeId': id,
+      'challengeId': id,
       'isEdit': false,
     };
-    _navigationService.navigateTo(challangeDetailsViewRoute, arguments: args);
+    _navigationService.navigateTo(challengeDetailsViewRoute, arguments: args);
   }
 }

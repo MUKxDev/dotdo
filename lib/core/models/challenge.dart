@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
-class Challange {
+class Challenge {
   final String name;
   final String note;
   final DateTime startDate;
@@ -13,7 +13,7 @@ class Challange {
   final int noOfCompletedTasks;
   final IconData iconData;
   final Color iconColor;
-  Challange({
+  Challenge({
     this.name,
     this.note,
     this.startDate,
@@ -26,7 +26,7 @@ class Challange {
     this.iconColor,
   });
 
-  Challange copyWith({
+  Challenge copyWith({
     String name,
     String note,
     DateTime startDate,
@@ -38,7 +38,7 @@ class Challange {
     IconData iconData,
     Color iconColor,
   }) {
-    return Challange(
+    return Challenge(
       name: name ?? this.name,
       note: note ?? this.note,
       startDate: startDate ?? this.startDate,
@@ -67,10 +67,10 @@ class Challange {
     };
   }
 
-  factory Challange.fromMap(Map<String, dynamic> map) {
+  factory Challenge.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
 
-    return Challange(
+    return Challenge(
       name: map['name'],
       note: map['note'],
       startDate: DateTime.fromMillisecondsSinceEpoch(map['startDate']),
@@ -86,19 +86,19 @@ class Challange {
 
   String toJson() => json.encode(toMap());
 
-  factory Challange.fromJson(String source) =>
-      Challange.fromMap(json.decode(source));
+  factory Challenge.fromJson(String source) =>
+      Challenge.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'Challange(name: $name, note: $note, startDate: $startDate, endDate: $endDate, completed: $completed, noOfParticipants: $noOfParticipants, noOfTasks: $noOfTasks, noOfCompletedTasks: $noOfCompletedTasks, iconData: $iconData, iconColor: $iconColor)';
+    return 'Challenge(name: $name, note: $note, startDate: $startDate, endDate: $endDate, completed: $completed, noOfParticipants: $noOfParticipants, noOfTasks: $noOfTasks, noOfCompletedTasks: $noOfCompletedTasks, iconData: $iconData, iconColor: $iconColor)';
   }
 
   @override
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
 
-    return o is Challange &&
+    return o is Challenge &&
         o.name == name &&
         o.note == note &&
         o.startDate == startDate &&

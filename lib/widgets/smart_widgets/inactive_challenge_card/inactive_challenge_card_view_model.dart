@@ -2,10 +2,10 @@ import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dotdo/core/logger.dart';
 
-class InactiveChallangeCardViewModel extends BaseViewModel {
+class InactiveChallengeCardViewModel extends BaseViewModel {
   Logger log;
 
-  InactiveChallangeCardViewModel() {
+  InactiveChallengeCardViewModel() {
     this.log = getLogger(this.runtimeType.toString());
   }
 }

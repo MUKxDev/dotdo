@@ -72,7 +72,7 @@ class TaskWidget extends StatelessWidget {
                                       : AppColors.darkRed)
                                   : (Theme.of(context).brightness ==
                                           Brightness.light
-                                      ? AppColors.darkChallange.withAlpha(200)
+                                      ? AppColors.darkChallenge.withAlpha(200)
                                       : AppColors.darkRed),
                               description:
                                   'Overdue: Today at ${viewModel.timeFormat.format(task.dueDate)}',
@@ -85,7 +85,7 @@ class TaskWidget extends StatelessWidget {
                                       : AppColors.darkRed)
                                   : (Theme.of(context).brightness ==
                                           Brightness.light
-                                      ? AppColors.darkChallange.withAlpha(200)
+                                      ? AppColors.darkChallenge.withAlpha(200)
                                       : AppColors.darkRed),
                               description:
                                   'Overdue: ${viewModel.dateFormat.format(task.dueDate)} at ${viewModel.timeFormat.format(task.dueDate)}',
