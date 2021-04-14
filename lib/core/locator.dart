@@ -1,5 +1,7 @@
 import 'package:dotdo/core/services/challengeService.dart';
+import 'package:dotdo/core/services/routineService.dart';
 import 'package:dotdo/core/services/taskService.dart';
+import 'package:dotdo/core/services/userService.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
@@ -30,5 +32,9 @@ class LocatorInjector {
     locator.registerLazySingleton(() => TaskService());
     log.d('Registering Challenge Service');
     locator.registerLazySingleton(() => ChallengeService());
+    log.d('Registering Routine Service');
+    locator.registerLazySingleton(() => RoutineService());
+    log.d('Registering User Service');
+    locator.registerLazySingleton(() => UserService());
   }
 }

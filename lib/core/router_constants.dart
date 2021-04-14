@@ -14,3 +14,6 @@ const String newChallengeViewRoute = 'newChallengeViewRoute';
 const String challengeDetailsViewRoute = 'challengeDetailsViewRoute';
 const String ctaskDetailsViewRoute = 'ctaskDetailsViewRoute';
 const String newRoutineViewRoute = 'newRoutineViewRoute';
+const String routineDetailsViewRoute = 'routineDetailsViewRoute';
+const String rtaskDetailsViewRoute = 'rtaskDetailsViewRoute';
+const String pvpDetailsViewRoute = 'pvpDetailsViewRoute';

@@ -1,22 +1,26 @@
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/router_constants.dart';
-import 'package:dotdo/views/pvp_details/pvp_details_view.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dotdo/core/logger.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class SocialViewModel extends BaseViewModel {
+class UpcomingChallengeStreamViewModel extends BaseViewModel {
   Logger log;
 
-  SocialViewModel() {
+  UpcomingChallengeStreamViewModel() {
     this.log = getLogger(this.runtimeType.toString());
   }
 
   NavigationService _navigationService = locator<NavigationService>();
 
-  pvpTapped() {
-    // TODO: see if this nav better
-    _navigationService.navigateToView(PvpDetailsView());
+  handleStartUp() {}
+
+  challengeTapped(String id) {
+    Map args = {
+      'challengeId': id,
+      'isEdit': false,
+    };
+    _navigationService.navigateTo(challengeDetailsViewRoute, arguments: args);
   }
 }

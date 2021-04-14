@@ -1,33 +1,31 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:date_picker_timeline/date_picker_widget.dart';
-import 'package:date_picker_timeline/extra/style.dart';
-import 'package:dotdo/core/models/challenge.dart';
+import 'package:dotdo/core/models/Routine.dart';
 import 'package:dotdo/core/models/task.dart';
 import 'package:dotdo/shared/constant.dart';
 import 'package:dotdo/theme/colors.dart';
 import 'package:dotdo/widgets/dumb_widgets/button/button_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
-import 'package:dotdo/widgets/dumb_widgets/long_challenge_card/long_challenge_card_widget.dart';
+import 'package:dotdo/widgets/dumb_widgets/long_routine_card/long_routine_card_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/task/task_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'challenge_details_view_model.dart';
+import 'routine_details_view_model.dart';
 
-class ChallengeDetailsView extends StatelessWidget {
+class RoutineDetailsView extends StatelessWidget {
   final Map args;
 
-  const ChallengeDetailsView({Key key, this.args}) : super(key: key);
+  const RoutineDetailsView({Key key, this.args}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<ChallengeDetailsViewModel>.reactive(
-      onModelReady: (ChallengeDetailsViewModel viewModel) =>
+    return ViewModelBuilder<RoutineDetailsViewModel>.reactive(
+      onModelReady: (RoutineDetailsViewModel viewModel) =>
           viewModel.handelStartup(args),
-      builder: (BuildContext context, ChallengeDetailsViewModel viewModel,
-          Widget _) {
+      builder:
+          (BuildContext context, RoutineDetailsViewModel viewModel, Widget _) {
         return Scaffold(
           appBar: AppBar(
-            title: Text('Challenge'),
+            title: Text('Routine'),
             shape: appBarShapeBorder,
             actions: [
               IconButton(
@@ -76,110 +74,31 @@ class ChallengeDetailsView extends StatelessWidget {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 10),
                                 child: StreamBuilder(
-                                  stream: viewModel.challengeStream,
+                                  stream: viewModel.routineStream,
                                   builder: (BuildContext context,
                                       AsyncSnapshot<DocumentSnapshot>
                                           snapshot) {
-                                    Challenge newChallenge;
+                                    Routine newRoutine;
                                     if (snapshot.hasData) {
-                                      newChallenge = Challenge.fromMap(
-                                          snapshot.data.data());
-                                      viewModel.updateChallenge(newChallenge);
+                                      newRoutine =
+                                          Routine.fromMap(snapshot.data.data());
+                                      viewModel.updateRoutine(newRoutine);
                                     }
 
                                     return (snapshot.hasData == false ||
                                             snapshot.data.exists == false)
                                         ? Container()
-                                        : Column(
-                                            children: [
-                                              LongChallengeCardWidget(
-                                                challenge: newChallenge,
-                                                onTap: () =>
-                                                    viewModel.challengeTapped(
-                                                        snapshot.data.id),
-                                              ),
-
-                                              // * Date Picker
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 20),
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    color: Theme.of(context)
-                                                        .primaryColor,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            10),
-                                                    child: DatePicker(
-                                                      newChallenge.startDate,
-                                                      height: 82,
-                                                      daysCount: (newChallenge
-                                                              .endDate
-                                                              .difference(
-                                                                  newChallenge
-                                                                      .startDate)
-                                                              .inDays +
-                                                          1),
-                                                      activeDates: viewModel
-                                                              .isEdit
-                                                          ? null
-                                                          : [DateTime.now()],
-                                                      initialSelectedDate:
-                                                          DateTime.now(),
-                                                      selectionColor:
-                                                          Theme.of(context)
-                                                              .accentColor,
-                                                      selectedTextColor:
-                                                          Colors.white,
-                                                      dayTextStyle:
-                                                          defaultDayTextStyle
-                                                              .copyWith(
-                                                        color: Theme.of(context)
-                                                                    .brightness ==
-                                                                Brightness.dark
-                                                            ? Colors.white
-                                                            : Colors.black,
-                                                      ),
-                                                      dateTextStyle:
-                                                          defaultDateTextStyle
-                                                              .copyWith(
-                                                        color: Theme.of(context)
-                                                                    .brightness ==
-                                                                Brightness.dark
-                                                            ? Colors.white
-                                                            : Colors.black,
-                                                      ),
-                                                      monthTextStyle:
-                                                          defaultMonthTextStyle
-                                                              .copyWith(
-                                                        color: Theme.of(context)
-                                                                    .brightness ==
-                                                                Brightness.dark
-                                                            ? Colors.white
-                                                            : Colors.black,
-                                                      ),
-                                                      onDateChange: (date) {
-                                                        // New date selected
-                                                        viewModel
-                                                            .updateSelectedValue(
-                                                                date: date);
-                                                      },
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
+                                        : LongRoutineCardWidget(
+                                            routine: newRoutine,
+                                            onTap: () =>
+                                                viewModel.routineTapped(
+                                                    snapshot.data.id),
                                           );
                                   },
                                 ),
                               ),
 
-                              // * CUTasks
+                              // * RUTasks
                               Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 10),
@@ -219,31 +138,10 @@ class ChallengeDetailsView extends StatelessWidget {
                                                 padding: const EdgeInsets.only(
                                                     top: 40),
                                                 child: Center(
-                                                  child: DateTime(
-                                                              viewModel
-                                                                  .selectedDate
-                                                                  .year,
-                                                              viewModel
-                                                                  .selectedDate
-                                                                  .month,
-                                                              viewModel
-                                                                  .selectedDate
-                                                                  .day) ==
-                                                          DateTime(
-                                                              DateTime.now()
-                                                                  .year,
-                                                              DateTime.now()
-                                                                  .month,
-                                                              DateTime.now()
-                                                                  .day)
-                                                      ? DescriptionTextWidget(
-                                                          description:
-                                                              'You don\'t have any tasks for today.',
-                                                        )
-                                                      : DescriptionTextWidget(
-                                                          description:
-                                                              'You don\'t have any tasks for ${viewModel.dateFormat.format(viewModel.selectedDate)}.',
-                                                        ),
+                                                  child: DescriptionTextWidget(
+                                                    description:
+                                                        'You don\'t have any tasks for this routine.',
+                                                  ),
                                                 ),
                                               )
                                             : ListView.builder(
@@ -506,9 +404,9 @@ class ChallengeDetailsView extends StatelessWidget {
                                                                   .brightness ==
                                                               Brightness.light
                                                           ? AppColors
-                                                              .lightChallenge
+                                                              .lightRoutine
                                                           : AppColors
-                                                              .darkChallenge,
+                                                              .darkRoutine,
                                                       task: Task.fromMap(
                                                           taskList[index]
                                                               .data()),
@@ -542,7 +440,7 @@ class ChallengeDetailsView extends StatelessWidget {
           ),
         );
       },
-      viewModelBuilder: () => ChallengeDetailsViewModel(),
+      viewModelBuilder: () => RoutineDetailsViewModel(),
     );
   }
 }

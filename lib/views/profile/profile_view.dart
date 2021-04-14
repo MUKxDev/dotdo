@@ -3,7 +3,8 @@ import 'package:dotdo/widgets/dumb_widgets/card/card_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
-import 'package:dotdo/widgets/smart_widgets/two_row_grid_active_challenge_stream/two_row_grid_active_challenge_stream_widget.dart';
+import 'package:dotdo/widgets/smart_widgets/routines_stream/routines_stream_widget.dart';
+import 'package:dotdo/widgets/smart_widgets/upcoming_challenge_stream/upcoming_challenge_stream_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'profile_view_model.dart';
@@ -28,7 +29,9 @@ class ProfileView extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       image: DecorationImage(
-                        image: AssetImage('assets/pp.png'),
+                        // image: AssetImage('assets/pp.png'),
+                        image: NetworkImage(
+                            'https://firebasestorage.googleapis.com/v0/b/dotdo-autovita.appspot.com/o/defaultAvatar.png?alt=media&token=d8896de4-4a13-4560-995c-d010a1a3bfd9'),
                       ),
                     ),
                   ),
@@ -208,13 +211,23 @@ class ProfileView extends StatelessWidget {
                   ),
                 ),
               ),
-              // * challenges grid
+              // * challenges list
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   HeaderTextWidget(lable: 'challenges'),
-                  TwoRowGridActiveChallengeStreamWidget(
+                  UpcomingChallengeStreamWidget(
                     stream: viewModel.getActiveUChallenge,
+                  ),
+                ],
+              ),
+              // * routines list
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  HeaderTextWidget(lable: 'routines'),
+                  RoutinesStreamWidget(
+                    stream: viewModel.getURoutines,
                   ),
                 ],
               ),

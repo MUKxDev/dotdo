@@ -1,30 +1,32 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dotdo/core/models/challenge.dart';
+import 'package:dotdo/core/models/Routine.dart';
 import 'package:dotdo/shared/ui_helpers.dart';
 import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
-import 'package:dotdo/widgets/dumb_widgets/long_challenge_card/long_challenge_card_widget.dart';
+import 'package:dotdo/widgets/dumb_widgets/long_routine_card/long_routine_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'one_row_active_challenge_view_model.dart';
+import 'routines_stream_view_model.dart';
 
-class OneRowActiveChallengeWidget extends StatelessWidget {
-  const OneRowActiveChallengeWidget({Key key}) : super(key: key);
+class RoutinesStreamWidget extends StatelessWidget {
+  final Stream stream;
+  final Widget widget;
+
+  const RoutinesStreamWidget({Key key, this.stream, this.widget})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<OneRowActiveChallengeViewModel>.reactive(
-      builder: (BuildContext context, OneRowActiveChallengeViewModel viewModel,
-          Widget _) {
+    return ViewModelBuilder<RoutinesStreamViewModel>.reactive(
+      builder:
+          (BuildContext context, RoutinesStreamViewModel viewModel, Widget _) {
         return StreamBuilder<QuerySnapshot>(
-            stream: viewModel.getActiveUChallenge,
+            stream: stream,
             builder: (context, snapshot) {
               List<QueryDocumentSnapshot> list;
               if (snapshot.hasData) {
                 list = snapshot.data.docs;
-                // Retain only the not completed and startDate is started
-                list.retainWhere((element) =>
-                    element.data()['completed'] == false &&
-                    element.data()['startDate'] <=
-                        DateTime.now().millisecondsSinceEpoch);
+                // Retain only the not completed
+                // list.retainWhere(
+                //     (element) => element.data()['completed'] == false);
               } else {
                 list = [];
               }
@@ -34,13 +36,14 @@ class OneRowActiveChallengeWidget extends StatelessWidget {
                     // CircularProgressIndicator
                     ? Container(
                         width: screenWidth(context),
-                        height: 80,
+                        height: 205,
                         decoration: BoxDecoration(
                           color: Theme.of(context).primaryColor,
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Center(child: CircularProgressIndicator()),
                       )
+                    // * Routine Stream list
                     : list.length == 0
                         // CircularProgressIndicator
                         ? Container(
@@ -52,11 +55,10 @@ class OneRowActiveChallengeWidget extends StatelessWidget {
                             ),
                             child: Center(
                               child: DescriptionTextWidget(
-                                  description:
-                                      'You don\'t have any active challenges'),
+                                  description: 'You don\'t have any routines'),
                             ),
                           )
-                        // * Challenge Stream list
+                        // * Routine Stream grid
                         : Container(
                             height: 80,
                             child: ListView.builder(
@@ -64,23 +66,23 @@ class OneRowActiveChallengeWidget extends StatelessWidget {
                                 scrollDirection: Axis.horizontal,
                                 itemCount: list.length,
                                 itemBuilder: (BuildContext context, index) {
-                                  Challenge _challenge =
-                                      Challenge.fromMap(list[index].data());
+                                  Routine _routine =
+                                      Routine.fromMap(list[index].data());
                                   return Padding(
                                     padding: (index + 1 == list.length)
                                         ? const EdgeInsets.only(right: 0)
                                         : const EdgeInsets.only(right: 10),
-                                    child: LongChallengeCardWidget(
-                                        challenge: _challenge,
+                                    child: LongRoutineCardWidget(
+                                        routine: _routine,
                                         onTap: () => viewModel
-                                            .challengeTapped(list[index].id)),
+                                            .routineTapped(list[index].id)),
                                   );
                                 }),
                           ),
               );
             });
       },
-      viewModelBuilder: () => OneRowActiveChallengeViewModel(),
+      viewModelBuilder: () => RoutinesStreamViewModel(),
     );
   }
 }

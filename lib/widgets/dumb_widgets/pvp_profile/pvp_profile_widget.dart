@@ -9,7 +9,7 @@ class PvpProfileWidget extends StatelessWidget {
   const PvpProfileWidget({
     Key key,
     @required this.name,
-    @required this.progressValue,
+    this.progressValue,
     @required this.image,
   }) : super(key: key);
   @override
@@ -31,10 +31,12 @@ class PvpProfileWidget extends StatelessWidget {
           ),
         ),
         Center(child: Text(name)),
-        Container(
-          width: 120,
-          child: PrograssBarWidget(progressValue: progressValue),
-        ),
+        progressValue == null
+            ? Container()
+            : Container(
+                width: 120,
+                child: PrograssBarWidget(progressValue: progressValue),
+              ),
       ],
     );
   }

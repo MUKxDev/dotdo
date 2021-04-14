@@ -94,7 +94,7 @@ class HomeView extends StatelessWidget {
                 label: 'Add Task',
                 onTap: viewModel.addTask,
                 backgroundColor: Theme.of(context).accentColor,
-                foregroundColor: AppColors.white,
+                foregroundColor: AppColors.white.withAlpha(200),
                 child: Icon(
                   FontAwesomeIcons.clipboardCheck,
                   size: 20,
@@ -103,8 +103,11 @@ class HomeView extends StatelessWidget {
               SpeedDialChild(
                 label: 'Add Routine',
                 onTap: viewModel.addRoutine,
-                backgroundColor: Theme.of(context).accentColor,
-                foregroundColor: AppColors.white,
+                backgroundColor:
+                    Theme.of(context).brightness == Brightness.light
+                        ? AppColors.lightRoutine
+                        : AppColors.darkRoutine,
+                foregroundColor: AppColors.white.withAlpha(200),
                 child: Icon(
                   FontAwesomeIcons.redoAlt,
                   size: 20,
@@ -113,8 +116,11 @@ class HomeView extends StatelessWidget {
               SpeedDialChild(
                 label: 'Add Challenge',
                 onTap: viewModel.addChallenge,
-                backgroundColor: Theme.of(context).accentColor,
-                foregroundColor: AppColors.white,
+                backgroundColor:
+                    Theme.of(context).brightness == Brightness.light
+                        ? AppColors.lightChallenge
+                        : AppColors.darkChallenge,
+                foregroundColor: AppColors.white.withAlpha(200),
                 child: Icon(
                   FontAwesomeIcons.crosshairs,
                   size: 20,

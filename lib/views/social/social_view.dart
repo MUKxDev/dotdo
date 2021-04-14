@@ -29,7 +29,9 @@ class SocialView extends StatelessWidget {
                 children: [
                   // * PVP challenge widget
                   PvpchallengeWidget(
-                    onTap: () {},
+                    onTap: () {
+                      viewModel.pvpTapped();
+                    },
                     lable: 'Drinking water challenge',
                     profile1Named: 'mukxdev',
                     profile1ProgressValue: 0.5,

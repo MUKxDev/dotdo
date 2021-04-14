@@ -17,10 +17,10 @@ class RoutineService {
         .collection('URoutines')
         .add(routine.toMap())
         .then((value) {
-      print('challenge with id ${value.id} added');
+      print('routine with id ${value.id} added');
       return value.id;
     }).onError((error, stackTrace) {
-      print('erorr with adding challenge: $error');
+      print('erorr with adding routine: $error');
       return null;
     });
     startingpack(routineId);
@@ -44,7 +44,7 @@ class RoutineService {
   Future<bool> activation(String routineId, bool currentStats) async {
     await _firestoreService.users
         .doc(await _authService.getCurrentUserId())
-        .collection('URoutiens')
+        .collection('URoutines')
         .doc(routineId)
         .update({'active': !(currentStats)});
 
@@ -52,18 +52,18 @@ class RoutineService {
   }
 
   Future<String> addURTask(String routineId, Task task) async {
-    int _noOfTask = await _firestoreService.users
+    int _noOfTasks = await _firestoreService.users
         .doc(await _authService.getCurrentUserId())
-        .collection('URotiens')
+        .collection('URoutines')
         .doc(routineId)
         .get()
-        .then((value) => value.data()['noOfTask']);
+        .then((value) => value.data()['noOfTasks']);
 
-    int _plusTask = _noOfTask + 1;
+    int _plusTask = _noOfTasks + 1;
 
     String urtaskId = await _firestoreService.users
         .doc(await _authService.getCurrentUserId())
-        .collection('URoutiens')
+        .collection('URoutines')
         .doc(routineId)
         .collection('URTasks')
         .add(task.toMap())
@@ -72,12 +72,12 @@ class RoutineService {
           .doc(await _authService.getCurrentUserId())
           .collection('URoutines')
           .doc(routineId)
-          .update({'noOfTask': _plusTask});
+          .update({'noOfTasks': _plusTask});
 
-      print('challenge with id ${value.id} added');
+      print('routine with id ${value.id} added');
       return value.id;
     }).onError((error, stackTrace) {
-      print('erorr with adding challenge: $error');
+      print('erorr with adding routine: $error');
       return null;
     });
     return urtaskId;
@@ -90,17 +90,17 @@ class RoutineService {
         .collection('URoutines')
         .doc(routineId)
         .get()
-        .then((value) => value.data()['noOfCompletedTask']);
+        .then((value) => value.data()['noOfCompletedTasks']);
 
-    int _noOfTaskCompleted = await _firestoreService.users
+    int _noOfCTaskCompleted = await _firestoreService.users
         .doc(await _authService.getCurrentUserId())
         .collection('uGeneral')
         .doc('generalData')
         .get()
         .then((value) => value.data()['noOfTaskCompleted']);
 //------------------------------
-    int _plus = _noOfTaskCompleted + 1;
-    int _minus = _noOfTaskCompleted - 1;
+    int _plus = _noOfCTaskCompleted + 1;
+    int _minus = _noOfCTaskCompleted - 1;
 //------
     int _urtplus = _noOfCompletedURTask + 1;
     int _urtminus = _noOfCompletedURTask - 1;
@@ -122,7 +122,7 @@ class RoutineService {
             .doc(await _authService.getCurrentUserId())
             .collection('URoutines')
             .doc(routineId)
-            .update({'noOfCompletedTask': _urtplus});
+            .update({'noOfCompletedTasks': _urtplus});
       } else {
         _firestoreService.users
             .doc(await _authService.getCurrentUserId())
@@ -133,26 +133,75 @@ class RoutineService {
             .doc(await _authService.getCurrentUserId())
             .collection('URoutines')
             .doc(routineId)
-            .update({'noOfCompletedTask': _urtminus});
+            .update({'noOfCompletedTasks': _urtminus});
       }
     }).onError((error, stackTrace) {
       print('error with adding task: $error');
     });
   }
 
-  Stream<QuerySnapshot> getURoutine() async* {
+  Stream<QuerySnapshot> getAllURoutines() async* {
     yield* _firestoreService.users
         .doc(await _authService.getCurrentUserId())
-        .collection('URoutiens')
+        .collection('URoutines')
         .snapshots();
   }
 
-  Stream<QuerySnapshot> getURTask(String routineId) async* {
+  Stream<QuerySnapshot> getActiveURoutines() async* {
     yield* _firestoreService.users
         .doc(await _authService.getCurrentUserId())
-        .collection('URoutiens')
+        .collection('URoutines')
+        .where('active', isEqualTo: true)
+        .snapshots();
+  }
+
+  Stream<DocumentSnapshot> getURoutineStream(String routineId) async* {
+    yield* _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .collection('URoutines')
+        .doc(routineId)
+        .snapshots();
+  }
+
+  Future<Routine> getURoutine(String routineId) async {
+    return await _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .collection('URoutines')
+        .doc(routineId)
+        .get()
+        .then((value) {
+      Routine _routine = Routine.fromMap(value.data());
+      return _routine;
+    }).onError((error, stackTrace) {
+      print('An error has occurred: $error');
+      return null;
+    });
+  }
+
+  Stream<QuerySnapshot> getURTasks(String routineId) async* {
+    yield* _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .collection('URoutines')
         .doc(routineId)
         .collection('URTasks')
         .snapshots();
+  }
+
+  Future<Task> getURTask(String routineId, String taskId) async {
+    String _userId = await _authService.getCurrentUserId();
+    return _firestoreService.users
+        .doc(_userId)
+        .collection('URoutines')
+        .doc(routineId)
+        .collection('URTasks')
+        .doc(taskId)
+        .get()
+        .then((value) {
+      Task _task = Task.fromMap(value.data());
+      return _task;
+    }).onError((error, stackTrace) {
+      print('An error has occurred: $error');
+      return null;
+    });
   }
 }

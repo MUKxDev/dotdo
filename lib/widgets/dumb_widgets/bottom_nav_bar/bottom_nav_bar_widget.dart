@@ -54,7 +54,9 @@ class BottomNavBarWidget extends StatelessWidget {
                 child: Container(
                   child: Image(
                     // TODO: bring user avatar
-                    image: AssetImage('assets/pp.png'),
+                    // image: AssetImage('assets/pp.png'),
+                    image: NetworkImage(
+                        'https://firebasestorage.googleapis.com/v0/b/dotdo-autovita.appspot.com/o/defaultAvatar.png?alt=media&token=d8896de4-4a13-4560-995c-d010a1a3bfd9'),
                     fit: BoxFit.fill,
                   ),
                   width: 24,

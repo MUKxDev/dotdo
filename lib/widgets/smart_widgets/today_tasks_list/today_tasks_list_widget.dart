@@ -21,7 +21,6 @@ class TodayTasksListWidget extends StatelessWidget {
             List<QueryDocumentSnapshot> taskList;
             if (snapshot.hasData) {
               taskList = snapshot.data.docs;
-
               taskList.sort((a, b) {
                 int aInt = a.get('completed') == false ? 0 : 1;
                 int bInt = b.get('completed') == false ? 0 : 1;

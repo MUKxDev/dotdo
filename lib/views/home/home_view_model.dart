@@ -7,15 +7,12 @@ import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dotdo/core/logger.dart';
 import 'package:stacked_services/stacked_services.dart';
-// import 'package:uuid/uuid.dart';
 
 class HomeViewModel extends ReactiveViewModel {
   Logger log;
   HomeViewModel() {
     this.log = getLogger(this.runtimeType.toString());
   }
-
-  // final dateFormat = DateFormat('MMM-dd');
 
   NavigationService _navigationService = locator<NavigationService>();
   TaskService _taskService = locator<TaskService>();
@@ -27,8 +24,6 @@ class HomeViewModel extends ReactiveViewModel {
   PageController pageController = PageController(initialPage: 0);
   String _title = '.Do';
   get title => _title;
-
-  // var uuid = Uuid();
 
   void updateTitle() {
     switch (_selectedIndex) {
@@ -80,13 +75,10 @@ class HomeViewModel extends ReactiveViewModel {
     _navigationService.navigateTo(taskDetailsViewRoute);
   }
 
-  // TODO: navigate to  routineDetailsViewRoute
   addRoutine() async {
-    String uid = await _authService.getCurrentUserId();
-    print(uid);
+    _navigationService.navigateTo(newRoutineViewRoute);
   }
 
-  // TODO: navigate to  challengeDetailsViewRoute
   addChallenge() {
     _navigationService.navigateTo(newChallengeViewRoute);
   }

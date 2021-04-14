@@ -14,9 +14,11 @@ class AppColors {
   static const lightNote = Color(0xffF4ECD3);
   static const darkNote = Color(0xff383838);
   static const darkRoutine = Color(0xff235845);
-  static const lightRoutine = Color(0xffAFE5D2);
+  static const lightRoutine = Color(0xff55CBA1);
   static const darkChallenge = Color(0xff761C3C);
   static const lightChallenge = Color(0xffFE5F55);
+  static const darkGold = Color(0xff9F964A);
+  static const lightGold = Color(0xffD0BC10);
 
   static const List<Color> iconColors = [
     Color(0xff5F3BED),

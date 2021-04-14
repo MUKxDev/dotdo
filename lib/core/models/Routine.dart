@@ -1,36 +1,46 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+
 class Routine {
   final String name;
   final String note;
-  final int noOfLikes;
   final bool active;
-  final int noOfTask;
-  final int noOfCompletedTask;
+  final int noOfLikes;
+  final int noOfTasks;
+  final int noOfCompletedTasks;
+  final IconData iconData;
+  final Color iconColor;
   Routine({
     this.name,
     this.note,
-    this.noOfLikes,
     this.active,
-    this.noOfTask,
-    this.noOfCompletedTask,
+    this.noOfLikes,
+    this.noOfTasks,
+    this.noOfCompletedTasks,
+    this.iconData,
+    this.iconColor,
   });
 
   Routine copyWith({
     String name,
     String note,
-    int noOfLikes,
     bool active,
-    int noOfTask,
-    int noOfCompletedTask,
+    int noOfLikes,
+    int noOfTasks,
+    int noOfCompletedTasks,
+    IconData iconData,
+    Color iconColor,
   }) {
     return Routine(
       name: name ?? this.name,
       note: note ?? this.note,
-      noOfLikes: noOfLikes ?? this.noOfLikes,
       active: active ?? this.active,
-      noOfTask: noOfTask ?? this.noOfTask,
-      noOfCompletedTask: noOfCompletedTask ?? this.noOfCompletedTask,
+      noOfLikes: noOfLikes ?? this.noOfLikes,
+      noOfTasks: noOfTasks ?? this.noOfTasks,
+      noOfCompletedTasks: noOfCompletedTasks ?? this.noOfCompletedTasks,
+      iconData: iconData ?? this.iconData,
+      iconColor: iconColor ?? this.iconColor,
     );
   }
 
@@ -38,10 +48,12 @@ class Routine {
     return {
       'name': name,
       'note': note,
-      'noOfLikes': noOfLikes,
       'active': active,
-      'noOfTask': noOfTask,
-      'noOfCompletedTask': noOfCompletedTask,
+      'noOfLikes': noOfLikes,
+      'noOfTasks': noOfTasks,
+      'noOfCompletedTasks': noOfCompletedTasks,
+      'iconData': iconData?.codePoint,
+      'iconColor': iconColor?.value,
     };
   }
 
@@ -51,10 +63,12 @@ class Routine {
     return Routine(
       name: map['name'],
       note: map['note'],
-      noOfLikes: map['noOfLikes'],
       active: map['active'],
-      noOfTask: map['noOfTask'],
-      noOfCompletedTask: map['noOfCompletedTask'],
+      noOfLikes: map['noOfLikes'],
+      noOfTasks: map['noOfTasks'],
+      noOfCompletedTasks: map['noOfCompletedTasks'],
+      iconData: IconData(map['iconData'], fontFamily: 'MaterialIcons'),
+      iconColor: Color(map['iconColor']),
     );
   }
 
@@ -65,7 +79,7 @@ class Routine {
 
   @override
   String toString() {
-    return 'Routine(name: $name, note: $note, noOfLikes: $noOfLikes, active: $active, noOfTask: $noOfTask, noOfCompletedTask: $noOfCompletedTask)';
+    return 'Routine(name: $name, note: $note, active: $active, noOfLikes: $noOfLikes, noOfTasks: $noOfTasks, noOfCompletedTasks: $noOfCompletedTasks, iconData: $iconData, iconColor: $iconColor)';
   }
 
   @override
@@ -75,19 +89,23 @@ class Routine {
     return o is Routine &&
         o.name == name &&
         o.note == note &&
-        o.noOfLikes == noOfLikes &&
         o.active == active &&
-        o.noOfTask == noOfTask &&
-        o.noOfCompletedTask == noOfCompletedTask;
+        o.noOfLikes == noOfLikes &&
+        o.noOfTasks == noOfTasks &&
+        o.noOfCompletedTasks == noOfCompletedTasks &&
+        o.iconData == iconData &&
+        o.iconColor == iconColor;
   }
 
   @override
   int get hashCode {
     return name.hashCode ^
         note.hashCode ^
-        noOfLikes.hashCode ^
         active.hashCode ^
-        noOfTask.hashCode ^
-        noOfCompletedTask.hashCode;
+        noOfLikes.hashCode ^
+        noOfTasks.hashCode ^
+        noOfCompletedTasks.hashCode ^
+        iconData.hashCode ^
+        iconColor.hashCode;
   }
 }

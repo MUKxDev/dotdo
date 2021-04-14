@@ -1,4 +1,4 @@
-import 'package:dotdo/core/models/challenge.dart';
+import 'package:dotdo/core/models/Routine.dart';
 import 'package:dotdo/shared/ui_helpers.dart';
 import 'package:dotdo/theme/colors.dart';
 import 'package:dotdo/widgets/dumb_widgets/card/card_widget.dart';
@@ -8,23 +8,23 @@ import 'package:dotdo/widgets/dumb_widgets/prograss_bar/prograss_bar_widget.dart
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class LongChallengeCardWidget extends StatelessWidget {
-  final Challenge challenge;
+class LongRoutineCardWidget extends StatelessWidget {
+  final Routine routine;
   final Function onTap;
 
-  const LongChallengeCardWidget(
-      {Key key, @required this.challenge, @required this.onTap})
+  const LongRoutineCardWidget(
+      {Key key, @required this.routine, @required this.onTap})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
     return
-        // * Challenge card
+        // * Routine card
         CardWidget(
       height: 80,
       width: screenWidth(context),
       backgroundcolor: Theme.of(context).brightness == Brightness.light
-          ? AppColors.lightChallenge
-          : AppColors.darkChallenge,
+          ? AppColors.lightRoutine
+          : AppColors.darkRoutine,
       onTap: () => onTap(),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -40,20 +40,20 @@ class LongChallengeCardWidget extends StatelessWidget {
                   children: [
                     // * Description
                     DescriptionTextWidget(
-                      description: challenge.note,
+                      description: routine.note,
                       color: AppColors.white.withAlpha(200),
                     ),
                     // * Lable
                     LableTextWidget(
-                      lable: challenge.name,
+                      lable: routine.name,
                       color: AppColors.white,
                     ),
                   ],
                 ),
               ),
 
-              // * Challenge Icon
-              challenge.iconData != null
+              // * Routine Icon
+              routine.iconData != null
                   ? Container(
                       height: 45,
                       width: 45,
@@ -64,9 +64,9 @@ class LongChallengeCardWidget extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Icon(
-                        IconDataSolid(challenge.iconData.codePoint),
+                        IconDataSolid(routine.iconData.codePoint),
                         size: 24,
-                        color: challenge.iconColor,
+                        color: routine.iconColor,
                       ),
                     )
                   : Container(
@@ -77,9 +77,9 @@ class LongChallengeCardWidget extends StatelessWidget {
 
           // * Prograss bar
           PrograssBarWidget(
-            progressValue: challenge.noOfTasks == 0
+            progressValue: routine.noOfTasks == 0
                 ? 0
-                : challenge.noOfCompletedTasks / challenge.noOfTasks,
+                : routine.noOfCompletedTasks / routine.noOfTasks,
           ),
         ],
       ),

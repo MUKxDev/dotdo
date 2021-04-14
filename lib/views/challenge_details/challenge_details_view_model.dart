@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/models/challenge.dart';
-import 'package:dotdo/core/models/task.dart';
 import 'package:dotdo/core/router_constants.dart';
 import 'package:dotdo/core/services/challengeService.dart';
 import 'package:logger/logger.dart';

@@ -5,6 +5,7 @@ import 'package:dotdo/core/models/uGeneral.dart';
 class FirestoreService {
   // * References
   CollectionReference users = FirebaseFirestore.instance.collection('users');
+  CollectionReference pvps = FirebaseFirestore.instance.collection('pvps');
 
   // ? methods
   Future<void> createUser({String uid, String userName, String email}) {
@@ -13,7 +14,7 @@ class FirestoreService {
       email: email,
       dots: 0,
       profilePic:
-          'https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png',
+          'https://firebasestorage.googleapis.com/v0/b/dotdo-autovita.appspot.com/o/defaultAvatar.png?alt=media&token=1f9524f7-7203-4881-a144-eb6a652c814a',
     );
     // Call the user's CollectionReference to add a new user
     return users.doc(uid).set(user.toMap()).then((value) => setUGeneral(uid)

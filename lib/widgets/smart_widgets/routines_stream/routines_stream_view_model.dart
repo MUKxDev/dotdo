@@ -5,10 +5,10 @@ import 'package:stacked/stacked.dart';
 import 'package:dotdo/core/logger.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class TwoRowGridActiveChallengeStreamViewModel extends BaseViewModel {
+class RoutinesStreamViewModel extends BaseViewModel {
   Logger log;
 
-  TwoRowGridActiveChallengeStreamViewModel() {
+  RoutinesStreamViewModel() {
     this.log = getLogger(this.runtimeType.toString());
   }
 
@@ -16,11 +16,11 @@ class TwoRowGridActiveChallengeStreamViewModel extends BaseViewModel {
 
   handleStartUp() {}
 
-  challengeTapped(String id) {
+  routineTapped(String id) {
     Map args = {
-      'challengeId': id,
+      'routineId': id,
       'isEdit': false,
     };
-    _navigationService.navigateTo(challengeDetailsViewRoute, arguments: args);
+    _navigationService.navigateTo(routineDetailsViewRoute, arguments: args);
   }
 }
