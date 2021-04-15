@@ -1,5 +1,6 @@
 import 'package:dotdo/core/services/challengeService.dart';
 import 'package:dotdo/core/services/routineService.dart';
+import 'package:dotdo/core/services/searchService.dart';
 import 'package:dotdo/core/services/taskService.dart';
 import 'package:dotdo/core/services/userService.dart';
 import 'package:get_it/get_it.dart';
@@ -36,5 +37,7 @@ class LocatorInjector {
     locator.registerLazySingleton(() => RoutineService());
     log.d('Registering User Service');
     locator.registerLazySingleton(() => UserService());
+    log.d('Registering Search Service');
+    locator.registerLazySingleton(() => SearchService());
   }
 }

@@ -32,7 +32,8 @@ class DiscoverView extends StatelessWidget {
                         fillColor: Theme.of(context).primaryColor,
                       ),
                       controller: viewModel.searchController,
-                      onSubmitted: (searchValue) => print(searchValue),
+                      onSubmitted: (searchValue) =>
+                          viewModel.search(searchValue),
                     ),
                   ),
                 ),

@@ -75,7 +75,7 @@ class RoutineDetailsViewModel extends BaseViewModel {
   }
 
   deleteUTask(String taskId) {
-    // _routineService.deleteUCTask(taskId, _routineId);
+    _routineService.deleteRTask(_routineId, taskId);
   }
 
   updateRoutine(Routine newRoutine) {

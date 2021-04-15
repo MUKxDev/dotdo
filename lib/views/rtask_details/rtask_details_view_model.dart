@@ -98,31 +98,31 @@ class RtaskDetailsViewModel extends BaseViewModel {
   }
 
   void updateUTask() async {
-    // if (labelController.text.trim() == '') {
-    //   print('title is empty');
-    //   _snackbarService.showSnackbar(
-    //       message: 'Please provide a title for the task');
-    // } else {
-    //   Task task = Task(
-    //     taskName: labelController.text.trim(),
-    //     taskNote: noteController.text.trim(),
-    //     dueDate: dueDate,
-    //     completed: false,
-    //     iconColor: iconColor,
-    //     iconData: iconData,
-    //   );
-    //   // TODO: implement show the snackbar with the real result Sucsses or failure
-    //   _routineService.updateUCTask(_routineId, _taskId, task);
-    //   notifyListeners();
-    //   _navigationService.back();
-    //   _snackbarService.showSnackbar(message: 'Task updated');
-    // }
+    if (labelController.text.trim() == '') {
+      print('title is empty');
+      _snackbarService.showSnackbar(
+          message: 'Please provide a title for the task');
+    } else {
+      Task task = Task(
+        taskName: labelController.text.trim(),
+        taskNote: noteController.text.trim(),
+        dueDate: dueDate,
+        completed: false,
+        iconColor: iconColor,
+        iconData: iconData,
+      );
+      // TODO: implement show the snackbar with the real result Sucsses or failure
+      _routineService.updateRTask(task, _routineId, _taskId);
+      notifyListeners();
+      _navigationService.back();
+      _snackbarService.showSnackbar(message: 'Task updated');
+    }
   }
 
   void deleteUTask() {
-    // _routineService.deleteUCTask(_taskId, _routineId);
-    // _navigationService.back();
-    // _snackbarService.showSnackbar(message: 'Task deleted');
+    _routineService.deleteRTask(_routineId, _taskId);
+    _navigationService.back();
+    _snackbarService.showSnackbar(message: 'Task deleted');
   }
 
   NavigationService _navigationService = locator<NavigationService>();

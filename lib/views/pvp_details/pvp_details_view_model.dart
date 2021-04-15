@@ -30,4 +30,17 @@ class PvpDetailsViewModel extends BaseViewModel {
 
   String _noOfLosses = '1';
   String get noOfLosses => _noOfLosses;
+
+  int _noTotalTasks = 3;
+  int get noTotalTasks => _noTotalTasks;
+
+  int _noUser1TasksCompleted = 2;
+  int get noUser1TasksCompleted => _noUser1TasksCompleted;
+
+  int _noUser2TasksCompleted = 1;
+  int get noUser2TasksCompleted => _noUser2TasksCompleted;
+
+  newChallengeTapped() {}
+
+  challengeTapped() {}
 }

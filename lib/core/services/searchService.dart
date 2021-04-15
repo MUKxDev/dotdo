@@ -10,4 +10,19 @@ class SearchService {
         .where('userName', isEqualTo: text)
         .snapshots();
   }
+
+  Future<String> searchBarF(String text) async {
+    return _firestoreService.users
+        .where('userName', isEqualTo: text)
+        .get()
+        .then((value) {
+      String id;
+      if (value.docs.isNotEmpty) {
+        if (value.docs.first.exists) {
+          id = value.docs.first.id;
+        }
+      }
+      return id;
+    });
+  }
 }

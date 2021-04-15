@@ -204,4 +204,78 @@ class RoutineService {
       return null;
     });
   }
+
+  // Delete -------------------
+  Future deleteRTask(String routineId, String taskId) async {
+    bool currentSatuts = await _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .collection('URoutines')
+        .doc(routineId)
+        .collection('URTasks')
+        .doc(taskId)
+        .get()
+        .then((value) => value.data()['completed']);
+
+    int _noOfTask = await _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .collection('URoutiens')
+        .doc(routineId)
+        .get()
+        .then((value) => value.data()['noOfTasks']);
+    int _noOfCompletedURTask = await _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .collection('URoutines')
+        .doc(routineId)
+        .get()
+        .then((value) => value.data()['noOfCompletedTasks']);
+    int _minusTask = _noOfTask + -1;
+    int _urtminus = _noOfCompletedURTask - 1;
+    _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .collection('URoutines')
+        .doc(routineId)
+        .collection('URTasks')
+        .doc(taskId)
+        .delete();
+
+    _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .collection("uGeneral")
+        .doc('generalData')
+        .update({'noOfTaskCompleted': _minusTask});
+    if (currentSatuts == true) {
+      _firestoreService.users
+          .doc(await _authService.getCurrentUserId())
+          .collection('URoutines')
+          .doc(routineId)
+          .update({'noOfCompletedTasks': _urtminus});
+    }
+  }
+
+  Future deleteRoutine(String routineId) async {
+    _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .collection('URoutines')
+        .doc(routineId)
+        .delete();
+  }
+
+// update -------------------
+  Future updateRotine(Routine routine, String routineId) async {
+    await _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .collection('URoutines')
+        .doc(routineId)
+        .update(routine.toMap());
+  }
+
+  Future updateRTask(Task task, String routineId, String taskId) async {
+    await _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .collection('URoutines')
+        .doc(routineId)
+        .collection('URTasks')
+        .doc(taskId)
+        .update(task.toMap());
+  }
 }

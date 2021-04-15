@@ -17,6 +17,9 @@ class PvpchallengeWidget extends StatelessWidget {
   final double profile2ProgressValue;
   final ImageProvider<Object> profile2Image;
 
+  final double height;
+  final double width;
+
   // ? I don't know about this
   const PvpchallengeWidget({
     Key key,
@@ -28,6 +31,8 @@ class PvpchallengeWidget extends StatelessWidget {
     @required this.profile2Named,
     @required this.profile2ProgressValue,
     @required this.profile2Image,
+    this.height = 140,
+    this.width = 300,
   }) : super(key: key);
 
   @override
@@ -38,8 +43,8 @@ class PvpchallengeWidget extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: CardWidget(
-            height: 140,
-            width: 300,
+            height: height,
+            width: width,
             borderRadius: 20,
             padding: 10,
             onTap: onTap,
