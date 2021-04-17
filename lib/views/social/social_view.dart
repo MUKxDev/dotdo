@@ -67,7 +67,7 @@ class SocialView extends StatelessWidget {
                 children: [
                   // * Group challenge Widget
                   GroupChallengeWidget(
-                    onTap: () {},
+                    onTap: () => viewModel.optionTest(),
                     lable: 'Workout challenge',
                     groupName: 'AutoVita',
                     rank: 2,

@@ -1,7 +1,9 @@
+import 'package:dotdo/core/models/User.dart';
 import 'package:dotdo/core/services/taskService.dart';
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/router_constants.dart';
 import 'package:dotdo/core/services/authService.dart';
+import 'package:dotdo/core/services/userService.dart';
 import 'package:dotdo/views/new_challenge/new_challenge_view.dart';
 import 'package:dotdo/views/new_routine/new_routine_view.dart';
 import 'package:dotdo/views/task_details/task_details_view.dart';
@@ -19,6 +21,8 @@ class HomeViewModel extends ReactiveViewModel {
 
   NavigationService _navigationService = locator<NavigationService>();
   TaskService _taskService = locator<TaskService>();
+  AuthService _authService = locator<AuthService>();
+  UserService _userService = locator<UserService>();
 
   int _selectedIndex = 0;
   int get selectedIndex => _selectedIndex;
@@ -27,6 +31,12 @@ class HomeViewModel extends ReactiveViewModel {
   PageController pageController = PageController(initialPage: 0);
   String _title = '.Do';
   get title => _title;
+
+  User _user;
+
+  String _userProfilePic =
+      'https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png';
+  String get userProfilePic => _userProfilePic;
 
   void updateTitle() {
     switch (_selectedIndex) {
@@ -72,8 +82,6 @@ class HomeViewModel extends ReactiveViewModel {
     _navigationService.pushNamedAndRemoveUntil(authpageViewRoute);
   }
 
-  AuthService _authService = locator<AuthService>();
-
   addTask() {
     _navigationService.navigateToView(TaskDetailsView());
   }
@@ -90,4 +98,11 @@ class HomeViewModel extends ReactiveViewModel {
 
   @override
   List<ReactiveServiceMixin> get reactiveServices => [_taskService];
+
+  handleOnStartup() async {
+    String uid = await _authService.getCurrentUserId();
+    _user = await _userService.getUserProfile(uid);
+    _userProfilePic = _user.profilePic;
+    notifyListeners();
+  }
 }

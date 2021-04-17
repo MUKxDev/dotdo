@@ -13,42 +13,79 @@ class PvpService {
   // creat or view pvp ----------------------
   Stream<QuerySnapshot> creatOrViewPvp(String userBId) async* {
     String _userId = await _authService.getCurrentUserId();
-    Pvp pvp = Pvp(
-        userA: await _authService.getCurrentUserId(),
-        userB: userBId,
-        aWinng: 0,
-        bWinning: 0,
-        draws: 0);
+    Pvp pvp =
+        Pvp(userA: _userId, userB: userBId, aWinng: 0, bWinning: 0, draws: 0);
 
     int optionA = await _firestoreService.pvps
         .where('userB', isEqualTo: userBId)
         .where('userA', isEqualTo: _userId)
-        .snapshots()
-        .length;
+        .get()
+        .then((value) => value.size);
 
     int optionB = await _firestoreService.pvps
         .where('userB', isEqualTo: _userId)
         .where('userA', isEqualTo: userBId)
-        .snapshots()
-        .length;
+        .get()
+        .then((value) => value.size);
 
     int noOfFound = optionB + optionA;
 
-    if (noOfFound == 0) {
-      _firestoreService.pvps.add(pvp.toMap()).then((value) => value.id);
-    } else {
-      if (optionA > 0) {
-        yield* _firestoreService.pvps
+    if (noOfFound == null || noOfFound == 0) {
+      print(await _firestoreService.pvps
+          .add(pvp.toMap())
+          .then((value) => value.id));
+    }
+    if (await _firestoreService.pvps
             .where('userB', isEqualTo: userBId)
             .where('userA', isEqualTo: _userId)
-            .snapshots();
-      } else {
-        yield* _firestoreService.pvps
-            .where('userB', isEqualTo: _userId)
-            .where('userA', isEqualTo: userBId)
-            .snapshots();
-      }
+            .get()
+            .then((value) => value.size) >
+        0) {
+      yield* _firestoreService.pvps
+          .where('userB', isEqualTo: userBId)
+          .where('userA', isEqualTo: _userId)
+          .snapshots();
+    } else {
+      yield* _firestoreService.pvps
+          .where('userB', isEqualTo: _userId)
+          .where('userA', isEqualTo: userBId)
+          .snapshots();
     }
+  }
+
+  Future<String> getPvpId(String oppId) async {
+    String _userId = await _authService.getCurrentUserId();
+    int optionA = await _firestoreService.pvps
+        .where('userB', isEqualTo: oppId)
+        .where('userA', isEqualTo: _userId)
+        .get()
+        .then((value) => value.size);
+    String pvpId;
+    if (optionA > 0) {
+      pvpId = await _firestoreService.pvps
+          .where('userB', isEqualTo: oppId)
+          .where('userA', isEqualTo: _userId)
+          .get()
+          .then((value) => value.docs.first.id);
+    } else {
+      pvpId = await _firestoreService.pvps
+          .where('userB', isEqualTo: _userId)
+          .where('userA', isEqualTo: oppId)
+          .get()
+          .then((value) => value.docs.first.id);
+    }
+    return pvpId;
+  }
+
+  Future optionA(String userBId) async {
+    String _userId = await _authService.getCurrentUserId();
+    int optionA = await _firestoreService.pvps
+        .where('userB', isEqualTo: userBId)
+        .where('userA', isEqualTo: _userId)
+        .get()
+        .then((value) => value.size);
+
+    return optionA;
   }
 
   // new challenge ---------------------------

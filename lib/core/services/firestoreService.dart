@@ -14,7 +14,7 @@ class FirestoreService {
       email: email,
       dots: 0,
       profilePic:
-          'https://firebasestorage.googleapis.com/v0/b/dotdo-autovita.appspot.com/o/defaultAvatar.png?alt=media&token=1f9524f7-7203-4881-a144-eb6a652c814a',
+          'https://firebasestorage.googleapis.com/v0/b/dotdo-autovita.appspot.com/o/defaultAvatar.png?alt=media&token=d8896de4-4a13-4560-995c-d010a1a3bfd9',
     );
     // Call the user's CollectionReference to add a new user
     return users.doc(uid).set(user.toMap()).then((value) => setUGeneral(uid)

@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 class BottomNavBarWidget extends StatelessWidget {
   final int currentIndex;
   final Function onTap;
+  final String userProfile;
 
   const BottomNavBarWidget(
-      {Key key, @required this.currentIndex, @required this.onTap})
+      {Key key,
+      @required this.currentIndex,
+      @required this.onTap,
+      @required this.userProfile})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -55,8 +59,7 @@ class BottomNavBarWidget extends StatelessWidget {
                   child: Image(
                     // TODO: bring user avatar
                     // image: AssetImage('assets/pp.png'),
-                    image: NetworkImage(
-                        'https://firebasestorage.googleapis.com/v0/b/dotdo-autovita.appspot.com/o/defaultAvatar.png?alt=media&token=d8896de4-4a13-4560-995c-d010a1a3bfd9'),
+                    image: NetworkImage(userProfile),
                     fit: BoxFit.fill,
                   ),
                   width: 24,

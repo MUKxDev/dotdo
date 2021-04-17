@@ -30,7 +30,14 @@ class PvpProfileWidget extends StatelessWidget {
             ),
           ),
         ),
-        Center(child: Text(name)),
+        Center(
+            child: Container(
+          child: Text(
+            name,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        )),
         progressValue == null
             ? Container()
             : Container(

@@ -1,4 +1,5 @@
 import 'package:dotdo/shared/ui_helpers.dart';
+import 'package:dotdo/widgets/dumb_widgets/button/button_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/card/card_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
@@ -10,325 +11,249 @@ import 'package:stacked/stacked.dart';
 import 'profile_view_model.dart';
 
 class ProfileView extends StatelessWidget {
+  final String uid;
+
+  const ProfileView({Key key, this.uid}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProfileViewModel>.reactive(
+      onModelReady: (ProfileViewModel viewModel) =>
+          viewModel.handleOnStartup(uid),
       builder: (BuildContext context, ProfileViewModel viewModel, Widget _) {
-        return SingleChildScrollView(
-          child: Column(
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              // * profile picture
-              Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: Center(
-                  child: Container(
-                    height: 120,
-                    width: 120,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      image: DecorationImage(
-                        // image: AssetImage('assets/pp.png'),
-                        image: NetworkImage(
-                            'https://firebasestorage.googleapis.com/v0/b/dotdo-autovita.appspot.com/o/defaultAvatar.png?alt=media&token=d8896de4-4a13-4560-995c-d010a1a3bfd9'),
+        return viewModel.isBusy
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : SingleChildScrollView(
+                child: Column(
+                  // crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    // * profile picture
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: Center(
+                        child: Container(
+                          height: 120,
+                          width: 120,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            image: DecorationImage(
+                              // image: AssetImage('assets/pp.png'),
+                              image: NetworkImage(viewModel.user.profilePic),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              ),
-              // * profile name
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 20,
-                  bottom: 10,
-                ),
-                child: LableTextWidget(lable: 'Mohamed Mukhtar'),
-              ),
-              // * profile dots
-              DescriptionTextWidget(description: 'Dots: 135'),
-              // * profile points
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: Container(
-                  width: screenWidth(context) * 0.9,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        width: screenWidth(context) * 0.45,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Container(
-                                    width: screenWidth(context) * 0.28,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(right: 20),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Tasks',
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                          Text(
-                                            'Completed',
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  DescriptionTextWidget(description: '999999')
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 20),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Container(
-                                      width: screenWidth(context) * 0.28,
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 20),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'Challenges',
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                            Text(
-                                              'Completed',
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    DescriptionTextWidget(description: '999999')
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                    // * profile name
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 20,
+                        bottom: 10,
                       ),
-                      // the right column
-                      Container(
-                        width: screenWidth(context) * 0.45,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Container(
-                                    width: screenWidth(context) * 0.28,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(right: 20),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Badges',
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                          Text(
-                                            'Collected',
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  DescriptionTextWidget(description: '13')
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 20),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Container(
-                                      width: screenWidth(context) * 0.28,
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 20),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'Latest',
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                            Text(
-                                              'Badges',
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      height: 42,
-                                      width: 42,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        image: DecorationImage(
-                                          image: AssetImage('assets/Icon.png'),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              // * challenges list
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  HeaderTextWidget(lable: 'challenges'),
-                  UpcomingChallengeStreamWidget(
-                    stream: viewModel.getActiveUChallenge,
-                  ),
-                ],
-              ),
-              // * routines list
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  HeaderTextWidget(lable: 'routines'),
-                  RoutinesStreamWidget(
-                    stream: viewModel.getURoutines,
-                  ),
-                ],
-              ),
-              // * profile Badges
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  HeaderTextWidget(lable: 'Badges'),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Container(
-                      height: 235,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      width: screenWidth(context),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: GridView.count(
-                          crossAxisCount: 6,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
+                      child: LableTextWidget(lable: viewModel.user.userName),
+                    ),
+                    // * profile dots
+                    DescriptionTextWidget(
+                        description: viewModel.user.dots.toString()),
+                    // * profile points
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      child: Container(
+                        width: screenWidth(context) * 0.9,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              height: 42,
-                              width: 42,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                image: DecorationImage(
-                                  image: AssetImage('assets/Icon.png'),
+                              width: screenWidth(context) * 0.45,
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          width: screenWidth(context) * 0.28,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 20),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Tasks',
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                                Text(
+                                                  'Completed',
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        DescriptionTextWidget(
+                                            description: viewModel
+                                                .userGeneral.noOfTaskCompleted
+                                                .toString())
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 20),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                          Container(
+                                            width: screenWidth(context) * 0.28,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 20),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    'Challenges',
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                  Text(
+                                                    'Completed',
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          DescriptionTextWidget(
+                                              description: viewModel.userGeneral
+                                                  .noOfChallengeCompleted
+                                                  .toString())
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
+                            // the right column
                             Container(
-                              height: 42,
-                              width: 42,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                image: DecorationImage(
-                                  image: AssetImage('assets/Icon.png'),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              height: 42,
-                              width: 42,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                image: DecorationImage(
-                                  image: AssetImage('assets/Icon.png'),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              height: 42,
-                              width: 42,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                image: DecorationImage(
-                                  image: AssetImage('assets/Icon.png'),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              height: 42,
-                              width: 42,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                image: DecorationImage(
-                                  image: AssetImage('assets/Icon.png'),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              height: 42,
-                              width: 42,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                image: DecorationImage(
-                                  image: AssetImage('assets/Icon.png'),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              height: 42,
-                              width: 42,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                image: DecorationImage(
-                                  image: AssetImage('assets/Icon.png'),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              height: 42,
-                              width: 42,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                image: DecorationImage(
-                                  image: AssetImage('assets/Icon.png'),
+                              width: screenWidth(context) * 0.45,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          width: screenWidth(context) * 0.28,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 20),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Badges',
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                                Text(
+                                                  'Collected',
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        DescriptionTextWidget(
+                                            description: viewModel
+                                                .userGeneral.noOfBadges
+                                                .toString())
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 20),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                          Container(
+                                            width: screenWidth(context) * 0.28,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 20),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    'Latest',
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                  Text(
+                                                    'Badges',
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          viewModel.haveLastBadge
+                                              ? Container(
+                                                  height: 42,
+                                                  width: 42,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    image: DecorationImage(
+                                                      image: NetworkImage(
+                                                          viewModel.userGeneral
+                                                              .lastBadge
+                                                              .toString()),
+                                                    ),
+                                                  ),
+                                                )
+                                              : Container(
+                                                  height: 42,
+                                                  width: 42,
+                                                  decoration: BoxDecoration(
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ),
+                                                )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -336,104 +261,252 @@ class ProfileView extends StatelessWidget {
                         ),
                       ),
                     ),
-                  )
-                ],
-              ),
-              // * profile status (following - followers etc...)
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 40,
-                  horizontal: 10,
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    viewModel.isCurrentUser
+                        ?
+                        // * challenges list
+                        Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              HeaderTextWidget(lable: 'challenges'),
+                              UpcomingChallengeStreamWidget(
+                                stream: viewModel.getActiveUChallenge,
+                              ),
+                            ],
+                          )
+                        : Container(),
+                    viewModel.isCurrentUser
+                        ?
+                        // * routines list
+                        Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              HeaderTextWidget(lable: 'routines'),
+                              RoutinesStreamWidget(
+                                stream: viewModel.getURoutines,
+                              ),
+                            ],
+                          )
+                        : Container(),
+                    viewModel.isCurrentUser
+                        ? Container()
+                        : Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: ButtonWidget(
+                                onPressed: viewModel.pvpTapped, text: 'PvP'),
+                          ),
+                    // * profile Badges
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CardWidget(
-                          onTap: () {},
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              DescriptionTextWidget(
-                                description: '13',
-                                bold: true,
-                                fontSize: 24,
+                        HeaderTextWidget(lable: 'Badges'),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                            height: 235,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            width: screenWidth(context),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: GridView.count(
+                                crossAxisCount: 6,
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 10,
+                                children: [
+                                  Container(
+                                    height: 42,
+                                    width: 42,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      image: DecorationImage(
+                                        image: AssetImage('assets/Icon.png'),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 42,
+                                    width: 42,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      image: DecorationImage(
+                                        image: AssetImage('assets/Icon.png'),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 42,
+                                    width: 42,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      image: DecorationImage(
+                                        image: AssetImage('assets/Icon.png'),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 42,
+                                    width: 42,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      image: DecorationImage(
+                                        image: AssetImage('assets/Icon.png'),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 42,
+                                    width: 42,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      image: DecorationImage(
+                                        image: AssetImage('assets/Icon.png'),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 42,
+                                    width: 42,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      image: DecorationImage(
+                                        image: AssetImage('assets/Icon.png'),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 42,
+                                    width: 42,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      image: DecorationImage(
+                                        image: AssetImage('assets/Icon.png'),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 42,
+                                    width: 42,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      image: DecorationImage(
+                                        image: AssetImage('assets/Icon.png'),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              LableTextWidget(lable: 'Following'),
-                            ],
+                            ),
                           ),
-                          height: 100,
-                          width: screenWidth(context) * 0.45,
-                        ),
-                        CardWidget(
-                          onTap: () {},
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              DescriptionTextWidget(
-                                description: '13',
-                                bold: true,
-                                fontSize: 24,
-                              ),
-                              LableTextWidget(lable: 'Following'),
-                            ],
-                          ),
-                          height: 100,
-                          width: screenWidth(context) * 0.45,
-                        ),
+                        )
                       ],
                     ),
+                    // * profile status (following - followers etc...)
                     Padding(
-                      padding: const EdgeInsets.only(top: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 40,
+                        horizontal: 10,
+                      ),
+                      child: Column(
                         children: [
-                          CardWidget(
-                            onTap: () {},
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                DescriptionTextWidget(
-                                  description: '2',
-                                  bold: true,
-                                  fontSize: 24,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              CardWidget(
+                                onTap: () {},
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    DescriptionTextWidget(
+                                      description: viewModel
+                                          .userGeneral.noOfFollowing
+                                          .toString(),
+                                      bold: true,
+                                      fontSize: 24,
+                                    ),
+                                    LableTextWidget(lable: 'Following'),
+                                  ],
                                 ),
-                                LableTextWidget(lable: 'Groups'),
-                              ],
-                            ),
-                            height: 100,
-                            width: screenWidth(context) * 0.45,
+                                height: 100,
+                                width: screenWidth(context) * 0.45,
+                              ),
+                              CardWidget(
+                                onTap: () {},
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    DescriptionTextWidget(
+                                      description: viewModel
+                                          .userGeneral.noOfFollowers
+                                          .toString(),
+                                      bold: true,
+                                      fontSize: 24,
+                                    ),
+                                    LableTextWidget(lable: 'Followers'),
+                                  ],
+                                ),
+                                height: 100,
+                                width: screenWidth(context) * 0.45,
+                              ),
+                            ],
                           ),
-                          CardWidget(
-                            onTap: () {},
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                DescriptionTextWidget(
-                                  description: '18',
-                                  bold: true,
-                                  fontSize: 24,
+                                CardWidget(
+                                  onTap: () {},
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      DescriptionTextWidget(
+                                        description: viewModel
+                                            .userGeneral.noOfGroups
+                                            .toString(),
+                                        bold: true,
+                                        fontSize: 24,
+                                      ),
+                                      LableTextWidget(lable: 'Groups'),
+                                    ],
+                                  ),
+                                  height: 100,
+                                  width: screenWidth(context) * 0.45,
                                 ),
-                                LableTextWidget(lable: 'Likes'),
+                                CardWidget(
+                                  onTap: () {},
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      DescriptionTextWidget(
+                                        description: viewModel
+                                            .userGeneral.noOfLikes
+                                            .toString(),
+                                        bold: true,
+                                        fontSize: 24,
+                                      ),
+                                      LableTextWidget(lable: 'Likes'),
+                                    ],
+                                  ),
+                                  height: 100,
+                                  width: screenWidth(context) * 0.45,
+                                ),
                               ],
                             ),
-                            height: 100,
-                            width: screenWidth(context) * 0.45,
                           ),
                         ],
                       ),
                     ),
                   ],
                 ),
-              ),
-            ],
-          ),
-        );
+              );
       },
       viewModelBuilder: () => ProfileViewModel(),
     );

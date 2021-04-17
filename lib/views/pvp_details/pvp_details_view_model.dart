@@ -1,5 +1,8 @@
 import 'package:dotdo/core/locator.dart';
+import 'package:dotdo/core/models/User.dart';
+import 'package:dotdo/core/models/uGeneral.dart';
 import 'package:dotdo/core/services/pvpService.dart';
+import 'package:dotdo/core/services/userService.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dotdo/core/logger.dart';
@@ -12,42 +15,59 @@ class PvpDetailsViewModel extends BaseViewModel {
   }
 
   PvpService _pvpService = locator<PvpService>();
-  String _user1Name = 'mukxdev#fgj678';
-  String get user1Name => _user1Name;
+  UserService _userService = locator<UserService>();
 
-  String _user2Name = 'ilillliliwolf#moo789';
-  String get user2Name => _user2Name;
+  bool _isBusy;
+  bool get isBusy => _isBusy;
 
-  String _user1Avatar =
-      'https://firebasestorage.googleapis.com/v0/b/dotdo-autovita.appspot.com/o/defaultAvatar.png?alt=media&token=d8896de4-4a13-4560-995c-d010a1a3bfd9';
-  String get user1Avatar => _user1Avatar;
+  String _pvpId;
+  String get pvpId => _pvpId;
 
-  String _user2Avatar =
-      'https://firebasestorage.googleapis.com/v0/b/dotdo-autovita.appspot.com/o/defaultAvatar.png?alt=media&token=d8896de4-4a13-4560-995c-d010a1a3bfd9';
-  String get user2Avatar => _user2Avatar;
+  String _userAId;
+  String get userAId => _userAId;
 
-  String _noOfWins = '1';
-  String get noOfWins => _noOfWins;
+  String _userBId;
+  String get userBId => _userBId;
 
-  String _noOfDraws = '1';
-  String get noOfDraws => _noOfDraws;
+  String _oppId;
+  String get oppId => _oppId;
 
-  String _noOfLosses = '1';
-  String get noOfLosses => _noOfLosses;
+  User _userA;
+  User get userA => _userA;
 
-  int _noTotalTasks = 3;
-  int get noTotalTasks => _noTotalTasks;
+  User _userB;
+  User get userB => _userB;
 
-  int _noUser1TasksCompleted = 2;
-  int get noUser1TasksCompleted => _noUser1TasksCompleted;
+  UGeneral _userAGeneral;
+  UGeneral get userAGeneral => _userAGeneral;
 
-  int _noUser2TasksCompleted = 1;
-  int get noUser2TasksCompleted => _noUser2TasksCompleted;
+  UGeneral _userBGeneral;
+  UGeneral get userBGeneral => _userBGeneral;
 
-  Stream get pvpCardStream =>
-      _pvpService.creatOrViewPvp('lTu0PCb3C3cWiC9LP1vmsfxGMK83');
+  Stream get pvpCardStream => _pvpService.creatOrViewPvp(_oppId);
+  Stream get activeChallangeStream => _pvpService.getActiveChallenge(_pvpId);
+
+  handleOnStartup(String oppId) async {
+    _isBusy = true;
+    _oppId = oppId;
+    _pvpId = await _pvpService.getPvpId(oppId);
+
+    _userAId = await _pvpService.getUserAId(_pvpId);
+    _userBId = await _pvpService.getUserBId(_pvpId);
+
+    _userA = await _userService.getUserProfile(_userAId);
+    _userB = await _userService.getUserProfile(_userBId);
+
+    _userAGeneral = await _userService.getUserGeneral(_userAId);
+    _userBGeneral = await _userService.getUserGeneral(_userBId);
+
+    _isBusy = false;
+    notifyListeners();
+  }
 
   newChallengeTapped() {}
 
   challengeTapped() {}
+
+  historyTapped() {}
 }

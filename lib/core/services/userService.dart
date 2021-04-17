@@ -1,9 +1,15 @@
 import 'dart:io';
 
+import 'package:dotdo/core/models/User.dart';
+import 'package:dotdo/core/models/uGeneral.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 
+import '../locator.dart';
+import 'firestoreService.dart';
+
 class UserService {
+  FirestoreService _firestoreService = locator<FirestoreService>();
   firebase_storage.Reference ref =
       firebase_storage.FirebaseStorage.instance.ref('/userImage');
 
@@ -22,5 +28,26 @@ class UserService {
     String _imageUrl = await taskSnapshot.ref.getDownloadURL();
     print(_imageUrl);
     return _imageUrl;
+  }
+
+  Future<User> getUserProfile(String userId) async {
+    User user;
+    await _firestoreService.users
+        .doc(userId)
+        .get()
+        .then((value) => user = User.fromMap(value.data()));
+    return user;
+  }
+
+  Future<UGeneral> getUserGeneral(String userId) async {
+    UGeneral uGeneral;
+    await _firestoreService.users
+        .doc(userId)
+        .collection('uGeneral')
+        .doc('generalData')
+        .get()
+        .then((value) => uGeneral = UGeneral.fromMap(value.data()));
+
+    return uGeneral;
   }
 }

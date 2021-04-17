@@ -17,6 +17,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
+      onModelReady: (HomeViewModel viewModel) => viewModel.handleOnStartup(),
       builder: (BuildContext context, HomeViewModel viewModel, Widget _) {
         return Scaffold(
           // * AppBar
@@ -80,6 +81,7 @@ class HomeView extends StatelessWidget {
           ),
           // * BottomNavigationBar
           bottomNavigationBar: BottomNavBarWidget(
+            userProfile: viewModel.userProfilePic,
             currentIndex: viewModel.selectedIndex,
             onTap: (index) {
               viewModel.updateSelectedNavbarItem(index);
@@ -93,8 +95,11 @@ class HomeView extends StatelessWidget {
               SpeedDialChild(
                 label: 'Add Task',
                 onTap: viewModel.addTask,
-                backgroundColor: Theme.of(context).accentColor,
-                foregroundColor: AppColors.white.withAlpha(200),
+                backgroundColor: Theme.of(context).primaryColor,
+                foregroundColor:
+                    Theme.of(context).brightness == Brightness.light
+                        ? AppColors.darkBackground.withAlpha(170)
+                        : AppColors.white.withAlpha(200),
                 child: Icon(
                   FontAwesomeIcons.clipboardCheck,
                   size: 20,
@@ -107,7 +112,10 @@ class HomeView extends StatelessWidget {
                     Theme.of(context).brightness == Brightness.light
                         ? AppColors.lightRoutine
                         : AppColors.darkRoutine,
-                foregroundColor: AppColors.white.withAlpha(200),
+                foregroundColor:
+                    Theme.of(context).brightness == Brightness.light
+                        ? AppColors.darkBackground.withAlpha(170)
+                        : AppColors.white.withAlpha(200),
                 child: Icon(
                   FontAwesomeIcons.redoAlt,
                   size: 20,
@@ -120,7 +128,10 @@ class HomeView extends StatelessWidget {
                     Theme.of(context).brightness == Brightness.light
                         ? AppColors.lightChallenge
                         : AppColors.darkChallenge,
-                foregroundColor: AppColors.white.withAlpha(200),
+                foregroundColor:
+                    Theme.of(context).brightness == Brightness.light
+                        ? AppColors.darkBackground.withAlpha(170)
+                        : AppColors.white.withAlpha(200),
                 child: Icon(
                   FontAwesomeIcons.crosshairs,
                   size: 20,
