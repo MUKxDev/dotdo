@@ -3,6 +3,7 @@ import 'package:dotdo/core/models/Routine.dart';
 import 'package:dotdo/core/router_constants.dart';
 import 'package:dotdo/core/services/routineService.dart';
 import 'package:dotdo/theme/colors.dart';
+import 'package:dotdo/views/routine_details/routine_details_view.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:logger/logger.dart';
@@ -89,7 +90,7 @@ class NewRoutineViewModel extends BaseViewModel {
           'routineId': routineID,
           'isEdit': true,
         };
-        _navigationService.navigateTo(routineDetailsViewRoute, arguments: args);
+        _navigationService.navigateToView(RoutineDetailsView(args: args));
       }
     } else {
       _snackbarService.showSnackbar(message: 'Routine name is empty');
@@ -97,28 +98,28 @@ class NewRoutineViewModel extends BaseViewModel {
   }
 
   save() async {
-    // Routine routine = Routine(
-    //   name: nameController.text.trim(),
-    //   note: noteController.text.trim(),
-    //   iconData: _iconData,
-    //   iconColor: _iconColor,
-    //   active: _active,
-    //   noOfTasks: _noOfTasks,
-    //   noOfCompletedTasks: _noOfCompletedTasks,
-    //   noOfLikes: _noOfLikes,
-    // );
+    Routine routine = Routine(
+      name: nameController.text.trim(),
+      note: noteController.text.trim(),
+      iconData: _iconData,
+      iconColor: _iconColor,
+      active: _active,
+      noOfTasks: _noOfTasks,
+      noOfCompletedTasks: _noOfCompletedTasks,
+      noOfLikes: _noOfLikes,
+    );
 
-    // if (nameController.text.trim() != '') {
-    //   await _routineService.updateUChalllange(_routineId, routine);
-    //   _navigationService.back();
-    // } else {
-    //   _snackbarService.showSnackbar(message: 'Routine name is empty');
-    // }
+    if (nameController.text.trim() != '') {
+      await _routineService.updateRotine(routine, _routineId);
+      _navigationService.back();
+    } else {
+      _snackbarService.showSnackbar(message: 'Routine name is empty');
+    }
   }
 
   delete() {
-    // _routineService.deleteURoutine(_routineId);
-    // _navigationService.pushNamedAndRemoveUntil(homeViewRoute);
+    _routineService.deleteRoutine(_routineId);
+    _navigationService.pushNamedAndRemoveUntil(homeViewRoute);
   }
 
   colorTapped(Color iconColor) {

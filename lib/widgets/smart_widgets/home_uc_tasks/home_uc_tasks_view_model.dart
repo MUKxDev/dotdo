@@ -31,7 +31,7 @@ class HomeUcTasksViewModel extends BaseViewModel {
   }
 
   taskTapped(String taskId) async {
-    // _navigationService.navigateTo(taskDetailsViewRoute, arguments: taskId);
+    // _navigationService.navigateToView(taskDetailsViewRoute, arguments: taskId);
   }
 
   void deleteUTask(String taskId, String challengeId) {

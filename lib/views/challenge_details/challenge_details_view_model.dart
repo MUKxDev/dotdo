@@ -3,6 +3,8 @@ import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/models/challenge.dart';
 import 'package:dotdo/core/router_constants.dart';
 import 'package:dotdo/core/services/challengeService.dart';
+import 'package:dotdo/views/ctask_details/ctask_details_view.dart';
+import 'package:dotdo/views/new_challenge/new_challenge_view.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dotdo/core/logger.dart';
@@ -76,7 +78,7 @@ class ChallengeDetailsViewModel extends BaseViewModel {
       'icon': _challenge.iconData,
       'color': _challenge.iconColor,
     };
-    _navigationService.navigateTo(ctaskDetailsViewRoute, arguments: args);
+    _navigationService.navigateToView(CtaskDetailsView(args: args));
   }
 
   taskTapped(String taskId) async {
@@ -87,7 +89,7 @@ class ChallengeDetailsViewModel extends BaseViewModel {
       'icon': null,
       'color': null,
     };
-    _navigationService.navigateTo(ctaskDetailsViewRoute, arguments: args);
+    _navigationService.navigateToView(CtaskDetailsView(args: args));
   }
 
   deleteUTask(String taskId) {
@@ -99,7 +101,7 @@ class ChallengeDetailsViewModel extends BaseViewModel {
   }
 
   challengeTapped(String id) {
-    _navigationService.navigateTo(newChallengeViewRoute, arguments: id);
+    _navigationService.navigateToView(NewChallengeView(challengeId: id));
   }
 
   toggleIsEdit() {

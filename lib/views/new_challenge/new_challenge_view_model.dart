@@ -4,6 +4,7 @@ import 'package:dotdo/core/router_constants.dart';
 import 'package:dotdo/core/services/challengeService.dart';
 import 'package:dotdo/core/services/taskService.dart';
 import 'package:dotdo/theme/colors.dart';
+import 'package:dotdo/views/challenge_details/challenge_details_view.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:logger/logger.dart';
@@ -135,8 +136,7 @@ class NewChallengeViewModel extends BaseViewModel {
           'challengeId': challengeID,
           'isEdit': true,
         };
-        _navigationService.navigateTo(challengeDetailsViewRoute,
-            arguments: args);
+        _navigationService.navigateToView(ChallengeDetailsView(args: args));
       }
     } else {
       _snackbarService.showSnackbar(message: 'Challenge name is empty');
@@ -162,7 +162,7 @@ class NewChallengeViewModel extends BaseViewModel {
       //   'challengeId': _challengeId,
       //   'isEdit': true,
       // };
-      // _navigationService.navigateTo(challengeDetailsViewRoute, arguments: args);
+      // _navigationService.navigateToView(challengeDetailsViewRoute, arguments: args);
       _navigationService.back();
     } else {
       _snackbarService.showSnackbar(message: 'Challenge name is empty');

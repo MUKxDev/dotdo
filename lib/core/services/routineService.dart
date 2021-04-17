@@ -10,7 +10,7 @@ class RoutineService {
   FirestoreService _firestoreService = locator<FirestoreService>();
   AuthService _authService = locator<AuthService>();
 
-// *add - - - - - - - - - - - -
+  // add -----------------
   Future<String> addRoutine(Routine routine) async {
     String routineId = await _firestoreService.users
         .doc(await _authService.getCurrentUserId())
@@ -41,6 +41,7 @@ class RoutineService {
         .update({'active': true});
   }
 
+  // Get -----------------
   Future<bool> activation(String routineId, bool currentStats) async {
     await _firestoreService.users
         .doc(await _authService.getCurrentUserId())
@@ -81,63 +82,6 @@ class RoutineService {
       return null;
     });
     return urtaskId;
-  }
-
-  Future toggleCompletedURTask(
-      String taskId, String routineId, bool currentStat) async {
-    int _noOfCompletedURTask = await _firestoreService.users
-        .doc(await _authService.getCurrentUserId())
-        .collection('URoutines')
-        .doc(routineId)
-        .get()
-        .then((value) => value.data()['noOfCompletedTasks']);
-
-    int _noOfCTaskCompleted = await _firestoreService.users
-        .doc(await _authService.getCurrentUserId())
-        .collection('uGeneral')
-        .doc('generalData')
-        .get()
-        .then((value) => value.data()['noOfTaskCompleted']);
-//------------------------------
-    int _plus = _noOfCTaskCompleted + 1;
-    int _minus = _noOfCTaskCompleted - 1;
-//------
-    int _urtplus = _noOfCompletedURTask + 1;
-    int _urtminus = _noOfCompletedURTask - 1;
-//-------------------------------
-    await _firestoreService.users
-        .doc(await _authService.getCurrentUserId())
-        .collection('URoutines')
-        .doc(routineId)
-        .collection('URTasks')
-        .doc(taskId)
-        .update({'completed': !(currentStat)}).then((value) async {
-      if (currentStat == false) {
-        _firestoreService.users
-            .doc(await _authService.getCurrentUserId())
-            .collection("uGeneral")
-            .doc('generalData')
-            .update({'noOfTaskCompleted': _plus});
-        _firestoreService.users
-            .doc(await _authService.getCurrentUserId())
-            .collection('URoutines')
-            .doc(routineId)
-            .update({'noOfCompletedTasks': _urtplus});
-      } else {
-        _firestoreService.users
-            .doc(await _authService.getCurrentUserId())
-            .collection("uGeneral")
-            .doc('generalData')
-            .update({'noOfTaskCompleted': _minus});
-        _firestoreService.users
-            .doc(await _authService.getCurrentUserId())
-            .collection('URoutines')
-            .doc(routineId)
-            .update({'noOfCompletedTasks': _urtminus});
-      }
-    }).onError((error, stackTrace) {
-      print('error with adding task: $error');
-    });
   }
 
   Stream<QuerySnapshot> getAllURoutines() async* {
@@ -218,7 +162,7 @@ class RoutineService {
 
     int _noOfTask = await _firestoreService.users
         .doc(await _authService.getCurrentUserId())
-        .collection('URoutiens')
+        .collection('URoutines')
         .doc(routineId)
         .get()
         .then((value) => value.data()['noOfTasks']);
@@ -261,6 +205,63 @@ class RoutineService {
   }
 
 // update -------------------
+  Future toggleCompletedURTask(
+      String taskId, String routineId, bool currentStat) async {
+    int _noOfCompletedURTask = await _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .collection('URoutines')
+        .doc(routineId)
+        .get()
+        .then((value) => value.data()['noOfCompletedTasks']);
+
+    int _noOfCTaskCompleted = await _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .collection('uGeneral')
+        .doc('generalData')
+        .get()
+        .then((value) => value.data()['noOfTaskCompleted']);
+//------------------------------
+    int _plus = _noOfCTaskCompleted + 1;
+    int _minus = _noOfCTaskCompleted - 1;
+//------
+    int _urtplus = _noOfCompletedURTask + 1;
+    int _urtminus = _noOfCompletedURTask - 1;
+//-------------------------------
+    await _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .collection('URoutines')
+        .doc(routineId)
+        .collection('URTasks')
+        .doc(taskId)
+        .update({'completed': !(currentStat)}).then((value) async {
+      if (currentStat == false) {
+        _firestoreService.users
+            .doc(await _authService.getCurrentUserId())
+            .collection("uGeneral")
+            .doc('generalData')
+            .update({'noOfTaskCompleted': _plus});
+        _firestoreService.users
+            .doc(await _authService.getCurrentUserId())
+            .collection('URoutines')
+            .doc(routineId)
+            .update({'noOfCompletedTasks': _urtplus});
+      } else {
+        _firestoreService.users
+            .doc(await _authService.getCurrentUserId())
+            .collection("uGeneral")
+            .doc('generalData')
+            .update({'noOfTaskCompleted': _minus});
+        _firestoreService.users
+            .doc(await _authService.getCurrentUserId())
+            .collection('URoutines')
+            .doc(routineId)
+            .update({'noOfCompletedTasks': _urtminus});
+      }
+    }).onError((error, stackTrace) {
+      print('error with adding task: $error');
+    });
+  }
+
   Future updateRotine(Routine routine, String routineId) async {
     await _firestoreService.users
         .doc(await _authService.getCurrentUserId())

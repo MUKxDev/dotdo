@@ -1,4 +1,5 @@
 import 'package:dotdo/core/router_constants.dart';
+import 'package:dotdo/views/task_details/task_details_view.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotdo/core/locator.dart';
@@ -28,7 +29,7 @@ class OverdueTasksListViewModel extends ReactiveViewModel {
   }
 
   taskTapped(String taskId) async {
-    _navigationService.navigateTo(taskDetailsViewRoute, arguments: taskId);
+    _navigationService.navigateToView(TaskDetailsView(taskId: taskId));
   }
 
   void deleteUTask(String taskId) {

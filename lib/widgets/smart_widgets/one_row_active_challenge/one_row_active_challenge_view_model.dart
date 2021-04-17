@@ -1,6 +1,7 @@
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/router_constants.dart';
 import 'package:dotdo/core/services/challengeService.dart';
+import 'package:dotdo/views/challenge_details/challenge_details_view.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dotdo/core/logger.dart';
@@ -23,6 +24,6 @@ class OneRowActiveChallengeViewModel extends BaseViewModel {
       'challengeId': id,
       'isEdit': false,
     };
-    _navigationService.navigateTo(challengeDetailsViewRoute, arguments: args);
+    _navigationService.navigateToView(ChallengeDetailsView(args: args));
   }
 }

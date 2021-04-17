@@ -2,6 +2,9 @@ import 'package:dotdo/core/services/taskService.dart';
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/router_constants.dart';
 import 'package:dotdo/core/services/authService.dart';
+import 'package:dotdo/views/new_challenge/new_challenge_view.dart';
+import 'package:dotdo/views/new_routine/new_routine_view.dart';
+import 'package:dotdo/views/task_details/task_details_view.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
@@ -72,15 +75,15 @@ class HomeViewModel extends ReactiveViewModel {
   AuthService _authService = locator<AuthService>();
 
   addTask() {
-    _navigationService.navigateTo(taskDetailsViewRoute);
+    _navigationService.navigateToView(TaskDetailsView());
   }
 
   addRoutine() async {
-    _navigationService.navigateTo(newRoutineViewRoute);
+    _navigationService.navigateToView(NewRoutineView());
   }
 
   addChallenge() {
-    _navigationService.navigateTo(newChallengeViewRoute);
+    _navigationService.navigateToView(NewChallengeView());
   }
 
   Key fabKey = UniqueKey();

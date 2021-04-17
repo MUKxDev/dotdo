@@ -3,6 +3,8 @@ import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/models/Routine.dart';
 import 'package:dotdo/core/router_constants.dart';
 import 'package:dotdo/core/services/routineService.dart';
+import 'package:dotdo/views/new_routine/new_routine_view.dart';
+import 'package:dotdo/views/rtask_details/rtask_details_view.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dotdo/core/logger.dart';
@@ -61,7 +63,7 @@ class RoutineDetailsViewModel extends BaseViewModel {
       'icon': _routine.iconData,
       'color': _routine.iconColor,
     };
-    _navigationService.navigateTo(rtaskDetailsViewRoute, arguments: args);
+    _navigationService.navigateToView(RtaskDetailsView(args: args));
   }
 
   taskTapped(String taskId) async {
@@ -71,7 +73,7 @@ class RoutineDetailsViewModel extends BaseViewModel {
       'icon': null,
       'color': null,
     };
-    _navigationService.navigateTo(rtaskDetailsViewRoute, arguments: args);
+    _navigationService.navigateToView(RtaskDetailsView(args: args));
   }
 
   deleteUTask(String taskId) {
@@ -83,7 +85,7 @@ class RoutineDetailsViewModel extends BaseViewModel {
   }
 
   routineTapped(String id) {
-    _navigationService.navigateTo(newRoutineViewRoute, arguments: id);
+    _navigationService.navigateToView(NewRoutineView(routineId: id));
   }
 
   toggleIsEdit() {
