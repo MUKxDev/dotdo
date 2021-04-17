@@ -1,3 +1,5 @@
+import 'package:dotdo/core/locator.dart';
+import 'package:dotdo/core/services/pvpService.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dotdo/core/logger.dart';
@@ -8,6 +10,8 @@ class PvpDetailsViewModel extends BaseViewModel {
   PvpDetailsViewModel() {
     this.log = getLogger(this.runtimeType.toString());
   }
+
+  PvpService _pvpService = locator<PvpService>();
   String _user1Name = 'mukxdev#fgj678';
   String get user1Name => _user1Name;
 
@@ -39,6 +43,9 @@ class PvpDetailsViewModel extends BaseViewModel {
 
   int _noUser2TasksCompleted = 1;
   int get noUser2TasksCompleted => _noUser2TasksCompleted;
+
+  Stream get pvpCardStream =>
+      _pvpService.creatOrViewPvp('lTu0PCb3C3cWiC9LP1vmsfxGMK83');
 
   newChallengeTapped() {}
 

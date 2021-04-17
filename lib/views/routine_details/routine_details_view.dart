@@ -7,6 +7,7 @@ import 'package:dotdo/widgets/dumb_widgets/button/button_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/long_routine_card/long_routine_card_widget.dart';
+import 'package:dotdo/widgets/dumb_widgets/routine_task/routine_task_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/task/task_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -398,7 +399,7 @@ class RoutineDetailsView extends StatelessWidget {
                                                                     'completed']);
                                                       }
                                                     },
-                                                    child: TaskWidget(
+                                                    child: RoutineTaskWidget(
                                                       backgroundcolor: Theme.of(
                                                                       context)
                                                                   .brightness ==

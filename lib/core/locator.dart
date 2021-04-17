@@ -1,4 +1,5 @@
 import 'package:dotdo/core/services/challengeService.dart';
+import 'package:dotdo/core/services/pvpService.dart';
 import 'package:dotdo/core/services/routineService.dart';
 import 'package:dotdo/core/services/searchService.dart';
 import 'package:dotdo/core/services/taskService.dart';
@@ -39,5 +40,7 @@ class LocatorInjector {
     locator.registerLazySingleton(() => UserService());
     log.d('Registering Search Service');
     locator.registerLazySingleton(() => SearchService());
+    log.d('Registering Pvp Service');
+    locator.registerLazySingleton(() => PvpService());
   }
 }

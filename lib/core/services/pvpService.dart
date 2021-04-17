@@ -7,7 +7,7 @@ import '../locator.dart';
 import 'authService.dart';
 import 'firestoreService.dart';
 
-class Pvps {
+class PvpService {
   FirestoreService _firestoreService = locator<FirestoreService>();
   AuthService _authService = locator<AuthService>();
   // creat or view pvp ----------------------
