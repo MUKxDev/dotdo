@@ -22,6 +22,7 @@ import 'package:dotdo/views/rtask_details/rtask_details_view.dart' as view15;
 import 'package:dotdo/views/pvp_details/pvp_details_view.dart' as view16;
 import 'package:dotdo/views/another_profile/another_profile_view.dart' as view17;
 import 'package:dotdo/views/new_pvp_challange/new_pvp_challange_view.dart' as view18;
+import 'package:dotdo/views/pvp_challenge_details/pvp_challenge_details_view.dart' as view19;
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -64,6 +65,8 @@ class Router {
         return MaterialPageRoute(builder: (_) => view17.AnotherProfileView());
       case newPvpChallangeViewRoute:
         return MaterialPageRoute(builder: (_) => view18.NewPvpChallangeView());
+      case pvpChallengeDetailsViewRoute:
+        return MaterialPageRoute(builder: (_) => view19.PvpChallengeDetailsView());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

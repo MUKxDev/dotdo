@@ -19,3 +19,4 @@ const String rtaskDetailsViewRoute = 'rtaskDetailsViewRoute';
 const String pvpDetailsViewRoute = 'pvpDetailsViewRoute';
 const String anotherProfileViewRoute = 'anotherProfileViewRoute';
 const String newPvpChallangeViewRoute = 'newPvpChallangeViewRoute';
+const String pvpChallengeDetailsViewRoute = 'pvpChallengeDetailsViewRoute';

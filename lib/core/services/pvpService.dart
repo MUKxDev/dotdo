@@ -89,8 +89,7 @@ class PvpService {
   }
 
   // new challenge ---------------------------
-  Future newChallenge(String pvpId) async {
-    PChallenge pChallenge = PChallenge();
+  Future newChallenge(String pvpId, PChallenge pChallenge) async {
     String userAId = getUserAId(pvpId).toString();
     String challengeId = await _firestoreService.pvps
         .doc(pvpId)
@@ -102,6 +101,8 @@ class PvpService {
       startingpackA(pvpId, challengeId);
     else
       startingpackB(pvpId, challengeId);
+
+    return challengeId;
   }
 
 //add tasks ---------------------------------------------
@@ -239,10 +240,9 @@ class PvpService {
     yield* _firestoreService.pvps
         .doc(pvpId)
         .collection('Challenges')
-        .where('status', isEqualTo: 'Pending')
+        .where('status', isEqualTo: 'pending')
         .orderBy('endDate')
         .where('endDate', isGreaterThanOrEqualTo: date.millisecondsSinceEpoch)
-        .where('startdate', isLessThan: date.microsecondsSinceEpoch)
         .snapshots();
   }
 

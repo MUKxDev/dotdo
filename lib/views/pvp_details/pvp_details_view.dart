@@ -280,15 +280,19 @@ class PvpDetailsView extends StatelessWidget {
                                             profile1Named:
                                                 viewModel.userA.userName,
                                             profile1ProgressValue:
-                                                pvpChallenge.aCTask /
-                                                    pvpChallenge.noOfTasks,
+                                                pvpChallenge.noOfTasks == 0
+                                                    ? 0
+                                                    : pvpChallenge.aCTask /
+                                                        pvpChallenge.noOfTasks,
                                             profile1Image: NetworkImage(
                                                 viewModel.userA.profilePic),
                                             profile2Named:
                                                 viewModel.userB.userName,
                                             profile2ProgressValue:
-                                                pvpChallenge.bCTask /
-                                                    pvpChallenge.noOfTasks,
+                                                pvpChallenge.noOfTasks == 0
+                                                    ? 0
+                                                    : pvpChallenge.bCTask /
+                                                        pvpChallenge.noOfTasks,
                                             profile2Image: NetworkImage(
                                                 viewModel.userB.profilePic),
                                           ),

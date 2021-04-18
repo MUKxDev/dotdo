@@ -3,9 +3,11 @@ import 'package:dotdo/core/models/User.dart';
 import 'package:dotdo/core/models/uGeneral.dart';
 import 'package:dotdo/core/services/pvpService.dart';
 import 'package:dotdo/core/services/userService.dart';
+import 'package:dotdo/views/new_pvp_challange/new_pvp_challange_view.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dotdo/core/logger.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class PvpDetailsViewModel extends BaseViewModel {
   Logger log;
@@ -16,6 +18,7 @@ class PvpDetailsViewModel extends BaseViewModel {
 
   PvpService _pvpService = locator<PvpService>();
   UserService _userService = locator<UserService>();
+  NavigationService _navigationService = locator<NavigationService>();
 
   bool _isBusy;
   bool get isBusy => _isBusy;
@@ -65,7 +68,9 @@ class PvpDetailsViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  newChallengeTapped() {}
+  newChallengeTapped() {
+    _navigationService.navigateToView(NewPvpChallangeView(pvpId: _pvpId));
+  }
 
   challengeTapped() {}
 
