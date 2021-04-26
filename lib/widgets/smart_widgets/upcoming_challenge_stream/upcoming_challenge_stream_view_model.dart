@@ -1,5 +1,5 @@
 import 'package:dotdo/core/locator.dart';
-import 'package:dotdo/core/router_constants.dart';
+
 import 'package:dotdo/views/challenge_details/challenge_details_view.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';

@@ -1,12 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/services/challengeService.dart';
-import 'package:dotdo/core/services/taskService.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dotdo/core/logger.dart';
 import 'package:intl/intl.dart';
-import 'package:stacked_services/stacked_services.dart';
 
 class HomeUcTasksViewModel extends BaseViewModel {
   Logger log;
@@ -16,7 +14,7 @@ class HomeUcTasksViewModel extends BaseViewModel {
   }
 
   ChallengeService _challengeService = locator<ChallengeService>();
-  NavigationService _navigationService = locator<NavigationService>();
+  // NavigationService _navigationService = locator<NavigationService>();
 
   DateTime get currentDate => DateTime.now();
   final dateFormat = DateFormat('MMM-dd');

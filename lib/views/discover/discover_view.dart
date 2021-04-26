@@ -1,6 +1,5 @@
 import 'package:dotdo/shared/ui_helpers.dart';
 import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
-import 'package:dotdo/widgets/dumb_widgets/textfield/textfield_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/inactive_challenge_card/inactive_challenge_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

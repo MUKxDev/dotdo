@@ -1,5 +1,4 @@
 import 'package:dotdo/core/models/task.dart';
-import 'package:dotdo/shared/ui_helpers.dart';
 import 'package:dotdo/theme/colors.dart';
 import 'package:dotdo/widgets/dumb_widgets/card/card_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/check_box/check_box_widget.dart';

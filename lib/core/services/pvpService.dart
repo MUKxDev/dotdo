@@ -90,7 +90,7 @@ class PvpService {
 
   // new challenge ---------------------------
   Future newChallenge(String pvpId, PChallenge pChallenge) async {
-    String userAId = getUserAId(pvpId).toString();
+    String userAId = await getUserAId(pvpId);
     String challengeId = await _firestoreService.pvps
         .doc(pvpId)
         .collection('Challenges')
@@ -106,15 +106,13 @@ class PvpService {
   }
 
 //add tasks ---------------------------------------------
-  Future addPCtask(String pvpId, String challengeId) async {
-    String _userId = await _authService.getCurrentUserId();
+  Future addPCtask(String pvpId, String challengeId, PCTask pcTask) async {
     int _totalPCtask = await _firestoreService.pvps
         .doc(pvpId)
         .collection('Challenges')
         .doc(challengeId)
         .get()
         .then((value) => value.data()['noOfTasks']);
-    PCTask pcTask = PCTask();
     int _plus = _totalPCtask + 1;
     _firestoreService.pvps
         .doc(pvpId)
@@ -135,7 +133,7 @@ class PvpService {
   Future toggleCompletePCtask(
       String pvpId, String challengeId, String pctaskId) async {
     String _userId = await _authService.getCurrentUserId();
-    String userA = getUserAId(pvpId).toString();
+    String userA = await getUserAId(pvpId);
     int _totaltask = await _firestoreService.pvps
         .doc(pvpId)
         .collection('Challenges')
@@ -235,6 +233,38 @@ class PvpService {
   }
 
 //get challange -----------------------------------------
+//
+
+  Stream<QuerySnapshot> getAllPvpsA() async* {
+    String _userId = await _authService.getCurrentUserId();
+    yield* _firestoreService.pvps
+        .where('userA', isEqualTo: _userId)
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot> getAllPvpsB() async* {
+    String _userId = await _authService.getCurrentUserId();
+    yield* _firestoreService.pvps
+        .where('userB', isEqualTo: _userId)
+        .snapshots();
+  }
+
+  Future<PCTask> getTask(
+      String pvpId, String challengeId, String taskId) async {
+    PCTask pcTask;
+    await _firestoreService.pvps
+        .doc(pvpId)
+        .collection('Challenges')
+        .doc(challengeId)
+        .collection('PCTasks')
+        .doc(taskId)
+        .get()
+        .then((value) {
+      pcTask = PCTask.fromMap(value.data());
+    });
+    return pcTask;
+  }
+
   Stream<QuerySnapshot> getPendingChallenge(String pvpId) async* {
     DateTime date = DateTime.now();
     yield* _firestoreService.pvps
@@ -277,7 +307,38 @@ class PvpService {
 // toggle challenge acception ------------
   Future toggleAccept(String pvpId, String challengeId) async {
     String _userId = await _authService.getCurrentUserId();
-    String userA = getUserAId(pvpId).toString();
+    String userA = await getUserAId(pvpId);
+    // String userAstatus = await _firestoreService.pvps
+    //     .doc(pvpId)
+    //     .collection('Challenges')
+    //     .doc(challengeId)
+    //     .get()
+    //     .then((value) => value.data()['aStatus']);
+    // String userBstatus = await _firestoreService.pvps
+    //     .doc(pvpId)
+    //     .collection('Challenges')
+    //     .doc(challengeId)
+    //     .get()
+    //     .then((value) => value.data()['bStatus']);
+    if (_userId == userA) {
+      _firestoreService.pvps
+          .doc(pvpId)
+          .collection('Challenges')
+          .doc(challengeId)
+          .update({'aStatus': 'Accept'});
+      accept(pvpId, challengeId);
+    } else {
+      _firestoreService.pvps
+          .doc(pvpId)
+          .collection('Challenges')
+          .doc(challengeId)
+          .update({'bStatus': 'Accept'});
+
+      accept(pvpId, challengeId);
+    }
+  }
+
+  Future accept(String pvpId, String challengeId) async {
     String userAstatus = await _firestoreService.pvps
         .doc(pvpId)
         .collection('Challenges')
@@ -290,40 +351,18 @@ class PvpService {
         .doc(challengeId)
         .get()
         .then((value) => value.data()['bStatus']);
-    if (_userId == userA) {
+    if (userBstatus == userAstatus) {
       _firestoreService.pvps
           .doc(pvpId)
           .collection('Challenges')
           .doc(challengeId)
-          .update({'aStatus': 'Accept'});
-
-      if (userBstatus == userAstatus) {
-        _firestoreService.pvps
-            .doc(pvpId)
-            .collection('Challenges')
-            .doc(challengeId)
-            .update({'status': 'Active'});
-      }
-    } else {
-      _firestoreService.pvps
-          .doc(pvpId)
-          .collection('Challenges')
-          .doc(challengeId)
-          .update({'bStatus': 'Accept'});
-
-      if (userBstatus == userAstatus) {
-        _firestoreService.pvps
-            .doc(pvpId)
-            .collection('Challenges')
-            .doc(challengeId)
-            .update({'status': 'Active'});
-      }
+          .update({'status': 'Active'});
     }
   }
 
   Future toggleDecline(String pvpId, String challengeId) async {
     String _userId = await _authService.getCurrentUserId();
-    String userA = getUserAId(pvpId).toString();
+    String userA = await getUserAId(pvpId);
     if (userA == _userId) {
       _firestoreService.pvps
           .doc(pvpId)
@@ -346,92 +385,110 @@ class PvpService {
 
 // toggle completed ---------------------
   Future toggleCompleted(String pvpId) async {
-    String challengeId = await _firestoreService.pvps
+    int _noOfFound = await _firestoreService.pvps
         .doc(pvpId)
         .collection('Challenges')
         .where('status', isEqualTo: 'Active')
         .get()
-        .asStream()
-        .first
-        .then((value) => value.docs.first.id);
+        .then((value) => value.size);
+    if (_noOfFound >= 1) {
+      String challengeId = await _firestoreService.pvps
+          .doc(pvpId)
+          .collection('Challenges')
+          .where('status', isEqualTo: 'Active')
+          .get()
+          .asStream()
+          .first
+          .then((value) => value.docs.first.id);
 
-    String currentStatus = await _firestoreService.pvps
-        .doc(pvpId)
-        .collection('Challenges')
-        .doc(challengeId)
-        .get()
-        .then((value) => value.data()['status']);
-    bool currentAStatus = await _firestoreService.pvps
-        .doc(pvpId)
-        .collection('Challenges')
-        .doc(challengeId)
-        .get()
-        .then((value) => value.data()['aStatus']);
+      String currentStatus = await _firestoreService.pvps
+          .doc(pvpId)
+          .collection('Challenges')
+          .doc(challengeId)
+          .get()
+          .then((value) => value.data()['status']);
 
-    bool currentBStatus = await _firestoreService.pvps
-        .doc(pvpId)
-        .collection('Challenges')
-        .doc(challengeId)
-        .get()
-        .then((value) => value.data()['bStatus']);
+      bool currentAStatus = await _firestoreService.pvps
+          .doc(pvpId)
+          .collection('Challenges')
+          .doc(challengeId)
+          .get()
+          .then((value) => value.data()['aComplete']);
 
-    int draw = await _firestoreService.pvps
-        .doc(pvpId)
-        .get()
-        .then((value) => value.data()['draws']);
-    int aWinng = await _firestoreService.pvps
-        .doc(pvpId)
-        .get()
-        .then((value) => value.data()['aWinng']);
-    int bWinning = await _firestoreService.pvps
-        .doc(pvpId)
-        .get()
-        .then((value) => value.data()['bWinning']);
-    int enddate = await _firestoreService.pvps
-        .doc(pvpId)
-        .collection('Challenges')
-        .doc(challengeId)
-        .get()
-        .then((value) => value.data()['endDate']);
-    String userA = getUserAId(pvpId).toString();
-    String userB = getUserBId(pvpId).toString();
-    DateTime now = DateTime.now();
-    int _dPlus = draw + 1;
-    int _aPlus = aWinng + 1;
-    int _bPlus = bWinning + 1;
-    if (currentStatus == 'Active' && enddate > now.millisecondsSinceEpoch) {
-      if (currentAStatus == true && currentBStatus == true) {
-        _firestoreService.pvps.doc(pvpId).update({'draws': _dPlus});
+      bool currentBStatus = await _firestoreService.pvps
+          .doc(pvpId)
+          .collection('Challenges')
+          .doc(challengeId)
+          .get()
+          .then((value) => value.data()['bComplete']);
 
-        _firestoreService.pvps
-            .doc(pvpId)
-            .collection('Challenges')
-            .doc(challengeId)
-            .update({'challangeWinner': 'Draw', 'status': 'Completed'});
-      } else if (currentAStatus == false && currentBStatus == false) {
-        _firestoreService.pvps.doc(pvpId).update({'draws': _dPlus});
+      int draw = await _firestoreService.pvps
+          .doc(pvpId)
+          .get()
+          .then((value) => value.data()['draws']);
 
-        _firestoreService.pvps
-            .doc(pvpId)
-            .collection('Challenges')
-            .doc(challengeId)
-            .update({'challangeWinner': 'Draw', 'status': 'Completed'});
-      } else if (currentAStatus == true && currentBStatus == false) {
-        _firestoreService.pvps.doc(pvpId).update({'draws': _aPlus});
+      int aWinng = await _firestoreService.pvps
+          .doc(pvpId)
+          .get()
+          .then((value) => value.data()['aWinng']);
 
-        _firestoreService.pvps
-            .doc(pvpId)
-            .collection('Challenges')
-            .doc(challengeId)
-            .update({'challangeWinner': userA, 'status': 'Completed'});
-      } else {
-        _firestoreService.pvps.doc(pvpId).update({'draws': _bPlus});
+      int bWinning = await _firestoreService.pvps
+          .doc(pvpId)
+          .get()
+          .then((value) => value.data()['bWinning']);
 
-        _firestoreService.pvps
-            .doc(pvpId)
-            .collection('Challenges')
-            .doc(challengeId)
-            .update({'challangeWinner': userB, 'status': 'Completed'});
+      int enddate = await _firestoreService.pvps
+          .doc(pvpId)
+          .collection('Challenges')
+          .doc(challengeId)
+          .get()
+          .then((value) => value.data()['endDate']);
+
+      print('test: $enddate');
+
+      String userA = await getUserAId(pvpId);
+      String userB = await getUserBId(pvpId);
+
+      DateTime now = DateTime.now();
+
+      int _dPlus = draw + 1;
+      int _aPlus = aWinng + 1;
+      int _bPlus = bWinning + 1;
+
+      if (currentStatus == 'Active' && enddate <= now.millisecondsSinceEpoch) {
+        if (currentAStatus == true && currentBStatus == true) {
+          _firestoreService.pvps.doc(pvpId).update({'draws': _dPlus});
+
+          _firestoreService.pvps
+              .doc(pvpId)
+              .collection('Challenges')
+              .doc(challengeId)
+              .update({'challangeWinner': 'Draw', 'status': 'Completed'});
+        } else if (currentAStatus == false && currentBStatus == false) {
+          _firestoreService.pvps.doc(pvpId).update({'draws': _dPlus});
+
+          _firestoreService.pvps
+              .doc(pvpId)
+              .collection('Challenges')
+              .doc(challengeId)
+              .update({'challangeWinner': 'Draw', 'status': 'Completed'});
+        } else if (currentAStatus == true && currentBStatus == false) {
+          _firestoreService.pvps.doc(pvpId).update({'aWinng': _aPlus});
+
+          _firestoreService.pvps
+              .doc(pvpId)
+              .collection('Challenges')
+              .doc(challengeId)
+              .update({'challangeWinner': userA, 'status': 'Completed'});
+        } else {
+          _firestoreService.pvps.doc(pvpId).update({'bWinning': _bPlus});
+
+          _firestoreService.pvps
+              .doc(pvpId)
+              .collection('Challenges')
+              .doc(challengeId)
+              .update({'challangeWinner': userB, 'status': 'Completed'});
+        }
       }
     }
   }
@@ -439,7 +496,7 @@ class PvpService {
 // get status ---------------------------
   Future<String> getUserStatus(String pvpId, String challengeId) async {
     String _userId = await _authService.getCurrentUserId();
-    String userA = getUserAId(pvpId).toString();
+    String userA = await getUserAId(pvpId);
     String currentStatus;
     if (userA == _userId) {
       currentStatus = await _firestoreService.pvps

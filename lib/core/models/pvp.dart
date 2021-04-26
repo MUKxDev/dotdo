@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-// TODO: think of this
-// TODO: muk do the UI
 class Pvp {
   final String userA;
   final String userB;

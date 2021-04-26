@@ -4,7 +4,6 @@ import 'package:dotdo/widgets/dumb_widgets/button/button_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/active_routines_stream/active_routines_stream_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/datepicker/datepicker_widget.dart';
-import 'package:dotdo/widgets/smart_widgets/home_uc_tasks/home_uc_tasks_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/one_row_active_challenge/one_row_active_challenge_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/overdue_tasks_list%20/overdue_tasks_list_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/task_list/task_list_widget.dart';

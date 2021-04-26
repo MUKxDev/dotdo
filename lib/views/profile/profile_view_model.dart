@@ -63,7 +63,7 @@ class ProfileViewModel extends BaseViewModel {
 
   pvpTapped() {
     _navigationService.navigateToView(PvpDetailsView(
-      uid: _userId,
+      oppId: _userId,
     ));
   }
 }

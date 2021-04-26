@@ -23,6 +23,9 @@ import 'package:dotdo/views/pvp_details/pvp_details_view.dart' as view16;
 import 'package:dotdo/views/another_profile/another_profile_view.dart' as view17;
 import 'package:dotdo/views/new_pvp_challange/new_pvp_challange_view.dart' as view18;
 import 'package:dotdo/views/pvp_challenge_details/pvp_challenge_details_view.dart' as view19;
+import 'package:dotdo/views/p_c_task_details/p_c_task_details_view.dart' as view20;
+import 'package:dotdo/views/pvp_pending/pvp_pending_view.dart' as view21;
+import 'package:dotdo/views/global_routine/global_routine_view.dart' as view22;
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -67,6 +70,12 @@ class Router {
         return MaterialPageRoute(builder: (_) => view18.NewPvpChallangeView());
       case pvpChallengeDetailsViewRoute:
         return MaterialPageRoute(builder: (_) => view19.PvpChallengeDetailsView());
+      case pCTaskDetailsViewRoute:
+        return MaterialPageRoute(builder: (_) => view20.PCTaskDetailsView());
+      case pvpPendingViewRoute:
+        return MaterialPageRoute(builder: (_) => view21.PvpPendingView());
+      case globalRoutineViewRoute:
+        return MaterialPageRoute(builder: (_) => view22.GlobalRoutineView());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

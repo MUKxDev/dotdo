@@ -1,12 +1,8 @@
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/models/PChallenge.dart';
-import 'package:dotdo/core/models/challenge.dart';
-import 'package:dotdo/core/router_constants.dart';
-import 'package:dotdo/core/services/challengeService.dart';
 import 'package:dotdo/core/services/pvpService.dart';
 import 'package:dotdo/core/services/taskService.dart';
 import 'package:dotdo/theme/colors.dart';
-import 'package:dotdo/views/challenge_details/challenge_details_view.dart';
 import 'package:dotdo/views/pvp_challenge_details/pvp_challenge_details_view.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -43,10 +39,10 @@ class NewPvpChallangeViewModel extends BaseViewModel {
   bool _isBusy = false;
   bool get isBusy => _isBusy;
 
-  bool _completed = false;
+  // bool _completed = false;
 
   int _noOfTasks = 0;
-  int _noOfCompletedTasks = 0;
+  // int _noOfCompletedTasks = 0;
 
   DateTime _startDate;
   DateTime get startDate => _startDate;

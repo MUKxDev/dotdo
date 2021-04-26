@@ -1,9 +1,8 @@
-import 'package:dotdo/shared/ui_helpers.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/active_challenge_card/active_challenge_card_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/group_challenge/group_challenge_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/inactive_challenge_card/inactive_challenge_card_widget.dart';
-import 'package:dotdo/widgets/smart_widgets/pvpchallenge/pvpchallenge_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stacked/stacked.dart';
@@ -22,37 +21,15 @@ class SocialView extends StatelessWidget {
               child: HeaderTextWidget(lable: 'PvP challenges'),
             ),
             // * PVP challenge list
-            Container(
-              height: 140,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  // * PVP challenge widget
-                  PvpchallengeWidget(
-                    onTap: () {
-                      viewModel.pvpTapped();
-                    },
-                    lable: 'Drinking water challenge',
-                    profile1Named: 'mukxdev',
-                    profile1ProgressValue: 0.5,
-                    profile1Image: AssetImage('assets/pp.png'),
-                    profile2Named: 'dotdo',
-                    profile2ProgressValue: 0.3,
-                    profile2Image: AssetImage('assets/Icon.png'),
-                  ),
-                  // * PVP challenge widget
-                  PvpchallengeWidget(
-                    onTap: () {},
-                    lable: 'Reading challenge',
-                    profile1Named: 'mukxdev',
-                    profile1ProgressValue: 0.9,
-                    profile1Image: AssetImage('assets/pp.png'),
-                    profile2Named: 'dotdo',
-                    profile2ProgressValue: 0.77,
-                    profile2Image: AssetImage('assets/Icon.png'),
-                  ),
-                ],
-              ),
+            StreamBuilder(
+              stream: viewModel.pvpsAStream,
+              builder: (context, AsyncSnapshot<QuerySnapshot> snapshots) {
+                return Container(
+                  height: 20,
+                  width: 20,
+                  color: Colors.red,
+                );
+              },
             ),
             // * Group Challenge Header
             Padding(
@@ -67,7 +44,7 @@ class SocialView extends StatelessWidget {
                 children: [
                   // * Group challenge Widget
                   GroupChallengeWidget(
-                    onTap: () => viewModel.optionTest(),
+                    onTap: () {},
                     lable: 'Workout challenge',
                     groupName: 'AutoVita',
                     rank: 2,

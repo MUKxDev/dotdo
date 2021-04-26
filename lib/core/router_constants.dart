@@ -20,3 +20,6 @@ const String pvpDetailsViewRoute = 'pvpDetailsViewRoute';
 const String anotherProfileViewRoute = 'anotherProfileViewRoute';
 const String newPvpChallangeViewRoute = 'newPvpChallangeViewRoute';
 const String pvpChallengeDetailsViewRoute = 'pvpChallengeDetailsViewRoute';
+const String pCTaskDetailsViewRoute = 'pCTaskDetailsViewRoute';
+const String pvpPendingViewRoute = 'pvpPendingViewRoute';
+const String globalRoutineViewRoute = 'globalRoutineViewRoute';

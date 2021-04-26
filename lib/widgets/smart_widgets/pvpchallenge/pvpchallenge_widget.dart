@@ -1,3 +1,4 @@
+import 'package:dotdo/theme/colors.dart';
 import 'package:dotdo/widgets/dumb_widgets/card/card_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/pvp_profile/pvp_profile_widget.dart';
@@ -43,6 +44,9 @@ class PvpchallengeWidget extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: CardWidget(
+            backgroundcolor: Theme.of(context).brightness == Brightness.light
+                ? AppColors.lightChallenge
+                : AppColors.darkChallenge,
             height: height,
             width: width,
             borderRadius: 20,

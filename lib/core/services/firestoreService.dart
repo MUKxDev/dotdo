@@ -6,6 +6,8 @@ class FirestoreService {
   // * References
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   CollectionReference pvps = FirebaseFirestore.instance.collection('pvps');
+  CollectionReference groutiens =
+      FirebaseFirestore.instance.collection('groutiens');
 
   // ? methods
   Future<void> createUser({String uid, String userName, String email}) {

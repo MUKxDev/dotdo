@@ -9,12 +9,13 @@ import 'package:stacked/stacked.dart';
 import 'package:dotdo/core/logger.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class RoutineDetailsViewModel extends BaseViewModel {
+class GlobalRoutineViewModel extends BaseViewModel {
   Logger log;
 
-  RoutineDetailsViewModel() {
+  GlobalRoutineViewModel() {
     this.log = getLogger(this.runtimeType.toString());
   }
+
   RoutineService _routineService = locator<RoutineService>();
 
   String _routineId;
@@ -46,7 +47,6 @@ class RoutineDetailsViewModel extends BaseViewModel {
     _isEdit = args['isEdit'];
 
     _routine = await _routineService.getURoutine(_routineId);
-    _isPublic = _routine.publicRoutine;
 
     _isBusy = false;
     notifyListeners();

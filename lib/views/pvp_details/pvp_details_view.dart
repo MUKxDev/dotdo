@@ -15,14 +15,14 @@ import 'package:stacked/stacked.dart';
 import 'pvp_details_view_model.dart';
 
 class PvpDetailsView extends StatelessWidget {
-  final String uid;
+  final String oppId;
 
-  const PvpDetailsView({Key key, this.uid}) : super(key: key);
+  const PvpDetailsView({Key key, this.oppId}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<PvpDetailsViewModel>.reactive(
       onModelReady: (PvpDetailsViewModel viewModel) =>
-          viewModel.handleOnStartup(uid),
+          viewModel.handleOnStartup(oppId),
       builder: (BuildContext context, PvpDetailsViewModel viewModel, Widget _) {
         return Scaffold(
           appBar: AppBar(
@@ -199,15 +199,15 @@ class PvpDetailsView extends StatelessWidget {
                                                                 .center,
                                                         children: [
                                                           LableTextWidget(
-                                                            lable: 'Losses',
+                                                            lable: 'Wins',
                                                             color: Theme.of(context)
                                                                         .brightness ==
                                                                     Brightness
                                                                         .light
                                                                 ? AppColors
-                                                                    .lightRed
+                                                                    .lightGreen
                                                                 : AppColors
-                                                                    .darkRed,
+                                                                    .darkGreen,
                                                           ),
                                                           LableTextWidget(
                                                             lable: pvpCard
@@ -218,9 +218,9 @@ class PvpDetailsView extends StatelessWidget {
                                                                     Brightness
                                                                         .light
                                                                 ? AppColors
-                                                                    .lightRed
+                                                                    .lightGreen
                                                                 : AppColors
-                                                                    .darkRed,
+                                                                    .darkGreen,
                                                           ),
                                                         ],
                                                       ),
@@ -275,7 +275,9 @@ class PvpDetailsView extends StatelessWidget {
                                           verticalSpaceXSmall(context),
                                           PvpchallengeWidget(
                                             width: screenWidth(context),
-                                            onTap: viewModel.challengeTapped,
+                                            onTap: () => viewModel
+                                                .challengeTapped(snapshot
+                                                    .data.docs.first.id),
                                             lable: pvpChallenge.name,
                                             profile1Named:
                                                 viewModel.userA.userName,
@@ -307,7 +309,18 @@ class PvpDetailsView extends StatelessWidget {
                         child: ButtonWidget(
                             onPressed: viewModel.historyTapped,
                             text: 'History'),
-                      )
+                      ),
+                      // Pvp pending button
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          bottom: 10,
+                          right: 10,
+                          left: 10,
+                        ),
+                        child: ButtonWidget(
+                            onPressed: viewModel.pendingTapped,
+                            text: 'Pending'),
+                      ),
                     ],
                   ),
                 ),

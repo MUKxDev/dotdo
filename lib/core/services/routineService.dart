@@ -32,7 +32,7 @@ class RoutineService {
         .doc(await _authService.getCurrentUserId())
         .collection('URoutines')
         .doc(routineId)
-        .update({'noOfLikes': 0});
+        .update({'noOfLikes': 0, 'publicRoutine': false});
 
     await _firestoreService.users
         .doc(await _authService.getCurrentUserId())
@@ -204,7 +204,83 @@ class RoutineService {
         .delete();
   }
 
+  // toggle -------------------
+  Future togglePublicR(String routineId) async {
+    String _userId = await _authService.getCurrentUserId();
+    await _firestoreService.users
+        .doc(_userId)
+        .collection('URoutines')
+        .doc(routineId)
+        .update({'publicRoutine': true});
+    Map _pRoutien = await _firestoreService.users
+        .doc(_userId)
+        .collection('URoutines')
+        .doc(routineId)
+        .get()
+        .then((value) => value.data());
+
+    String groutineId = await _firestoreService.groutiens
+        .add(_pRoutien)
+        .then((value) => value.id);
+
+    await _firestoreService.groutiens
+        .doc(groutineId)
+        .update({'routineId': routineId, 'creatorId': _userId});
+
+    await updateRoutine(groutineId, routineId);
+
+    togglePublicRTask(routineId, groutineId);
+  }
+
+  Future togglePublicROFF(String routineId) async {
+    String _userId = await _authService.getCurrentUserId();
+    String rID = await _firestoreService.groutiens
+        .where('routineId', isEqualTo: routineId)
+        .get()
+        .then((value) => value.docs.first.id);
+
+    await _firestoreService.groutiens.doc(rID).delete();
+
+    await _firestoreService.users
+        .doc(_userId)
+        .collection('URoutines')
+        .doc(routineId)
+        .update({'publicRoutine': false});
+  }
+
+  Future togglePublicRTask(String routineId, String groutineId) async {
+    String _userId = await _authService.getCurrentUserId();
+    int _noOfTasks = await _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .collection('URoutines')
+        .doc(routineId)
+        .get()
+        .then((value) => value.data()['noOfTasks']);
+    for (var i = 0; i < _noOfTasks; i++) {
+      Map _pRTask = await _firestoreService.users
+          .doc(_userId)
+          .collection('URoutines')
+          .doc(routineId)
+          .collection('URTasks')
+          .get()
+          .then((value) => value.docs.elementAt(i).data());
+
+      await _firestoreService.groutiens
+          .doc(groutineId)
+          .collection('GRTasks')
+          .add(_pRTask);
+    }
+  }
+
 // update -------------------
+  Future updateRoutine(String groutineId, String routineId) async {
+    _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .collection('URoutines')
+        .doc(routineId)
+        .update({'groutineId': groutineId});
+  }
+
   Future toggleCompletedURTask(
       String taskId, String routineId, bool currentStat) async {
     int _noOfCompletedURTask = await _firestoreService.users

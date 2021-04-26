@@ -11,19 +11,14 @@ import 'package:dotdo/widgets/dumb_widgets/routine_task/routine_task_widget.dart
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stacked/stacked.dart';
-import 'routine_details_view_model.dart';
+import 'global_routine_view_model.dart';
 
-class RoutineDetailsView extends StatelessWidget {
-  final Map args;
-
-  const RoutineDetailsView({Key key, this.args}) : super(key: key);
+class GlobalRoutineView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<RoutineDetailsViewModel>.reactive(
-      onModelReady: (RoutineDetailsViewModel viewModel) =>
-          viewModel.handelStartup(args),
+    return ViewModelBuilder<GlobalRoutineViewModel>.reactive(
       builder:
-          (BuildContext context, RoutineDetailsViewModel viewModel, Widget _) {
+          (BuildContext context, GlobalRoutineViewModel viewModel, Widget _) {
         return Scaffold(
           appBar: AppBar(
             title: Text('Routine'),
@@ -451,7 +446,7 @@ class RoutineDetailsView extends StatelessWidget {
           ),
         );
       },
-      viewModelBuilder: () => RoutineDetailsViewModel(),
+      viewModelBuilder: () => GlobalRoutineViewModel(),
     );
   }
 }

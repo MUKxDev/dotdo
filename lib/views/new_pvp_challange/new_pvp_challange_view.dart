@@ -13,7 +13,7 @@ class NewPvpChallangeView extends StatelessWidget {
   final String challengeId;
   final String pvpId;
 
-  const NewPvpChallangeView({Key key, this.challengeId, @required this.pvpId})
+  const NewPvpChallangeView({Key key, this.challengeId, this.pvpId})
       : super(key: key);
   @override
   Widget build(BuildContext context) {

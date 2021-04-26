@@ -6,6 +6,7 @@ class Routine {
   final String name;
   final String note;
   final bool active;
+  final bool publicRoutine;
   final int noOfLikes;
   final int noOfTasks;
   final int noOfCompletedTasks;
@@ -20,6 +21,7 @@ class Routine {
     this.noOfCompletedTasks,
     this.iconData,
     this.iconColor,
+    this.publicRoutine,
   });
 
   Routine copyWith({
@@ -31,6 +33,7 @@ class Routine {
     int noOfCompletedTasks,
     IconData iconData,
     Color iconColor,
+    bool publicRoutine,
   }) {
     return Routine(
       name: name ?? this.name,
@@ -41,6 +44,7 @@ class Routine {
       noOfCompletedTasks: noOfCompletedTasks ?? this.noOfCompletedTasks,
       iconData: iconData ?? this.iconData,
       iconColor: iconColor ?? this.iconColor,
+      publicRoutine: publicRoutine ?? this.publicRoutine,
     );
   }
 
@@ -54,6 +58,7 @@ class Routine {
       'noOfCompletedTasks': noOfCompletedTasks,
       'iconData': iconData?.codePoint,
       'iconColor': iconColor?.value,
+      'publicRoutine': publicRoutine,
     };
   }
 
@@ -69,6 +74,7 @@ class Routine {
       noOfCompletedTasks: map['noOfCompletedTasks'],
       iconData: IconData(map['iconData'], fontFamily: 'MaterialIcons'),
       iconColor: Color(map['iconColor']),
+      publicRoutine: map['publicRoutine'],
     );
   }
 
@@ -79,7 +85,7 @@ class Routine {
 
   @override
   String toString() {
-    return 'Routine(name: $name, note: $note, active: $active, noOfLikes: $noOfLikes, noOfTasks: $noOfTasks, noOfCompletedTasks: $noOfCompletedTasks, iconData: $iconData, iconColor: $iconColor)';
+    return 'Routine(name: $name, note: $note, active: $active, noOfLikes: $noOfLikes, noOfTasks: $noOfTasks, noOfCompletedTasks: $noOfCompletedTasks, iconData: $iconData, iconColor: $iconColor, publicRoutine: $publicRoutine)';
   }
 
   @override
@@ -94,7 +100,8 @@ class Routine {
         o.noOfTasks == noOfTasks &&
         o.noOfCompletedTasks == noOfCompletedTasks &&
         o.iconData == iconData &&
-        o.iconColor == iconColor;
+        o.iconColor == iconColor &&
+        o.publicRoutine == publicRoutine;
   }
 
   @override
@@ -106,6 +113,7 @@ class Routine {
         noOfTasks.hashCode ^
         noOfCompletedTasks.hashCode ^
         iconData.hashCode ^
-        iconColor.hashCode;
+        iconColor.hashCode ^
+        publicRoutine.hashCode;
   }
 }
