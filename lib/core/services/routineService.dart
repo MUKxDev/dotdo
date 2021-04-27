@@ -245,7 +245,7 @@ class RoutineService {
         .doc(_userId)
         .collection('URoutines')
         .doc(routineId)
-        .update({'publicRoutine': false});
+        .update({'publicRoutine': false, 'noOfLikes': 0});
   }
 
   Future togglePublicRTask(String routineId, String groutineId) async {

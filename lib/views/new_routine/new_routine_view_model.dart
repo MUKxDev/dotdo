@@ -36,6 +36,9 @@ class NewRoutineViewModel extends BaseViewModel {
   bool _active = true;
   bool get active => _active;
 
+  bool _publicRoutine = false;
+  bool get publicRoutine => _publicRoutine;
+
   int _noOfTasks = 0;
   int _noOfCompletedTasks = 0;
   int _noOfLikes = 0;
@@ -60,6 +63,7 @@ class NewRoutineViewModel extends BaseViewModel {
       _noOfTasks = _routine.noOfTasks;
       _noOfCompletedTasks = _routine.noOfCompletedTasks;
       _noOfLikes = _routine.noOfLikes;
+      _publicRoutine = _routine.publicRoutine;
 
       _isBusy = false;
       notifyListeners();
@@ -81,6 +85,7 @@ class NewRoutineViewModel extends BaseViewModel {
       noOfTasks: _noOfTasks,
       noOfCompletedTasks: _noOfCompletedTasks,
       noOfLikes: _noOfLikes,
+      publicRoutine: _publicRoutine,
     );
     if (nameController.text.trim() != '') {
       routineID = await _routineService.addRoutine(routine);
@@ -107,6 +112,7 @@ class NewRoutineViewModel extends BaseViewModel {
       noOfTasks: _noOfTasks,
       noOfCompletedTasks: _noOfCompletedTasks,
       noOfLikes: _noOfLikes,
+      publicRoutine: _publicRoutine,
     );
 
     if (nameController.text.trim() != '') {

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dotdo/core/models/User.dart';
 import 'package:dotdo/core/models/uGeneral.dart';
+import 'package:dotdo/core/services/authService.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,7 @@ import 'firestoreService.dart';
 
 class UserService {
   FirestoreService _firestoreService = locator<FirestoreService>();
+  AuthService _authService = locator<AuthService>();
   firebase_storage.Reference ref =
       firebase_storage.FirebaseStorage.instance.ref('/userImage');
 
@@ -49,5 +51,18 @@ class UserService {
         .then((value) => uGeneral = UGeneral.fromMap(value.data()));
 
     return uGeneral;
+  }
+
+  Future updateUserProfilePicture(String userId, String imageUrl) async {
+    await _firestoreService.users.doc(userId).update({'profilePic': imageUrl});
+  }
+
+  Future updateUserName(String userId, String userName) async {
+    String _userNameWithHash;
+    _userNameWithHash = await _authService.checkUsername(userName);
+
+    await _firestoreService.users
+        .doc(userId)
+        .update({'userName': _userNameWithHash});
   }
 }

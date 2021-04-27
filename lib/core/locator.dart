@@ -1,4 +1,6 @@
+import 'package:dotdo/core/services/ImageSelectorService.dart';
 import 'package:dotdo/core/services/challengeService.dart';
+import 'package:dotdo/core/services/gRoutineService.dart';
 import 'package:dotdo/core/services/pvpService.dart';
 import 'package:dotdo/core/services/routineService.dart';
 import 'package:dotdo/core/services/searchService.dart';
@@ -42,5 +44,9 @@ class LocatorInjector {
     locator.registerLazySingleton(() => SearchService());
     log.d('Registering Pvp Service');
     locator.registerLazySingleton(() => PvpService());
+    log.d('Registering GRoutine Service');
+    locator.registerLazySingleton(() => GRoutine());
+    log.d('Registering ImageSelector Service');
+    locator.registerLazySingleton(() => ImageSelectorService());
   }
 }

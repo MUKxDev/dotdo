@@ -39,7 +39,7 @@ class ActiveChallengeCardWidget extends StatelessWidget {
               : AppColors.darkChallenge,
           borderRadius: 20,
           height: 120,
-          width: 150,
+          width: 160,
           onTap: onTap,
           padding: 10,
           child: Column(
@@ -58,9 +58,14 @@ class ActiveChallengeCardWidget extends StatelessWidget {
                           height: 30,
                           width: 30,
                           decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .scaffoldBackgroundColor
-                                .withAlpha(150),
+                            color:
+                                Theme.of(context).brightness == Brightness.light
+                                    ? Theme.of(context)
+                                        .scaffoldBackgroundColor
+                                        .withAlpha(200)
+                                    : Theme.of(context)
+                                        .scaffoldBackgroundColor
+                                        .withAlpha(150),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Icon(

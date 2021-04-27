@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/models/Routine.dart';
+import 'package:dotdo/core/services/gRoutineService.dart';
 import 'package:dotdo/core/services/routineService.dart';
 import 'package:dotdo/views/new_routine/new_routine_view.dart';
 import 'package:dotdo/views/rtask_details/rtask_details_view.dart';
@@ -16,94 +17,76 @@ class GlobalRoutineViewModel extends BaseViewModel {
     this.log = getLogger(this.runtimeType.toString());
   }
 
-  RoutineService _routineService = locator<RoutineService>();
+  GRoutine _gRoutineService = locator<GRoutine>();
+  // NavigationService _navigationService = locator<NavigationService>();
+  SnackbarService _snackbarService = locator<SnackbarService>();
 
-  String _routineId;
-  String get routineId => _routineId;
+  String _gRoutineId;
+  String get gRoutineId => _gRoutineId;
 
   Routine _routine;
   Routine get routine => _routine;
 
-  bool _isEdit = false;
-  bool get isEdit => _isEdit;
-
   bool _isBusy = true;
   bool get isBusy => _isBusy;
 
-  bool _isPublic = false;
-  bool get isPublic => _isPublic;
+  bool _isAddedGRotine = false;
+  bool get isAddedGRotine => _isAddedGRotine;
 
-  NavigationService _navigationService = locator<NavigationService>();
+  bool _isLiked = false;
+  bool get isLiked => _isLiked;
 
   Stream<DocumentSnapshot> get routineStream =>
-      _routineService.getURoutineStream(routineId);
+      _gRoutineService.getGRoutineStream(gRoutineId);
 
   Stream<QuerySnapshot> get tasksStream =>
-      _routineService.getURTasks(_routineId);
+      _gRoutineService.getGRTasks(_gRoutineId);
 
-  handelStartup(Map args) async {
-    print(args);
-    _routineId = args['routineId'];
-    _isEdit = args['isEdit'];
+  handelStartup(String gRoutineId) async {
+    _gRoutineId = gRoutineId;
 
-    _routine = await _routineService.getURoutine(_routineId);
+    _routine = await _gRoutineService.getGRoutine(_gRoutineId);
+    _isLiked = await _gRoutineService.getLikeStatus(_gRoutineId);
+    _isAddedGRotine = await _gRoutineService.isAddedGRoutine(_gRoutineId);
 
     _isBusy = false;
     notifyListeners();
   }
 
-  Future<void> toggleCompletedUTask(
-      String taskId, bool currentCompleted) async {
-    await _routineService.toggleCompletedURTask(
-        taskId, _routineId, currentCompleted);
-    notifyListeners();
-  }
+  // taskTapped(String taskId) async {
+  //   Map args = {
+  //     'taskId': taskId,
+  //     'routineId': _gRoutineId,
+  //     'icon': null,
+  //     'color': null,
+  //   };
+  //   _navigationService.navigateToView(RtaskDetailsView(args: args));
+  // }
 
-  addNewTask() {
-    Map args = {
-      'taskId': null,
-      'routineId': _routineId,
-      'icon': _routine.iconData,
-      'color': _routine.iconColor,
-    };
-    _navigationService.navigateToView(RtaskDetailsView(args: args));
-  }
-
-  taskTapped(String taskId) async {
-    Map args = {
-      'taskId': taskId,
-      'routineId': _routineId,
-      'icon': null,
-      'color': null,
-    };
-    _navigationService.navigateToView(RtaskDetailsView(args: args));
-  }
-
-  deleteUTask(String taskId) {
-    _routineService.deleteRTask(_routineId, taskId);
-  }
+  // routineTapped(String id) {
+  //   _navigationService.navigateToView(NewRoutineView(routineId: id));
+  // }
 
   updateRoutine(Routine newRoutine) {
     _routine = newRoutine;
   }
 
-  routineTapped(String id) {
-    _navigationService.navigateToView(NewRoutineView(routineId: id));
-  }
+  toggleIsLiked() async {
+    await _gRoutineService.toggleLike(_gRoutineId);
+    _isLiked = await _gRoutineService.getLikeStatus(_gRoutineId);
 
-  toggleIsEdit() {
-    _isEdit = !_isEdit;
     notifyListeners();
   }
 
-  toggleIsPublic() {
-    bool _oldBool = _isPublic;
-    _isPublic = !_isPublic;
-    if (_oldBool) {
-      _routineService.togglePublicROFF(routineId);
+  toggleIsAddedGRoutine() async {
+    if (_isAddedGRotine) {
+      _snackbarService.showSnackbar(message: 'You already have this routine');
     } else {
-      _routineService.togglePublicR(routineId);
+      await _gRoutineService.saveGRoutine(_gRoutineId);
+
+      _isAddedGRotine = !_isAddedGRotine;
+      _snackbarService.showSnackbar(message: 'The routine is added to you');
+      notifyListeners();
     }
-    notifyListeners();
   }
 }

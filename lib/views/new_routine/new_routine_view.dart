@@ -141,7 +141,10 @@ class NewRoutineView extends StatelessWidget {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              LableTextWidget(lable: 'Active'),
+                                              LableTextWidget(
+                                                lable: 'Active',
+                                                color: AppColors.white,
+                                              ),
                                               Switch(
                                                 activeColor: Theme.of(context)
                                                     .accentColor,

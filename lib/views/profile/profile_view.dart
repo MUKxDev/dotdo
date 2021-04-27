@@ -3,10 +3,13 @@ import 'package:dotdo/widgets/dumb_widgets/button/button_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/card/card_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
+import 'package:dotdo/widgets/dumb_widgets/icon_button/icon_button_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
+import 'package:dotdo/widgets/dumb_widgets/textfield/textfield_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/routines_stream/routines_stream_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/upcoming_challenge_stream/upcoming_challenge_stream_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stacked/stacked.dart';
 import 'profile_view_model.dart';
 
@@ -56,7 +59,235 @@ class ProfileView extends StatelessWidget {
                     ),
                     // * profile dots
                     DescriptionTextWidget(
-                        description: viewModel.user.dots.toString()),
+                        description: 'Dots: ${viewModel.user.dots.toString()}'),
+                    viewModel.isCurrentUser
+                        ? Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: ButtonWidget(
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          contentPadding: EdgeInsets.all(10),
+                                          scrollable: true,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                          backgroundColor:
+                                              Theme.of(context).primaryColor,
+                                          content: Container(
+                                            // height: screenHeight(context) * 0.5,
+                                            child: SingleChildScrollView(
+                                              child: Column(
+                                                children: [
+                                                  // Avatar
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: LableTextWidget(
+                                                            lable:
+                                                                'Change profile picture'),
+                                                      ),
+                                                      verticalSpaceXSmall(
+                                                          context),
+                                                      Container(
+                                                          decoration: BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10),
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .scaffoldBackgroundColor),
+                                                          width: 300,
+                                                          child: Column(
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(8),
+                                                                child: Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    DescriptionTextWidget(
+                                                                        description:
+                                                                            'Take a picture'),
+                                                                    IconButtonWidget(
+                                                                        iconSize:
+                                                                            22,
+                                                                        height:
+                                                                            40,
+                                                                        width:
+                                                                            40,
+                                                                        onTap:
+                                                                            () {
+                                                                          viewModel
+                                                                              .selectImageFromCamera();
+                                                                        },
+                                                                        iconData:
+                                                                            FontAwesomeIcons.camera)
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(8),
+                                                                child: Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    DescriptionTextWidget(
+                                                                        description:
+                                                                            'Choose from Gallery'),
+                                                                    IconButtonWidget(
+                                                                        iconSize:
+                                                                            22,
+                                                                        height:
+                                                                            40,
+                                                                        width:
+                                                                            40,
+                                                                        onTap:
+                                                                            () {
+                                                                          viewModel
+                                                                              .selectImageFromGallery();
+                                                                        },
+                                                                        iconData:
+                                                                            FontAwesomeIcons.image)
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          )),
+                                                    ],
+                                                  ),
+                                                  // UserName
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: LableTextWidget(
+                                                            lable:
+                                                                'Change username'),
+                                                      ),
+                                                      verticalSpaceXSmall(
+                                                          context),
+                                                      Container(
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10),
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .scaffoldBackgroundColor),
+                                                        width: 300,
+                                                        child: Column(
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8),
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  LableTextWidget(
+                                                                      lable:
+                                                                          'From: '),
+                                                                  DescriptionTextWidget(
+                                                                      description: viewModel
+                                                                          .user
+                                                                          .userName),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8),
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  LableTextWidget(
+                                                                      lable:
+                                                                          'To: '),
+                                                                  Expanded(
+                                                                    child:
+                                                                        Container(
+                                                                      child:
+                                                                          TextField(
+                                                                        controller:
+                                                                            viewModel.usernameController,
+                                                                        decoration:
+                                                                            InputDecoration(
+                                                                          suffixText:
+                                                                              '#XXX000',
+                                                                          hintText:
+                                                                              'username',
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  )
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(10),
+                                                              child: Row(
+                                                                children: [
+                                                                  Expanded(
+                                                                    child:
+                                                                        Container(
+                                                                      child: ButtonWidget(
+                                                                          borderRadius:
+                                                                              10,
+                                                                          onPressed: viewModel
+                                                                              .updateUsername,
+                                                                          text:
+                                                                              'Update Username'),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      });
+                                },
+                                text: 'Edit Profile'),
+                          )
+                        : Container(),
+
                     // * profile points
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20),
@@ -453,54 +684,55 @@ class ProfileView extends StatelessWidget {
                               ),
                             ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                CardWidget(
-                                  onTap: () {},
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      DescriptionTextWidget(
-                                        description: viewModel
-                                            .userGeneral.noOfGroups
-                                            .toString(),
-                                        bold: true,
-                                        fontSize: 24,
-                                      ),
-                                      LableTextWidget(lable: 'Groups'),
-                                    ],
-                                  ),
-                                  height: 100,
-                                  width: screenWidth(context) * 0.45,
-                                ),
-                                CardWidget(
-                                  onTap: () {},
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      DescriptionTextWidget(
-                                        description: viewModel
-                                            .userGeneral.noOfLikes
-                                            .toString(),
-                                        bold: true,
-                                        fontSize: 24,
-                                      ),
-                                      LableTextWidget(lable: 'Likes'),
-                                    ],
-                                  ),
-                                  height: 100,
-                                  width: screenWidth(context) * 0.45,
-                                ),
-                              ],
-                            ),
-                          ),
+                          // Padding(
+                          //   padding: const EdgeInsets.only(top: 20),
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //     children: [
+                          //       CardWidget(
+                          //         onTap: () {},
+                          //         child: Column(
+                          //           mainAxisAlignment: MainAxisAlignment.end,
+                          //           crossAxisAlignment:
+                          //               CrossAxisAlignment.start,
+                          //           children: [
+                          //             DescriptionTextWidget(
+                          //               description: viewModel
+                          //                   .userGeneral.noOfGroups
+                          //                   .toString(),
+                          //               bold: true,
+                          //               fontSize: 24,
+                          //             ),
+                          //             LableTextWidget(lable: 'Groups'),
+                          //           ],
+                          //         ),
+                          //         height: 100,
+                          //         width: screenWidth(context) * 0.45,
+                          //       ),
+                          //       CardWidget(
+                          //         onTap: () {},
+                          //         child: Column(
+                          //           mainAxisAlignment: MainAxisAlignment.end,
+                          //           crossAxisAlignment:
+                          //               CrossAxisAlignment.start,
+                          //           children: [
+                          //             DescriptionTextWidget(
+                          //               description: viewModel
+                          //                   .userGeneral.noOfLikes
+                          //                   .toString(),
+                          //               bold: true,
+                          //               fontSize: 24,
+                          //             ),
+                          //             LableTextWidget(lable: 'Likes'),
+                          //           ],
+                          //         ),
+                          //         height: 100,
+                          //         width: screenWidth(context) * 0.45,
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
+                          verticalSpaceMedium(context),
                         ],
                       ),
                     ),

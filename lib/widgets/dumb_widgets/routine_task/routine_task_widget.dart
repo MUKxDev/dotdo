@@ -41,8 +41,10 @@ class RoutineTaskWidget extends StatelessWidget {
                   child: Row(
                     children: [
                       // * CheckBox
-                      CheckBoxWidget(
-                          checked: task.completed, onTap: togglecompleted),
+                      onTap == null
+                          ? Container()
+                          : CheckBoxWidget(
+                              checked: task.completed, onTap: togglecompleted),
                       // *taskName
                       Expanded(
                         child: Container(

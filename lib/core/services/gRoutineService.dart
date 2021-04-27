@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dotdo/core/models/Routine.dart';
+
 import '../locator.dart';
 import 'authService.dart';
 import 'firestoreService.dart';
@@ -6,13 +9,37 @@ class GRoutine {
   FirestoreService _firestoreService = locator<FirestoreService>();
   AuthService _authService = locator<AuthService>();
 
-  Stream getAllGRoutine() async* {
+  Stream<QuerySnapshot> getAllGRoutine() async* {
     yield* _firestoreService.groutiens
         .orderBy('noOfLikes', descending: true)
         .snapshots();
   }
 
-  Stream getUGRoutine() async* {
+  Future<Routine> getGRoutine(String gRoutineId) async {
+    return await _firestoreService.groutiens
+        .doc(gRoutineId)
+        .get()
+        .then((value) {
+      Routine _routine = Routine.fromMap(value.data());
+      return _routine;
+    }).onError((error, stackTrace) {
+      print('An error has occurred: $error');
+      return null;
+    });
+  }
+
+  Stream<DocumentSnapshot> getGRoutineStream(String gRoutineId) async* {
+    yield* _firestoreService.groutiens.doc(gRoutineId).snapshots();
+  }
+
+  Stream<QuerySnapshot> getGRTasks(String gRoutineId) async* {
+    yield* _firestoreService.groutiens
+        .doc(gRoutineId)
+        .collection('GRTasks')
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot> getUGRoutine() async* {
     String _userId = await _authService.getCurrentUserId();
     yield* _firestoreService.users
         .doc(_userId)
@@ -34,7 +61,7 @@ class GRoutine {
     int _noOfLikes = await _firestoreService.groutiens
         .doc(gRoutineId)
         .get()
-        .then((value) => value.data()['noOfTasks']);
+        .then((value) => value.data()['noOfLikes']);
     int noOfLike = await _firestoreService.users
         .doc(_userId)
         .collection('likesRoutine')
@@ -51,23 +78,23 @@ class GRoutine {
     int _minus = _noOfLikes - 1;
 
     if (status == false) {
-      _firestoreService.groutiens.doc(gRoutineId).update({'noOfTasks': _plus});
+      _firestoreService.groutiens.doc(gRoutineId).update({'noOfLikes': _plus});
       _firestoreService.users
           .doc(creatorId)
           .collection('URoutines')
           .doc(rID)
-          .update({'noOfTasks': _plus});
+          .update({'noOfLikes': _plus});
       _firestoreService.users
           .doc(_userId)
           .collection('likesRoutine')
           .add({'gRoutineId': gRoutineId});
     } else {
-      _firestoreService.groutiens.doc(gRoutineId).update({'noOfTasks': _minus});
+      _firestoreService.groutiens.doc(gRoutineId).update({'noOfLikes': _minus});
       _firestoreService.users
           .doc(creatorId)
           .collection('URoutines')
           .doc(rID)
-          .update({'noOfTasks': _minus});
+          .update({'noOfLikes': _minus});
       String likeId = await _firestoreService.users
           .doc(_userId)
           .collection('likesRoutine')
@@ -113,6 +140,14 @@ class GRoutine {
         .add(_pRoutien)
         .then((value) => value.id);
     toggleRTask(routineId, gRoutine);
+
+    await _firestoreService.users
+        .doc(_userId)
+        .collection('URoutines')
+        .doc(routineId)
+        .update(
+            {'publicRoutine': false, 'noOfLikes': 0, 'noOfCompletedTasks': 0});
+
     return routineId;
   }
 
@@ -129,11 +164,13 @@ class GRoutine {
           .get()
           .then((value) => value.docs.elementAt(i).data());
 
+      _pRTask['completed'] = false;
+
       await _firestoreService.users
           .doc(_userId)
           .collection('URoutines')
           .doc(routineId)
-          .collection('URTask')
+          .collection('URTasks')
           .add(_pRTask);
     }
   }

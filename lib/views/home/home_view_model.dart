@@ -38,6 +38,13 @@ class HomeViewModel extends ReactiveViewModel {
       'https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png';
   String get userProfilePic => _userProfilePic;
 
+  handleOnStartup() async {
+    String uid = await _authService.getCurrentUserId();
+    _user = await _userService.getUserProfile(uid);
+    _userProfilePic = _user.profilePic;
+    notifyListeners();
+  }
+
   void updateTitle() {
     switch (_selectedIndex) {
       case 0:
@@ -51,6 +58,7 @@ class HomeViewModel extends ReactiveViewModel {
         break;
       case 3:
         _title = 'Profile';
+        handleOnStartup();
         break;
       default:
     }
@@ -98,11 +106,4 @@ class HomeViewModel extends ReactiveViewModel {
 
   @override
   List<ReactiveServiceMixin> get reactiveServices => [_taskService];
-
-  handleOnStartup() async {
-    String uid = await _authService.getCurrentUserId();
-    _user = await _userService.getUserProfile(uid);
-    _userProfilePic = _user.profilePic;
-    notifyListeners();
-  }
 }
