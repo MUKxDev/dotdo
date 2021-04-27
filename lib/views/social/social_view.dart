@@ -33,7 +33,7 @@ class SocialView extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Container(
                     width: screenWidth(context),
-                    height: 120,
+                    height: 140,
                     decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor,
                       borderRadius: BorderRadius.circular(20),

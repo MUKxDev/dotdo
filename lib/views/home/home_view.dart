@@ -58,17 +58,17 @@ class HomeView extends StatelessWidget {
                                 ),
                               ),
                               // TODO: Implement navigation to setting
-                              TextButton.icon(
-                                onPressed: () =>
-                                    print('Implement navigation to setting'),
-                                icon: Icon(
-                                  Icons.settings,
-                                  color: Theme.of(context).accentColor,
-                                ),
-                                label: HeaderTextWidget(
-                                  lable: 'Settings',
-                                ),
-                              ),
+                              // TextButton.icon(
+                              //   onPressed: () =>
+                              //       print('Implement navigation to setting'),
+                              //   icon: Icon(
+                              //     Icons.settings,
+                              //     color: Theme.of(context).accentColor,
+                              //   ),
+                              //   label: HeaderTextWidget(
+                              //     lable: 'Settings',
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),

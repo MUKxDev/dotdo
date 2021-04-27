@@ -55,7 +55,10 @@ class PvpchallengeWidget extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                LableTextWidget(lable: lable),
+                LableTextWidget(
+                  lable: lable,
+                  color: AppColors.white,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -64,16 +67,19 @@ class PvpchallengeWidget extends StatelessWidget {
                       name: profile1Named,
                       progressValue: profile1ProgressValue,
                       image: profile1Image,
+                      textColor: AppColors.white,
                     ),
                     Center(
                       child: LableTextWidget(
                         lable: 'VS',
+                        color: AppColors.white,
                       ),
                     ),
                     PvpProfileWidget(
                       name: profile2Named,
                       progressValue: profile2ProgressValue,
                       image: profile2Image,
+                      textColor: AppColors.white,
                     ),
                   ],
                 ),

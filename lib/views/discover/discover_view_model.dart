@@ -23,7 +23,10 @@ class DiscoverViewModel extends BaseViewModel {
   AuthService _authService = locator<AuthService>();
 
   search(String input) async {
-    String id = await _searchService.searchBarF(input);
+    String _searchInput = input;
+    _searchInput = _searchInput.trim();
+    _searchInput = _searchInput.toLowerCase();
+    String id = await _searchService.searchBarF(_searchInput);
     String currentUid = await _authService.getCurrentUserId();
     if (id == null) {
       _snackbarService.showSnackbar(message: 'No result found');

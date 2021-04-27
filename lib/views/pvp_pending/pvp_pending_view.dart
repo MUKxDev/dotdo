@@ -80,37 +80,88 @@ class PvpPendingView extends StatelessWidget {
                                                     lable: 'Accept?'),
                                                 Row(
                                                   children: [
-                                                    IconButtonWidget(
-                                                        elevation: 0,
-                                                        iconData: Icons.cancel,
-                                                        iconColor: Theme.of(
-                                                                        context)
+                                                    Container(
+                                                      height: 40,
+                                                      width: 40,
+                                                      decoration: BoxDecoration(
+                                                        color: Theme.of(context)
                                                                     .brightness ==
                                                                 Brightness.light
-                                                            ? AppColors.lightRed
-                                                            : AppColors.darkRed,
-                                                        onTap: () => viewModel
-                                                            .decline(snapshot
-                                                                .data
-                                                                .docs[index]
-                                                                .id)),
-                                                    IconButtonWidget(
-                                                        elevation: 0,
-                                                        iconData:
-                                                            Icons.check_circle,
-                                                        iconColor: Theme.of(
-                                                                        context)
+                                                            ? Theme.of(context)
+                                                                .scaffoldBackgroundColor
+                                                                .withAlpha(200)
+                                                            : Theme.of(context)
+                                                                .scaffoldBackgroundColor
+                                                                .withAlpha(150),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
+                                                      ),
+                                                      child: Center(
+                                                        child: IconButton(
+                                                            icon: Icon(
+                                                              Icons.cancel,
+                                                              color: Theme.of(
+                                                                              context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .light
+                                                                  ? AppColors
+                                                                      .lightRed
+                                                                  : AppColors
+                                                                      .darkRed,
+                                                            ),
+                                                            onPressed: () =>
+                                                                viewModel.decline(
+                                                                    snapshot
+                                                                        .data
+                                                                        .docs[
+                                                                            index]
+                                                                        .id)),
+                                                      ),
+                                                    ),
+                                                    horizontalSpaceSmall(
+                                                        context),
+                                                    Container(
+                                                      height: 40,
+                                                      width: 40,
+                                                      decoration: BoxDecoration(
+                                                        color: Theme.of(context)
                                                                     .brightness ==
                                                                 Brightness.light
-                                                            ? AppColors
-                                                                .lightGreen
-                                                            : AppColors
-                                                                .darkGreen,
-                                                        onTap: () => viewModel
-                                                            .accept(snapshot
-                                                                .data
-                                                                .docs[index]
-                                                                .id)),
+                                                            ? Theme.of(context)
+                                                                .scaffoldBackgroundColor
+                                                                .withAlpha(200)
+                                                            : Theme.of(context)
+                                                                .scaffoldBackgroundColor
+                                                                .withAlpha(150),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
+                                                      ),
+                                                      child: Center(
+                                                        child: IconButton(
+                                                            icon: Icon(
+                                                              Icons
+                                                                  .check_circle,
+                                                              color: Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .light
+                                                                  ? AppColors
+                                                                      .lightGreen
+                                                                  : AppColors
+                                                                      .darkGreen,
+                                                            ),
+                                                            onPressed: () =>
+                                                                viewModel.accept(
+                                                                    snapshot
+                                                                        .data
+                                                                        .docs[
+                                                                            index]
+                                                                        .id)),
+                                                      ),
+                                                    ),
                                                   ],
                                                 )
                                               ],

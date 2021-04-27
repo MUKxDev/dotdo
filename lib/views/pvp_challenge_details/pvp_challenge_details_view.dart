@@ -147,7 +147,11 @@ class PvpChallengeDetailsView extends StatelessWidget {
                                                           ? null
                                                           : [DateTime.now()],
                                                       initialSelectedDate:
-                                                          DateTime.now(),
+                                                          viewModel.isEdit
+                                                              ? DateTime.now()
+                                                              : viewModel
+                                                                  .challenge
+                                                                  .startDate,
                                                       selectionColor:
                                                           Theme.of(context)
                                                               .accentColor,

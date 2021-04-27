@@ -83,15 +83,16 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   Future selectImageFromCamera() async {
-    PickedFile newSelectImageFromCamra =
+    PickedFile newSelectImageFromCamera =
         await _imageSelectorService.selectImageFromCamrea();
 
     // you will face errors if you dont cheack if the image not exist
-    if (newSelectImageFromCamra != null) {
+    if (newSelectImageFromCamera != null) {
       // display that image
-      _selectedImage = File(newSelectImageFromCamra.path);
+      _selectedImage = File(newSelectImageFromCamera.path);
       notifyListeners();
 
+      _snackbarService.showSnackbar(message: 'Uploading...');
       // then uploade that image
       _imageUrl =
           await _userService.uploadAnImage(image: _selectedImage, uid: _userId);
@@ -108,15 +109,15 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   Future selectImageFromGallery() async {
-    PickedFile newSelectImageFromCamra =
+    PickedFile newSelectImageFromGallery =
         await _imageSelectorService.selectImageFromGallery();
 
     // you will face errors if you dont cheack if the image not exist
-    if (newSelectImageFromCamra != null) {
+    if (newSelectImageFromGallery != null) {
       // display that image
-      _selectedImage = File(newSelectImageFromCamra.path);
+      _selectedImage = File(newSelectImageFromGallery.path);
       notifyListeners();
-
+      _snackbarService.showSnackbar(message: 'Uploading...');
       // then uploade that image
       _imageUrl =
           await _userService.uploadAnImage(image: _selectedImage, uid: _userId);
