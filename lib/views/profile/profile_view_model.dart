@@ -6,8 +6,10 @@ import 'package:dotdo/core/models/uGeneral.dart';
 import 'package:dotdo/core/services/ImageSelectorService.dart';
 import 'package:dotdo/core/services/authService.dart';
 import 'package:dotdo/core/services/challengeService.dart';
+import 'package:dotdo/core/services/gRoutineService.dart';
 import 'package:dotdo/core/services/routineService.dart';
 import 'package:dotdo/core/services/userService.dart';
+import 'package:dotdo/views/likes/likes_view.dart';
 import 'package:dotdo/views/pvp_details/pvp_details_view.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -30,6 +32,7 @@ class ProfileViewModel extends BaseViewModel {
   NavigationService _navigationService = locator<NavigationService>();
   ImageSelectorService _imageSelectorService = locator<ImageSelectorService>();
   SnackbarService _snackbarService = locator<SnackbarService>();
+  GRoutine _gRoutineService = locator<GRoutine>();
 
   String _userId;
   String get userId => _userId;
@@ -55,6 +58,9 @@ class ProfileViewModel extends BaseViewModel {
   String _imageUrl;
   String get imageUrl => _imageUrl;
 
+  // int _noOfLikes;
+  // int get noOfLikes => _noOfLikes;
+
   TextEditingController usernameController = TextEditingController(text: '');
 
   Stream get getActiveUChallenge => _challengeService.getActiveUChallenge();
@@ -65,10 +71,13 @@ class ProfileViewModel extends BaseViewModel {
     if (uid == null) {
       _userId = await _authService.getCurrentUserId();
       _isCurrentUser = true;
+      // _noOfLikes = await _gRoutineService.getNumberOfLikes(_userId);
     } else {
       _userId = uid;
       _isCurrentUser = false;
+      // _noOfLikes = await _gRoutineService.getNumberOfLikes(uid);
     }
+
     _user = await _userService.getUserProfile(_userId);
     _userGeneral = await _userService.getUserGeneral(_userId);
     _haveLastBadge = _userGeneral.lastBadge == '' ? false : true;
@@ -162,5 +171,11 @@ class ProfileViewModel extends BaseViewModel {
     // +   : one or more
     final pattern = RegExp('\\s+');
     return s.replaceAll(pattern, replace);
+  }
+
+  likesTapped() {
+    _navigationService.navigateToView(LikesView(
+      userId: _userId,
+    ));
   }
 }

@@ -5,18 +5,21 @@ import 'package:dotdo/core/services/firestoreService.dart';
 class SearchService {
   FirestoreService _firestoreService = locator<FirestoreService>();
 
+  Stream<QuerySnapshot> usersStream(String text) async* {
+    yield* _firestoreService.users
+        .where('userName', isGreaterThanOrEqualTo: text)
+        .where('userName', isLessThanOrEqualTo: text + '\uf8ff')
+        .snapshots();
+  }
+
+  // ! to be removed
   Stream<QuerySnapshot> searchBar(String text) async* {
     yield* _firestoreService.users
         .where('userName', isEqualTo: text)
         .snapshots();
   }
 
-  Stream<QuerySnapshot> usersStream(String text) async* {
-    yield* _firestoreService.users
-        .where('userName', isGreaterThanOrEqualTo: text)
-        .snapshots();
-  }
-
+  // ! to be removed
   Future<String> searchBarF(String text) async {
     return _firestoreService.users
         .where('userName', isEqualTo: text)

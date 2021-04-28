@@ -28,6 +28,10 @@ class GRoutine {
     });
   }
 
+  Future<DocumentSnapshot> getGRoutineDoc(String gRoutineId) async {
+    return await _firestoreService.groutiens.doc(gRoutineId).get();
+  }
+
   Stream<DocumentSnapshot> getGRoutineStream(String gRoutineId) async* {
     yield* _firestoreService.groutiens.doc(gRoutineId).snapshots();
   }
@@ -46,6 +50,16 @@ class GRoutine {
         .collection('URoutines')
         .where('publicRoutine', isEqualTo: true)
         .snapshots();
+  }
+
+  Future<QuerySnapshot> getLikedRoutiens(String uid) async {
+    // String _userId = await _authService.getCurrentUserId();
+    return await _firestoreService.users
+        .doc(uid)
+        .collection('likesRoutine')
+        .get()
+        .then((value) => value)
+        .onError((error, stackTrace) => null);
   }
 
   Future toggleLike(String gRoutineId) async {
@@ -190,5 +204,16 @@ class GRoutine {
       status = true;
 
     return status;
+  }
+
+  Future<int> getNumberOfLikes(String uid) async {
+    // String _userId = await _authService.getCurrentUserId();
+    int noOfLike = await _firestoreService.users
+        .doc(uid)
+        .collection('likesRoutine')
+        .get()
+        .then((value) => value.size);
+
+    return noOfLike;
   }
 }

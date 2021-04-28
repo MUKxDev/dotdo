@@ -24,3 +24,4 @@ const String pCTaskDetailsViewRoute = 'pCTaskDetailsViewRoute';
 const String pvpPendingViewRoute = 'pvpPendingViewRoute';
 const String globalRoutineViewRoute = 'globalRoutineViewRoute';
 const String searchViewRoute = 'searchViewRoute';
+const String likesViewRoute = 'likesViewRoute';

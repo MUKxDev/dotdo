@@ -1,4 +1,5 @@
 import 'package:dotdo/shared/ui_helpers.dart';
+import 'package:dotdo/theme/colors.dart';
 import 'package:dotdo/widgets/dumb_widgets/button/button_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/card/card_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
@@ -684,54 +685,65 @@ class ProfileView extends StatelessWidget {
                               ),
                             ],
                           ),
-                          // Padding(
-                          //   padding: const EdgeInsets.only(top: 20),
-                          //   child: Row(
-                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //     children: [
-                          //       CardWidget(
-                          //         onTap: () {},
-                          //         child: Column(
-                          //           mainAxisAlignment: MainAxisAlignment.end,
-                          //           crossAxisAlignment:
-                          //               CrossAxisAlignment.start,
-                          //           children: [
-                          //             DescriptionTextWidget(
-                          //               description: viewModel
-                          //                   .userGeneral.noOfGroups
-                          //                   .toString(),
-                          //               bold: true,
-                          //               fontSize: 24,
-                          //             ),
-                          //             LableTextWidget(lable: 'Groups'),
-                          //           ],
-                          //         ),
-                          //         height: 100,
-                          //         width: screenWidth(context) * 0.45,
-                          //       ),
-                          //       CardWidget(
-                          //         onTap: () {},
-                          //         child: Column(
-                          //           mainAxisAlignment: MainAxisAlignment.end,
-                          //           crossAxisAlignment:
-                          //               CrossAxisAlignment.start,
-                          //           children: [
-                          //             DescriptionTextWidget(
-                          //               description: viewModel
-                          //                   .userGeneral.noOfLikes
-                          //                   .toString(),
-                          //               bold: true,
-                          //               fontSize: 24,
-                          //             ),
-                          //             LableTextWidget(lable: 'Likes'),
-                          //           ],
-                          //         ),
-                          //         height: 100,
-                          //         width: screenWidth(context) * 0.45,
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                // CardWidget(
+                                //   onTap: () {},
+                                //   child: Column(
+                                //     mainAxisAlignment: MainAxisAlignment.end,
+                                //     crossAxisAlignment:
+                                //         CrossAxisAlignment.start,
+                                //     children: [
+                                //       DescriptionTextWidget(
+                                //         description: viewModel
+                                //             .userGeneral.noOfGroups
+                                //             .toString(),
+                                //         bold: true,
+                                //         fontSize: 24,
+                                //       ),
+                                //       LableTextWidget(lable: 'Groups'),
+                                //     ],
+                                //   ),
+                                //   height: 100,
+                                //   width: screenWidth(context) * 0.45,
+                                // ),
+                                CardWidget(
+                                  onTap: viewModel.likesTapped,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      // DescriptionTextWidget(
+                                      //   description: viewModel
+                                      //       .userGeneral.noOfLikes
+                                      //       .toString(),
+                                      //   bold: true,
+                                      //   fontSize: 24,
+                                      // ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 5),
+                                        child: Icon(
+                                          FontAwesomeIcons.solidHeart,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.light
+                                              ? AppColors.lightGreen
+                                              : AppColors.darkGreen,
+                                        ),
+                                      ),
+                                      LableTextWidget(lable: 'Likes'),
+                                    ],
+                                  ),
+                                  height: 100,
+                                  width: screenWidth(context) * 0.45,
+                                ),
+                              ],
+                            ),
+                          ),
                           verticalSpaceMedium(context),
                         ],
                       ),
