@@ -10,8 +10,9 @@ import 'firestoreService.dart';
 class PvpService {
   FirestoreService _firestoreService = locator<FirestoreService>();
   AuthService _authService = locator<AuthService>();
-  // creat or view pvp ----------------------
-  Stream<QuerySnapshot> creatOrViewPvp(String userBId) async* {
+
+  // createPVP if not found
+  Future createPVP(String userBId) async {
     String _userId = await _authService.getCurrentUserId();
     Pvp pvp =
         Pvp(userA: _userId, userB: userBId, aWinng: 0, bWinning: 0, draws: 0);
@@ -35,6 +36,33 @@ class PvpService {
           .add(pvp.toMap())
           .then((value) => value.id));
     }
+  }
+
+  // creat or view pvp ----------------------
+  Stream<QuerySnapshot> creatOrViewPvp(String userBId) async* {
+    String _userId = await _authService.getCurrentUserId();
+    // Pvp pvp =
+    //     Pvp(userA: _userId, userB: userBId, aWinng: 0, bWinning: 0, draws: 0);
+
+    // int optionA = await _firestoreService.pvps
+    //     .where('userB', isEqualTo: userBId)
+    //     .where('userA', isEqualTo: _userId)
+    //     .get()
+    //     .then((value) => value.size);
+
+    // int optionB = await _firestoreService.pvps
+    //     .where('userB', isEqualTo: _userId)
+    //     .where('userA', isEqualTo: userBId)
+    //     .get()
+    //     .then((value) => value.size);
+
+    // int noOfFound = optionB + optionA;
+
+    // if (noOfFound == null || noOfFound == 0) {
+    //   print(await _firestoreService.pvps
+    //       .add(pvp.toMap())
+    //       .then((value) => value.id));
+    // }
     if (await _firestoreService.pvps
             .where('userB', isEqualTo: userBId)
             .where('userA', isEqualTo: _userId)

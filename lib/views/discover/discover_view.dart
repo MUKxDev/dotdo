@@ -1,5 +1,6 @@
 import 'package:dotdo/shared/ui_helpers.dart';
 import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
+import 'package:dotdo/widgets/dumb_widgets/icon_button/icon_button_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/inactive_challenge_card/inactive_challenge_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,22 +20,34 @@ class DiscoverView extends StatelessWidget {
               children: [
                 verticalSpaceXSmall(context),
                 // * Search Textfield
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Container(
-                    height: 60,
-                    child: TextField(
-                      autocorrect: true,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                        hintText: 'Search...',
-                        fillColor: Theme.of(context).primaryColor,
+                Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            top: 10, left: 10, bottom: 10),
+                        child: Container(
+                          height: 60,
+                          child: TextField(
+                            autocorrect: true,
+                            keyboardType: TextInputType.text,
+                            decoration: InputDecoration(
+                              hintText: 'Search...',
+                              fillColor: Theme.of(context).primaryColor,
+                            ),
+                            controller: viewModel.searchController,
+                            onSubmitted: (searchValue) =>
+                                viewModel.search(searchValue),
+                          ),
+                        ),
                       ),
-                      controller: viewModel.searchController,
-                      onSubmitted: (searchValue) =>
-                          viewModel.search(searchValue),
                     ),
-                  ),
+                    IconButtonWidget(
+                        onTap: () {
+                          viewModel.search(viewModel.searchController.text);
+                        },
+                        iconData: FontAwesomeIcons.search)
+                  ],
                 ),
                 // * Routines Header
                 HeaderTextWidget(lable: 'Routines'),
@@ -198,6 +211,7 @@ class DiscoverView extends StatelessWidget {
                     ),
                   ),
                 ),
+                verticalSpaceMedium(context),
               ],
             ),
           ),

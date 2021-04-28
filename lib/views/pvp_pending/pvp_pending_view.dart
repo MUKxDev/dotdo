@@ -36,12 +36,7 @@ class PvpPendingView extends StatelessWidget {
                   stream: viewModel.pendingChallangeStream,
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     PChallenge pvpChallenge;
-                    if (snapshot.hasData) {
-                      if (snapshot.data.size > 0) {
-                        pvpChallenge =
-                            PChallenge.fromMap(snapshot.data.docs.first.data());
-                      }
-                    }
+
                     return snapshot.hasData == false
                         ? Center(
                             child: DescriptionTextWidget(
@@ -57,6 +52,12 @@ class PvpPendingView extends StatelessWidget {
                             : ListView.builder(
                                 itemCount: snapshot.data.size,
                                 itemBuilder: (context, index) {
+                                  if (snapshot.hasData) {
+                                    if (snapshot.data.size > 0) {
+                                      pvpChallenge = PChallenge.fromMap(
+                                          snapshot.data.docs[index].data());
+                                    }
+                                  }
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 10, horizontal: 10),

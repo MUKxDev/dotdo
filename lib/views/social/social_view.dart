@@ -334,6 +334,7 @@ class SocialView extends StatelessWidget {
             //       ),
             //     ),
             //   ),
+            verticalSpaceMedium(context),
           ],
         );
       },

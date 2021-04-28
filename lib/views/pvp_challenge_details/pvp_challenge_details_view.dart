@@ -147,11 +147,13 @@ class PvpChallengeDetailsView extends StatelessWidget {
                                                           ? null
                                                           : [DateTime.now()],
                                                       initialSelectedDate:
-                                                          viewModel.isEdit
-                                                              ? DateTime.now()
-                                                              : viewModel
+                                                          (viewModel.isEdit ||
+                                                                  viewModel
+                                                                      .isReadOnly)
+                                                              ? viewModel
                                                                   .challenge
-                                                                  .startDate,
+                                                                  .startDate
+                                                              : DateTime.now(),
                                                       selectionColor:
                                                           Theme.of(context)
                                                               .accentColor,
@@ -292,6 +294,10 @@ class PvpChallengeDetailsView extends StatelessWidget {
                                                   child: (viewModel.isEdit ||
                                                           viewModel.isReadOnly)
                                                       ? PTaskWidget(
+                                                          userApic: viewModel
+                                                              .userA.profilePic,
+                                                          userBpic: viewModel
+                                                              .userB.profilePic,
                                                           backgroundcolor: Theme.of(
                                                                           context)
                                                                       .brightness ==
@@ -309,8 +315,8 @@ class PvpChallengeDetailsView extends StatelessWidget {
                                                                   taskList[
                                                                           index]
                                                                       .id),
-                                                          togglecompleted:
-                                                              () {},
+                                                          // togglecompleted:
+                                                          //     () {},
                                                         )
                                                       : Dismissible(
                                                           key: Key(

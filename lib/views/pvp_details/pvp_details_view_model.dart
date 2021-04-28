@@ -55,6 +55,7 @@ class PvpDetailsViewModel extends BaseViewModel {
   handleOnStartup(String oppId) async {
     _isBusy = true;
     _oppId = oppId;
+    await _pvpService.createPVP(oppId);
     _pvpId = await _pvpService.getPvpId(oppId);
 
     _userAId = await _pvpService.getUserAId(_pvpId);

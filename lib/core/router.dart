@@ -26,6 +26,7 @@ import 'package:dotdo/views/pvp_challenge_details/pvp_challenge_details_view.dar
 import 'package:dotdo/views/p_c_task_details/p_c_task_details_view.dart' as view20;
 import 'package:dotdo/views/pvp_pending/pvp_pending_view.dart' as view21;
 import 'package:dotdo/views/global_routine/global_routine_view.dart' as view22;
+import 'package:dotdo/views/search/search_view.dart' as view23;
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -76,6 +77,8 @@ class Router {
         return MaterialPageRoute(builder: (_) => view21.PvpPendingView());
       case globalRoutineViewRoute:
         return MaterialPageRoute(builder: (_) => view22.GlobalRoutineView());
+      case searchViewRoute:
+        return MaterialPageRoute(builder: (_) => view23.SearchView());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

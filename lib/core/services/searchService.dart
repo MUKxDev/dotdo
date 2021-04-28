@@ -11,6 +11,12 @@ class SearchService {
         .snapshots();
   }
 
+  Stream<QuerySnapshot> usersStream(String text) async* {
+    yield* _firestoreService.users
+        .where('userName', isGreaterThanOrEqualTo: text)
+        .snapshots();
+  }
+
   Future<String> searchBarF(String text) async {
     return _firestoreService.users
         .where('userName', isEqualTo: text)

@@ -5,13 +5,18 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class CheckBoxWidget extends StatelessWidget {
   final bool checked;
   final Function onTap;
+  final double paddingRight;
 
-  const CheckBoxWidget({Key key, @required this.checked, @required this.onTap})
+  const CheckBoxWidget(
+      {Key key,
+      @required this.checked,
+      @required this.onTap,
+      this.paddingRight = 10})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 10.0),
+      padding: EdgeInsets.only(right: paddingRight),
       child: Material(
         color: Theme.of(context).scaffoldBackgroundColor.withAlpha(150),
         borderRadius: BorderRadius.circular(5),

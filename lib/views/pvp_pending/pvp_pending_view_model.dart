@@ -73,7 +73,7 @@ class PvpPendingViewModel extends BaseViewModel {
       _snackbarService.showSnackbar(message: 'Challenge accepted');
     } else {
       _snackbarService.showSnackbar(
-          message: 'You have already excepted this challenge');
+          message: 'You have already accepted this challenge');
     }
   }
 

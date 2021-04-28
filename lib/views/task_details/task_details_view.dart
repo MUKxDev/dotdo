@@ -31,13 +31,13 @@ class TaskDetailsView extends StatelessWidget {
               title: Text('Task'),
               shape: appBarShapeBorder,
             ),
-            body: Padding(
-              padding: const EdgeInsets.all(20),
-              child: viewModel.isBusy
-                  ? Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : SingleChildScrollView(
+            body: viewModel.isBusy
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
                       child: Center(
                         child: Column(
                           children: [
@@ -263,7 +263,7 @@ class TaskDetailsView extends StatelessWidget {
                         ),
                       ),
                     ),
-            ),
+                  ),
           ),
         );
       },

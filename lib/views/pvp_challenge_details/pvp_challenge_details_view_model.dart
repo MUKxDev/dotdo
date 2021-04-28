@@ -84,15 +84,14 @@ class PvpChallengeDetailsViewModel extends BaseViewModel {
           .getPendingChallenge(_pvpId)
           .first
           .then((value) => value.docs.first.data()));
+      _selectedDate = _challenge.startDate;
     } else {
       _challenge = PChallenge.fromMap(await _pvpService
           .getActiveChallenge(_pvpId)
           .first
           .then((value) => value.docs.first.data()));
+      _selectedDate = DateTime.now();
     }
-
-    _selectedDate = DateTime.now();
-
     _isBusy = false;
     notifyListeners();
   }

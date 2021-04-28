@@ -130,7 +130,10 @@ class ChallengeDetailsView extends StatelessWidget {
                                                           ? null
                                                           : [DateTime.now()],
                                                       initialSelectedDate:
-                                                          DateTime.now(),
+                                                          viewModel.isEdit
+                                                              ? newChallenge
+                                                                  .startDate
+                                                              : DateTime.now(),
                                                       selectionColor:
                                                           Theme.of(context)
                                                               .accentColor,

@@ -23,3 +23,4 @@ const String pvpChallengeDetailsViewRoute = 'pvpChallengeDetailsViewRoute';
 const String pCTaskDetailsViewRoute = 'pCTaskDetailsViewRoute';
 const String pvpPendingViewRoute = 'pvpPendingViewRoute';
 const String globalRoutineViewRoute = 'globalRoutineViewRoute';
+const String searchViewRoute = 'searchViewRoute';

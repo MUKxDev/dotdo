@@ -28,13 +28,13 @@ class PCTaskDetailsView extends StatelessWidget {
               title: Text('Challenge Task'),
               shape: appBarShapeBorder,
             ),
-            body: Padding(
-              padding: const EdgeInsets.all(20),
-              child: viewModel.isBusy
-                  ? Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : SingleChildScrollView(
+            body: viewModel.isBusy
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
                       child: Center(
                         child: Column(
                           children: [
@@ -199,7 +199,7 @@ class PCTaskDetailsView extends StatelessWidget {
                         ),
                       ),
                     ),
-            ),
+                  ),
           ),
         );
       },
