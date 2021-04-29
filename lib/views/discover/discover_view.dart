@@ -55,7 +55,7 @@ class DiscoverView extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Container(
-                    height: 220,
+                    height: 230,
                     child: GridView.count(
                       crossAxisCount: 2,
                       childAspectRatio: 0.65,
@@ -136,7 +136,7 @@ class DiscoverView extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Container(
-                    height: 220,
+                    height: 230,
                     child: GridView.count(
                       crossAxisCount: 2,
                       childAspectRatio: 0.65,

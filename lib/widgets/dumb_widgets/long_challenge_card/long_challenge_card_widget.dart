@@ -20,7 +20,7 @@ class LongChallengeCardWidget extends StatelessWidget {
     return
         // * Challenge card
         CardWidget(
-      height: 80,
+      height: null,
       width: screenWidth(context),
       backgroundcolor: Theme.of(context).brightness == Brightness.light
           ? AppColors.lightChallenge

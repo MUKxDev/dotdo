@@ -52,6 +52,7 @@ class BottomNavBarWidget extends StatelessWidget {
               icon: Icon(Icons.flash_on),
               label: 'Discover',
             ),
+            // profile pic
             BottomNavigationBarItem(
               icon: ClipRRect(
                 borderRadius: BorderRadius.circular(5),

@@ -33,7 +33,7 @@ class PTaskWidget extends StatelessWidget {
         return CardWidget(
           backgroundcolor: backgroundcolor,
           borderRadius: 10,
-          height: 110,
+          height: null,
           width: double.infinity,
           onTap: onTap,
           padding: 10,

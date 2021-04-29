@@ -8,11 +8,18 @@ import 'package:flutter/material.dart';
 class UserCardWidget extends StatelessWidget {
   final User user;
   final Function onTap;
+  final Color backgroundcolor;
 
-  const UserCardWidget({Key key, this.user, this.onTap}) : super(key: key);
+  const UserCardWidget({
+    Key key,
+    this.user,
+    this.onTap,
+    this.backgroundcolor,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return CardWidget(
+        backgroundcolor: backgroundcolor,
         onTap: onTap,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -41,7 +48,8 @@ class UserCardWidget extends StatelessWidget {
             ),
           ],
         ),
-        height: 70,
+        // TODO: see if this works
+        height: null,
         width: screenWidth(context));
   }
 }

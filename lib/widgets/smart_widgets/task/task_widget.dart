@@ -29,7 +29,7 @@ class TaskWidget extends StatelessWidget {
         return CardWidget(
           backgroundcolor: backgroundcolor,
           borderRadius: 10,
-          height: 70,
+          height: null,
           width: double.infinity,
           onTap: onTap,
           padding: 10,

@@ -81,7 +81,8 @@ class LoginView extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: Container(
                         width: screenWidth(context),
-                        child: Row(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             // * Forgot password button

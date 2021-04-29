@@ -1,12 +1,16 @@
 import 'package:dotdo/shared/constant.dart';
+import 'package:dotdo/shared/ui_helpers.dart';
 import 'package:dotdo/theme/colors.dart';
 import 'package:dotdo/views/discover/discover_view.dart';
 import 'package:dotdo/views/profile/profile_view.dart';
 import 'package:dotdo/views/social/social_view.dart';
 import 'package:dotdo/views/today/today_view.dart';
 import 'package:dotdo/widgets/dumb_widgets/bottom_nav_bar/bottom_nav_bar_widget.dart';
+import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
+import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/logo/logo_widget.dart';
+import 'package:dotdo/widgets/dumb_widgets/user_card/user_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -42,34 +46,71 @@ class HomeView extends StatelessWidget {
                         width: 80,
                       ),
                       Expanded(
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              TextButton.icon(
-                                onPressed: viewModel.logout,
-                                icon: Icon(
-                                  Icons.logout,
-                                  color: Theme.of(context).accentColor,
-                                ),
-                                label: HeaderTextWidget(
-                                  lable: 'Logout',
-                                ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 10, bottom: 10),
+                          child: Container(
+                            width: screenWidth(context),
+                            decoration: BoxDecoration(
+                                color:
+                                    Theme.of(context).scaffoldBackgroundColor,
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(30),
+                                  bottomRight: Radius.circular(30),
+                                )),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: DescriptionTextWidget(
+                                              description:
+                                                  'You are signed in as')),
+                                      UserCardWidget(
+                                        user: viewModel.user,
+                                      ),
+                                    ],
+                                  ),
+                                  verticalSpaceMedium(context),
+                                  TextButton.icon(
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                              Theme.of(context).primaryColor),
+                                      minimumSize:
+                                          MaterialStateProperty.all<Size>(
+                                              Size.fromHeight(50)),
+                                    ),
+                                    onPressed: viewModel.logout,
+                                    icon: Icon(
+                                      Icons.logout,
+                                      color: Theme.of(context).accentColor,
+                                    ),
+                                    label: HeaderTextWidget(
+                                      lable: 'Logout',
+                                    ),
+                                  ),
+                                  // TODO: Implement navigation to setting
+                                  // TextButton.icon(
+                                  //   onPressed: () =>
+                                  //       print('Implement navigation to setting'),
+                                  //   icon: Icon(
+                                  //     Icons.settings,
+                                  //     color: Theme.of(context).accentColor,
+                                  //   ),
+                                  //   label: HeaderTextWidget(
+                                  //     lable: 'Settings',
+                                  //   ),
+                                  // ),
+                                ],
                               ),
-                              // TODO: Implement navigation to setting
-                              // TextButton.icon(
-                              //   onPressed: () =>
-                              //       print('Implement navigation to setting'),
-                              //   icon: Icon(
-                              //     Icons.settings,
-                              //     color: Theme.of(context).accentColor,
-                              //   ),
-                              //   label: HeaderTextWidget(
-                              //     lable: 'Settings',
-                              //   ),
-                              // ),
-                            ],
+                            ),
                           ),
                         ),
                       ),

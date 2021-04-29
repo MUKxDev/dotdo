@@ -32,7 +32,7 @@ class PvpchallengeWidget extends StatelessWidget {
     @required this.profile2Named,
     @required this.profile2ProgressValue,
     @required this.profile2Image,
-    this.height = 140,
+    this.height,
     this.width = 300,
   }) : super(key: key);
 

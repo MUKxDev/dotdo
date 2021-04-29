@@ -117,7 +117,7 @@ class ChallengeDetailsView extends StatelessWidget {
                                                             10),
                                                     child: DatePicker(
                                                       newChallenge.startDate,
-                                                      height: 82,
+                                                      height: 102,
                                                       daysCount: (newChallenge
                                                               .endDate
                                                               .difference(

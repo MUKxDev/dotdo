@@ -18,7 +18,7 @@ class DatepickerWidget extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             child: DatePicker(
               DateTime.now(),
-              height: 82,
+              height: 102,
               initialSelectedDate: viewModel.currentDate,
               selectionColor: Theme.of(context).accentColor,
               selectedTextColor: Colors.white,

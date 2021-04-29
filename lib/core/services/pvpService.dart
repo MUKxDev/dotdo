@@ -164,7 +164,7 @@ class PvpService {
           .then((value) => value.data()['aCompleted']);
       int _plus = _totalACompletedPCtask + 1;
       int _minus = _totalACompletedPCtask - 1;
-      _firestoreService.pvps
+      await _firestoreService.pvps
           .doc(pvpId)
           .collection('Challenges')
           .doc(challengeId)
@@ -172,24 +172,36 @@ class PvpService {
           .doc(pctaskId)
           .update({'aCompleted': !(_currentAStatus)});
       if (_currentAStatus == false) {
-        _firestoreService.pvps
+        await _firestoreService.pvps
             .doc(pvpId)
             .collection('Challenges')
             .doc(challengeId)
             .update({'aCTask': _plus});
       } else {
-        _firestoreService.pvps
+        await _firestoreService.pvps
             .doc(pvpId)
             .collection('Challenges')
             .doc(challengeId)
             .update({'aCTask': _minus});
       }
+      _totalACompletedPCtask = await _firestoreService.pvps
+          .doc(pvpId)
+          .collection('Challenges')
+          .doc(challengeId)
+          .get()
+          .then((value) => value.data()['aCTask']);
       if (_totaltask == _totalACompletedPCtask) {
-        _firestoreService.pvps
+        await _firestoreService.pvps
             .doc(pvpId)
             .collection('Challenges')
             .doc(challengeId)
             .update({'aComplete': true});
+      } else {
+        await _firestoreService.pvps
+            .doc(pvpId)
+            .collection('Challenges')
+            .doc(challengeId)
+            .update({'aComplete': false});
       }
     } else {
       int _totalBCompletedPCtask = await _firestoreService.pvps
@@ -208,7 +220,7 @@ class PvpService {
           .then((value) => value.data()['bCompleted']);
       int _plus = _totalBCompletedPCtask + 1;
       int _minus = _totalBCompletedPCtask - 1;
-      _firestoreService.pvps
+      await _firestoreService.pvps
           .doc(pvpId)
           .collection('Challenges')
           .doc(challengeId)
@@ -216,24 +228,36 @@ class PvpService {
           .doc(pctaskId)
           .update({'bCompleted': !(_currentAStatus)});
       if (_currentAStatus == false) {
-        _firestoreService.pvps
+        await _firestoreService.pvps
             .doc(pvpId)
             .collection('Challenges')
             .doc(challengeId)
             .update({'bCTask': _plus});
       } else {
-        _firestoreService.pvps
+        await _firestoreService.pvps
             .doc(pvpId)
             .collection('Challenges')
             .doc(challengeId)
             .update({'bCTask': _minus});
       }
+      _totalBCompletedPCtask = await _firestoreService.pvps
+          .doc(pvpId)
+          .collection('Challenges')
+          .doc(challengeId)
+          .get()
+          .then((value) => value.data()['bCTask']);
       if (_totaltask == _totalBCompletedPCtask) {
-        _firestoreService.pvps
+        await _firestoreService.pvps
             .doc(pvpId)
             .collection('Challenges')
             .doc(challengeId)
             .update({'bComplete': true});
+      } else {
+        await _firestoreService.pvps
+            .doc(pvpId)
+            .collection('Challenges')
+            .doc(challengeId)
+            .update({'bComplete': false});
       }
     }
   }

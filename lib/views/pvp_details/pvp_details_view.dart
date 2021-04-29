@@ -53,7 +53,7 @@ class PvpDetailsView extends StatelessWidget {
                             return Padding(
                               padding: const EdgeInsets.all(10),
                               child: Container(
-                                height: 170,
+                                height: null,
                                 width: screenWidth(context),
                                 decoration: BoxDecoration(
                                   color: Theme.of(context).primaryColor,
@@ -73,49 +73,49 @@ class PvpDetailsView extends StatelessWidget {
                                             ),
                                           )
                                         : Column(
+                                            mainAxisSize: MainAxisSize.min,
                                             children: [
-                                              Expanded(
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          top: 10),
-                                                  child: Row(
-                                                    children: [
-                                                      Container(
-                                                        width: screenWidth(
-                                                                context) *
-                                                            0.4,
-                                                        child: PvpProfileWidget(
-                                                            name: viewModel
-                                                                .userA.userName,
-                                                            image: NetworkImage(
-                                                                viewModel.userA
-                                                                    .profilePic)),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(10),
+                                                child: Row(
+                                                  children: [
+                                                    Container(
+                                                      width:
+                                                          screenWidth(context) *
+                                                              0.4,
+                                                      child: PvpProfileWidget(
+                                                          name: viewModel
+                                                              .userA.userName,
+                                                          image: NetworkImage(
+                                                              viewModel.userA
+                                                                  .profilePic)),
+                                                    ),
+                                                    Expanded(
+                                                      child: Center(
+                                                        child:
+                                                            DescriptionTextWidget(
+                                                                description:
+                                                                    'VS'),
                                                       ),
-                                                      Expanded(
-                                                        child: Center(
-                                                          child:
-                                                              DescriptionTextWidget(
-                                                                  description:
-                                                                      'VS'),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        width: screenWidth(
-                                                                context) *
-                                                            0.4,
-                                                        child: PvpProfileWidget(
-                                                            name: viewModel
-                                                                .userB.userName,
-                                                            image: NetworkImage(
-                                                                viewModel.userB
-                                                                    .profilePic)),
-                                                      ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                    Container(
+                                                      width:
+                                                          screenWidth(context) *
+                                                              0.4,
+                                                      child: PvpProfileWidget(
+                                                          name: viewModel
+                                                              .userB.userName,
+                                                          image: NetworkImage(
+                                                              viewModel.userB
+                                                                  .profilePic)),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
-                                              Expanded(
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 8.0),
                                                 child: Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
@@ -157,37 +157,35 @@ class PvpDetailsView extends StatelessWidget {
                                                         ],
                                                       ),
                                                     ),
-                                                    Expanded(
-                                                      child: Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          LableTextWidget(
-                                                            lable: 'Draws',
-                                                            color: Theme.of(context)
-                                                                        .brightness ==
-                                                                    Brightness
-                                                                        .light
-                                                                ? AppColors
-                                                                    .lightGold
-                                                                : AppColors
-                                                                    .darkGold,
-                                                          ),
-                                                          LableTextWidget(
-                                                            lable: pvpCard.draws
-                                                                .toString(),
-                                                            color: Theme.of(context)
-                                                                        .brightness ==
-                                                                    Brightness
-                                                                        .light
-                                                                ? AppColors
-                                                                    .lightGold
-                                                                : AppColors
-                                                                    .darkGold,
-                                                          ),
-                                                        ],
-                                                      ),
+                                                    Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        LableTextWidget(
+                                                          lable: 'Draws',
+                                                          color: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .light
+                                                              ? AppColors
+                                                                  .lightGold
+                                                              : AppColors
+                                                                  .darkGold,
+                                                        ),
+                                                        LableTextWidget(
+                                                          lable: pvpCard.draws
+                                                              .toString(),
+                                                          color: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .light
+                                                              ? AppColors
+                                                                  .lightGold
+                                                              : AppColors
+                                                                  .darkGold,
+                                                        ),
+                                                      ],
                                                     ),
                                                     Container(
                                                       width:

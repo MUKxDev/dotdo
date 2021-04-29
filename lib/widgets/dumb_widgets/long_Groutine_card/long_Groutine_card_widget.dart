@@ -26,7 +26,7 @@ class LongGRoutineCardWidget extends StatelessWidget {
     return
         // * Routine card
         CardWidget(
-      height: 130,
+      height: null,
       width: screenWidth(context),
       backgroundcolor: Theme.of(context).brightness == Brightness.light
           ? AppColors.lightRoutine

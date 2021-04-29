@@ -51,7 +51,7 @@ class UpcomingChallengeStreamWidget extends StatelessWidget {
                         // CircularProgressIndicator
                         ? Container(
                             width: screenWidth(context),
-                            height: 80,
+                            height: 88,
                             decoration: BoxDecoration(
                               color: Theme.of(context).primaryColor,
                               borderRadius: BorderRadius.circular(20),
@@ -64,7 +64,7 @@ class UpcomingChallengeStreamWidget extends StatelessWidget {
                           )
                         // * Challenge Stream grid
                         : Container(
-                            height: 80,
+                            height: 88,
                             child: ListView.builder(
                                 itemExtent: screenWidth(context) * 0.6,
                                 scrollDirection: Axis.horizontal,

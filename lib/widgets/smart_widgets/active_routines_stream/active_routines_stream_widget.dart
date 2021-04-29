@@ -33,7 +33,7 @@ class ActiveRoutinesStreamWidget extends StatelessWidget {
                     // CircularProgressIndicator
                     ? Container(
                         width: screenWidth(context),
-                        height: 80,
+                        height: 88,
                         decoration: BoxDecoration(
                           color: Theme.of(context).primaryColor,
                           borderRadius: BorderRadius.circular(20),
@@ -44,7 +44,7 @@ class ActiveRoutinesStreamWidget extends StatelessWidget {
                         // CircularProgressIndicator
                         ? Container(
                             width: screenWidth(context),
-                            height: 80,
+                            height: 88,
                             decoration: BoxDecoration(
                               color: Theme.of(context).primaryColor,
                               borderRadius: BorderRadius.circular(20),
@@ -57,8 +57,9 @@ class ActiveRoutinesStreamWidget extends StatelessWidget {
                           )
                         // * Routine Stream list
                         : Container(
-                            height: 80,
+                            height: 88,
                             child: ListView.builder(
+                                shrinkWrap: true,
                                 itemExtent: screenWidth(context) * 0.6,
                                 scrollDirection: Axis.horizontal,
                                 itemCount: list.length,

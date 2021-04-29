@@ -57,7 +57,7 @@ class LikesView extends StatelessWidget {
                               ),
                             )
                           : Container(
-                              height: 100,
+                              height: 110,
                               child: ListView.builder(
                                 clipBehavior: Clip.hardEdge,
                                 scrollDirection: Axis.horizontal,
