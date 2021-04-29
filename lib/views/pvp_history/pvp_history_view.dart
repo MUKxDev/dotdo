@@ -4,6 +4,7 @@ import 'package:dotdo/shared/constant.dart';
 import 'package:dotdo/shared/ui_helpers.dart';
 import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
+import 'package:dotdo/widgets/dumb_widgets/user_card/user_card_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/pvpchallenge/pvpchallenge_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -66,22 +67,60 @@ class PvpHistoryView extends StatelessWidget {
                                       ),
                                       child: Column(
                                         children: [
-                                          verticalSpaceSmall(context),
+                                          // verticalSpaceSmall(context),
                                           Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 20),
+                                            padding:
+                                                pvpChallenge.challangeWinner ==
+                                                        'Draw'
+                                                    ? const EdgeInsets.only(
+                                                        left: 20,
+                                                        right: 20,
+                                                        top: 20)
+                                                    : const EdgeInsets.only(
+                                                        left: 20,
+                                                        right: 10,
+                                                        top: 10),
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
-                                                LableTextWidget(
-                                                    lable:
-                                                        'Challange Winner: '),
-                                                DescriptionTextWidget(
-                                                    description: pvpChallenge
-                                                            .challangeWinner ??
-                                                        'Null')
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    LableTextWidget(
+                                                        lable: 'Challange'),
+                                                    LableTextWidget(
+                                                        lable: 'Winner: '),
+                                                  ],
+                                                ),
+                                                horizontalSpaceXSmall(context),
+                                                pvpChallenge.challangeWinner ==
+                                                        'Draw'
+                                                    ? DescriptionTextWidget(
+                                                        description: pvpChallenge
+                                                                .challangeWinner ??
+                                                            'Null')
+                                                    : (pvpChallenge
+                                                                .challangeWinner ==
+                                                            viewModel.userAId
+                                                        ? DescriptionTextWidget(
+                                                            description: viewModel
+                                                                    .userA
+                                                                    .userName ??
+                                                                'Null')
+                                                        : Expanded(
+                                                            child:
+                                                                UserCardWidget(
+                                                              user: viewModel
+                                                                  .userB,
+                                                              backgroundcolor:
+                                                                  Theme.of(
+                                                                          context)
+                                                                      .scaffoldBackgroundColor,
+                                                            ),
+                                                          )),
                                               ],
                                             ),
                                           ),
