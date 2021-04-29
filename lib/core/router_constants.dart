@@ -25,3 +25,4 @@ const String pvpPendingViewRoute = 'pvpPendingViewRoute';
 const String globalRoutineViewRoute = 'globalRoutineViewRoute';
 const String searchViewRoute = 'searchViewRoute';
 const String likesViewRoute = 'likesViewRoute';
+const String pvpHistoryViewRoute = 'pvpHistoryViewRoute';

@@ -28,6 +28,7 @@ import 'package:dotdo/views/pvp_pending/pvp_pending_view.dart' as view21;
 import 'package:dotdo/views/global_routine/global_routine_view.dart' as view22;
 import 'package:dotdo/views/search/search_view.dart' as view23;
 import 'package:dotdo/views/likes/likes_view.dart' as view24;
+import 'package:dotdo/views/pvp_history/pvp_history_view.dart' as view25;
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -82,6 +83,8 @@ class Router {
         return MaterialPageRoute(builder: (_) => view23.SearchView());
       case likesViewRoute:
         return MaterialPageRoute(builder: (_) => view24.LikesView());
+      case pvpHistoryViewRoute:
+        return MaterialPageRoute(builder: (_) => view25.PvpHistoryView());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

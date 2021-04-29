@@ -5,6 +5,7 @@ import 'package:dotdo/core/services/pvpService.dart';
 import 'package:dotdo/core/services/userService.dart';
 import 'package:dotdo/views/new_pvp_challange/new_pvp_challange_view.dart';
 import 'package:dotdo/views/pvp_challenge_details/pvp_challenge_details_view.dart';
+import 'package:dotdo/views/pvp_history/pvp_history_view.dart';
 import 'package:dotdo/views/pvp_pending/pvp_pending_view.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
@@ -88,7 +89,11 @@ class PvpDetailsViewModel extends BaseViewModel {
   }
 
   // TODO: make the history view
-  historyTapped() {}
+  historyTapped() {
+    _navigationService.navigateToView(PvpHistoryView(
+      pvpId: _pvpId,
+    ));
+  }
 
   pendingTapped() {
     _navigationService.navigateToView(PvpPendingView(pvpId: _pvpId));

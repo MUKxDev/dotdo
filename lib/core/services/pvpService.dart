@@ -41,28 +41,6 @@ class PvpService {
   // creat or view pvp ----------------------
   Stream<QuerySnapshot> creatOrViewPvp(String userBId) async* {
     String _userId = await _authService.getCurrentUserId();
-    // Pvp pvp =
-    //     Pvp(userA: _userId, userB: userBId, aWinng: 0, bWinning: 0, draws: 0);
-
-    // int optionA = await _firestoreService.pvps
-    //     .where('userB', isEqualTo: userBId)
-    //     .where('userA', isEqualTo: _userId)
-    //     .get()
-    //     .then((value) => value.size);
-
-    // int optionB = await _firestoreService.pvps
-    //     .where('userB', isEqualTo: _userId)
-    //     .where('userA', isEqualTo: userBId)
-    //     .get()
-    //     .then((value) => value.size);
-
-    // int noOfFound = optionB + optionA;
-
-    // if (noOfFound == null || noOfFound == 0) {
-    //   print(await _firestoreService.pvps
-    //       .add(pvp.toMap())
-    //       .then((value) => value.id));
-    // }
     if (await _firestoreService.pvps
             .where('userB', isEqualTo: userBId)
             .where('userA', isEqualTo: _userId)
@@ -261,7 +239,6 @@ class PvpService {
   }
 
 //get challange -----------------------------------------
-//
 
   Stream<QuerySnapshot> getAllPvpsA() async* {
     String _userId = await _authService.getCurrentUserId();
@@ -336,18 +313,6 @@ class PvpService {
   Future toggleAccept(String pvpId, String challengeId) async {
     String _userId = await _authService.getCurrentUserId();
     String userA = await getUserAId(pvpId);
-    // String userAstatus = await _firestoreService.pvps
-    //     .doc(pvpId)
-    //     .collection('Challenges')
-    //     .doc(challengeId)
-    //     .get()
-    //     .then((value) => value.data()['aStatus']);
-    // String userBstatus = await _firestoreService.pvps
-    //     .doc(pvpId)
-    //     .collection('Challenges')
-    //     .doc(challengeId)
-    //     .get()
-    //     .then((value) => value.data()['bStatus']);
     if (_userId == userA) {
       _firestoreService.pvps
           .doc(pvpId)

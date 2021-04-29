@@ -4,7 +4,6 @@ import 'package:dotdo/shared/constant.dart';
 import 'package:dotdo/shared/ui_helpers.dart';
 import 'package:dotdo/theme/colors.dart';
 import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
-import 'package:dotdo/widgets/dumb_widgets/icon_button/icon_button_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/pvpchallenge/pvpchallenge_widget.dart';
 import 'package:flutter/material.dart';

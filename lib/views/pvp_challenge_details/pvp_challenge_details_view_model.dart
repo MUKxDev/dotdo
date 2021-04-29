@@ -141,6 +141,7 @@ class PvpChallengeDetailsViewModel extends BaseViewModel {
       _navigationService.navigateToView(NewPvpChallangeView(
         challengeId: id,
         pvpId: _pvpId,
+        isReadOnly: true,
       ));
     }
   }

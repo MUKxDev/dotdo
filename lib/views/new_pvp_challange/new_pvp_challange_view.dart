@@ -12,8 +12,10 @@ import 'new_pvp_challange_view_model.dart';
 class NewPvpChallangeView extends StatelessWidget {
   final String challengeId;
   final String pvpId;
+  final bool isReadOnly;
 
-  const NewPvpChallangeView({Key key, this.challengeId, this.pvpId})
+  const NewPvpChallangeView(
+      {Key key, this.challengeId, this.pvpId, this.isReadOnly = false})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -55,6 +57,7 @@ class NewPvpChallangeView extends StatelessWidget {
                                   children: [
                                     // Challenge name
                                     TextField(
+                                      readOnly: isReadOnly,
                                       autocorrect: true,
                                       maxLines: 2,
                                       maxLength: 50,
@@ -71,6 +74,7 @@ class NewPvpChallangeView extends StatelessWidget {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 10),
                                       child: TextField(
+                                        readOnly: isReadOnly,
                                         autocorrect: true,
                                         maxLines: 2,
                                         maxLength: 50,
@@ -118,26 +122,30 @@ class NewPvpChallangeView extends StatelessWidget {
                                                 iconSize: 20,
                                                 height: 45,
                                                 width: 45,
-                                                onTap: () {
-                                                  showDialog(
-                                                      context: context,
-                                                      builder: (context) {
-                                                        return IconPickerAlterDialogWidget(
-                                                          setIconData: (iconData) =>
-                                                              viewModel
-                                                                  .iconTapped(
-                                                                      iconData),
-                                                          setIconColor: (iconColor) =>
-                                                              viewModel
-                                                                  .colorTapped(
-                                                                      iconColor),
-                                                          iconData: viewModel
-                                                              .iconData,
-                                                          iconColor: viewModel
-                                                              .iconColor,
-                                                        );
-                                                      });
-                                                },
+                                                onTap: isReadOnly
+                                                    ? null
+                                                    : () {
+                                                        showDialog(
+                                                            context: context,
+                                                            builder: (context) {
+                                                              return IconPickerAlterDialogWidget(
+                                                                setIconData:
+                                                                    (iconData) =>
+                                                                        viewModel
+                                                                            .iconTapped(iconData),
+                                                                setIconColor:
+                                                                    (iconColor) =>
+                                                                        viewModel
+                                                                            .colorTapped(iconColor),
+                                                                iconData:
+                                                                    viewModel
+                                                                        .iconData,
+                                                                iconColor:
+                                                                    viewModel
+                                                                        .iconColor,
+                                                              );
+                                                            });
+                                                      },
                                               ),
                                             ],
                                           ),
@@ -151,21 +159,27 @@ class NewPvpChallangeView extends StatelessWidget {
                                                 color: AppColors.white,
                                               ),
                                               TextButton(
-                                                onPressed: () =>
-                                                    viewModel.updateStartDate(
-                                                  showDatePicker(
-                                                    context: context,
-                                                    initialDate: challengeId ==
-                                                            null
-                                                        ? viewModel.firstDate
-                                                        : viewModel.startDate,
-                                                    firstDate:
-                                                        viewModel.firstDate,
-                                                    lastDate: DateTime(
-                                                        viewModel.today.year +
-                                                            10),
-                                                  ),
-                                                ),
+                                                onPressed: isReadOnly
+                                                    ? null
+                                                    : () => viewModel
+                                                            .updateStartDate(
+                                                          showDatePicker(
+                                                            context: context,
+                                                            initialDate:
+                                                                challengeId ==
+                                                                        null
+                                                                    ? viewModel
+                                                                        .firstDate
+                                                                    : viewModel
+                                                                        .startDate,
+                                                            firstDate: viewModel
+                                                                .firstDate,
+                                                            lastDate: DateTime(
+                                                                viewModel.today
+                                                                        .year +
+                                                                    10),
+                                                          ),
+                                                        ),
                                                 child: LableTextWidget(
                                                   lable: viewModel.dateFormat
                                                       .format(
@@ -190,21 +204,27 @@ class NewPvpChallangeView extends StatelessWidget {
                                                 color: AppColors.white,
                                               ),
                                               TextButton(
-                                                onPressed: () =>
-                                                    viewModel.updateEndDate(
-                                                  showDatePicker(
-                                                    context: context,
-                                                    initialDate:
-                                                        challengeId == null
-                                                            ? viewModel.endDate
-                                                            : viewModel.endDate,
-                                                    firstDate:
-                                                        viewModel.firstDate,
-                                                    lastDate: DateTime(
-                                                        viewModel.today.year +
-                                                            10),
-                                                  ),
-                                                ),
+                                                onPressed: isReadOnly
+                                                    ? null
+                                                    : () =>
+                                                        viewModel.updateEndDate(
+                                                          showDatePicker(
+                                                            context: context,
+                                                            initialDate:
+                                                                challengeId ==
+                                                                        null
+                                                                    ? viewModel
+                                                                        .endDate
+                                                                    : viewModel
+                                                                        .endDate,
+                                                            firstDate: viewModel
+                                                                .firstDate,
+                                                            lastDate: DateTime(
+                                                                viewModel.today
+                                                                        .year +
+                                                                    10),
+                                                          ),
+                                                        ),
                                                 child: LableTextWidget(
                                                   lable: viewModel.dateFormat
                                                       .format(
@@ -227,52 +247,60 @@ class NewPvpChallangeView extends StatelessWidget {
                               ),
                             ),
                             verticalSpaceSmall(context),
-                            // Buttons
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                challengeId == null
-                                    ? Container(
+                            isReadOnly
+                                ? Container()
+                                :
+                                // Buttons
+                                Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      challengeId == null
+                                          ? Container(
+                                              width: screenWidth(context) * 0.4,
+                                              child: ButtonWidget(
+                                                onPressed: viewModel.cancel,
+                                                text: 'Cancel',
+                                                backgroundColor:
+                                                    Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.light
+                                                        ? AppColors.lightGray
+                                                        : AppColors.darkGray,
+                                                textColor: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.light
+                                                    ? AppColors.darkGray
+                                                    : AppColors.white,
+                                              ),
+                                            )
+                                          : Container(
+                                              width: screenWidth(context) * 0.4,
+                                              child: ButtonWidget(
+                                                onPressed: viewModel.delete,
+                                                text: 'Delete',
+                                                backgroundColor:
+                                                    Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.light
+                                                        ? AppColors.lightRed
+                                                        : AppColors.darkRed,
+                                                textColor: AppColors.white,
+                                              ),
+                                            ),
+                                      Container(
                                         width: screenWidth(context) * 0.4,
                                         child: ButtonWidget(
-                                          onPressed: viewModel.cancel,
-                                          text: 'Cancel',
-                                          backgroundColor:
-                                              Theme.of(context).brightness ==
-                                                      Brightness.light
-                                                  ? AppColors.lightGray
-                                                  : AppColors.darkGray,
-                                          textColor:
-                                              Theme.of(context).brightness ==
-                                                      Brightness.light
-                                                  ? AppColors.darkGray
-                                                  : AppColors.white,
+                                          onPressed: challengeId == null
+                                              ? viewModel.next
+                                              : viewModel.save,
+                                          text: challengeId == null
+                                              ? 'Next'
+                                              : 'Save',
                                         ),
                                       )
-                                    : Container(
-                                        width: screenWidth(context) * 0.4,
-                                        child: ButtonWidget(
-                                          onPressed: viewModel.delete,
-                                          text: 'Delete',
-                                          backgroundColor:
-                                              Theme.of(context).brightness ==
-                                                      Brightness.light
-                                                  ? AppColors.lightRed
-                                                  : AppColors.darkRed,
-                                          textColor: AppColors.white,
-                                        ),
-                                      ),
-                                Container(
-                                  width: screenWidth(context) * 0.4,
-                                  child: ButtonWidget(
-                                    onPressed: challengeId == null
-                                        ? viewModel.next
-                                        : viewModel.save,
-                                    text: challengeId == null ? 'Next' : 'Save',
+                                    ],
                                   ),
-                                )
-                              ],
-                            ),
                           ],
                         ),
                       ),

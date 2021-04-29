@@ -397,7 +397,7 @@ class PvpChallengeDetailsView extends StatelessWidget {
                                                                   children: [
                                                                     LableTextWidget(
                                                                       lable:
-                                                                          'Done!',
+                                                                          'toggle!',
                                                                       color: Colors
                                                                           .white,
                                                                     ),
@@ -472,7 +472,7 @@ class PvpChallengeDetailsView extends StatelessWidget {
                                                                   children: [
                                                                     LableTextWidget(
                                                                       lable:
-                                                                          'Done!',
+                                                                          'toggle!',
                                                                       color: Colors
                                                                           .white,
                                                                     ),
@@ -503,6 +503,12 @@ class PvpChallengeDetailsView extends StatelessWidget {
                                                             }
                                                           },
                                                           child: PTaskWidget(
+                                                            userApic: viewModel
+                                                                .userA
+                                                                .profilePic,
+                                                            userBpic: viewModel
+                                                                .userB
+                                                                .profilePic,
                                                             backgroundcolor: Theme.of(
                                                                             context)
                                                                         .brightness ==
