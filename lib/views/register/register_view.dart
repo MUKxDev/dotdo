@@ -129,60 +129,60 @@ class RegisterView extends StatelessWidget {
                     ),
                   ],
                 ),
-                // * Or & Social Media Auth
-                Column(
-                  children: [
-                    // * Or Text
-                    Center(
-                      child: Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Text(
-                          'Or',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                    ),
-                    // * Social Media Auth
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          // * Auth with Google
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
-                              shape: BoxShape.circle,
-                            ),
-                            child: IconButton(
-                                icon: Icon(
-                                  FontAwesomeIcons.google,
-                                  color: Theme.of(context).accentColor,
-                                ),
-                                onPressed: viewModel.authWithGoogle),
-                          ),
-                          // * Auth with Apple
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
-                              shape: BoxShape.circle,
-                            ),
-                            child: IconButton(
-                                icon: Icon(
-                                  FontAwesomeIcons.apple,
-                                  color: Theme.of(context).accentColor,
-                                ),
-                                onPressed: viewModel.authWithApple),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                )
+                // // * Or & Social Media Auth
+                // Column(
+                //   children: [
+                //     // * Or Text
+                //     Center(
+                //       child: Padding(
+                //         padding: EdgeInsets.all(10),
+                //         child: Text(
+                //           'Or',
+                //           style: TextStyle(
+                //             fontWeight: FontWeight.bold,
+                //             fontSize: 18,
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //     // * Social Media Auth
+                //     Padding(
+                //       padding: const EdgeInsets.symmetric(
+                //           horizontal: 20.0, vertical: 8),
+                //       child: Row(
+                //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+                //         children: [
+                //           // * Auth with Google
+                //           Container(
+                //             decoration: BoxDecoration(
+                //               color: Theme.of(context).primaryColor,
+                //               shape: BoxShape.circle,
+                //             ),
+                //             child: IconButton(
+                //                 icon: Icon(
+                //                   FontAwesomeIcons.google,
+                //                   color: Theme.of(context).accentColor,
+                //                 ),
+                //                 onPressed: viewModel.authWithGoogle),
+                //           ),
+                //           // * Auth with Apple
+                //           Container(
+                //             decoration: BoxDecoration(
+                //               color: Theme.of(context).primaryColor,
+                //               shape: BoxShape.circle,
+                //             ),
+                //             child: IconButton(
+                //                 icon: Icon(
+                //                   FontAwesomeIcons.apple,
+                //                   color: Theme.of(context).accentColor,
+                //                 ),
+                //                 onPressed: viewModel.authWithApple),
+                //           ),
+                //         ],
+                //       ),
+                //     ),
+                //   ],
+                // )
               ],
             ),
           ),

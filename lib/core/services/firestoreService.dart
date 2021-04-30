@@ -10,12 +10,13 @@ class FirestoreService {
       FirebaseFirestore.instance.collection('groutiens');
 
   // ? methods
-  Future<void> createUser({String uid, String userName, String email}) {
+  Future<void> createUser(
+      {String uid, String userName, String email, String avatar}) {
     User user = User(
       userName: userName,
       email: email,
       dots: 0,
-      profilePic:
+      profilePic: avatar ??
           'https://firebasestorage.googleapis.com/v0/b/dotdo-autovita.appspot.com/o/defaultAvatar.png?alt=media&token=d8896de4-4a13-4560-995c-d010a1a3bfd9',
     );
     // Call the user's CollectionReference to add a new user

@@ -13,7 +13,10 @@ class LoginViewModel extends BaseViewModel {
   bool get isLoading => _isLoading;
 
   bool isEmailCorrect = false;
+  bool isResetEmailCorrect = false;
   bool isPasswordCorrect = false;
+
+  // TextEditingController resetPasswordEmail = TextEditingController(text: '');
 
   String validateEmail(String value) {
     Pattern pattern =
@@ -32,6 +35,23 @@ class LoginViewModel extends BaseViewModel {
     }
   }
 
+  String validateResetEmail(String value) {
+    Pattern pattern =
+        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+        r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+        r"{0,253}[a-zA-Z0-9])?)*$";
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value) ||
+        value == null ||
+        restEmailController.text.trim() == '') {
+      isResetEmailCorrect = false;
+      return 'Enter a valid email address';
+    } else {
+      isResetEmailCorrect = true;
+      return null;
+    }
+  }
+
   String validatePassword(String value) {
     if (passwordController.text.trim() == '') {
       isPasswordCorrect = false;
@@ -43,6 +63,7 @@ class LoginViewModel extends BaseViewModel {
   }
 
   TextEditingController emailController = TextEditingController(text: '');
+  TextEditingController restEmailController = TextEditingController(text: '');
   TextEditingController passwordController = TextEditingController(text: '');
 
   DialogService _dialogService = locator<DialogService>();
@@ -85,11 +106,42 @@ class LoginViewModel extends BaseViewModel {
     }
   }
 
-  // TODO: Implement forgotPassword
-  void forgotPassword() {}
+  Future<void> forgotPassword() async {
+    if (!(isResetEmailCorrect)) {
+      _snackbarService.showSnackbar(message: 'Please fill the required fields');
+    } else {
+      bool isSent = await _authService.passwordReset(restEmailController.text);
+      if (isSent) {
+        _snackbarService.showSnackbar(
+            message: 'A password reset email has been sent.');
+      } else {
+        _snackbarService.showSnackbar(
+            message: 'Could not send email with reset password link.');
+      }
+    }
+  }
 
   // TODO: Implement authWithGoogle
-  void authWithGoogle() {}
+  Future authWithGoogle() async {
+    toggleIsLodaing();
+
+    final result = await _authService.continueWithGoogle();
+
+    if (result != null) {
+      toggleIsLodaing();
+      print('Auth continue with Google');
+      print('Result uid: ${result.uid}');
+
+      _navigationService.pushNamedAndRemoveUntil(homeViewRoute);
+    } else {
+      toggleIsLodaing();
+      _dialogService.showDialog(
+        barrierDismissible: true,
+        title: 'Error',
+        description: 'An Error happend',
+      );
+    }
+  }
 
   // TODO: Implement authWithApple
   void authWithApple() {}

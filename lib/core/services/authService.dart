@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/services/firestoreService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 
 import '../locator.dart';
@@ -10,6 +11,7 @@ import '../locator.dart';
 class AuthService {
   User _user;
   User get user => _user;
+  GoogleSignIn _googleSignIn = GoogleSignIn();
 
   final FirebaseAuthenticationService _firebaseAuthenticationService =
       locator<FirebaseAuthenticationService>();
@@ -90,5 +92,36 @@ class AuthService {
 
   void logout() {
     _firebaseAuthenticationService.logout();
+  }
+
+  Future<bool> passwordReset(String email) async {
+    return await _firebaseAuthenticationService.sendResetPasswordLink(email);
+  }
+
+  continueWithApple() {}
+
+  Future<User> continueWithGoogle() async {
+    GoogleSignInAccount _googleUser = await _googleSignIn.signIn();
+    GoogleSignInAuthentication _googleAuth = await _googleUser.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: _googleAuth.accessToken, idToken: _googleAuth.idToken);
+
+    UserCredential userCredential =
+        await _firebaseAuth.signInWithCredential(credential);
+
+    // final result = await _firebaseAuthenticationService.signInWithGoogle();
+    bool isSignedIn = await _googleSignIn.isSignedIn();
+    if (isSignedIn) {
+      User user = userCredential.user;
+      String userNameWithHash = await checkUsername(user.displayName);
+      print(userNameWithHash);
+      _firestoreService.createUser(
+          uid: user.uid,
+          email: user.email,
+          userName: userNameWithHash,
+          avatar: user.photoURL);
+    }
+    return userCredential.user;
   }
 }
