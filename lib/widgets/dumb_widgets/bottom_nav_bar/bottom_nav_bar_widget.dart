@@ -42,7 +42,7 @@ class BottomNavBarWidget extends StatelessWidget {
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.today),
-              label: 'Today',
+              label: 'Dashboard',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.people),

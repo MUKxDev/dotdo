@@ -49,7 +49,7 @@ class HomeViewModel extends ReactiveViewModel {
   void updateTitle() {
     switch (_selectedIndex) {
       case 0:
-        _title = '.Do';
+        _title = 'Dashboard';
         break;
       case 1:
         _title = 'Social';
