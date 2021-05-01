@@ -80,6 +80,7 @@ class LongGRoutineCardWidget extends StatelessWidget {
                     ),
             ],
           ),
+          verticalSpaceXSmall(context),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

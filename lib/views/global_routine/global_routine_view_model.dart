@@ -1,8 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/models/Routine.dart';
+import 'package:dotdo/core/models/User.dart';
+import 'package:dotdo/core/services/authService.dart';
 import 'package:dotdo/core/services/gRoutineService.dart';
 import 'package:dotdo/core/services/routineService.dart';
+import 'package:dotdo/core/services/userService.dart';
+import 'package:dotdo/views/another_profile/another_profile_view.dart';
 import 'package:dotdo/views/new_routine/new_routine_view.dart';
 import 'package:dotdo/views/rtask_details/rtask_details_view.dart';
 import 'package:logger/logger.dart';
@@ -18,7 +22,9 @@ class GlobalRoutineViewModel extends BaseViewModel {
   }
 
   GRoutine _gRoutineService = locator<GRoutine>();
-  // NavigationService _navigationService = locator<NavigationService>();
+  UserService _userService = locator<UserService>();
+  AuthService _authService = locator<AuthService>();
+  NavigationService _navigationService = locator<NavigationService>();
   SnackbarService _snackbarService = locator<SnackbarService>();
 
   String _gRoutineId;
@@ -26,6 +32,9 @@ class GlobalRoutineViewModel extends BaseViewModel {
 
   Routine _routine;
   Routine get routine => _routine;
+
+  User _user;
+  User get user => _user;
 
   bool _isBusy = true;
   bool get isBusy => _isBusy;
@@ -46,6 +55,7 @@ class GlobalRoutineViewModel extends BaseViewModel {
     _gRoutineId = gRoutineId;
 
     _routine = await _gRoutineService.getGRoutine(_gRoutineId);
+    _user = await _userService.getUserProfile(_routine.creatorId);
     _isLiked = await _gRoutineService.getLikeStatus(_gRoutineId);
     _isAddedGRotine = await _gRoutineService.isAddedGRoutine(_gRoutineId);
 
@@ -53,19 +63,17 @@ class GlobalRoutineViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  // taskTapped(String taskId) async {
-  //   Map args = {
-  //     'taskId': taskId,
-  //     'routineId': _gRoutineId,
-  //     'icon': null,
-  //     'color': null,
-  //   };
-  //   _navigationService.navigateToView(RtaskDetailsView(args: args));
-  // }
-
-  // routineTapped(String id) {
-  //   _navigationService.navigateToView(NewRoutineView(routineId: id));
-  // }
+  userTapped() async {
+    String currentUserId = await _authService.getCurrentUserId();
+    if (currentUserId == _routine.creatorId) {
+      _snackbarService.showSnackbar(
+          message: 'You can\'t view your profile from here');
+    } else {
+      _navigationService.navigateToView(AnotherProfileView(
+        uid: _routine.creatorId,
+      ));
+    }
+  }
 
   updateRoutine(Routine newRoutine) {
     _routine = newRoutine;

@@ -11,7 +11,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class LongRoutineCardWidget extends StatelessWidget {
   final Routine routine;
   final Function onTap;
-
+  String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
   const LongRoutineCardWidget(
       {Key key, @required this.routine, @required this.onTap})
       : super(key: key);
@@ -45,7 +45,7 @@ class LongRoutineCardWidget extends StatelessWidget {
                     ),
                     // * Lable
                     LableTextWidget(
-                      lable: routine.name,
+                      lable: capitalize(routine.name),
                       color: AppColors.white,
                     ),
                   ],

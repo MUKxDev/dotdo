@@ -84,7 +84,7 @@ class InactiveChallengeCardWidget extends StatelessWidget {
               // * Lable
               LableTextWidget(
                 color: backgroundcolor == null ? null : AppColors.white,
-                lable: lable,
+                lable: viewModel.capitalize(lable),
                 maxLines: 2,
               ),
             ],

@@ -54,7 +54,7 @@ class NewRoutineViewModel extends BaseViewModel {
     if (isroutineIdNull == false) {
       _isBusy = true;
       _routine = await _routineService.getURoutine(_routineId);
-      nameController.text = _routine.name;
+      nameController.text = _routine.name.toLowerCase();
       noteController.text = _routine.note;
       _iconColor = _routine.iconColor;
       _iconData = IconDataSolid(_routine.iconData.codePoint);
@@ -77,7 +77,7 @@ class NewRoutineViewModel extends BaseViewModel {
   next() async {
     String routineID;
     Routine routine = Routine(
-      name: nameController.text.trim(),
+      name: nameController.text.trim().toLowerCase(),
       note: noteController.text.trim(),
       iconData: _iconData,
       iconColor: _iconColor,
@@ -104,7 +104,7 @@ class NewRoutineViewModel extends BaseViewModel {
 
   save() async {
     Routine routine = Routine(
-      name: nameController.text.trim(),
+      name: nameController.text.trim().toLowerCase(),
       note: noteController.text.trim(),
       iconData: _iconData,
       iconColor: _iconColor,

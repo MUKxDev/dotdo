@@ -1,13 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dotdo/core/models/Routine.dart';
 import 'package:dotdo/core/models/User.dart';
 import 'package:dotdo/shared/constant.dart';
 import 'package:dotdo/shared/ui_helpers.dart';
+import 'package:dotdo/theme/colors.dart';
 import 'package:dotdo/widgets/dumb_widgets/card/card_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/icon_button/icon_button_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/user_card/user_card_widget.dart';
+import 'package:dotdo/widgets/smart_widgets/inactive_challenge_card/inactive_challenge_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stacked/stacked.dart';
@@ -146,6 +149,94 @@ class SearchView extends StatelessWidget {
                                                   ),
                                                 );
                                               }),
+                                        ));
+                            }),
+                        // * Public routiens header
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          child: HeaderTextWidget(lable: 'Public routiens'),
+                        ),
+                        // * Public routiens list
+                        StreamBuilder(
+                            stream: viewModel.gRoutineStream,
+                            builder: (context,
+                                AsyncSnapshot<QuerySnapshot> snapshots) {
+                              return snapshots.hasData == false
+                                  ? Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      child: Container(
+                                        width: screenWidth(context),
+                                        height: 120,
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(context).primaryColor,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        child: Center(
+                                          child: DescriptionTextWidget(
+                                              description:
+                                                  'No public routines with this name.'),
+                                        ),
+                                      ),
+                                    )
+                                  : (snapshots.data.size == 0
+                                      ? Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          child: Container(
+                                            width: screenWidth(context),
+                                            height: 120,
+                                            decoration: BoxDecoration(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+                                            child: Center(
+                                              child: DescriptionTextWidget(
+                                                  description:
+                                                      'No public routines with this name.'),
+                                            ),
+                                          ),
+                                        )
+                                      : Container(
+                                          height: 110,
+                                          child: ListView.builder(
+                                            clipBehavior: Clip.hardEdge,
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: snapshots.data.size,
+                                            itemBuilder: (context, index) {
+                                              Routine _routine =
+                                                  Routine.fromMap(snapshots
+                                                      .data.docs[index]
+                                                      .data());
+                                              return Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 10),
+                                                child:
+                                                    InactiveChallengeCardWidget(
+                                                  backgroundcolor: Theme.of(
+                                                                  context)
+                                                              .brightness ==
+                                                          Brightness.light
+                                                      ? AppColors.lightRoutine
+                                                      : AppColors.darkRoutine,
+                                                  public:
+                                                      _routine.publicRoutine,
+                                                  iconData: _routine.iconData,
+                                                  iconColor: _routine.iconColor,
+                                                  lable: viewModel.capitalize(
+                                                      _routine.name),
+                                                  likes: _routine.noOfLikes,
+                                                  onTap: () => viewModel
+                                                      .routineTapped(snapshots
+                                                          .data.docs[index].id),
+                                                ),
+                                              );
+                                            },
+                                          ),
                                         ));
                             }),
                       ],

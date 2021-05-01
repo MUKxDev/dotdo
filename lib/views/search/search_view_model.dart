@@ -3,6 +3,7 @@ import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/services/authService.dart';
 import 'package:dotdo/core/services/searchService.dart';
 import 'package:dotdo/views/another_profile/another_profile_view.dart';
+import 'package:dotdo/views/global_routine/global_routine_view.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
@@ -23,6 +24,8 @@ class SearchViewModel extends BaseViewModel {
 
   Stream<QuerySnapshot> get usersStream =>
       _searchService.usersStream(_searchedText);
+  Stream<QuerySnapshot> get gRoutineStream =>
+      _searchService.gRoutineStream(_searchedText);
 
   bool _isBusy;
   bool get isBusy => _isBusy;
@@ -45,6 +48,8 @@ class SearchViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
+
   search(String input) async {
     String _searchInput = input;
     _searchInput = _searchInput.trim();
@@ -60,6 +65,12 @@ class SearchViewModel extends BaseViewModel {
   userTapped(String id) {
     _navigationService.navigateToView(AnotherProfileView(
       uid: id,
+    ));
+  }
+
+  routineTapped(String gRoutineId) {
+    _navigationService.navigateToView(GlobalRoutineView(
+      gRoutineId: gRoutineId,
     ));
   }
 }
