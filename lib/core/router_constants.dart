@@ -26,3 +26,5 @@ const String globalRoutineViewRoute = 'globalRoutineViewRoute';
 const String searchViewRoute = 'searchViewRoute';
 const String likesViewRoute = 'likesViewRoute';
 const String pvpHistoryViewRoute = 'pvpHistoryViewRoute';
+const String followingViewRoute = 'followingViewRoute';
+const String followersViewRoute = 'followersViewRoute';

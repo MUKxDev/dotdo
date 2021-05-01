@@ -9,6 +9,8 @@ import 'package:dotdo/core/services/challengeService.dart';
 import 'package:dotdo/core/services/gRoutineService.dart';
 import 'package:dotdo/core/services/routineService.dart';
 import 'package:dotdo/core/services/userService.dart';
+import 'package:dotdo/views/followers/followers_view.dart';
+import 'package:dotdo/views/following/following_view.dart';
 import 'package:dotdo/views/likes/likes_view.dart';
 import 'package:dotdo/views/pvp_details/pvp_details_view.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +48,12 @@ class ProfileViewModel extends BaseViewModel {
   bool _haveLastBadge = false;
   bool get haveLastBadge => _haveLastBadge;
 
+  bool _isFollowing;
+  bool get isFollowing => _isFollowing;
+
+  bool _isFollowingLoading = false;
+  bool get isFollowingLoading => _isFollowingLoading;
+
   User _user;
   User get user => _user;
 
@@ -75,6 +83,7 @@ class ProfileViewModel extends BaseViewModel {
     } else {
       _userId = uid;
       _isCurrentUser = false;
+      _isFollowing = await _userService.isFollowing(_userId);
       // _noOfLikes = await _gRoutineService.getNumberOfLikes(uid);
     }
 
@@ -176,6 +185,41 @@ class ProfileViewModel extends BaseViewModel {
   likesTapped() {
     _navigationService.navigateToView(LikesView(
       userId: _userId,
+    ));
+  }
+
+  // * Following/Followers
+  void followTapped() async {
+    _isFollowingLoading = true;
+    notifyListeners();
+    await _userService.addFollowing(_userId);
+    await _userService.updateNoOfF(_userId);
+    _isFollowing = await _userService.isFollowing(_userId);
+    _userGeneral = await _userService.getUserGeneral(_userId);
+    _isFollowingLoading = false;
+    notifyListeners();
+  }
+
+  void unFollowTapped() async {
+    _isFollowingLoading = true;
+    notifyListeners();
+    await _userService.removeFollowing(_userId);
+    await _userService.updateNoOfF(_userId);
+    _isFollowing = await _userService.isFollowing(_userId);
+    _userGeneral = await _userService.getUserGeneral(_userId);
+    _isFollowingLoading = false;
+    notifyListeners();
+  }
+
+  followingTapped() {
+    _navigationService.navigateToView(FollowingView(
+      userID: _userId,
+    ));
+  }
+
+  followersTapped() {
+    _navigationService.navigateToView(FollowersView(
+      userID: _userId,
     ));
   }
 }

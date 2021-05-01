@@ -6,7 +6,6 @@ import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_wid
 import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/icon_button/icon_button_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
-import 'package:dotdo/widgets/dumb_widgets/textfield/textfield_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/routines_stream/routines_stream_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/upcoming_challenge_stream/upcoming_challenge_stream_widget.dart';
 import 'package:flutter/material.dart';
@@ -287,7 +286,57 @@ class ProfileView extends StatelessWidget {
                                 },
                                 text: 'Edit Profile'),
                           )
-                        : Container(),
+                        : Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: viewModel.isFollowing
+                                ? Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      DescriptionTextWidget(
+                                          description:
+                                              'You are following this user'),
+                                      viewModel.isFollowingLoading
+                                          ? CardWidget(
+                                              onTap: null,
+                                              child: Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              ),
+                                              height: 60,
+                                              width: 120)
+                                          : ButtonWidget(
+                                              width: 120,
+                                              backgroundColor: Theme.of(context)
+                                                  .primaryColor,
+                                              onPressed:
+                                                  viewModel.unFollowTapped,
+                                              text: 'Unfollow')
+                                    ],
+                                  )
+                                : Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      DescriptionTextWidget(
+                                          description:
+                                              'You are not following this user'),
+                                      viewModel.isFollowingLoading
+                                          ? CardWidget(
+                                              onTap: null,
+                                              child: Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              ),
+                                              height: 60,
+                                              width: 120)
+                                          : ButtonWidget(
+                                              width: 120,
+                                              onPressed: viewModel.followTapped,
+                                              text: 'Follow')
+                                    ],
+                                  ),
+                          ),
 
                     // * profile points
                     Padding(
@@ -646,7 +695,7 @@ class ProfileView extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               CardWidget(
-                                onTap: () {},
+                                onTap: viewModel.followingTapped,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -665,7 +714,7 @@ class ProfileView extends StatelessWidget {
                                 width: screenWidth(context) * 0.45,
                               ),
                               CardWidget(
-                                onTap: () {},
+                                onTap: viewModel.followersTapped,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   crossAxisAlignment: CrossAxisAlignment.start,

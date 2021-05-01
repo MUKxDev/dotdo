@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotdo/core/models/Routine.dart';
 import 'package:dotdo/shared/constant.dart';
 import 'package:dotdo/shared/ui_helpers.dart';
