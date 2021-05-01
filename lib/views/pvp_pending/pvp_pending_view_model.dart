@@ -65,15 +65,21 @@ class PvpPendingViewModel extends BaseViewModel {
   }
 
   accept(String challengeId) async {
-    String status;
-    status = await _pvpService.getUserStatus(_pvpId, challengeId);
-    print(status);
-    if (status.toLowerCase() == 'pending') {
-      _pvpService.toggleAccept(pvpId, challengeId);
-      _snackbarService.showSnackbar(message: 'Challenge accepted');
+    bool isThereActiveChallange =
+        await _pvpService.isThereActiveChallange(_pvpId);
+    if (isThereActiveChallange) {
+      _snackbarService.showSnackbar(message: 'There is an active challenge.');
     } else {
-      _snackbarService.showSnackbar(
-          message: 'You have already accepted this challenge');
+      String status;
+      status = await _pvpService.getUserStatus(_pvpId, challengeId);
+      print(status);
+      if (status.toLowerCase() == 'pending') {
+        _pvpService.toggleAccept(pvpId, challengeId);
+        _snackbarService.showSnackbar(message: 'Challenge accepted');
+      } else {
+        _snackbarService.showSnackbar(
+            message: 'You have already accepted this challenge');
+      }
     }
   }
 

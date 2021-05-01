@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/models/User.dart';
+import 'package:dotdo/core/services/authService.dart';
 import 'package:dotdo/core/services/userService.dart';
 import 'package:dotdo/views/another_profile/another_profile_view.dart';
 import 'package:logger/logger.dart';
@@ -16,7 +17,9 @@ class FollowersViewModel extends BaseViewModel {
   }
 
   UserService _userService = locator<UserService>();
+  AuthService _authService = locator<AuthService>();
   NavigationService _navigationService = locator<NavigationService>();
+  SnackbarService _snackbarService = locator<SnackbarService>();
 
   bool _isbusy;
   bool get isbusy => _isbusy;
@@ -46,10 +49,16 @@ class FollowersViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  userTapped(String userId) {
-    _navigationService.navigateToView(AnotherProfileView(
-      uid: userId,
-    ));
+  userTapped(String userId) async {
+    String uid = await _authService.getCurrentUserId();
+    if (uid == userId) {
+      _snackbarService.showSnackbar(
+          message: 'You can\'t view your profile from here');
+    } else {
+      _navigationService.navigateToView(AnotherProfileView(
+        uid: userId,
+      ));
+    }
   }
 
   Future<User> getUser(String userId) async {

@@ -309,6 +309,11 @@ class ProfileView extends StatelessWidget {
                                               width: 120,
                                               backgroundColor: Theme.of(context)
                                                   .primaryColor,
+                                              textColor: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.light
+                                                  ? AppColors.darkGray
+                                                  : AppColors.white,
                                               onPressed:
                                                   viewModel.unFollowTapped,
                                               text: 'Unfollow')

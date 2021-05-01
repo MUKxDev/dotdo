@@ -309,16 +309,18 @@ class PvpDetailsView extends StatelessWidget {
                             text: 'History'),
                       ),
                       // Pvp pending button
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          bottom: 10,
-                          right: 10,
-                          left: 10,
-                        ),
-                        child: ButtonWidget(
-                            onPressed: viewModel.pendingTapped,
-                            text: 'Pending'),
-                      ),
+                      viewModel.isThereActiveChallange
+                          ? Container()
+                          : Padding(
+                              padding: const EdgeInsets.only(
+                                bottom: 10,
+                                right: 10,
+                                left: 10,
+                              ),
+                              child: ButtonWidget(
+                                  onPressed: viewModel.pendingTapped,
+                                  text: 'Pending'),
+                            ),
                     ],
                   ),
                 ),

@@ -26,6 +26,9 @@ class PvpDetailsViewModel extends BaseViewModel {
   bool _isBusy;
   bool get isBusy => _isBusy;
 
+  bool _isThereActiveChallange;
+  bool get isThereActiveChallange => _isThereActiveChallange;
+
   String _pvpId;
   String get pvpId => _pvpId;
 
@@ -58,6 +61,7 @@ class PvpDetailsViewModel extends BaseViewModel {
     _oppId = oppId;
     await _pvpService.createPVP(oppId);
     _pvpId = await _pvpService.getPvpId(oppId);
+    _isThereActiveChallange = await _pvpService.isThereActiveChallange(_pvpId);
 
     _userAId = await _pvpService.getUserAId(_pvpId);
     _userBId = await _pvpService.getUserBId(_pvpId);

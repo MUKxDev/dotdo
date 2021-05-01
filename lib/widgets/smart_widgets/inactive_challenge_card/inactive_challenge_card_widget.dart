@@ -1,3 +1,4 @@
+import 'package:dotdo/shared/ui_helpers.dart';
 import 'package:dotdo/theme/colors.dart';
 import 'package:dotdo/widgets/dumb_widgets/card/card_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
@@ -47,13 +48,34 @@ class InactiveChallengeCardWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  Row(
+                    children: [
+                      PublicIconWidget(public: public),
+                      horizontalSpaceXSmall(context),
+                      likes == null
+                          ? Container()
+                          : Row(
+                              children: [
+                                Icon(
+                                  FontAwesomeIcons.solidHeart,
+                                  size: 14,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? Colors.black38
+                                      : Colors.white38,
+                                ),
+                                DescriptionTextWidget(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.light
+                                        ? Colors.black38
+                                        : Colors.white38,
+                                    description: ' ${likes.toString()}')
+                              ],
+                            ),
+                    ],
+                  ),
                   // * Public Icon
-                  PublicIconWidget(public: public),
-                  likes == null
-                      ? Container()
-                      : DescriptionTextWidget(
-                          color: AppColors.white.withAlpha(200),
-                          description: 'Likes: ${likes.toString()}'),
+
                   // * Challenge Icon
                   iconData != null
                       ? Container(

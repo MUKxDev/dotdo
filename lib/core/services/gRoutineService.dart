@@ -49,6 +49,7 @@ class GRoutine {
         .doc(_userId)
         .collection('URoutines')
         .where('publicRoutine', isEqualTo: true)
+        .orderBy('noOfLikes', descending: true)
         .snapshots();
   }
 

@@ -323,6 +323,16 @@ class PvpService {
         .snapshots();
   }
 
+  Future<bool> isThereActiveChallange(String pvpId) async {
+    QuerySnapshot querySnapshot = await _firestoreService.pvps
+        .doc(pvpId)
+        .collection('Challenges')
+        .where('status', isEqualTo: 'Active')
+        .get();
+
+    return querySnapshot.size >= 1 ? true : false;
+  }
+
 // get task
   Stream<QuerySnapshot> getPCTask(String pvpId, String challengeId) async* {
     yield* _firestoreService.pvps
