@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/models/User.dart';
 import 'package:dotdo/core/models/uGeneral.dart';
@@ -11,6 +12,7 @@ import 'package:dotdo/core/services/routineService.dart';
 import 'package:dotdo/core/services/userService.dart';
 import 'package:dotdo/views/followers/followers_view.dart';
 import 'package:dotdo/views/following/following_view.dart';
+import 'package:dotdo/views/global_routine/global_routine_view.dart';
 import 'package:dotdo/views/likes/likes_view.dart';
 import 'package:dotdo/views/pvp_details/pvp_details_view.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +72,8 @@ class ProfileViewModel extends BaseViewModel {
   // int get noOfLikes => _noOfLikes;
 
   TextEditingController usernameController = TextEditingController(text: '');
-
+  Stream<QuerySnapshot> get getAllUserGRoutine =>
+      _gRoutineService.getAllUserGRoutine(_userId);
   Stream get getActiveUChallenge => _challengeService.getActiveUChallenge();
   Stream get getURoutines => _routineService.getAllURoutines();
 
@@ -97,6 +100,12 @@ class ProfileViewModel extends BaseViewModel {
   pvpTapped() {
     _navigationService.navigateToView(PvpDetailsView(
       oppId: _userId,
+    ));
+  }
+
+  routineTapped(String gRoutineId) {
+    _navigationService.navigateToView(GlobalRoutineView(
+      gRoutineId: gRoutineId,
     ));
   }
 

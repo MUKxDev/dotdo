@@ -15,6 +15,13 @@ class GRoutine {
         .snapshots();
   }
 
+  Stream<QuerySnapshot> getAllUserGRoutine(String userId) async* {
+    yield* _firestoreService.groutiens
+        .where('creatorId', isEqualTo: userId)
+        // .orderBy('noOfLikes', descending: true)
+        .snapshots();
+  }
+
   Future<Routine> getGRoutine(String gRoutineId) async {
     return await _firestoreService.groutiens
         .doc(gRoutineId)

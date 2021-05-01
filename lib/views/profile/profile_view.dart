@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dotdo/core/models/Routine.dart';
 import 'package:dotdo/shared/ui_helpers.dart';
 import 'package:dotdo/theme/colors.dart';
 import 'package:dotdo/widgets/dumb_widgets/button/button_widget.dart';
@@ -6,6 +8,7 @@ import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_wid
 import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/icon_button/icon_button_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
+import 'package:dotdo/widgets/smart_widgets/inactive_challenge_card/inactive_challenge_card_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/routines_stream/routines_stream_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/upcoming_challenge_stream/upcoming_challenge_stream_widget.dart';
 import 'package:flutter/material.dart';
@@ -548,6 +551,13 @@ class ProfileView extends StatelessWidget {
                       ),
                     ),
                     viewModel.isCurrentUser
+                        ? Container()
+                        : Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: ButtonWidget(
+                                onPressed: viewModel.pvpTapped, text: 'PvP'),
+                          ),
+                    viewModel.isCurrentUser
                         ?
                         // * challenges list
                         Column(
@@ -572,14 +582,117 @@ class ProfileView extends StatelessWidget {
                               ),
                             ],
                           )
-                        : Container(),
-                    viewModel.isCurrentUser
-                        ? Container()
-                        : Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: ButtonWidget(
-                                onPressed: viewModel.pvpTapped, text: 'PvP'),
+                        : // * Public routiens header
+                        Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 20),
+                                child:
+                                    HeaderTextWidget(lable: 'Public routiens'),
+                              ),
+                              // * Public routiens list
+                              StreamBuilder(
+                                  stream: viewModel.getAllUserGRoutine,
+                                  builder: (context,
+                                      AsyncSnapshot<QuerySnapshot> snapshots) {
+                                    return snapshots.hasData == false
+                                        ? Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 10),
+                                            child: Container(
+                                              width: screenWidth(context),
+                                              height: 120,
+                                              decoration: BoxDecoration(
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                              ),
+                                              child: Center(
+                                                child: DescriptionTextWidget(
+                                                    description:
+                                                        'There are no public routines'),
+                                              ),
+                                            ),
+                                          )
+                                        : (snapshots.data.size == 0
+                                            ? Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 10),
+                                                child: Container(
+                                                  width: screenWidth(context),
+                                                  height: 120,
+                                                  decoration: BoxDecoration(
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                  ),
+                                                  child: Center(
+                                                    child: DescriptionTextWidget(
+                                                        description:
+                                                            'This user has no public routines'),
+                                                  ),
+                                                ),
+                                              )
+                                            : Container(
+                                                height: 110,
+                                                child: ListView.builder(
+                                                  clipBehavior: Clip.hardEdge,
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  itemCount:
+                                                      snapshots.data.size,
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    Routine _routine =
+                                                        Routine.fromMap(
+                                                            snapshots.data
+                                                                .docs[index]
+                                                                .data());
+                                                    return Padding(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 10),
+                                                      child:
+                                                          InactiveChallengeCardWidget(
+                                                        backgroundcolor: Theme.of(
+                                                                        context)
+                                                                    .brightness ==
+                                                                Brightness.light
+                                                            ? AppColors
+                                                                .lightRoutine
+                                                            : AppColors
+                                                                .darkRoutine,
+                                                        public: _routine
+                                                            .publicRoutine,
+                                                        iconData:
+                                                            _routine.iconData,
+                                                        iconColor:
+                                                            _routine.iconColor,
+                                                        lable: _routine.name,
+                                                        likes:
+                                                            _routine.noOfLikes,
+                                                        onTap: () => viewModel
+                                                            .routineTapped(
+                                                                snapshots
+                                                                    .data
+                                                                    .docs[index]
+                                                                    .id),
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ));
+                                  }),
+                              verticalSpaceMedium(context),
+                            ],
                           ),
+
                     // * profile Badges
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

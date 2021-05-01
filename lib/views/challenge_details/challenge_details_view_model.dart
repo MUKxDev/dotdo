@@ -51,7 +51,11 @@ class ChallengeDetailsViewModel extends BaseViewModel {
 
     _challenge = await _challengeService.getUChallenge(_challengeId);
 
-    _selectedDate = _challenge.startDate;
+    if (_isEdit) {
+      _selectedDate = _challenge.startDate;
+    } else {
+      _selectedDate = DateTime.now();
+    }
 
     _isBusy = false;
     notifyListeners();
