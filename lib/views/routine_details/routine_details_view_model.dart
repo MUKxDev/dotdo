@@ -33,6 +33,7 @@ class RoutineDetailsViewModel extends BaseViewModel {
   bool get isPublic => _isPublic;
 
   NavigationService _navigationService = locator<NavigationService>();
+  DialogService _dialogService = locator<DialogService>();
 
   Stream<DocumentSnapshot> get routineStream =>
       _routineService.getURoutineStream(routineId);
@@ -96,12 +97,19 @@ class RoutineDetailsViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  toggleIsPublic() {
+  toggleIsPublic() async {
     bool _oldBool = _isPublic;
-    _isPublic = !_isPublic;
+
     if (_oldBool) {
-      _routineService.togglePublicROFF(routineId);
+      DialogResponse _dialogResponse =
+          await _dialogService.showConfirmationDialog(
+              title: 'Are you sure you want remove it from public?');
+      if (_dialogResponse.confirmed) {
+        _isPublic = !_isPublic;
+        _routineService.togglePublicROFF(routineId);
+      }
     } else {
+      _isPublic = !_isPublic;
       _routineService.togglePublicR(routineId);
     }
     notifyListeners();
