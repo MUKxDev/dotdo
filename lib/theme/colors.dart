@@ -23,6 +23,8 @@ class AppColors {
   // static const lightChallenge = Color(0xffFE5F55);
   static const darkGold = Color(0xff9F964A);
   static const lightGold = Color(0xffD0BC10);
+  static const lightYellow = Color(0xffEEDF56);
+  // static const lightYellow = Color(0xffE6C641);
 
   static const List<Color> iconColors = [
     Color(0xff5F3BED),

@@ -77,6 +77,7 @@ class LongRoutineCardWidget extends StatelessWidget {
 
           // * Prograss bar
           PrograssBarWidget(
+            color: AppColors.lightYellow,
             progressValue: routine.noOfTasks == 0
                 ? 0
                 : routine.noOfCompletedTasks / routine.noOfTasks,
