@@ -2,11 +2,10 @@ import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/models/User.dart';
 import 'package:dotdo/core/services/pvpService.dart';
 import 'package:dotdo/core/services/userService.dart';
-import 'package:dotdo/views/pvp_challenge_details/pvp_challenge_details_view.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dotdo/core/logger.dart';
-import 'package:stacked_services/stacked_services.dart';
+// import 'package:stacked_services/stacked_services.dart';
 
 class PvpHistoryViewModel extends BaseViewModel {
   Logger log;
@@ -17,7 +16,7 @@ class PvpHistoryViewModel extends BaseViewModel {
 
   PvpService _pvpService = locator<PvpService>();
   UserService _userService = locator<UserService>();
-  NavigationService _navigationService = locator<NavigationService>();
+  // NavigationService _navigationService = locator<NavigationService>();
   // SnackbarService _snackbarService = locator<SnackbarService>();
 
   bool _isBusy;

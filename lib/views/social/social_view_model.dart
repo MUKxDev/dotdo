@@ -7,7 +7,6 @@ import 'package:dotdo/core/services/pvpService.dart';
 import 'package:dotdo/core/services/userService.dart';
 import 'package:dotdo/views/global_routine/global_routine_view.dart';
 import 'package:dotdo/views/pvp_challenge_details/pvp_challenge_details_view.dart';
-import 'package:dotdo/views/pvp_details/pvp_details_view.dart';
 import 'package:dotdo/views/routine_details/routine_details_view.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
