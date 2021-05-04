@@ -5,7 +5,8 @@ class AppColors {
   static const darkGray = Color(0xff25262C);
   static const lightGray = Color(0xffE8E7EC);
   static const darkPurple = Color(0xff4A28D1);
-  static const lightPurple = Color(0xff674FFF);
+  static const lightPurple = Color(0xff48B4F1);
+  // static const lightPurple = Color(0xff674FFF);
   static const darkGreen = Color(0xff4A9F80);
   static const lightGreen = Color(0xff008C6B);
   static const darkRed = Color(0xffC83949);
@@ -14,9 +15,12 @@ class AppColors {
   static const lightNote = Color(0xffF4ECD3);
   static const darkNote = Color(0xff383838);
   static const darkRoutine = Color(0xff235845);
-  static const lightRoutine = Color(0xff55CBA1);
+  static const lightRoutine = Color(0xff47CBAD);
+  // static const lightRoutine = Color(0xff55CBA1);
   static const darkChallenge = Color(0xff761C3C);
-  static const lightChallenge = Color(0xffFE5F55);
+  static const lightChallenge = Color(0xff8460BE);
+  // static const lightChallenge = Color(0xffAF7FDC);
+  // static const lightChallenge = Color(0xffFE5F55);
   static const darkGold = Color(0xff9F964A);
   static const lightGold = Color(0xffD0BC10);
 

@@ -54,7 +54,8 @@ class ChallengeDetailsViewModel extends BaseViewModel {
     if (_isEdit) {
       _selectedDate = _challenge.startDate;
     } else {
-      _selectedDate = DateTime.now();
+      _selectedDate = DateTime(
+          DateTime.now().year, DateTime.now().month, DateTime.now().day);
     }
 
     _isBusy = false;

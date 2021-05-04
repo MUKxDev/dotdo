@@ -8,7 +8,6 @@ import 'package:dotdo/views/today/today_view.dart';
 import 'package:dotdo/widgets/dumb_widgets/bottom_nav_bar/bottom_nav_bar_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
-import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/logo/logo_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/user_card/user_card_widget.dart';
 import 'package:flutter/material.dart';

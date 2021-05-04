@@ -5,7 +5,6 @@ import 'package:dotdo/shared/constant.dart';
 import 'package:dotdo/shared/ui_helpers.dart';
 import 'package:dotdo/theme/colors.dart';
 import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
-import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/long_Groutine_card/long_Groutine_card_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/routine_task/routine_task_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/user_card/user_card_widget.dart';
