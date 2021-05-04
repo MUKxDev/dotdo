@@ -1,7 +1,10 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotdo/core/models/PChallenge.dart';
 import 'package:dotdo/shared/constant.dart';
 import 'package:dotdo/shared/ui_helpers.dart';
+import 'package:dotdo/theme/colors.dart';
 import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/user_card/user_card_widget.dart';
@@ -69,17 +72,8 @@ class PvpHistoryView extends StatelessWidget {
                                         children: [
                                           // verticalSpaceSmall(context),
                                           Padding(
-                                            padding:
-                                                pvpChallenge.challangeWinner ==
-                                                        'Draw'
-                                                    ? const EdgeInsets.only(
-                                                        left: 20,
-                                                        right: 20,
-                                                        top: 20)
-                                                    : const EdgeInsets.only(
-                                                        left: 20,
-                                                        right: 10,
-                                                        top: 10),
+                                            padding: const EdgeInsets.only(
+                                                left: 20, right: 10, top: 10),
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
@@ -98,10 +92,34 @@ class PvpHistoryView extends StatelessWidget {
                                                 horizontalSpaceXSmall(context),
                                                 pvpChallenge.challangeWinner ==
                                                         'Draw'
-                                                    ? DescriptionTextWidget(
-                                                        description: pvpChallenge
-                                                                .challangeWinner ??
-                                                            'Null')
+                                                    ? Expanded(
+                                                        child: Container(
+                                                          height: 70,
+                                                          decoration: BoxDecoration(
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .scaffoldBackgroundColor,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          20)),
+                                                          child: Center(
+                                                              child:
+                                                                  LableTextWidget(
+                                                            lable: pvpChallenge
+                                                                    .challangeWinner ??
+                                                                'Null',
+                                                            color: Theme.of(context)
+                                                                        .brightness ==
+                                                                    Brightness
+                                                                        .light
+                                                                ? AppColors
+                                                                    .lightGold
+                                                                : AppColors
+                                                                    .darkGold,
+                                                          )),
+                                                        ),
+                                                      )
                                                     : (pvpChallenge
                                                                 .challangeWinner ==
                                                             viewModel.userAId

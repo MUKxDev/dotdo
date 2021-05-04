@@ -264,6 +264,25 @@ class PvpService {
 
 //get challange -----------------------------------------
 
+  Future<PChallenge> getPChallenge(String pvpId, String challengeId) async {
+    PChallenge _pC;
+    _pC = PChallenge.fromMap(await _firestoreService.pvps
+        .doc(pvpId)
+        .collection('Challenges')
+        .doc(challengeId)
+        .get()
+        .then((value) => value.data()));
+
+    return _pC;
+  }
+
+  Future<QuerySnapshot> getAllActiveUPvp() async {
+    return _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .collection('PvpChallenges')
+        .get();
+  }
+
   Stream<QuerySnapshot> getAllPvpsA() async* {
     String _userId = await _authService.getCurrentUserId();
     yield* _firestoreService.pvps
@@ -347,15 +366,17 @@ class PvpService {
   Future toggleAccept(String pvpId, String challengeId) async {
     String _userId = await _authService.getCurrentUserId();
     String userA = await getUserAId(pvpId);
+    String userB = await getUserBId(pvpId);
     if (_userId == userA) {
-      _firestoreService.pvps
+      await _firestoreService.pvps
           .doc(pvpId)
           .collection('Challenges')
           .doc(challengeId)
           .update({'aStatus': 'Accept'});
+
       accept(pvpId, challengeId);
     } else {
-      _firestoreService.pvps
+      await _firestoreService.pvps
           .doc(pvpId)
           .collection('Challenges')
           .doc(challengeId)
@@ -363,7 +384,37 @@ class PvpService {
 
       accept(pvpId, challengeId);
     }
+    await _firestoreService.users
+        .doc(userA)
+        .collection('PvpChallenges')
+        .add({'PvpId': pvpId, 'ChallengeId': challengeId});
+
+    await _firestoreService.users
+        .doc(userB)
+        .collection('PvpChallenges')
+        .add({'PvpId': pvpId, 'ChallengeId': challengeId});
   }
+
+  // Future toggleAccept(String pvpId, String challengeId) async {
+  //   String _userId = await _authService.getCurrentUserId();
+  //   String userA = await getUserAId(pvpId);
+  //   if (_userId == userA) {
+  //     _firestoreService.pvps
+  //         .doc(pvpId)
+  //         .collection('Challenges')
+  //         .doc(challengeId)
+  //         .update({'aStatus': 'Accept'});
+  //     accept(pvpId, challengeId);
+  //   } else {
+  //     _firestoreService.pvps
+  //         .doc(pvpId)
+  //         .collection('Challenges')
+  //         .doc(challengeId)
+  //         .update({'bStatus': 'Accept'});
+
+  //     accept(pvpId, challengeId);
+  //   }
+  // }
 
   Future accept(String pvpId, String challengeId) async {
     String userAstatus = await _firestoreService.pvps
@@ -516,6 +567,30 @@ class PvpService {
               .doc(challengeId)
               .update({'challangeWinner': userB, 'status': 'Completed'});
         }
+        String aId = await _firestoreService.users
+            .doc(userA)
+            .collection('PvpChallenges')
+            .where('PvpId', isEqualTo: pvpId)
+            .where('ChallengeId', isEqualTo: challengeId)
+            .get()
+            .then((value) => value.docs.first.id);
+        String bId = await _firestoreService.users
+            .doc(userB)
+            .collection('PvpChallenges')
+            .where('PvpId', isEqualTo: pvpId)
+            .where('ChallengeId', isEqualTo: challengeId)
+            .get()
+            .then((value) => value.docs.first.id);
+        await _firestoreService.users
+            .doc(userA)
+            .collection('PvpChallenges')
+            .doc(aId)
+            .delete();
+        await _firestoreService.users
+            .doc(userB)
+            .collection('PvpChallenges')
+            .doc(bId)
+            .delete();
       }
     }
   }

@@ -48,7 +48,6 @@ class UserCardWidget extends StatelessWidget {
             ),
           ],
         ),
-        // TODO: see if this works
         height: null,
         width: screenWidth(context));
   }
