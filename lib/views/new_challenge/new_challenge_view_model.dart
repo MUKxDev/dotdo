@@ -24,6 +24,7 @@ class NewChallengeViewModel extends BaseViewModel {
   ChallengeService _challengeService = locator<ChallengeService>();
   NavigationService _navigationService = locator<NavigationService>();
   SnackbarService _snackbarService = locator<SnackbarService>();
+  DialogService _dialogService = locator<DialogService>();
 
   TextEditingController nameController = TextEditingController(text: '');
   TextEditingController noteController = TextEditingController(text: '');
@@ -169,9 +170,13 @@ class NewChallengeViewModel extends BaseViewModel {
     }
   }
 
-  delete() {
-    _challengeService.deleteUChallenge(_challengeId);
-    _navigationService.pushNamedAndRemoveUntil(homeViewRoute);
+  delete() async {
+    DialogResponse _dialogResponse = await _dialogService
+        .showConfirmationDialog(title: 'Are you sure you want to delete?');
+    if (_dialogResponse.confirmed) {
+      _challengeService.deleteUChallenge(_challengeId);
+      _navigationService.pushNamedAndRemoveUntil(homeViewRoute);
+    }
   }
 
   colorTapped(Color iconColor) {

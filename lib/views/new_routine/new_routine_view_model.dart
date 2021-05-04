@@ -21,6 +21,7 @@ class NewRoutineViewModel extends BaseViewModel {
   RoutineService _routineService = locator<RoutineService>();
   NavigationService _navigationService = locator<NavigationService>();
   SnackbarService _snackbarService = locator<SnackbarService>();
+  DialogService _dialogService = locator<DialogService>();
 
   TextEditingController nameController = TextEditingController(text: '');
   TextEditingController noteController = TextEditingController(text: '');
@@ -123,9 +124,13 @@ class NewRoutineViewModel extends BaseViewModel {
     }
   }
 
-  delete() {
-    _routineService.deleteRoutine(_routineId);
-    _navigationService.pushNamedAndRemoveUntil(homeViewRoute);
+  delete() async {
+    DialogResponse _dialogResponse = await _dialogService
+        .showConfirmationDialog(title: 'Are you sure you want to delete?');
+    if (_dialogResponse.confirmed) {
+      _routineService.deleteRoutine(_routineId);
+      _navigationService.pushNamedAndRemoveUntil(homeViewRoute);
+    }
   }
 
   colorTapped(Color iconColor) {
