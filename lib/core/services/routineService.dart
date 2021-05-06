@@ -28,11 +28,17 @@ class RoutineService {
   }
 
   Future startingpack(String routineId) async {
+    DateTime date =
+        DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
     await _firestoreService.users
         .doc(await _authService.getCurrentUserId())
         .collection('URoutines')
         .doc(routineId)
-        .update({'noOfLikes': 0, 'publicRoutine': false});
+        .update({
+      'noOfLikes': 0,
+      'publicRoutine': false,
+      'lastSeen': date.millisecondsSinceEpoch
+    });
 
     await _firestoreService.users
         .doc(await _authService.getCurrentUserId())
@@ -354,5 +360,59 @@ class RoutineService {
         .collection('URTasks')
         .doc(taskId)
         .update(task.toMap());
+  }
+
+  Future routineReset(String routineId) async {
+    DateTime date =
+        DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+
+    DateTime dateTest = DateTime(
+        DateTime.now().year, DateTime.now().month, DateTime.now().day - 1);
+    print(dateTest.millisecondsSinceEpoch);
+
+    int lastDate = await _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .collection('URoutines')
+        .doc(routineId)
+        .get()
+        .then((value) => value.data()['lastSeen']);
+    int noOfTask = await _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .collection('URoutines')
+        .doc(routineId)
+        .get()
+        .then((value) => value.data()['noOfTasks']);
+    int result =
+        date.difference(DateTime.fromMillisecondsSinceEpoch(lastDate)).inDays;
+
+    if (result >= 1) {
+      for (var i = 0; i < noOfTask; i++) {
+        String id = await _firestoreService.users
+            .doc(await _authService.getCurrentUserId())
+            .collection('URoutines')
+            .doc(routineId)
+            .collection('URTasks')
+            .get()
+            .then((value) => value.docs.elementAt(i).id);
+
+        await _firestoreService.users
+            .doc(await _authService.getCurrentUserId())
+            .collection('URoutines')
+            .doc(routineId)
+            .collection('URTasks')
+            .doc(id)
+            .update({
+          'completed': false,
+        });
+      }
+      _firestoreService.users
+          .doc(await _authService.getCurrentUserId())
+          .collection('URoutines')
+          .doc(routineId)
+          .update({
+        'noOfCompletedTasks': 0,
+        'lastSeen': date.millisecondsSinceEpoch
+      });
+    }
   }
 }

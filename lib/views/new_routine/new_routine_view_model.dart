@@ -87,6 +87,8 @@ class NewRoutineViewModel extends BaseViewModel {
       noOfCompletedTasks: _noOfCompletedTasks,
       noOfLikes: _noOfLikes,
       publicRoutine: _publicRoutine,
+      lastSeen: DateTime(
+          DateTime.now().year, DateTime.now().month, DateTime.now().day),
     );
     if (nameController.text.trim() != '') {
       routineID = await _routineService.addRoutine(routine);
@@ -105,16 +107,17 @@ class NewRoutineViewModel extends BaseViewModel {
 
   save() async {
     Routine routine = Routine(
-      name: nameController.text.trim().toLowerCase(),
-      note: noteController.text.trim(),
-      iconData: _iconData,
-      iconColor: _iconColor,
-      active: _active,
-      noOfTasks: _noOfTasks,
-      noOfCompletedTasks: _noOfCompletedTasks,
-      noOfLikes: _noOfLikes,
-      publicRoutine: _publicRoutine,
-    );
+        name: nameController.text.trim().toLowerCase(),
+        note: noteController.text.trim(),
+        iconData: _iconData,
+        iconColor: _iconColor,
+        active: _active,
+        noOfTasks: _noOfTasks,
+        noOfCompletedTasks: _noOfCompletedTasks,
+        noOfLikes: _noOfLikes,
+        publicRoutine: _publicRoutine,
+        lastSeen: DateTime(
+            DateTime.now().year, DateTime.now().month, DateTime.now().day));
 
     if (nameController.text.trim() != '') {
       await _routineService.updateRotine(routine, _routineId);

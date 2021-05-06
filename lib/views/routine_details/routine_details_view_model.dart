@@ -45,6 +45,7 @@ class RoutineDetailsViewModel extends BaseViewModel {
     print(args);
     _routineId = args['routineId'];
     _isEdit = args['isEdit'];
+    await _routineService.routineReset(_routineId);
 
     _routine = await _routineService.getURoutine(_routineId);
     _isPublic = _routine.publicRoutine;
