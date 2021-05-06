@@ -110,9 +110,15 @@ class TaskService with ReactiveServiceMixin {
         .doc('generalData')
         .get()
         .then((value) => value.data()['noOfTaskCompleted']);
+    int dots = await _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .get()
+        .then((value) => value.data()['dots']);
 //-----------------------------------------
     int _plus = _noOfTaskCompleted + 1;
     int _minus = _noOfTaskCompleted - 1;
+    int _dplus = dots + 2;
+    int _dminus = dots - 2;
 //-----------------------------------------
     _firestoreService.users
         .doc(await _authService.getCurrentUserId())
@@ -125,12 +131,18 @@ class TaskService with ReactiveServiceMixin {
             .collection("uGeneral")
             .doc('generalData')
             .update({'noOfTaskCompleted': _plus});
+        _firestoreService.users
+            .doc(await _authService.getCurrentUserId())
+            .update({'dots': _dplus});
       } else {
         _firestoreService.users
             .doc(await _authService.getCurrentUserId())
             .collection("uGeneral")
             .doc('generalData')
             .update({'noOfTaskCompleted': _minus});
+        _firestoreService.users
+            .doc(await _authService.getCurrentUserId())
+            .update({'dots': _dminus});
       }
     }).onError((error, stackTrace) {
       print('error with adding task: $error');
