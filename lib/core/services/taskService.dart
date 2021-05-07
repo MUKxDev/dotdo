@@ -120,27 +120,27 @@ class TaskService with ReactiveServiceMixin {
     int _dplus = dots + 2;
     int _dminus = dots - 2;
 //-----------------------------------------
-    _firestoreService.users
+    await _firestoreService.users
         .doc(await _authService.getCurrentUserId())
         .collection('UTasks')
         .doc(taskId)
         .update({'completed': !(currentCompleted)}).then((value) async {
       if (currentCompleted == false) {
-        _firestoreService.users
+        await _firestoreService.users
             .doc(await _authService.getCurrentUserId())
             .collection("uGeneral")
             .doc('generalData')
             .update({'noOfTaskCompleted': _plus});
-        _firestoreService.users
+        await _firestoreService.users
             .doc(await _authService.getCurrentUserId())
             .update({'dots': _dplus});
       } else {
-        _firestoreService.users
+        await _firestoreService.users
             .doc(await _authService.getCurrentUserId())
             .collection("uGeneral")
             .doc('generalData')
             .update({'noOfTaskCompleted': _minus});
-        _firestoreService.users
+        await _firestoreService.users
             .doc(await _authService.getCurrentUserId())
             .update({'dots': _dminus});
       }
@@ -150,7 +150,7 @@ class TaskService with ReactiveServiceMixin {
   }
 
   Future updateUTask(String taskId, Task task) async {
-    _firestoreService.users
+    await _firestoreService.users
         .doc(await _authService.getCurrentUserId())
         .collection('UTasks')
         .doc(taskId)
@@ -158,7 +158,7 @@ class TaskService with ReactiveServiceMixin {
   }
 
   Future deleteUTask(String taskId) async {
-    _firestoreService.users
+    await _firestoreService.users
         .doc(await _authService.getCurrentUserId())
         .collection('UTasks')
         .doc(taskId)
