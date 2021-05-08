@@ -23,7 +23,17 @@ class ChallengeService {
       print('erorr with adding challenge: $error');
       return null;
     });
+    challengeDotChecks(challengeId);
     return challengeId;
+  }
+
+  Future challengeDotChecks(String challengeId) async {
+    String _userId = await _authService.getCurrentUserId();
+    _firestoreService.users
+        .doc(_userId)
+        .collection('UChallenges')
+        .doc(challengeId)
+        .update({'dotCheck': false});
   }
 
   Future<bool> addUCTask(String challengeId, Task task) async {
@@ -82,14 +92,59 @@ class ChallengeService {
           .collection('UChallenges')
           .doc(challengeId)
           .update({'completed': true});
+      await noOfChallengeCompleted();
+      await challengeCompletedDot(challengeId);
     } else {
       await _firestoreService.users
           .doc(_userId)
           .collection('UChallenges')
           .doc(challengeId)
           .update({'completed': false});
+      await noOfChallengeCompleted();
     }
-    noOfChallengeCompleted();
+  }
+
+  Future challengeCompletedDot(String challengeId) async {
+    String _userId = await _authService.getCurrentUserId();
+    bool check = await _firestoreService.users
+        .doc(_userId)
+        .collection('UChallenges')
+        .doc(challengeId)
+        .get()
+        .then((value) => value.data()['dotCheck']);
+    int dots = await _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .get()
+        .then((value) => value.data()['dots']);
+    int _dplus = dots + 20;
+    if (check == false) {
+      _firestoreService.users.doc(_userId).update({'dots': _dplus});
+      _firestoreService.users
+          .doc(_userId)
+          .collection('UChallenges')
+          .doc(challengeId)
+          .update({'dotCheck': true});
+    }
+  }
+
+  Future dotsPlus() async {
+    String _userId = await _authService.getCurrentUserId();
+    int dots = await _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .get()
+        .then((value) => value.data()['dots']);
+    int _dplus = dots + 2;
+    _firestoreService.users.doc(_userId).update({'dots': _dplus});
+  }
+
+  Future dotsMinus() async {
+    String _userId = await _authService.getCurrentUserId();
+    int dots = await _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .get()
+        .then((value) => value.data()['dots']);
+    int _dMinus = dots - 2;
+    _firestoreService.users.doc(_userId).update({'dots': _dMinus});
   }
 
   Future toggleCompletedUCTask(
@@ -123,29 +178,31 @@ class ChallengeService {
         .doc(taskId)
         .update({'completed': !(currentCompleted)}).then((value) async {
       if (currentCompleted == false) {
-        _firestoreService.users
+        await _firestoreService.users
             .doc(_userId)
             .collection("uGeneral")
             .doc('generalData')
             .update({'noOfTaskCompleted': _plus});
-        _firestoreService.users
+        await _firestoreService.users
             .doc(_userId)
             .collection('UChallenges')
             .doc(challengeId)
             .update({'noOfCompletedTasks': _tplus});
+        await dotsPlus();
       } else {
-        _firestoreService.users
+        await _firestoreService.users
             .doc(_userId)
             .collection("uGeneral")
             .doc('generalData')
             .update({'noOfTaskCompleted': _minus});
-        _firestoreService.users
+        await _firestoreService.users
             .doc(_userId)
             .collection('UChallenges')
             .doc(challengeId)
             .update({'noOfCompletedTasks': _tminus});
+        await dotsMinus();
       }
-      toggleCompletedUChalllange(challengeId);
+      await toggleCompletedUChalllange(challengeId);
     }).onError((error, stackTrace) {
       print('error with adding task: $error');
     });
@@ -287,7 +344,7 @@ class ChallengeService {
         .get()
         .then((value) => value.size);
     print(_noOfcompletedChallenge);
-    return _firestoreService.users
+    return await _firestoreService.users
         .doc(_userId)
         .collection('uGeneral')
         .doc('generalData')

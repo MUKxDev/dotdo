@@ -280,7 +280,7 @@ class RoutineService {
 
 // update -------------------
   Future updateRoutine(String groutineId, String routineId) async {
-    _firestoreService.users
+    await _firestoreService.users
         .doc(await _authService.getCurrentUserId())
         .collection('URoutines')
         .doc(routineId)
@@ -317,27 +317,29 @@ class RoutineService {
         .doc(taskId)
         .update({'completed': !(currentStat)}).then((value) async {
       if (currentStat == false) {
-        _firestoreService.users
+        await _firestoreService.users
             .doc(await _authService.getCurrentUserId())
             .collection("uGeneral")
             .doc('generalData')
             .update({'noOfTaskCompleted': _plus});
-        _firestoreService.users
+        await _firestoreService.users
             .doc(await _authService.getCurrentUserId())
             .collection('URoutines')
             .doc(routineId)
             .update({'noOfCompletedTasks': _urtplus});
+        await dotsPlus();
       } else {
-        _firestoreService.users
+        await _firestoreService.users
             .doc(await _authService.getCurrentUserId())
             .collection("uGeneral")
             .doc('generalData')
             .update({'noOfTaskCompleted': _minus});
-        _firestoreService.users
+        await _firestoreService.users
             .doc(await _authService.getCurrentUserId())
             .collection('URoutines')
             .doc(routineId)
             .update({'noOfCompletedTasks': _urtminus});
+        await dotsMinus();
       }
     }).onError((error, stackTrace) {
       print('error with adding task: $error');
@@ -405,7 +407,7 @@ class RoutineService {
           'completed': false,
         });
       }
-      _firestoreService.users
+      await _firestoreService.users
           .doc(await _authService.getCurrentUserId())
           .collection('URoutines')
           .doc(routineId)
@@ -414,5 +416,25 @@ class RoutineService {
         'lastSeen': date.millisecondsSinceEpoch
       });
     }
+  }
+
+  Future dotsPlus() async {
+    String _userId = await _authService.getCurrentUserId();
+    int dots = await _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .get()
+        .then((value) => value.data()['dots']);
+    int _dplus = dots + 2;
+    await _firestoreService.users.doc(_userId).update({'dots': _dplus});
+  }
+
+  Future dotsMinus() async {
+    String _userId = await _authService.getCurrentUserId();
+    int dots = await _firestoreService.users
+        .doc(await _authService.getCurrentUserId())
+        .get()
+        .then((value) => value.data()['dots']);
+    int _dMinus = dots - 2;
+    await _firestoreService.users.doc(_userId).update({'dots': _dMinus});
   }
 }
