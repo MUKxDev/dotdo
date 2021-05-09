@@ -26,8 +26,8 @@ class SplashViewModel extends BaseViewModel {
   }
 
   Future handelStartup() async {
-    bool _isExist = await _authService.userExist();
-    if (await _authService.hasUser && _isExist) {
+    // bool _isExist = await _authService.userExist();
+    if (await _authService.hasUser) {
       navigateToHome();
     } else {
       navigateToAuthPage();
