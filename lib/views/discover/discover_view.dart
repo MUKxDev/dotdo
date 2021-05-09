@@ -52,7 +52,7 @@ class DiscoverView extends StatelessWidget {
                         iconData: FontAwesomeIcons.search)
                   ],
                 ),
-                HeaderTextWidget(lable: 'Users leaderboard'),
+                HeaderTextWidget(lable: 'top 10 users'),
                 StreamBuilder(
                     stream: viewModel.getUsersLeaderBoard,
                     builder: (context, AsyncSnapshot<QuerySnapshot> snapshots) {
@@ -64,8 +64,10 @@ class DiscoverView extends StatelessWidget {
                             : Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Container(
-                                  height: screenHeight(context),
+                                  // height: screenHeight(context),
                                   child: ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: ScrollPhysics(),
                                       itemCount: snap.size,
                                       itemBuilder: (context, index) {
                                         return Padding(

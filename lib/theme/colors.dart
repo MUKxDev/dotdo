@@ -16,6 +16,7 @@ class AppColors {
   static const darkNote = Color(0xff383838);
   static const darkRoutine = Color(0xff235845);
   static const lightRoutine = Color(0xff47CBAD);
+  static const lightGreenTask = Color(0xff47CBAD);
   // static const lightRoutine = Color(0xff55CBA1);
   static const darkChallenge = Color(0xff761C3C);
   static const lightChallenge = Color(0xff8460BE);

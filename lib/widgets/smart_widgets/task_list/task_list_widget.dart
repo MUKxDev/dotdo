@@ -88,7 +88,7 @@ class TaskListWidget extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(10),
                                     color: Theme.of(context).brightness ==
                                             Brightness.light
-                                        ? AppColors.lightGreen
+                                        ? AppColors.lightGreenTask
                                         : AppColors.darkGreen,
                                   ),
                                   child: Padding(
@@ -108,38 +108,72 @@ class TaskListWidget extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                        secondaryBackground: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Theme.of(context).brightness ==
-                                      Brightness.light
-                                  ? AppColors.lightRed
-                                  : AppColors.darkRed,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  LableTextWidget(
-                                    lable: 'Delete!',
-                                    color: Colors.white,
+                        secondaryBackground: taskList[index]['completed']
+                            ? Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.light
+                                        ? AppColors.lightNote
+                                        : AppColors.darkNote,
                                   ),
-                                ],
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        LableTextWidget(
+                                          lable: 'Not completed?',
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.light
+                                              ? AppColors.darkGray
+                                              : AppColors.white,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.light
+                                        ? AppColors.lightGreenTask
+                                        : AppColors.darkGreen,
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        LableTextWidget(
+                                          lable: 'Done!',
+                                          color: Colors.white,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        ),
                         direction: DismissDirection.horizontal,
                         onDismissed: (direction) {
                           if (direction == DismissDirection.startToEnd) {
                             viewModel.toggleCompletedUTask(taskList[index].id,
                                 taskList[index]['completed']);
                           } else {
-                            viewModel.deleteUTask(taskList[index].id);
+                            viewModel.toggleCompletedUTask(taskList[index].id,
+                                taskList[index]['completed']);
                           }
                         },
                         child: TaskWidget(

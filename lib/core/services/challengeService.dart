@@ -117,7 +117,7 @@ class ChallengeService {
         .doc(await _authService.getCurrentUserId())
         .get()
         .then((value) => value.data()['dots']);
-    int _dplus = dots + 20;
+    int _dplus = dots + 10;
     if (check == false) {
       _firestoreService.users.doc(_userId).update({'dots': _dplus});
       _firestoreService.users
