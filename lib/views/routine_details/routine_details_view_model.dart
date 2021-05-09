@@ -104,7 +104,7 @@ class RoutineDetailsViewModel extends BaseViewModel {
     if (_oldBool) {
       DialogResponse _dialogResponse =
           await _dialogService.showConfirmationDialog(
-              title: 'Are you sure you want remove it from public?');
+              title: 'Are you sure you want to remove it from public?');
       if (_dialogResponse.confirmed) {
         _isPublic = !_isPublic;
         _routineService.togglePublicROFF(routineId);

@@ -19,6 +19,7 @@ class PvpPendingViewModel extends BaseViewModel {
   UserService _userService = locator<UserService>();
   NavigationService _navigationService = locator<NavigationService>();
   SnackbarService _snackbarService = locator<SnackbarService>();
+  DialogService _dialogService = locator<DialogService>();
 
   bool _isBusy;
   bool get isBusy => _isBusy;
@@ -83,7 +84,12 @@ class PvpPendingViewModel extends BaseViewModel {
     }
   }
 
-  decline(String challengeId) {
-    _pvpService.toggleDecline(pvpId, challengeId);
+  decline(String challengeId) async {
+    DialogResponse _dialogResponse =
+        await _dialogService.showConfirmationDialog(
+            title: 'Are you sure you want to decline the pvp?');
+    if (_dialogResponse.confirmed) {
+      _pvpService.toggleDecline(pvpId, challengeId);
+    }
   }
 }

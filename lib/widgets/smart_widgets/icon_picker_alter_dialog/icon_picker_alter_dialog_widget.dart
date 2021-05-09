@@ -127,7 +127,9 @@ class IconPickerAlterDialogWidget extends StatelessWidget {
                                         iconDataList[index]
                                     ? Theme.of(context).primaryColor
                                     : Theme.of(context).scaffoldBackgroundColor,
-                                iconData: iconDataList[index],
+                                iconData: IconDataSolid(
+                                    iconDataList[index].codePoint),
+                                // iconData: iconDataList[index],
                                 onTap: () {
                                   setIconData(viewModel
                                       .iconTapped(iconDataList[index]));

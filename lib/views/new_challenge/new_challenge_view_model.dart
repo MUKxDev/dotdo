@@ -171,8 +171,9 @@ class NewChallengeViewModel extends BaseViewModel {
   }
 
   delete() async {
-    DialogResponse _dialogResponse = await _dialogService
-        .showConfirmationDialog(title: 'Are you sure you want to delete?');
+    DialogResponse _dialogResponse =
+        await _dialogService.showConfirmationDialog(
+            title: 'Are you sure you want to delete the challenge?');
     if (_dialogResponse.confirmed) {
       _challengeService.deleteUChallenge(_challengeId);
       _navigationService.pushNamedAndRemoveUntil(homeViewRoute);

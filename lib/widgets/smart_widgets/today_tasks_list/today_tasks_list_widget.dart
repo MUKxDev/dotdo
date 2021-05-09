@@ -13,6 +13,8 @@ class TodayTasksListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<TodayTasksListViewModel>.reactive(
+      onModelReady: (TodayTasksListViewModel viewModel) =>
+          viewModel.handleOnStartup(),
       builder:
           (BuildContext context, TodayTasksListViewModel viewModel, Widget _) {
         return StreamBuilder(

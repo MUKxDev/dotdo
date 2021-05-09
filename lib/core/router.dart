@@ -31,6 +31,7 @@ import 'package:dotdo/views/likes/likes_view.dart' as view24;
 import 'package:dotdo/views/pvp_history/pvp_history_view.dart' as view25;
 import 'package:dotdo/views/following/following_view.dart' as view26;
 import 'package:dotdo/views/followers/followers_view.dart' as view27;
+import 'package:dotdo/views/verify_email/verify_email_view.dart' as view28;
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -91,6 +92,8 @@ class Router {
         return MaterialPageRoute(builder: (_) => view26.FollowingView());
       case followersViewRoute:
         return MaterialPageRoute(builder: (_) => view27.FollowersView());
+      case verifyEmailViewRoute:
+        return MaterialPageRoute(builder: (_) => view28.VerifyEmailView());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

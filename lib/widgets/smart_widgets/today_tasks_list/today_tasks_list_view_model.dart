@@ -36,6 +36,25 @@ class TodayTasksListViewModel extends ReactiveViewModel {
     _taskService.deleteUTask(taskId);
   }
 
+  handleOnStartup() {
+    refreshDate();
+  }
+
+  void refreshDate() {
+    DateTime _date;
+    int _dateNow = DateTime.now().millisecondsSinceEpoch;
+    int _dateSelected =
+        DateTime(currentDate.year, currentDate.month, currentDate.day, 23, 59)
+            .millisecondsSinceEpoch;
+    if (_dateNow > _dateSelected) {
+      _date = DateTime(
+          DateTime.now().year, DateTime.now().month, DateTime.now().day, 0, 1);
+      _taskService.updateDate(_date);
+      print('Date refreshed: $_date');
+      notifyListeners();
+    }
+  }
+
   @override
   List<ReactiveServiceMixin> get reactiveServices => [_taskService];
 }

@@ -30,7 +30,7 @@ class HomeViewModel extends ReactiveViewModel {
   DateTime get currentDate => _taskService.date.value;
 
   PageController pageController = PageController(initialPage: 0);
-  String _title = '.Do';
+  String _title = 'Dashboard';
   get title => _title;
 
   User _user;

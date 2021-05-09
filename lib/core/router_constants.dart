@@ -28,3 +28,4 @@ const String likesViewRoute = 'likesViewRoute';
 const String pvpHistoryViewRoute = 'pvpHistoryViewRoute';
 const String followingViewRoute = 'followingViewRoute';
 const String followersViewRoute = 'followersViewRoute';
+const String verifyEmailViewRoute = 'verifyEmailViewRoute';

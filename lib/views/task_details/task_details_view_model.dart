@@ -105,6 +105,8 @@ class TaskDetailsViewModel extends BaseViewModel {
 
   TaskService _taskService = locator<TaskService>();
   SnackbarService _snackbarService = locator<SnackbarService>();
+  DialogService _dialogService = locator<DialogService>();
+
   void addTask() async {
     if (labelController.text.trim() == '') {
       print('title is empty');
@@ -149,10 +151,14 @@ class TaskDetailsViewModel extends BaseViewModel {
     }
   }
 
-  void deleteUTask() {
-    _taskService.deleteUTask(_taskId);
-    _navigationService.back();
-    _snackbarService.showSnackbar(message: 'Task deleted');
+  void deleteUTask() async {
+    DialogResponse _dialogResponse = await _dialogService
+        .showConfirmationDialog(title: 'Are you sure you want to delete it?');
+    if (_dialogResponse.confirmed) {
+      _taskService.deleteUTask(_taskId);
+      _navigationService.back();
+      _snackbarService.showSnackbar(message: 'Task deleted');
+    }
   }
 
   NavigationService _navigationService = locator<NavigationService>();
