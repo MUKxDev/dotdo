@@ -4,6 +4,7 @@ import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/router_constants.dart';
 import 'package:dotdo/core/services/authService.dart';
 import 'package:dotdo/core/services/userService.dart';
+import 'package:dotdo/views/authpage/authpage_view.dart';
 import 'package:dotdo/views/new_challenge/new_challenge_view.dart';
 import 'package:dotdo/views/new_routine/new_routine_view.dart';
 import 'package:dotdo/views/task_details/task_details_view.dart';
@@ -41,6 +42,11 @@ class HomeViewModel extends ReactiveViewModel {
 
   handleOnStartup() async {
     String uid = await _authService.getCurrentUserId();
+    bool _isExist = await _authService.userExist();
+    if (uid == null || _isExist == false) {
+      logout();
+      _navigationService.pushNamedAndRemoveUntil(authpageViewRoute);
+    }
     _user = await _userService.getUserProfile(uid);
     _userProfilePic = _user.profilePic;
     notifyListeners();

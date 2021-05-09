@@ -44,7 +44,8 @@ class SocialViewModel extends BaseViewModel {
     _isbusy = false;
   }
 
-  getPvpChallenges({QuerySnapshot pvpQuerySnapshot}) async {
+  getPvpChallenges(
+      {QuerySnapshot<Map<String, dynamic>> pvpQuerySnapshot}) async {
     List<PChallenge> _pCList = [];
     List _pUList = [];
     List _path = [];

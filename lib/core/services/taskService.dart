@@ -10,8 +10,7 @@ import 'package:observable_ish/observable_ish.dart';
 class TaskService with ReactiveServiceMixin {
   // DateTime _date = DateTime.now();
   RxValue<DateTime> _date = RxValue(
-      initial: DateTime(
-          DateTime.now().year, DateTime.now().month, DateTime.now().day));
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day));
   RxValue<DateTime> get date => _date;
 
   TaskService() {
@@ -20,6 +19,7 @@ class TaskService with ReactiveServiceMixin {
 
   void updateDate(DateTime date) {
     _date.value = date;
+    notifyListeners();
   }
 
   FirestoreService _firestoreService = locator<FirestoreService>();

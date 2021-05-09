@@ -110,7 +110,7 @@ class RegisterViewModel extends BaseViewModel {
         } else {
           toggleIsLodaing();
           print('Auth create account with email');
-          print('Result uid: ${result.uid}');
+          print('Result uid: ${result.user.uid}');
           _navigationService.pushNamedAndRemoveUntil(homeViewRoute);
         }
       }

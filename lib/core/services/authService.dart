@@ -30,6 +30,15 @@ class AuthService {
     return _uid;
   }
 
+  Future<bool> userExist() async {
+    String _uid = _firebaseAuth.currentUser.uid;
+    bool _isExists = await _firestoreService.users
+        .doc(_uid)
+        .get()
+        .then((value) => value.exists);
+    return _isExists;
+  }
+
   Future<bool> get hasUser async {
     bool hasUser = _firebaseAuth.currentUser != null;
     return hasUser;
@@ -84,7 +93,7 @@ class AuthService {
     print(userNameWithHash);
     if (result.hasError == false) {
       _firestoreService.createUser(
-          uid: result.uid, userName: userNameWithHash, email: email);
+          uid: result.user.uid, userName: userNameWithHash, email: email);
     }
 
     return result;

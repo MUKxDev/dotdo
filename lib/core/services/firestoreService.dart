@@ -4,9 +4,11 @@ import 'package:dotdo/core/models/uGeneral.dart';
 
 class FirestoreService {
   // * References
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
-  CollectionReference pvps = FirebaseFirestore.instance.collection('pvps');
-  CollectionReference groutiens =
+  CollectionReference<Map<String, dynamic>> users =
+      FirebaseFirestore.instance.collection('users');
+  CollectionReference<Map<String, dynamic>> pvps =
+      FirebaseFirestore.instance.collection('pvps');
+  CollectionReference<Map<String, dynamic>> groutiens =
       FirebaseFirestore.instance.collection('groutiens');
 
   // ? methods

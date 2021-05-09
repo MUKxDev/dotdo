@@ -42,6 +42,13 @@ class UserService {
     return user;
   }
 
+  Stream<QuerySnapshot> getUserLeaderboard() async* {
+    yield* _firestoreService.users
+        .orderBy('dots', descending: true)
+        .limit(10)
+        .snapshots();
+  }
+
   Future<UGeneral> getUserGeneral(String userId) async {
     UGeneral uGeneral;
     await _firestoreService.users

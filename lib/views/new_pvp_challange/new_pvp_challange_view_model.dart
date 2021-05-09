@@ -53,7 +53,7 @@ class NewPvpChallangeViewModel extends BaseViewModel {
   DateTime get currentDate => _taskService.date.value;
   DateTime get today => DateTime.now();
   DateTime get firstDate => DateTime(
-      DateTime.now().year, DateTime.now().month, (DateTime.now().day + 2));
+      DateTime.now().year, DateTime.now().month, (DateTime.now().day + 1));
 
   IconData _iconData = FontAwesomeIcons.crosshairs;
   IconData get iconData => _iconData;
@@ -82,9 +82,9 @@ class NewPvpChallangeViewModel extends BaseViewModel {
       notifyListeners();
     } else {
       _startDate = DateTime(DateTime.now().year, DateTime.now().month,
-          (DateTime.now().day + 2), 0, 0, 1);
+          (DateTime.now().day + 1), 0, 0, 1);
       _endDate = DateTime(DateTime.now().year, DateTime.now().month,
-          (DateTime.now().day + 2), 23, 59);
+          (DateTime.now().day + 1), 23, 59);
       notifyListeners();
     }
   }

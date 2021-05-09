@@ -24,7 +24,7 @@ class UpcomingChallengeStreamWidget extends StatelessWidget {
         return StreamBuilder<QuerySnapshot>(
             stream: stream,
             builder: (context, snapshot) {
-              List<QueryDocumentSnapshot> list;
+              List<QueryDocumentSnapshot<Map<String, dynamic>>> list;
               if (snapshot.hasData) {
                 list = snapshot.data.docs;
                 // Retain only the not completed

@@ -18,7 +18,7 @@ class TodayTasksListWidget extends StatelessWidget {
         return StreamBuilder(
           stream: viewModel.stream,
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            List<QueryDocumentSnapshot> taskList;
+            List<QueryDocumentSnapshot<Map<String, dynamic>>> taskList;
             if (snapshot.hasData) {
               taskList = snapshot.data.docs;
               taskList.sort((a, b) {

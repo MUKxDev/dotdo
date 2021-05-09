@@ -67,7 +67,7 @@ class FollowersViewModel extends BaseViewModel {
     return user;
   }
 
-  updateUsersList(List<QueryDocumentSnapshot> uL) async {
+  updateUsersList(List<QueryDocumentSnapshot<Map<String, dynamic>>> uL) async {
     List<User> _uList = [];
     List<String> _uIdList = [];
     for (var user in uL) {

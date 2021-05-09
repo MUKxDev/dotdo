@@ -217,7 +217,9 @@ class PvpChallengeDetailsView extends StatelessWidget {
                                       builder: (context,
                                           AsyncSnapshot<QuerySnapshot>
                                               snapshot) {
-                                        List<QueryDocumentSnapshot> taskList;
+                                        List<
+                                            QueryDocumentSnapshot<
+                                                Map<String, dynamic>>> taskList;
                                         if (snapshot.hasData) {
                                           taskList = snapshot.data.docs;
 

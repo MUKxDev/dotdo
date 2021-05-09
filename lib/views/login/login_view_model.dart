@@ -99,7 +99,7 @@ class LoginViewModel extends BaseViewModel {
       } else {
         toggleIsLodaing();
         print('Auth sign in with email');
-        print('Result uid: ${result.uid}');
+        print('Result uid: ${result.user.uid}');
 
         _navigationService.pushNamedAndRemoveUntil(homeViewRoute);
       }

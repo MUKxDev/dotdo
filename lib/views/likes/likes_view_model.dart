@@ -66,7 +66,8 @@ class LikesViewModel extends BaseViewModel {
     return _routine;
   }
 
-  updateGRoutinesDocs(List<QueryDocumentSnapshot> gRoutinesDocs) async {
+  updateGRoutinesDocs(
+      List<QueryDocumentSnapshot<Map<String, dynamic>>> gRoutinesDocs) async {
     List<Routine> _rList = [];
     List<String> _rIdList = [];
     for (var routine in gRoutinesDocs) {
