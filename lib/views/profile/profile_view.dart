@@ -135,8 +135,8 @@ class ProfileView extends StatelessWidget {
                                                                           width:
                                                                               40,
                                                                           onTap:
-                                                                              () {
-                                                                            viewModel.selectImageFromCamera();
+                                                                              () async {
+                                                                            await viewModel.selectImageFromCamera();
                                                                           },
                                                                           iconData:
                                                                               FontAwesomeIcons.camera)
@@ -163,8 +163,8 @@ class ProfileView extends StatelessWidget {
                                                                           width:
                                                                               40,
                                                                           onTap:
-                                                                              () {
-                                                                            viewModel.selectImageFromGallery();
+                                                                              () async {
+                                                                            await viewModel.selectImageFromGallery();
                                                                           },
                                                                           iconData:
                                                                               FontAwesomeIcons.image)
