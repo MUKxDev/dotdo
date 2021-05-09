@@ -140,12 +140,12 @@ class PvpChallengeDetailsView extends StatelessWidget {
                                                                       .startDate)
                                                               .inDays +
                                                           1),
-                                                      activeDates: (viewModel
-                                                                  .isEdit ||
-                                                              viewModel
-                                                                  .isReadOnly)
-                                                          ? null
-                                                          : [DateTime.now()],
+                                                      // activeDates: (viewModel
+                                                      //             .isEdit ||
+                                                      //         viewModel
+                                                      //             .isReadOnly)
+                                                      //     ? null
+                                                      //     : [DateTime.now()],
                                                       initialSelectedDate:
                                                           (viewModel.isEdit ||
                                                                   viewModel
@@ -294,7 +294,9 @@ class PvpChallengeDetailsView extends StatelessWidget {
                                                       horizontal: 0,
                                                       vertical: 10),
                                                   child: (viewModel.isEdit ||
-                                                          viewModel.isReadOnly)
+                                                          viewModel
+                                                              .isReadOnly ||
+                                                          viewModel.isPreview)
                                                       ? PTaskWidget(
                                                           userApic: viewModel
                                                               .userA.profilePic,

@@ -56,11 +56,15 @@ class PvpDetailsViewModel extends BaseViewModel {
   Stream get pvpCardStream => _pvpService.creatOrViewPvp(_oppId);
   Stream get activeChallangeStream => _pvpService.getActiveChallenge(_pvpId);
 
+  int _getNoOfPending;
+  int get getNoOfPending => _getNoOfPending;
+
   handleOnStartup(String oppId) async {
     _isBusy = true;
     _oppId = oppId;
     await _pvpService.createPVP(oppId);
     _pvpId = await _pvpService.getPvpId(oppId);
+    _getNoOfPending = await _pvpService.getNoOfPending(pvpId);
 
     _userAId = await _pvpService.getUserAId(_pvpId);
     _userBId = await _pvpService.getUserBId(_pvpId);

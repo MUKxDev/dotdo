@@ -311,15 +311,47 @@ class PvpDetailsView extends StatelessWidget {
                       // Pvp pending button
                       viewModel.isThereActiveChallange
                           ? Container()
-                          : Padding(
-                              padding: const EdgeInsets.only(
-                                bottom: 10,
-                                right: 10,
-                                left: 10,
-                              ),
-                              child: ButtonWidget(
-                                  onPressed: viewModel.pendingTapped,
-                                  text: 'Pending'),
+                          : Row(
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                      bottom: 10,
+                                      right: 10,
+                                      left: 10,
+                                    ),
+                                    child: ButtonWidget(
+                                        onPressed: viewModel.pendingTapped,
+                                        text: 'Pending'),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                    bottom: 10,
+                                    right: 10,
+                                  ),
+                                  child: Container(
+                                    height: 60,
+                                    width: 60,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.light
+                                          ? AppColors.lightRed
+                                          : AppColors.darkRed,
+                                    ),
+                                    child: Center(
+                                      child: LableTextWidget(
+                                          color: AppColors.white,
+                                          lable:
+                                              viewModel.getNoOfPending == null
+                                                  ? '0'
+                                                  : viewModel.getNoOfPending
+                                                      .toString()),
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
                     ],
                   ),

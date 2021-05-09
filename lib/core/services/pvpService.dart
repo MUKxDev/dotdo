@@ -661,6 +661,15 @@ class PvpService {
     return userA;
   }
 
+  Future<int> getNoOfPending(String pvpId) async {
+    return await _firestoreService.pvps
+        .doc(pvpId)
+        .collection('Challenges')
+        .where('status', isEqualTo: 'pending')
+        .get()
+        .then((value) => value.size);
+  }
+
   Future<String> getUserBId(String pvpId) async {
     String userB = await _firestoreService.pvps
         .doc(pvpId)

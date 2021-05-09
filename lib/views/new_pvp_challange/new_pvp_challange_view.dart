@@ -6,6 +6,7 @@ import 'package:dotdo/widgets/dumb_widgets/icon_button/icon_button_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
 import 'package:dotdo/widgets/smart_widgets/icon_picker_alter_dialog/icon_picker_alter_dialog_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stacked/stacked.dart';
 import 'new_pvp_challange_view_model.dart';
 
@@ -113,7 +114,9 @@ class NewPvpChallangeView extends StatelessWidget {
                                               ),
                                               IconButtonWidget(
                                                 // borderRadius: 2,
-                                                iconData: viewModel.iconData,
+                                                iconData: IconDataSolid(
+                                                    viewModel
+                                                        .iconData.codePoint),
                                                 iconColor: viewModel.iconColor,
                                                 backgroundColor:
                                                     Theme.of(context)

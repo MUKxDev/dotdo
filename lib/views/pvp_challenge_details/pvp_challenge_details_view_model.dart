@@ -51,6 +51,9 @@ class PvpChallengeDetailsViewModel extends BaseViewModel {
   bool _isReadOnly = false;
   bool get isReadOnly => _isReadOnly;
 
+  bool _isPreview = false;
+  bool get isPreview => _isPreview;
+
   bool _isBusy = true;
   bool get isBusy => _isBusy;
 
@@ -102,6 +105,12 @@ class PvpChallengeDetailsViewModel extends BaseViewModel {
   }
 
   void updateSelectedValue({DateTime date}) {
+    if (DateTime(date.year, date.month, date.day).isAtSameMomentAs(DateTime(
+        DateTime.now().year, DateTime.now().month, DateTime.now().day))) {
+      _isPreview = false;
+    } else {
+      _isPreview = true;
+    }
     _selectedDate = date;
     notifyListeners();
   }
