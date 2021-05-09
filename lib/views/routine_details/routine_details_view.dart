@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotdo/core/models/Routine.dart';
 import 'package:dotdo/core/models/task.dart';
@@ -28,6 +30,16 @@ class RoutineDetailsView extends StatelessWidget {
           appBar: AppBar(
             title: Text('Routine'),
             shape: appBarShapeBorder,
+            leading: args['isNew'] == true
+                ? IconButton(
+                    onPressed: () {
+                      viewModel.returnToHome();
+                    },
+                    icon: Icon(
+                      Platform.isIOS ? Icons.arrow_back_ios : Icons.arrow_back,
+                    ),
+                  )
+                : null,
             actions: [
               IconButton(
                   icon: Icon(

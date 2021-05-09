@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/models/Routine.dart';
+import 'package:dotdo/core/router_constants.dart';
 import 'package:dotdo/core/services/routineService.dart';
 import 'package:dotdo/views/new_routine/new_routine_view.dart';
 import 'package:dotdo/views/rtask_details/rtask_details_view.dart';
@@ -114,5 +115,9 @@ class RoutineDetailsViewModel extends BaseViewModel {
       _routineService.togglePublicR(routineId);
     }
     notifyListeners();
+  }
+
+  returnToHome() {
+    _navigationService.pushNamedAndRemoveUntil(homeViewRoute);
   }
 }

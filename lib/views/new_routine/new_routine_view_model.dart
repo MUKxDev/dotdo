@@ -97,6 +97,7 @@ class NewRoutineViewModel extends BaseViewModel {
         Map<String, dynamic> args = {
           'routineId': routineID,
           'isEdit': true,
+          'isNew': true,
         };
         _navigationService.navigateToView(RoutineDetailsView(args: args));
       }

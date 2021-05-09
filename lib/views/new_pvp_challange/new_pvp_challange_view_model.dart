@@ -136,6 +136,7 @@ class NewPvpChallangeViewModel extends BaseViewModel {
           'pvpId': _pvpId,
           'challengeId': challengeID,
           'isEdit': true,
+          'isNew': true,
         };
         _navigationService.navigateToView(PvpChallengeDetailsView(args: args));
       }

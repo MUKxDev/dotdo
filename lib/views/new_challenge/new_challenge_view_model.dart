@@ -136,6 +136,7 @@ class NewChallengeViewModel extends BaseViewModel {
         Map<String, dynamic> args = {
           'challengeId': challengeID,
           'isEdit': true,
+          'isNew': true,
         };
         _navigationService.navigateToView(ChallengeDetailsView(args: args));
       }

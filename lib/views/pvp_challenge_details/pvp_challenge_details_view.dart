@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:date_picker_timeline/extra/style.dart';
@@ -30,6 +32,16 @@ class PvpChallengeDetailsView extends StatelessWidget {
           appBar: AppBar(
             title: Text('Challenge'),
             shape: appBarShapeBorder,
+            leading: args['isNew'] == true
+                ? IconButton(
+                    onPressed: () {
+                      viewModel.returnToPvpDetails();
+                    },
+                    icon: Icon(
+                      Platform.isIOS ? Icons.arrow_back_ios : Icons.arrow_back,
+                    ),
+                  )
+                : null,
           ),
           bottomNavigationBar: viewModel.isBusy
               ? null
