@@ -100,8 +100,11 @@ class LoginViewModel extends BaseViewModel {
         toggleIsLodaing();
         print('Auth sign in with email');
         print('Result uid: ${result.user.uid}');
-
-        _navigationService.pushNamedAndRemoveUntil(homeViewRoute);
+        if (result.user.emailVerified) {
+          _navigationService.pushNamedAndRemoveUntil(homeViewRoute);
+        } else {
+          _navigationService.pushNamedAndRemoveUntil(verifyEmailViewRoute);
+        }
       }
     }
   }
