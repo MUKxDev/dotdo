@@ -16,6 +16,7 @@ class TodayView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<TodayViewModel>.reactive(
+      onModelReady: (TodayViewModel viewModel) => viewModel.handleOnStartup(),
       builder: (BuildContext context, TodayViewModel viewModel, Widget _) {
         return SafeArea(
           child: ListView(
