@@ -42,11 +42,14 @@ class ChallengeDetailsView extends StatelessWidget {
                   )
                 : null,
             actions: [
-              IconButton(
-                  icon: Icon(
-                    viewModel.isEdit ? Icons.edit_off : Icons.edit,
-                  ),
-                  onPressed: () => viewModel.toggleIsEdit())
+              Tooltip(
+                message: 'Edit',
+                child: IconButton(
+                    icon: Icon(
+                      viewModel.isEdit ? Icons.edit_off : Icons.edit,
+                    ),
+                    onPressed: () => viewModel.toggleIsEdit()),
+              )
             ],
           ),
           bottomNavigationBar: viewModel.isBusy

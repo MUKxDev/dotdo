@@ -95,18 +95,6 @@ class HomeView extends StatelessWidget {
                                       lable: 'Logout',
                                     ),
                                   ),
-                                  // TODO: Implement navigation to setting
-                                  // TextButton.icon(
-                                  //   onPressed: () =>
-                                  //       print('Implement navigation to setting'),
-                                  //   icon: Icon(
-                                  //     Icons.settings,
-                                  //     color: Theme.of(context).accentColor,
-                                  //   ),
-                                  //   label: HeaderTextWidget(
-                                  //     lable: 'Settings',
-                                  //   ),
-                                  // ),
                                 ],
                               ),
                             ),

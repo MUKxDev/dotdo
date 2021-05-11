@@ -71,6 +71,7 @@ class ActiveRoutinesStreamWidget extends StatelessWidget {
                                         ? const EdgeInsets.only(right: 0)
                                         : const EdgeInsets.only(right: 10),
                                     child: LongRoutineCardWidget(
+                                        showPrograssBar: false,
                                         routine: _routine,
                                         onTap: () => viewModel
                                             .routineTapped(list[index].id)),

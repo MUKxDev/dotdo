@@ -150,9 +150,4 @@ class RegisterViewModel extends BaseViewModel {
   //   }
   // }
 
-// TODO: Implement authWithGoogle
-  void authWithGoogle() {}
-
-  // TODO: Implement authWithApple
-  void authWithApple() {}
 }

@@ -96,7 +96,6 @@ class PvpDetailsViewModel extends BaseViewModel {
     _navigationService.navigateToView(PvpChallengeDetailsView(args: args));
   }
 
-  // TODO: make the history view
   historyTapped() {
     _navigationService.navigateToView(PvpHistoryView(
       pvpId: _pvpId,

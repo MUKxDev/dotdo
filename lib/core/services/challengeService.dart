@@ -219,15 +219,18 @@ class ChallengeService {
         .update(challenge.toMap());
   }
 
-  Future updateUCTask(String challengeId, String taskId, Task task) async {
+  Future<bool> updateUCTask(
+      String challengeId, String taskId, Task task) async {
     String _userId = await _authService.getCurrentUserId();
-    _firestoreService.users
+    return _firestoreService.users
         .doc(_userId)
         .collection('UChallenges')
         .doc(challengeId)
         .collection('UCTasks')
         .doc(taskId)
-        .update(task.toMap());
+        .update(task.toMap())
+        .then((value) => true)
+        .onError((error, stackTrace) => false);
   }
 
   // *get --------------------------------

@@ -124,11 +124,16 @@ class PCTaskDetailsViewModel extends BaseViewModel {
         iconColor: iconColor,
         iconData: iconData,
       );
-      // TODO: implement show the snackbar with the real result Sucsses or failure
-      _pvpService.addPCtask(_pvpId, _challengeId, task);
+
+      bool added = await _pvpService.addPCtask(_pvpId, _challengeId, task);
       notifyListeners();
       _navigationService.back();
-      _snackbarService.showSnackbar(message: 'Task added');
+      if (added) {
+        _snackbarService.showSnackbar(message: 'Task added successfully');
+      } else {
+        _snackbarService.showSnackbar(
+            message: 'Something went wrong. Task not added');
+      }
     }
   }
 

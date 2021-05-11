@@ -149,12 +149,14 @@ class TaskService with ReactiveServiceMixin {
     });
   }
 
-  Future updateUTask(String taskId, Task task) async {
-    await _firestoreService.users
+  Future<bool> updateUTask(String taskId, Task task) async {
+    return await _firestoreService.users
         .doc(await _authService.getCurrentUserId())
         .collection('UTasks')
         .doc(taskId)
-        .update(task.toMap());
+        .update(task.toMap())
+        .then((value) => true)
+        .onError((error, stackTrace) => false);
   }
 
   Future deleteUTask(String taskId) async {

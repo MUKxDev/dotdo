@@ -98,26 +98,28 @@ class PvpPendingView extends StatelessWidget {
                                                                 .circular(8),
                                                       ),
                                                       child: Center(
-                                                        child: IconButton(
-                                                            icon: Icon(
-                                                              Icons.cancel,
-                                                              color: Theme.of(
-                                                                              context)
-                                                                          .brightness ==
-                                                                      Brightness
-                                                                          .light
-                                                                  ? AppColors
-                                                                      .lightRed
-                                                                  : AppColors
-                                                                      .darkRed,
-                                                            ),
-                                                            onPressed: () =>
-                                                                viewModel.decline(
-                                                                    snapshot
-                                                                        .data
-                                                                        .docs[
-                                                                            index]
-                                                                        .id)),
+                                                        child: Tooltip(
+                                                          message: 'Decline',
+                                                          child: IconButton(
+                                                              icon: Icon(
+                                                                Icons.cancel,
+                                                                color: Theme.of(context)
+                                                                            .brightness ==
+                                                                        Brightness
+                                                                            .light
+                                                                    ? AppColors
+                                                                        .lightRed
+                                                                    : AppColors
+                                                                        .darkRed,
+                                                              ),
+                                                              onPressed: () =>
+                                                                  viewModel.decline(
+                                                                      snapshot
+                                                                          .data
+                                                                          .docs[
+                                                                              index]
+                                                                          .id)),
+                                                        ),
                                                       ),
                                                     ),
                                                     horizontalSpaceSmall(
@@ -140,26 +142,29 @@ class PvpPendingView extends StatelessWidget {
                                                                 .circular(8),
                                                       ),
                                                       child: Center(
-                                                        child: IconButton(
-                                                            icon: Icon(
-                                                              Icons
-                                                                  .check_circle,
-                                                              color: Theme.of(context)
-                                                                          .brightness ==
-                                                                      Brightness
-                                                                          .light
-                                                                  ? AppColors
-                                                                      .lightGreen
-                                                                  : AppColors
-                                                                      .darkGreen,
-                                                            ),
-                                                            onPressed: () =>
-                                                                viewModel.accept(
-                                                                    snapshot
-                                                                        .data
-                                                                        .docs[
-                                                                            index]
-                                                                        .id)),
+                                                        child: Tooltip(
+                                                          message: 'Accept',
+                                                          child: IconButton(
+                                                              icon: Icon(
+                                                                Icons
+                                                                    .check_circle,
+                                                                color: Theme.of(context)
+                                                                            .brightness ==
+                                                                        Brightness
+                                                                            .light
+                                                                    ? AppColors
+                                                                        .lightGreen
+                                                                    : AppColors
+                                                                        .darkGreen,
+                                                              ),
+                                                              onPressed: () =>
+                                                                  viewModel.accept(
+                                                                      snapshot
+                                                                          .data
+                                                                          .docs[
+                                                                              index]
+                                                                          .id)),
+                                                        ),
                                                       ),
                                                     ),
                                                   ],

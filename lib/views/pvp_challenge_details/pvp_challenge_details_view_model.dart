@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/models/PChallenge.dart';
 import 'package:dotdo/core/models/User.dart';
-import 'package:dotdo/core/router_constants.dart';
 import 'package:dotdo/core/services/pvpService.dart';
 import 'package:dotdo/core/services/userService.dart';
 import 'package:dotdo/views/new_pvp_challange/new_pvp_challange_view.dart';

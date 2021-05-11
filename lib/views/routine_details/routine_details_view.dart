@@ -41,21 +41,27 @@ class RoutineDetailsView extends StatelessWidget {
                   )
                 : null,
             actions: [
-              IconButton(
-                  icon: Icon(
-                    viewModel.isEdit ? Icons.edit_off : Icons.edit,
-                  ),
-                  onPressed: () => viewModel.toggleIsEdit()),
-              IconButton(
-                  icon: Icon(
-                    FontAwesomeIcons.globeAmericas,
-                    color: viewModel.isPublic
-                        ? (Theme.of(context).brightness == Brightness.light
-                            ? AppColors.lightGreen
-                            : AppColors.darkGreen)
-                        : null,
-                  ),
-                  onPressed: () => viewModel.toggleIsPublic()),
+              Tooltip(
+                message: 'Edit',
+                child: IconButton(
+                    icon: Icon(
+                      viewModel.isEdit ? Icons.edit_off : Icons.edit,
+                    ),
+                    onPressed: () => viewModel.toggleIsEdit()),
+              ),
+              Tooltip(
+                message: 'Make it public',
+                child: IconButton(
+                    icon: Icon(
+                      FontAwesomeIcons.globeAmericas,
+                      color: viewModel.isPublic
+                          ? (Theme.of(context).brightness == Brightness.light
+                              ? AppColors.lightGreen
+                              : AppColors.darkGreen)
+                          : null,
+                    ),
+                    onPressed: () => viewModel.toggleIsPublic()),
+              ),
             ],
           ),
           bottomNavigationBar: viewModel.isBusy

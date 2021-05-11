@@ -118,11 +118,15 @@ class CtaskDetailsViewModel extends BaseViewModel {
         iconColor: iconColor,
         iconData: iconData,
       );
-      // TODO: implement show the snackbar with the real result Sucsses or failure
-      _challengeService.addUCTask(_challengeId, task);
+      bool added = await _challengeService.addUCTask(_challengeId, task);
       notifyListeners();
       _navigationService.back();
-      _snackbarService.showSnackbar(message: 'Task added');
+      if (added) {
+        _snackbarService.showSnackbar(message: 'Task added successfully');
+      } else {
+        _snackbarService.showSnackbar(
+            message: 'Something went wrong. Task not added');
+      }
     }
   }
 
@@ -140,11 +144,17 @@ class CtaskDetailsViewModel extends BaseViewModel {
         iconColor: iconColor,
         iconData: iconData,
       );
-      // TODO: implement show the snackbar with the real result Sucsses or failure
-      _challengeService.updateUCTask(_challengeId, _taskId, task);
+
+      bool _updated =
+          await _challengeService.updateUCTask(_challengeId, _taskId, task);
       notifyListeners();
       _navigationService.back();
-      _snackbarService.showSnackbar(message: 'Task updated');
+      if (_updated) {
+        _snackbarService.showSnackbar(message: 'Task updated successfully');
+      } else {
+        _snackbarService.showSnackbar(
+            message: 'Something went wrong. Task not updated');
+      }
     }
   }
 

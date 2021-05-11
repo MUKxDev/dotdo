@@ -4,7 +4,6 @@ import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/router_constants.dart';
 import 'package:dotdo/core/services/authService.dart';
 import 'package:dotdo/core/services/userService.dart';
-import 'package:dotdo/views/authpage/authpage_view.dart';
 import 'package:dotdo/views/new_challenge/new_challenge_view.dart';
 import 'package:dotdo/views/new_routine/new_routine_view.dart';
 import 'package:dotdo/views/task_details/task_details_view.dart';

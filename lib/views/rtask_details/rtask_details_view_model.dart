@@ -89,11 +89,15 @@ class RtaskDetailsViewModel extends BaseViewModel {
         iconColor: iconColor,
         iconData: iconData,
       );
-      // TODO: implement show the snackbar with the real result Sucsses or failure
-      _routineService.addURTask(_routineId, task);
+      String _addedId = await _routineService.addURTask(_routineId, task);
       notifyListeners();
       _navigationService.back();
-      _snackbarService.showSnackbar(message: 'Task added');
+      if (_addedId != null) {
+        _snackbarService.showSnackbar(message: 'Task added successfully');
+      } else {
+        _snackbarService.showSnackbar(
+            message: 'Something went wrong. Task not added');
+      }
     }
   }
 
@@ -111,11 +115,17 @@ class RtaskDetailsViewModel extends BaseViewModel {
         iconColor: iconColor,
         iconData: iconData,
       );
-      // TODO: implement show the snackbar with the real result Sucsses or failure
-      _routineService.updateRTask(task, _routineId, _taskId);
+
+      bool _updated =
+          await _routineService.updateRTask(task, _routineId, _taskId);
       notifyListeners();
       _navigationService.back();
-      _snackbarService.showSnackbar(message: 'Task updated');
+      if (_updated) {
+        _snackbarService.showSnackbar(message: 'Task updated successfully');
+      } else {
+        _snackbarService.showSnackbar(
+            message: 'Something went wrong. Task not updated');
+      }
     }
   }
 

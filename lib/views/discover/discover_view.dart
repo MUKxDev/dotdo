@@ -3,7 +3,6 @@ import 'package:dotdo/shared/ui_helpers.dart';
 import 'package:dotdo/widgets/dumb_widgets/header_text/header_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/icon_button/icon_button_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/user_card/user_card_widget.dart';
-import 'package:dotdo/widgets/smart_widgets/inactive_challenge_card/inactive_challenge_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stacked/stacked.dart';
@@ -45,11 +44,14 @@ class DiscoverView extends StatelessWidget {
                         ),
                       ),
                     ),
-                    IconButtonWidget(
-                        onTap: () {
-                          viewModel.search(viewModel.searchController.text);
-                        },
-                        iconData: FontAwesomeIcons.search)
+                    Tooltip(
+                      message: 'Search',
+                      child: IconButtonWidget(
+                          onTap: () {
+                            viewModel.search(viewModel.searchController.text);
+                          },
+                          iconData: FontAwesomeIcons.search),
+                    )
                   ],
                 ),
                 HeaderTextWidget(lable: 'top 10 users'),

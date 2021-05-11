@@ -354,14 +354,16 @@ class RoutineService {
         .update(routine.toMap());
   }
 
-  Future updateRTask(Task task, String routineId, String taskId) async {
-    await _firestoreService.users
+  Future<bool> updateRTask(Task task, String routineId, String taskId) async {
+    return _firestoreService.users
         .doc(await _authService.getCurrentUserId())
         .collection('URoutines')
         .doc(routineId)
         .collection('URTasks')
         .doc(taskId)
-        .update(task.toMap());
+        .update(task.toMap())
+        .then((value) => true)
+        .onError((error, stackTrace) => false);
   }
 
   Future routineReset(String routineId) async {

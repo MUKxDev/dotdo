@@ -112,7 +112,8 @@ class PvpService {
   }
 
 //add tasks ---------------------------------------------
-  Future addPCtask(String pvpId, String challengeId, PCTask pcTask) async {
+  Future<bool> addPCtask(
+      String pvpId, String challengeId, PCTask pcTask) async {
     int _totalPCtask = await _firestoreService.pvps
         .doc(pvpId)
         .collection('Challenges')
@@ -120,19 +121,22 @@ class PvpService {
         .get()
         .then((value) => value.data()['noOfTasks']);
     int _plus = _totalPCtask + 1;
-    _firestoreService.pvps
+    bool _added;
+    _added = await _firestoreService.pvps
         .doc(pvpId)
         .collection('Challenges')
         .doc(challengeId)
         .collection('PCTasks')
         .add(pcTask.toMap())
         .then((value) async {
-      _firestoreService.pvps
+      await _firestoreService.pvps
           .doc(pvpId)
           .collection('Challenges')
           .doc(challengeId)
           .update({'noOfTasks': _plus});
-    });
+      return true;
+    }).onError((error, stackTrace) => false);
+    return _added;
   }
 //toggle complete--------------------------------------
 

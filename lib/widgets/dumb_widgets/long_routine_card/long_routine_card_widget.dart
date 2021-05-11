@@ -11,9 +11,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class LongRoutineCardWidget extends StatelessWidget {
   final Routine routine;
   final Function onTap;
+  final bool showPrograssBar;
   String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
   const LongRoutineCardWidget(
-      {Key key, @required this.routine, @required this.onTap})
+      {Key key,
+      @required this.routine,
+      @required this.onTap,
+      this.showPrograssBar = true})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -76,12 +80,14 @@ class LongRoutineCardWidget extends StatelessWidget {
           ),
 
           // * Prograss bar
-          PrograssBarWidget(
-            color: AppColors.lightYellow,
-            progressValue: routine.noOfTasks == 0
-                ? 0
-                : routine.noOfCompletedTasks / routine.noOfTasks,
-          ),
+          showPrograssBar
+              ? PrograssBarWidget(
+                  color: AppColors.lightYellow,
+                  progressValue: routine.noOfTasks == 0
+                      ? 0
+                      : routine.noOfCompletedTasks / routine.noOfTasks,
+                )
+              : Container(),
         ],
       ),
     );

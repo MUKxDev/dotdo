@@ -58,7 +58,7 @@ class RoutinesStreamWidget extends StatelessWidget {
                                   description: 'You don\'t have any routines'),
                             ),
                           )
-                        // * Routine Stream grid
+                        // * Routine Stream ListView
                         : Container(
                             height: 88,
                             child: ListView.builder(
@@ -73,6 +73,7 @@ class RoutinesStreamWidget extends StatelessWidget {
                                         ? const EdgeInsets.only(right: 0)
                                         : const EdgeInsets.only(right: 10),
                                     child: LongRoutineCardWidget(
+                                        showPrograssBar: false,
                                         routine: _routine,
                                         onTap: () => viewModel
                                             .routineTapped(list[index].id)),

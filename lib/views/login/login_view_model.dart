@@ -123,29 +123,4 @@ class LoginViewModel extends BaseViewModel {
       }
     }
   }
-
-  // TODO: Implement authWithGoogle
-  Future authWithGoogle() async {
-    toggleIsLodaing();
-
-    final result = await _authService.continueWithGoogle();
-
-    if (result != null) {
-      toggleIsLodaing();
-      print('Auth continue with Google');
-      print('Result uid: ${result.uid}');
-
-      _navigationService.pushNamedAndRemoveUntil(homeViewRoute);
-    } else {
-      toggleIsLodaing();
-      _dialogService.showDialog(
-        barrierDismissible: true,
-        title: 'Error',
-        description: 'An Error happend',
-      );
-    }
-  }
-
-  // TODO: Implement authWithApple
-  void authWithApple() {}
 }

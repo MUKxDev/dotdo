@@ -29,16 +29,19 @@ class GlobalRoutineView extends StatelessWidget {
             title: Text('Global Routine'),
             shape: appBarShapeBorder,
             actions: [
-              IconButton(
-                  icon: Icon(
-                    FontAwesomeIcons.download,
-                    color: viewModel.isAddedGRotine
-                        ? (Theme.of(context).brightness == Brightness.light
-                            ? AppColors.lightGreen
-                            : AppColors.darkGreen)
-                        : null,
-                  ),
-                  onPressed: () => viewModel.toggleIsAddedGRoutine()),
+              Tooltip(
+                message: 'Save routine',
+                child: IconButton(
+                    icon: Icon(
+                      FontAwesomeIcons.download,
+                      color: viewModel.isAddedGRotine
+                          ? (Theme.of(context).brightness == Brightness.light
+                              ? AppColors.lightGreen
+                              : AppColors.darkGreen)
+                          : null,
+                    ),
+                    onPressed: () => viewModel.toggleIsAddedGRoutine()),
+              ),
             ],
           ),
           body: SafeArea(
