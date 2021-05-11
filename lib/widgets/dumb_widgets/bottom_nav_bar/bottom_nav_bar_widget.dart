@@ -59,7 +59,7 @@ class BottomNavBarWidget extends StatelessWidget {
                 child: Container(
                   child: Image(
                     image: NetworkImage(userProfile),
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                   ),
                   width: 24,
                   height: 24,
