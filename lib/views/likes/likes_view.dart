@@ -28,67 +28,69 @@ class LikesView extends StatelessWidget {
               ? Center(
                   child: CircularProgressIndicator(),
                 )
-              : SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // * Liked routiens header
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20),
-                        child: HeaderTextWidget(lable: 'Liked routiens'),
-                      ),
-                      //  * Liked public routiens Stream
-                      ((viewModel.routinesList.length == 0
-                          ? Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: Container(
-                                width: screenWidth(context),
-                                height: 120,
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor,
-                                  borderRadius: BorderRadius.circular(20),
+              : SafeArea(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // * Liked routiens header
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          child: HeaderTextWidget(lable: 'Liked routiens'),
+                        ),
+                        //  * Liked public routiens Stream
+                        ((viewModel.routinesList.length == 0
+                            ? Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: Container(
+                                  width: screenWidth(context),
+                                  height: 120,
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).primaryColor,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Center(
+                                    child: DescriptionTextWidget(
+                                        description: 'No liked routines'),
+                                  ),
                                 ),
-                                child: Center(
-                                  child: DescriptionTextWidget(
-                                      description: 'No liked routines'),
+                              )
+                            : Container(
+                                height: 110,
+                                child: ListView.builder(
+                                  clipBehavior: Clip.hardEdge,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: viewModel.routinesList.length,
+                                  itemBuilder: (context, index) {
+                                    Routine _routine =
+                                        viewModel.routinesList[index];
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      child: _routine == null
+                                          ? Container()
+                                          : InactiveChallengeCardWidget(
+                                              backgroundcolor: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.light
+                                                  ? AppColors.lightRoutine
+                                                  : AppColors.darkRoutine,
+                                              public: _routine.publicRoutine,
+                                              iconData: _routine.iconData,
+                                              iconColor: _routine.iconColor,
+                                              lable: _routine.name,
+                                              likes: _routine.noOfLikes,
+                                              onTap: () => viewModel
+                                                  .routineTapped(viewModel
+                                                      .routinesIdList[index]),
+                                            ),
+                                    );
+                                  },
                                 ),
-                              ),
-                            )
-                          : Container(
-                              height: 110,
-                              child: ListView.builder(
-                                clipBehavior: Clip.hardEdge,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: viewModel.routinesList.length,
-                                itemBuilder: (context, index) {
-                                  Routine _routine =
-                                      viewModel.routinesList[index];
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    child: _routine == null
-                                        ? Container()
-                                        : InactiveChallengeCardWidget(
-                                            backgroundcolor:
-                                                Theme.of(context).brightness ==
-                                                        Brightness.light
-                                                    ? AppColors.lightRoutine
-                                                    : AppColors.darkRoutine,
-                                            public: _routine.publicRoutine,
-                                            iconData: _routine.iconData,
-                                            iconColor: _routine.iconColor,
-                                            lable: _routine.name,
-                                            likes: _routine.noOfLikes,
-                                            onTap: () => viewModel
-                                                .routineTapped(viewModel
-                                                    .routinesIdList[index]),
-                                          ),
-                                  );
-                                },
-                              ),
-                            ))),
-                    ],
+                              ))),
+                      ],
+                    ),
                   ),
                 ),
         );

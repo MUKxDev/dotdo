@@ -33,160 +33,163 @@ class RtaskDetailsView extends StatelessWidget {
                 ? Center(
                     child: CircularProgressIndicator(),
                   )
-                : SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Center(
-                        child: Column(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                // color: Theme.of(context).primaryColor,
-                                color: Theme.of(context).brightness ==
-                                        Brightness.light
-                                    ? AppColors.lightRoutine
-                                    : AppColors.darkRoutine,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Column(
-                                  children: [
-                                    // Task title
-                                    TextField(
-                                      autocorrect: true,
-                                      maxLines: 2,
-                                      keyboardType: TextInputType.text,
-                                      decoration: InputDecoration(
-                                        hintText: 'Enter a new title...',
-                                        fillColor: Theme.of(context)
-                                            .scaffoldBackgroundColor
-                                            .withAlpha(200),
-                                      ),
-                                      controller: viewModel.labelController,
-                                    ),
-                                    // Task Note
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 10),
-                                      child: TextField(
+                : SafeArea(
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Center(
+                          child: Column(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  // color: Theme.of(context).primaryColor,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? AppColors.lightRoutine
+                                      : AppColors.darkRoutine,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Column(
+                                    children: [
+                                      // Task title
+                                      TextField(
                                         autocorrect: true,
-                                        maxLines: 6,
+                                        maxLines: 2,
                                         keyboardType: TextInputType.text,
                                         decoration: InputDecoration(
-                                          hintText: 'Note...',
+                                          hintText: 'Enter a new title...',
                                           fillColor: Theme.of(context)
-                                                      .brightness ==
-                                                  Brightness.light
-                                              ? AppColors.lightNote
-                                                  .withAlpha(200)
-                                              : AppColors.darkNote
-                                                  .withAlpha(200),
+                                              .scaffoldBackgroundColor
+                                              .withAlpha(200),
                                         ),
-                                        controller: viewModel.noteController,
+                                        controller: viewModel.labelController,
                                       ),
-                                    ),
-                                    // options list
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 20, horizontal: 10),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          LableTextWidget(
-                                              lable: 'Icon',
-                                              color: AppColors.white),
-                                          IconButtonWidget(
-                                            iconData: IconDataSolid(
-                                                viewModel.iconData.codePoint),
-                                            iconColor: viewModel.iconColor,
-                                            backgroundColor: Theme.of(context)
-                                                .scaffoldBackgroundColor
-                                                .withAlpha(200),
-                                            iconSize: 20,
-                                            height: 45,
-                                            width: 45,
-                                            onTap: () {
-                                              showDialog(
-                                                  context: context,
-                                                  builder: (context) {
-                                                    return IconPickerAlterDialogWidget(
-                                                      setIconData: (iconData) =>
-                                                          viewModel.iconTapped(
-                                                              iconData),
-                                                      setIconColor:
-                                                          (iconColor) =>
-                                                              viewModel
-                                                                  .colorTapped(
-                                                                      iconColor),
-                                                      iconData:
-                                                          viewModel.iconData,
-                                                      iconColor:
-                                                          viewModel.iconColor,
-                                                    );
-                                                  });
-                                            },
+                                      // Task Note
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: TextField(
+                                          autocorrect: true,
+                                          maxLines: 6,
+                                          keyboardType: TextInputType.text,
+                                          decoration: InputDecoration(
+                                            hintText: 'Note...',
+                                            fillColor:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.light
+                                                    ? AppColors.lightNote
+                                                        .withAlpha(200)
+                                                    : AppColors.darkNote
+                                                        .withAlpha(200),
                                           ),
-                                        ],
+                                          controller: viewModel.noteController,
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            verticalSpaceSmall(context),
-                            // Buttons
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  width: screenWidth(context) * 0.4,
-                                  child: ButtonWidget(
-                                    onPressed: viewModel.cancel,
-                                    text: 'Cancel',
-                                    backgroundColor:
-                                        Theme.of(context).brightness ==
-                                                Brightness.light
-                                            ? AppColors.lightGray
-                                            : AppColors.darkGray,
-                                    textColor: Theme.of(context).brightness ==
-                                            Brightness.light
-                                        ? AppColors.darkGray
-                                        : AppColors.white,
+                                      // options list
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 20, horizontal: 10),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            LableTextWidget(
+                                                lable: 'Icon',
+                                                color: AppColors.white),
+                                            IconButtonWidget(
+                                              iconData: IconDataSolid(
+                                                  viewModel.iconData.codePoint),
+                                              iconColor: viewModel.iconColor,
+                                              backgroundColor: Theme.of(context)
+                                                  .scaffoldBackgroundColor
+                                                  .withAlpha(200),
+                                              iconSize: 20,
+                                              height: 45,
+                                              width: 45,
+                                              onTap: () {
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return IconPickerAlterDialogWidget(
+                                                        setIconData: (iconData) =>
+                                                            viewModel
+                                                                .iconTapped(
+                                                                    iconData),
+                                                        setIconColor: (iconColor) =>
+                                                            viewModel
+                                                                .colorTapped(
+                                                                    iconColor),
+                                                        iconData:
+                                                            viewModel.iconData,
+                                                        iconColor:
+                                                            viewModel.iconColor,
+                                                      );
+                                                    });
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                viewModel.isTaskIdNull
-                                    ? Container(
-                                        width: screenWidth(context) * 0.4,
-                                        child: ButtonWidget(
-                                          onPressed: viewModel.addTask,
-                                          text: 'Add',
-                                        ),
-                                      )
-                                    : Container(
-                                        width: screenWidth(context) * 0.4,
-                                        child: ButtonWidget(
-                                          onPressed: viewModel.updateUTask,
-                                          text: 'Update',
-                                        ),
-                                      ),
-                              ],
-                            ),
-                            viewModel.isTaskIdNull
-                                ? Container()
-                                : Padding(
-                                    padding: const EdgeInsets.only(top: 20),
+                              ),
+                              verticalSpaceSmall(context),
+                              // Buttons
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    width: screenWidth(context) * 0.4,
                                     child: ButtonWidget(
-                                      onPressed: viewModel.deleteUTask,
-                                      text: 'Delete',
+                                      onPressed: viewModel.cancel,
+                                      text: 'Cancel',
                                       backgroundColor:
                                           Theme.of(context).brightness ==
                                                   Brightness.light
-                                              ? AppColors.lightRed
-                                              : AppColors.darkRed,
+                                              ? AppColors.lightGray
+                                              : AppColors.darkGray,
+                                      textColor: Theme.of(context).brightness ==
+                                              Brightness.light
+                                          ? AppColors.darkGray
+                                          : AppColors.white,
                                     ),
                                   ),
-                          ],
+                                  viewModel.isTaskIdNull
+                                      ? Container(
+                                          width: screenWidth(context) * 0.4,
+                                          child: ButtonWidget(
+                                            onPressed: viewModel.addTask,
+                                            text: 'Add',
+                                          ),
+                                        )
+                                      : Container(
+                                          width: screenWidth(context) * 0.4,
+                                          child: ButtonWidget(
+                                            onPressed: viewModel.updateUTask,
+                                            text: 'Update',
+                                          ),
+                                        ),
+                                ],
+                              ),
+                              viewModel.isTaskIdNull
+                                  ? Container()
+                                  : Padding(
+                                      padding: const EdgeInsets.only(top: 20),
+                                      child: ButtonWidget(
+                                        onPressed: viewModel.deleteUTask,
+                                        text: 'Delete',
+                                        backgroundColor:
+                                            Theme.of(context).brightness ==
+                                                    Brightness.light
+                                                ? AppColors.lightRed
+                                                : AppColors.darkRed,
+                                      ),
+                                    ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

@@ -684,48 +684,55 @@ class ProfileView extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              CardWidget(
-                                onTap: viewModel.followingTapped,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    DescriptionTextWidget(
-                                      description: viewModel
-                                          .userGeneral.noOfFollowing
-                                          .toString(),
-                                      bold: true,
-                                      fontSize: 24,
-                                    ),
-                                    LableTextWidget(lable: 'Following'),
-                                  ],
+                              Expanded(
+                                child: CardWidget(
+                                  onTap: viewModel.followingTapped,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      DescriptionTextWidget(
+                                        description: viewModel
+                                            .userGeneral.noOfFollowing
+                                            .toString(),
+                                        bold: true,
+                                        fontSize: 24,
+                                      ),
+                                      LableTextWidget(lable: 'Following'),
+                                    ],
+                                  ),
+                                  height: 100,
+                                  width: null,
                                 ),
-                                height: 100,
-                                width: screenWidth(context) * 0.45,
                               ),
-                              CardWidget(
-                                onTap: viewModel.followersTapped,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    DescriptionTextWidget(
-                                      description: viewModel
-                                          .userGeneral.noOfFollowers
-                                          .toString(),
-                                      bold: true,
-                                      fontSize: 24,
-                                    ),
-                                    LableTextWidget(lable: 'Followers'),
-                                  ],
+                              horizontalSpaceXSmall(context),
+                              Expanded(
+                                child: CardWidget(
+                                  onTap: viewModel.followersTapped,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      DescriptionTextWidget(
+                                        description: viewModel
+                                            .userGeneral.noOfFollowers
+                                            .toString(),
+                                        bold: true,
+                                        fontSize: 24,
+                                      ),
+                                      LableTextWidget(lable: 'Followers'),
+                                    ],
+                                  ),
+                                  height: 100,
+                                  width: null,
                                 ),
-                                height: 100,
-                                width: screenWidth(context) * 0.45,
                               ),
                             ],
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 20),
+                            padding: const EdgeInsets.only(top: 10),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -749,36 +756,39 @@ class ProfileView extends StatelessWidget {
                                 //   height: 100,
                                 //   width: screenWidth(context) * 0.45,
                                 // ),
-                                CardWidget(
-                                  onTap: viewModel.likesTapped,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      // DescriptionTextWidget(
-                                      //   description: viewModel
-                                      //       .userGeneral.noOfLikes
-                                      //       .toString(),
-                                      //   bold: true,
-                                      //   fontSize: 24,
-                                      // ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 5),
-                                        child: Icon(
-                                          FontAwesomeIcons.solidHeart,
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.light
-                                              ? AppColors.lightGreen
-                                              : AppColors.darkGreen,
+                                Expanded(
+                                  child: CardWidget(
+                                    onTap: viewModel.likesTapped,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        // DescriptionTextWidget(
+                                        //   description: viewModel
+                                        //       .userGeneral.noOfLikes
+                                        //       .toString(),
+                                        //   bold: true,
+                                        //   fontSize: 24,
+                                        // ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(bottom: 5),
+                                          child: Icon(
+                                            FontAwesomeIcons.solidHeart,
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.light
+                                                    ? AppColors.lightGreen
+                                                    : AppColors.darkGreen,
+                                          ),
                                         ),
-                                      ),
-                                      LableTextWidget(lable: 'Likes'),
-                                    ],
+                                        LableTextWidget(lable: 'Likes'),
+                                      ],
+                                    ),
+                                    height: 100,
+                                    width: null,
                                   ),
-                                  height: 100,
-                                  width: screenWidth(context) * 0.45,
                                 ),
                               ],
                             ),

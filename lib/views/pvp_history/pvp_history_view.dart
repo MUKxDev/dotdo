@@ -34,166 +34,172 @@ class PvpHistoryView extends StatelessWidget {
                 )
               :
               // pvp completed challange
-              StreamBuilder<QuerySnapshot>(
-                  stream: viewModel.completedChallangeStream,
-                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                    PChallenge pvpChallenge;
+              SafeArea(
+                  child: StreamBuilder<QuerySnapshot>(
+                    stream: viewModel.completedChallangeStream,
+                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                      PChallenge pvpChallenge;
 
-                    return snapshot.hasData == false
-                        ? Center(
-                            child: DescriptionTextWidget(
-                                description:
-                                    'You don\'t have any completed PvPs'),
-                          )
-                        : snapshot.data.size == 0
-                            ? Center(
-                                child: DescriptionTextWidget(
-                                    description:
-                                        'You don\'t have any completed PvPs'),
-                              )
-                            : ListView.builder(
-                                itemCount: snapshot.data.size,
-                                itemBuilder: (context, index) {
-                                  if (snapshot.hasData) {
-                                    if (snapshot.data.size > 0) {
-                                      pvpChallenge = PChallenge.fromMap(
-                                          snapshot.data.docs[index].data());
+                      return snapshot.hasData == false
+                          ? Center(
+                              child: DescriptionTextWidget(
+                                  description:
+                                      'You don\'t have any completed PvPs'),
+                            )
+                          : snapshot.data.size == 0
+                              ? Center(
+                                  child: DescriptionTextWidget(
+                                      description:
+                                          'You don\'t have any completed PvPs'),
+                                )
+                              : ListView.builder(
+                                  itemCount: snapshot.data.size,
+                                  itemBuilder: (context, index) {
+                                    if (snapshot.hasData) {
+                                      if (snapshot.data.size > 0) {
+                                        pvpChallenge = PChallenge.fromMap(
+                                            snapshot.data.docs[index].data());
+                                      }
                                     }
-                                  }
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 10),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Theme.of(context).primaryColor,
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          // verticalSpaceSmall(context),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 20, right: 10, top: 10),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    LableTextWidget(
-                                                        lable: 'Challange'),
-                                                    LableTextWidget(
-                                                        lable: 'Winner: '),
-                                                  ],
-                                                ),
-                                                horizontalSpaceXSmall(context),
-                                                pvpChallenge.challangeWinner ==
-                                                        'Draw'
-                                                    ? Expanded(
-                                                        child: Container(
-                                                          height: 70,
-                                                          decoration: BoxDecoration(
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .scaffoldBackgroundColor,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          20)),
-                                                          child: Center(
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 10, horizontal: 10),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(context).primaryColor,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            // verticalSpaceSmall(context),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 20, right: 10, top: 10),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      LableTextWidget(
+                                                          lable: 'Challange'),
+                                                      LableTextWidget(
+                                                          lable: 'Winner: '),
+                                                    ],
+                                                  ),
+                                                  horizontalSpaceXSmall(
+                                                      context),
+                                                  pvpChallenge.challangeWinner ==
+                                                          'Draw'
+                                                      ? Expanded(
+                                                          child: Container(
+                                                            height: 70,
+                                                            decoration: BoxDecoration(
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .scaffoldBackgroundColor,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20)),
+                                                            child: Center(
+                                                                child:
+                                                                    LableTextWidget(
+                                                              lable: pvpChallenge
+                                                                      .challangeWinner ??
+                                                                  'Null',
+                                                              color: Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .light
+                                                                  ? AppColors
+                                                                      .lightGold
+                                                                  : AppColors
+                                                                      .darkGold,
+                                                            )),
+                                                          ),
+                                                        )
+                                                      : (pvpChallenge
+                                                                  .challangeWinner ==
+                                                              viewModel.userAId
+                                                          ? DescriptionTextWidget(
+                                                              description: viewModel
+                                                                      .userA
+                                                                      .userName ??
+                                                                  'Null')
+                                                          : Expanded(
                                                               child:
-                                                                  LableTextWidget(
-                                                            lable: pvpChallenge
-                                                                    .challangeWinner ??
-                                                                'Null',
-                                                            color: Theme.of(context)
-                                                                        .brightness ==
-                                                                    Brightness
-                                                                        .light
-                                                                ? AppColors
-                                                                    .lightGold
-                                                                : AppColors
-                                                                    .darkGold,
-                                                          )),
-                                                        ),
-                                                      )
-                                                    : (pvpChallenge
-                                                                .challangeWinner ==
-                                                            viewModel.userAId
-                                                        ? DescriptionTextWidget(
-                                                            description: viewModel
-                                                                    .userA
-                                                                    .userName ??
-                                                                'Null')
-                                                        : Expanded(
-                                                            child:
-                                                                UserCardWidget(
-                                                              user: viewModel
-                                                                  .userB,
-                                                              backgroundcolor:
-                                                                  Theme.of(
-                                                                          context)
-                                                                      .scaffoldBackgroundColor,
-                                                            ),
-                                                          )),
-                                              ],
+                                                                  UserCardWidget(
+                                                                user: viewModel
+                                                                    .userB,
+                                                                backgroundcolor:
+                                                                    Theme.of(
+                                                                            context)
+                                                                        .scaffoldBackgroundColor,
+                                                              ),
+                                                            )),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                          // verticalSpaceXSmall(context),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 10),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                verticalSpaceXSmall(context),
-                                                PvpchallengeWidget(
-                                                  width: screenWidth(context),
-                                                  onTap: null,
-                                                  // onTap: () => viewModel
-                                                  //     .challengeTapped(snapshot
-                                                  //         .data.docs[index].id),
-                                                  lable: pvpChallenge.name,
-                                                  profile1Named:
-                                                      viewModel.userA.userName,
-                                                  profile1ProgressValue:
-                                                      pvpChallenge.noOfTasks ==
-                                                              0
-                                                          ? 0
-                                                          : pvpChallenge
-                                                                  .aCTask /
-                                                              pvpChallenge
-                                                                  .noOfTasks,
-                                                  profile1Image: NetworkImage(
-                                                      viewModel
-                                                          .userA.profilePic),
-                                                  profile2Named:
-                                                      viewModel.userB.userName,
-                                                  profile2ProgressValue:
-                                                      pvpChallenge.noOfTasks ==
-                                                              0
-                                                          ? 0
-                                                          : pvpChallenge
-                                                                  .bCTask /
-                                                              pvpChallenge
-                                                                  .noOfTasks,
-                                                  profile2Image: NetworkImage(
-                                                      viewModel
-                                                          .userB.profilePic),
-                                                ),
-                                              ],
+                                            // verticalSpaceXSmall(context),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 10),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  verticalSpaceXSmall(context),
+                                                  PvpchallengeWidget(
+                                                    width: screenWidth(context),
+                                                    onTap: null,
+                                                    // onTap: () => viewModel
+                                                    //     .challengeTapped(snapshot
+                                                    //         .data.docs[index].id),
+                                                    lable: pvpChallenge.name,
+                                                    profile1Named: viewModel
+                                                        .userA.userName,
+                                                    profile1ProgressValue:
+                                                        pvpChallenge.noOfTasks ==
+                                                                0
+                                                            ? 0
+                                                            : pvpChallenge
+                                                                    .aCTask /
+                                                                pvpChallenge
+                                                                    .noOfTasks,
+                                                    profile1Image: NetworkImage(
+                                                        viewModel
+                                                            .userA.profilePic),
+                                                    profile2Named: viewModel
+                                                        .userB.userName,
+                                                    profile2ProgressValue:
+                                                        pvpChallenge.noOfTasks ==
+                                                                0
+                                                            ? 0
+                                                            : pvpChallenge
+                                                                    .bCTask /
+                                                                pvpChallenge
+                                                                    .noOfTasks,
+                                                    profile2Image: NetworkImage(
+                                                        viewModel
+                                                            .userB.profilePic),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                });
-                  },
+                                    );
+                                  });
+                    },
+                  ),
                 ),
         );
       },

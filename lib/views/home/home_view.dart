@@ -171,15 +171,17 @@ class HomeView extends StatelessWidget {
               FloatingActionButtonLocation.miniEndFloat,
 
           // * PageView
-          body: PageView(
-            onPageChanged: (index) => viewModel.updateSelectedIndex(index),
-            controller: viewModel.pageController,
-            children: [
-              TodayView(),
-              SocialView(),
-              DiscoverView(),
-              ProfileView(),
-            ],
+          body: SafeArea(
+            child: PageView(
+              onPageChanged: (index) => viewModel.updateSelectedIndex(index),
+              controller: viewModel.pageController,
+              children: [
+                TodayView(),
+                SocialView(),
+                DiscoverView(),
+                ProfileView(),
+              ],
+            ),
           ),
         );
       },

@@ -5,6 +5,7 @@ import 'package:dotdo/shared/constant.dart';
 import 'package:dotdo/shared/ui_helpers.dart';
 import 'package:dotdo/theme/colors.dart';
 import 'package:dotdo/widgets/dumb_widgets/description_text/description_text_widget.dart';
+import 'package:dotdo/widgets/dumb_widgets/lable_text/lable_text_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/long_Groutine_card/long_Groutine_card_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/routine_task/routine_task_widget.dart';
 import 'package:dotdo/widgets/dumb_widgets/user_card/user_card_widget.dart';
@@ -51,6 +52,76 @@ class GlobalRoutineView extends StatelessWidget {
                 : SingleChildScrollView(
                     child: Column(
                       children: [
+                        viewModel.isAddedGRotine
+                            ? Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).primaryColor,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 8),
+                                            child: LableTextWidget(
+                                                lable: 'Saved! ✅'),
+                                          ),
+                                          // DescriptionTextWidget(
+                                          //     description:
+                                          //         'This routine is public'),
+                                          DescriptionTextWidget(
+                                              maxLines: 10,
+                                              description:
+                                                  'This global routine is saved to your private rotines.'),
+                                          DescriptionTextWidget(
+                                            maxLines: 3,
+                                            description:
+                                                '(Press the like icon ❤️ if you liked it 🥰)',
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).primaryColor,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 8),
+                                            child: LableTextWidget(
+                                                lable: 'Save it?  ⬇️'),
+                                          ),
+                                          DescriptionTextWidget(
+                                              maxLines: 10,
+                                              description:
+                                                  'To save this global routine to your private routine, you have to press the save icon ⬇️ above.'),
+                                          DescriptionTextWidget(
+                                            maxLines: 3,
+                                            description:
+                                                '(Press the like icon ❤️ if you liked it 🥰)',
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Column(

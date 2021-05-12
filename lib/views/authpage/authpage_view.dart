@@ -15,17 +15,19 @@ class AuthpageView extends StatelessWidget {
             shape: appBarShapeBorder,
             title: Text(viewModel.title),
           ),
-          body: PageView(
-            controller: viewModel.pageController,
-            onPageChanged: (index) => viewModel.updatePageIndex(index),
-            children: [
-              LoginView(
-                navigateToIndex: () => viewModel.navigateToIndex(1),
-              ),
-              RegisterView(
-                navigateToIndex: () => viewModel.navigateToIndex(0),
-              ),
-            ],
+          body: SafeArea(
+            child: PageView(
+              controller: viewModel.pageController,
+              onPageChanged: (index) => viewModel.updatePageIndex(index),
+              children: [
+                LoginView(
+                  navigateToIndex: () => viewModel.navigateToIndex(1),
+                ),
+                RegisterView(
+                  navigateToIndex: () => viewModel.navigateToIndex(0),
+                ),
+              ],
+            ),
           ),
         );
       },

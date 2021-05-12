@@ -18,8 +18,10 @@ class AnotherProfileView extends StatelessWidget {
             title: Text('Profile'),
             shape: appBarShapeBorder,
           ),
-          body: ProfileView(
-            uid: uid,
+          body: SafeArea(
+            child: ProfileView(
+              uid: uid,
+            ),
           ),
         );
       },

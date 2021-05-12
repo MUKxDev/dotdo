@@ -94,6 +94,45 @@ class RoutineDetailsView extends StatelessWidget {
                 : SingleChildScrollView(
                     child: Column(
                       children: [
+                        viewModel.isPublic
+                            ? Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).primaryColor,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 8),
+                                            child: LableTextWidget(
+                                                lable:
+                                                    'This routine is public  🌎'),
+                                          ),
+                                          // DescriptionTextWidget(
+                                          //     description:
+                                          //         'This routine is public'),
+                                          DescriptionTextWidget(
+                                              maxLines: 10,
+                                              description:
+                                                  'Any further edits to this routine won\'t affect the global routine version. To update the global routine version, you have to remove it from public and add it again.'),
+                                          DescriptionTextWidget(
+                                            maxLines: 3,
+                                            description:
+                                                '(from the global icon 🌎 above ☝🏼)',
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Container(),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Column(

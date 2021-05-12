@@ -69,7 +69,7 @@ class IconPickerAlterDialogWidget extends StatelessWidget {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: Theme.of(context).scaffoldBackgroundColor),
-                        height: screenHeight(context) * 0.07,
+                        height: screenHeight(context) * 0.09,
                         width: 300,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,

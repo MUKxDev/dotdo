@@ -31,36 +31,38 @@ class FollowingView extends StatelessWidget {
                       child: DescriptionTextWidget(
                           description: 'There is no users'),
                     )
-                  : SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          verticalSpaceXSmall(context),
-                          //  * users List
-                          ((Container(
-                            // height: 110,
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              clipBehavior: Clip.hardEdge,
-                              scrollDirection: Axis.vertical,
-                              itemCount: viewModel.usersList.length,
-                              itemBuilder: (context, index) {
-                                User _user = viewModel.usersList[index];
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 5),
-                                  child: _user == null
-                                      ? Container()
-                                      : UserCardWidget(
-                                          user: _user,
-                                          onTap: () => viewModel.userTapped(
-                                              viewModel.usersIdList[index]),
-                                        ),
-                                );
-                              },
-                            ),
-                          ))),
-                        ],
+                  : SafeArea(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            verticalSpaceXSmall(context),
+                            //  * users List
+                            ((Container(
+                              // height: 110,
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                clipBehavior: Clip.hardEdge,
+                                scrollDirection: Axis.vertical,
+                                itemCount: viewModel.usersList.length,
+                                itemBuilder: (context, index) {
+                                  User _user = viewModel.usersList[index];
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 5),
+                                    child: _user == null
+                                        ? Container()
+                                        : UserCardWidget(
+                                            user: _user,
+                                            onTap: () => viewModel.userTapped(
+                                                viewModel.usersIdList[index]),
+                                          ),
+                                  );
+                                },
+                              ),
+                            ))),
+                          ],
+                        ),
                       ),
                     ),
         );

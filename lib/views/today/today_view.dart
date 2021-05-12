@@ -40,41 +40,45 @@ class TodayView extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        ButtonWidget(
-                          onPressed: () => viewModel.toggleMode(),
-                          text: 'Day',
-                          width: screenWidth(context) * 0.44,
-                          borderRadius: 5,
-                          fontSize: 14,
-                          backgroundColor: viewModel.isDayMode
-                              ? Theme.of(context).accentColor
-                              : Theme.of(context).accentColor.withAlpha(0),
-                          textColor:
-                              Theme.of(context).brightness == Brightness.light
-                                  ? (viewModel.isDayMode
-                                      ? AppColors.white
-                                      : AppColors.darkBackground.withAlpha(200))
-                                  : (viewModel.isDayMode
-                                      ? AppColors.white
-                                      : AppColors.white.withAlpha(100)),
+                        Expanded(
+                          child: ButtonWidget(
+                            onPressed: () => viewModel.toggleMode(),
+                            text: 'Day',
+                            // width: screenWidth(context) * 0.44,
+                            borderRadius: 5,
+                            fontSize: 14,
+                            backgroundColor: viewModel.isDayMode
+                                ? Theme.of(context).accentColor
+                                : Theme.of(context).accentColor.withAlpha(0),
+                            textColor: Theme.of(context).brightness ==
+                                    Brightness.light
+                                ? (viewModel.isDayMode
+                                    ? AppColors.white
+                                    : AppColors.darkBackground.withAlpha(200))
+                                : (viewModel.isDayMode
+                                    ? AppColors.white
+                                    : AppColors.white.withAlpha(100)),
+                          ),
                         ),
-                        ButtonWidget(
-                          onPressed: () => viewModel.toggleMode(),
-                          text: 'Up Coming',
-                          width: screenWidth(context) * 0.44,
-                          borderRadius: 5,
-                          fontSize: 14,
-                          backgroundColor: viewModel.isDayMode
-                              ? Theme.of(context).accentColor.withAlpha(0)
-                              : Theme.of(context).accentColor,
-                          textColor:
-                              Theme.of(context).brightness == Brightness.light
-                                  ? (viewModel.isDayMode
-                                      ? AppColors.darkBackground.withAlpha(200)
-                                      : AppColors.white)
-                                  : (viewModel.isDayMode
-                                      ? AppColors.white.withAlpha(100)
-                                      : AppColors.white),
+                        Expanded(
+                          child: ButtonWidget(
+                            onPressed: () => viewModel.toggleMode(),
+                            text: 'Up Coming',
+                            // width: screenWidth(context) * 0.44,
+                            borderRadius: 5,
+                            fontSize: 14,
+                            backgroundColor: viewModel.isDayMode
+                                ? Theme.of(context).accentColor.withAlpha(0)
+                                : Theme.of(context).accentColor,
+                            textColor: Theme.of(context).brightness ==
+                                    Brightness.light
+                                ? (viewModel.isDayMode
+                                    ? AppColors.darkBackground.withAlpha(200)
+                                    : AppColors.white)
+                                : (viewModel.isDayMode
+                                    ? AppColors.white.withAlpha(100)
+                                    : AppColors.white),
+                          ),
                         ),
                       ],
                     ),

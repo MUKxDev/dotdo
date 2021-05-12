@@ -35,6 +35,7 @@ class RoutineDetailsViewModel extends BaseViewModel {
 
   NavigationService _navigationService = locator<NavigationService>();
   DialogService _dialogService = locator<DialogService>();
+  SnackbarService _snackbarService = locator<SnackbarService>();
 
   Stream<DocumentSnapshot> get routineStream =>
       _routineService.getURoutineStream(routineId);
@@ -111,8 +112,14 @@ class RoutineDetailsViewModel extends BaseViewModel {
         _routineService.togglePublicROFF(routineId);
       }
     } else {
-      _isPublic = !_isPublic;
-      _routineService.togglePublicR(routineId);
+      if (_routine.noOfTasks == 0) {
+        _snackbarService.showSnackbar(
+            message:
+                'You can\'t make this routine public because it\'s empty.');
+      } else {
+        _isPublic = !_isPublic;
+        _routineService.togglePublicR(routineId);
+      }
     }
     notifyListeners();
   }

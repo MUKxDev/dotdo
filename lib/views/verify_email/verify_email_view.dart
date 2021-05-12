@@ -20,52 +20,54 @@ class VerifyEmailView extends StatelessWidget {
             title: Text('Verify Email'),
             shape: appBarShapeBorder,
           ),
-          body: Center(
-            child: viewModel.isBusy
-                ? CircularProgressIndicator()
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // * LogoWidget
-                      LogoWidget(
-                        height: 80,
-                        width: 80,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('Please verify your email'),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('A verification email has been sent to:'),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: DescriptionTextWidget(
-                            description: viewModel.currentUser.email),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 20),
-                        child: ButtonWidget(
-                            onPressed: viewModel.checkVerification,
-                            text: 'Check Verification'),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 20),
-                        child: ButtonWidget(
-                          onPressed: viewModel.logout,
-                          text: 'Logout',
-                          backgroundColor: Theme.of(context).primaryColor,
-                          textColor:
-                              Theme.of(context).brightness == Brightness.light
-                                  ? AppColors.darkBackground
-                                  : null,
+          body: SafeArea(
+            child: Center(
+              child: viewModel.isBusy
+                  ? CircularProgressIndicator()
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // * LogoWidget
+                        LogoWidget(
+                          height: 80,
+                          width: 80,
                         ),
-                      ),
-                    ],
-                  ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('Please verify your email'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('A verification email has been sent to:'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: DescriptionTextWidget(
+                              description: viewModel.currentUser.email),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 20),
+                          child: ButtonWidget(
+                              onPressed: viewModel.checkVerification,
+                              text: 'Check Verification'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 20),
+                          child: ButtonWidget(
+                            onPressed: viewModel.logout,
+                            text: 'Logout',
+                            backgroundColor: Theme.of(context).primaryColor,
+                            textColor:
+                                Theme.of(context).brightness == Brightness.light
+                                    ? AppColors.darkBackground
+                                    : null,
+                          ),
+                        ),
+                      ],
+                    ),
+            ),
           ),
         );
       },

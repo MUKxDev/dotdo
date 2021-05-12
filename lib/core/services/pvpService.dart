@@ -399,27 +399,6 @@ class PvpService {
         .add({'PvpId': pvpId, 'ChallengeId': challengeId});
   }
 
-  // Future toggleAccept(String pvpId, String challengeId) async {
-  //   String _userId = await _authService.getCurrentUserId();
-  //   String userA = await getUserAId(pvpId);
-  //   if (_userId == userA) {
-  //     _firestoreService.pvps
-  //         .doc(pvpId)
-  //         .collection('Challenges')
-  //         .doc(challengeId)
-  //         .update({'aStatus': 'Accept'});
-  //     accept(pvpId, challengeId);
-  //   } else {
-  //     _firestoreService.pvps
-  //         .doc(pvpId)
-  //         .collection('Challenges')
-  //         .doc(challengeId)
-  //         .update({'bStatus': 'Accept'});
-
-  //     accept(pvpId, challengeId);
-  //   }
-  // }
-
   Future accept(String pvpId, String challengeId) async {
     String userAstatus = await _firestoreService.pvps
         .doc(pvpId)
@@ -666,10 +645,12 @@ class PvpService {
   }
 
   Future<int> getNoOfPending(String pvpId) async {
+    DateTime date = DateTime.now();
     return await _firestoreService.pvps
         .doc(pvpId)
         .collection('Challenges')
         .where('status', isEqualTo: 'pending')
+        .where('endDate', isGreaterThanOrEqualTo: date.millisecondsSinceEpoch)
         .get()
         .then((value) => value.size);
   }

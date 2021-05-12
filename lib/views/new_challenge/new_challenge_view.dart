@@ -33,245 +33,257 @@ class NewChallengeView extends StatelessWidget {
                 ? Center(
                     child: CircularProgressIndicator(),
                   )
-                : SingleChildScrollView(
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.light
-                                    ? AppColors.lightChallenge
-                                    : AppColors.darkChallenge,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Column(
-                                  children: [
-                                    // Challenge name
-                                    TextField(
-                                      autocorrect: true,
-                                      maxLines: 2,
-                                      maxLength: 50,
-                                      keyboardType: TextInputType.text,
-                                      decoration: InputDecoration(
-                                        hintText: 'Enter challenge name...',
-                                        fillColor: Theme.of(context)
-                                            .scaffoldBackgroundColor
-                                            .withAlpha(200),
-                                      ),
-                                      controller: viewModel.nameController,
-                                    ),
-                                    // Challenge Note
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 10),
-                                      child: TextField(
+                : SafeArea(
+                    child: SingleChildScrollView(
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? AppColors.lightChallenge
+                                      : AppColors.darkChallenge,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Column(
+                                    children: [
+                                      // Challenge name
+                                      TextField(
                                         autocorrect: true,
                                         maxLines: 2,
                                         maxLength: 50,
                                         keyboardType: TextInputType.text,
                                         decoration: InputDecoration(
-                                          hintText: 'Note...',
+                                          hintText: 'Enter challenge name...',
                                           fillColor: Theme.of(context)
-                                                      .brightness ==
-                                                  Brightness.light
-                                              ? AppColors.lightNote
-                                                  .withAlpha(200)
-                                              : AppColors.darkNote
-                                                  .withAlpha(200),
+                                              .scaffoldBackgroundColor
+                                              .withAlpha(200),
                                         ),
-                                        controller: viewModel.noteController,
+                                        controller: viewModel.nameController,
                                       ),
-                                    ),
-                                    // options list
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                        top: 20,
-                                        bottom: 0,
-                                        right: 10,
-                                        left: 10,
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          // Challenge Icon
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              LableTextWidget(
-                                                lable: 'Icon',
-                                                color: AppColors.white,
-                                              ),
-                                              IconButtonWidget(
-                                                // borderRadius: 2,
-                                                iconData: viewModel.iconData,
-                                                iconColor: viewModel.iconColor,
-                                                backgroundColor:
-                                                    Theme.of(context)
-                                                        .scaffoldBackgroundColor
+                                      // Challenge Note
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: TextField(
+                                          autocorrect: true,
+                                          maxLines: 2,
+                                          maxLength: 50,
+                                          keyboardType: TextInputType.text,
+                                          decoration: InputDecoration(
+                                            hintText: 'Note...',
+                                            fillColor:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.light
+                                                    ? AppColors.lightNote
+                                                        .withAlpha(200)
+                                                    : AppColors.darkNote
                                                         .withAlpha(200),
-                                                iconSize: 20,
-                                                height: 45,
-                                                width: 45,
-                                                onTap: () {
-                                                  showDialog(
-                                                      context: context,
-                                                      builder: (context) {
-                                                        return IconPickerAlterDialogWidget(
-                                                          setIconData: (iconData) =>
-                                                              viewModel
-                                                                  .iconTapped(
-                                                                      iconData),
-                                                          setIconColor: (iconColor) =>
-                                                              viewModel
-                                                                  .colorTapped(
-                                                                      iconColor),
-                                                          iconData: viewModel
-                                                              .iconData,
-                                                          iconColor: viewModel
-                                                              .iconColor,
-                                                        );
-                                                      });
-                                                },
-                                              ),
-                                            ],
                                           ),
-                                          // Challenge startDate
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              LableTextWidget(
-                                                lable: 'Start Date',
-                                                color: AppColors.white,
-                                              ),
-                                              TextButton(
-                                                onPressed: () =>
-                                                    viewModel.updateStartDate(
-                                                  showDatePicker(
-                                                    context: context,
-                                                    initialDate: challengeId ==
-                                                            null
-                                                        ? viewModel.currentDate
-                                                        : viewModel.startDate,
-                                                    firstDate:
-                                                        viewModel.firstDate,
-                                                    lastDate: DateTime(
-                                                        viewModel.today.year +
-                                                            10),
-                                                  ),
-                                                ),
-                                                child: LableTextWidget(
-                                                  lable: viewModel.dateFormat
-                                                      .format(
-                                                          viewModel.startDate),
-                                                  color: Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.light
-                                                      ? AppColors.white
-                                                          .withAlpha(200)
-                                                      : AppColors.darkGreen,
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                          // Challenge endDate
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              LableTextWidget(
-                                                lable: 'End Date',
-                                                color: AppColors.white,
-                                              ),
-                                              TextButton(
-                                                onPressed: () =>
-                                                    viewModel.updateEndDate(
-                                                  showDatePicker(
-                                                    context: context,
-                                                    initialDate: challengeId ==
-                                                            null
-                                                        ? viewModel.currentDate
-                                                        : viewModel.endDate,
-                                                    firstDate:
-                                                        viewModel.firstDate,
-                                                    lastDate: DateTime(
-                                                        viewModel.today.year +
-                                                            10),
-                                                  ),
-                                                ),
-                                                child: LableTextWidget(
-                                                  lable: viewModel.dateFormat
-                                                      .format(
-                                                          viewModel.endDate),
-                                                  color: Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.light
-                                                      ? AppColors.white
-                                                          .withAlpha(200)
-                                                      : AppColors.darkGreen,
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ],
+                                          controller: viewModel.noteController,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                      // options list
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                          top: 20,
+                                          bottom: 0,
+                                          right: 10,
+                                          left: 10,
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            // Challenge Icon
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                LableTextWidget(
+                                                  lable: 'Icon',
+                                                  color: AppColors.white,
+                                                ),
+                                                IconButtonWidget(
+                                                  // borderRadius: 2,
+                                                  iconData: viewModel.iconData,
+                                                  iconColor:
+                                                      viewModel.iconColor,
+                                                  backgroundColor: Theme.of(
+                                                          context)
+                                                      .scaffoldBackgroundColor
+                                                      .withAlpha(200),
+                                                  iconSize: 20,
+                                                  height: 45,
+                                                  width: 45,
+                                                  onTap: () {
+                                                    showDialog(
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return IconPickerAlterDialogWidget(
+                                                            setIconData: (iconData) =>
+                                                                viewModel
+                                                                    .iconTapped(
+                                                                        iconData),
+                                                            setIconColor: (iconColor) =>
+                                                                viewModel
+                                                                    .colorTapped(
+                                                                        iconColor),
+                                                            iconData: viewModel
+                                                                .iconData,
+                                                            iconColor: viewModel
+                                                                .iconColor,
+                                                          );
+                                                        });
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                            // Challenge startDate
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                LableTextWidget(
+                                                  lable: 'Start Date',
+                                                  color: AppColors.white,
+                                                ),
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      viewModel.updateStartDate(
+                                                    showDatePicker(
+                                                      context: context,
+                                                      initialDate:
+                                                          challengeId == null
+                                                              ? viewModel
+                                                                  .currentDate
+                                                              : viewModel
+                                                                  .startDate,
+                                                      firstDate:
+                                                          viewModel.firstDate,
+                                                      lastDate: DateTime(
+                                                          viewModel.today.year +
+                                                              10),
+                                                    ),
+                                                  ),
+                                                  child: LableTextWidget(
+                                                    lable: viewModel.dateFormat
+                                                        .format(viewModel
+                                                            .startDate),
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.light
+                                                        ? AppColors.white
+                                                            .withAlpha(200)
+                                                        : AppColors.darkGreen,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                            // Challenge endDate
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                LableTextWidget(
+                                                  lable: 'End Date',
+                                                  color: AppColors.white,
+                                                ),
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      viewModel.updateEndDate(
+                                                    showDatePicker(
+                                                      context: context,
+                                                      initialDate:
+                                                          challengeId == null
+                                                              ? viewModel
+                                                                  .currentDate
+                                                              : viewModel
+                                                                  .endDate,
+                                                      firstDate:
+                                                          viewModel.firstDate,
+                                                      lastDate: DateTime(
+                                                          viewModel.today.year +
+                                                              10),
+                                                    ),
+                                                  ),
+                                                  child: LableTextWidget(
+                                                    lable: viewModel.dateFormat
+                                                        .format(
+                                                            viewModel.endDate),
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.light
+                                                        ? AppColors.white
+                                                            .withAlpha(200)
+                                                        : AppColors.darkGreen,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                            verticalSpaceSmall(context),
-                            // Buttons
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                challengeId == null
-                                    ? Container(
-                                        width: screenWidth(context) * 0.4,
-                                        child: ButtonWidget(
-                                          onPressed: viewModel.cancel,
-                                          text: 'Cancel',
-                                          backgroundColor:
-                                              Theme.of(context).brightness ==
-                                                      Brightness.light
-                                                  ? AppColors.lightGray
-                                                  : AppColors.darkGray,
-                                          textColor:
-                                              Theme.of(context).brightness ==
-                                                      Brightness.light
-                                                  ? AppColors.darkGray
-                                                  : AppColors.white,
+                              verticalSpaceSmall(context),
+                              // Buttons
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  challengeId == null
+                                      ? Container(
+                                          width: screenWidth(context) * 0.4,
+                                          child: ButtonWidget(
+                                            onPressed: viewModel.cancel,
+                                            text: 'Cancel',
+                                            backgroundColor:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.light
+                                                    ? AppColors.lightGray
+                                                    : AppColors.darkGray,
+                                            textColor:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.light
+                                                    ? AppColors.darkGray
+                                                    : AppColors.white,
+                                          ),
+                                        )
+                                      : Container(
+                                          width: screenWidth(context) * 0.4,
+                                          child: ButtonWidget(
+                                            onPressed: viewModel.delete,
+                                            text: 'Delete',
+                                            backgroundColor:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.light
+                                                    ? AppColors.lightRed
+                                                    : AppColors.darkRed,
+                                            textColor: AppColors.white,
+                                          ),
                                         ),
-                                      )
-                                    : Container(
-                                        width: screenWidth(context) * 0.4,
-                                        child: ButtonWidget(
-                                          onPressed: viewModel.delete,
-                                          text: 'Delete',
-                                          backgroundColor:
-                                              Theme.of(context).brightness ==
-                                                      Brightness.light
-                                                  ? AppColors.lightRed
-                                                  : AppColors.darkRed,
-                                          textColor: AppColors.white,
-                                        ),
-                                      ),
-                                Container(
-                                  width: screenWidth(context) * 0.4,
-                                  child: ButtonWidget(
-                                    onPressed: challengeId == null
-                                        ? viewModel.next
-                                        : viewModel.save,
-                                    text: challengeId == null ? 'Next' : 'Save',
-                                  ),
-                                )
-                              ],
-                            ),
-                          ],
+                                  Container(
+                                    width: screenWidth(context) * 0.4,
+                                    child: ButtonWidget(
+                                      onPressed: challengeId == null
+                                          ? viewModel.next
+                                          : viewModel.save,
+                                      text:
+                                          challengeId == null ? 'Next' : 'Save',
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
