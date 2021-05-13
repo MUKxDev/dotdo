@@ -140,10 +140,10 @@ class ChallengeDetailsView extends StatelessWidget {
                                                                       .startDate)
                                                               .inDays +
                                                           1),
-                                                      activeDates: viewModel
-                                                              .isEdit
-                                                          ? null
-                                                          : [DateTime.now()],
+                                                      // activeDates: viewModel
+                                                      //         .isEdit
+                                                      //     ? null
+                                                      //     : [DateTime.now()],
                                                       initialSelectedDate:
                                                           viewModel.isEdit
                                                               ? newChallenge
@@ -276,272 +276,251 @@ class ChallengeDetailsView extends StatelessWidget {
                                                           .symmetric(
                                                       horizontal: 0,
                                                       vertical: 10),
-                                                  child: Dismissible(
-                                                    key:
-                                                        Key(taskList[index].id),
-                                                    background:
-                                                        taskList[index]
-                                                                ['completed']
-                                                            ? Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .all(
-                                                                        10.0),
-                                                                child:
-                                                                    Container(
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            10),
-                                                                    color: Theme.of(context).brightness ==
-                                                                            Brightness
-                                                                                .light
-                                                                        ? AppColors
-                                                                            .lightNote
-                                                                        : AppColors
-                                                                            .darkNote,
-                                                                  ),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: const EdgeInsets
-                                                                            .all(
-                                                                        10.0),
-                                                                    child:
-                                                                        Column(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .center,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children: [
-                                                                        LableTextWidget(
-                                                                          lable:
-                                                                              'Not completed?',
+                                                  child:
+                                                      (viewModel.isPreview &&
+                                                              !viewModel.isEdit)
+                                                          ? TaskWidget(
+                                                              backgroundcolor: Theme.of(
+                                                                              context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .light
+                                                                  ? AppColors
+                                                                      .lightChallenge
+                                                                  : AppColors
+                                                                      .darkChallenge,
+                                                              task: Task.fromMap(
+                                                                  taskList[
+                                                                          index]
+                                                                      .data()),
+                                                              onTap: null,
+                                                              togglecompleted:
+                                                                  null,
+                                                            )
+                                                          : Dismissible(
+                                                              key: Key(taskList[
+                                                                      index]
+                                                                  .id),
+                                                              background: taskList[
+                                                                          index]
+                                                                      [
+                                                                      'completed']
+                                                                  ? Padding(
+                                                                      padding: const EdgeInsets
+                                                                              .all(
+                                                                          10.0),
+                                                                      child:
+                                                                          Container(
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(10),
                                                                           color: Theme.of(context).brightness == Brightness.light
-                                                                              ? AppColors.darkGray
-                                                                              : AppColors.white,
+                                                                              ? AppColors.lightNote
+                                                                              : AppColors.darkNote,
                                                                         ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              )
-                                                            : Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .all(
-                                                                        10.0),
-                                                                child:
-                                                                    Container(
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            10),
-                                                                    color: Theme.of(context).brightness ==
-                                                                            Brightness
-                                                                                .light
-                                                                        ? AppColors
-                                                                            .lightGreen
-                                                                        : AppColors
-                                                                            .darkGreen,
-                                                                  ),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: const EdgeInsets
-                                                                            .all(
-                                                                        10.0),
-                                                                    child:
-                                                                        Column(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .center,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children: [
-                                                                        LableTextWidget(
-                                                                          lable:
-                                                                              'Done!',
-                                                                          color:
-                                                                              Colors.white,
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                    secondaryBackground:
-                                                        viewModel.isEdit
-                                                            ? Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .all(
-                                                                        10.0),
-                                                                child:
-                                                                    Container(
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            10),
-                                                                    color: Theme.of(context).brightness ==
-                                                                            Brightness
-                                                                                .light
-                                                                        ? AppColors
-                                                                            .lightRed
-                                                                        : AppColors
-                                                                            .darkRed,
-                                                                  ),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: const EdgeInsets
-                                                                            .all(
-                                                                        10.0),
-                                                                    child:
-                                                                        Column(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .center,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .end,
-                                                                      children: [
-                                                                        LableTextWidget(
-                                                                          lable:
-                                                                              'Delete!',
-                                                                          color:
-                                                                              Colors.white,
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              )
-                                                            : (taskList[index][
-                                                                    'completed']
-                                                                ? Padding(
-                                                                    padding: const EdgeInsets
-                                                                            .all(
-                                                                        10.0),
-                                                                    child:
-                                                                        Container(
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(10),
-                                                                        color: Theme.of(context).brightness ==
-                                                                                Brightness.light
-                                                                            ? AppColors.lightNote
-                                                                            : AppColors.darkNote,
-                                                                      ),
-                                                                      child:
-                                                                          Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.all(10.0),
                                                                         child:
-                                                                            Column(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          crossAxisAlignment:
-                                                                              CrossAxisAlignment.end,
-                                                                          children: [
-                                                                            LableTextWidget(
-                                                                              lable: 'Not completed?',
-                                                                              color: Theme.of(context).brightness == Brightness.light ? AppColors.darkGray : AppColors.white,
-                                                                            ),
-                                                                          ],
+                                                                            Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.all(10.0),
+                                                                          child:
+                                                                              Column(
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.start,
+                                                                            children: [
+                                                                              LableTextWidget(
+                                                                                lable: 'Not completed?',
+                                                                                color: Theme.of(context).brightness == Brightness.light ? AppColors.darkGray : AppColors.white,
+                                                                              ),
+                                                                            ],
+                                                                          ),
                                                                         ),
                                                                       ),
-                                                                    ),
-                                                                  )
-                                                                : Padding(
-                                                                    padding: const EdgeInsets
-                                                                            .all(
-                                                                        10.0),
-                                                                    child:
-                                                                        Container(
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(10),
-                                                                        color: Theme.of(context).brightness ==
-                                                                                Brightness.light
-                                                                            ? AppColors.lightGreen
-                                                                            : AppColors.darkGreen,
-                                                                      ),
+                                                                    )
+                                                                  : Padding(
+                                                                      padding: const EdgeInsets
+                                                                              .all(
+                                                                          10.0),
                                                                       child:
-                                                                          Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.all(10.0),
+                                                                          Container(
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(10),
+                                                                          color: Theme.of(context).brightness == Brightness.light
+                                                                              ? AppColors.lightGreen
+                                                                              : AppColors.darkGreen,
+                                                                        ),
                                                                         child:
-                                                                            Column(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          crossAxisAlignment:
-                                                                              CrossAxisAlignment.end,
-                                                                          children: [
-                                                                            LableTextWidget(
-                                                                              lable: 'Done!',
-                                                                              color: Colors.white,
-                                                                            ),
-                                                                          ],
+                                                                            Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.all(10.0),
+                                                                          child:
+                                                                              Column(
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.start,
+                                                                            children: [
+                                                                              LableTextWidget(
+                                                                                lable: 'Done!',
+                                                                                color: Colors.white,
+                                                                              ),
+                                                                            ],
+                                                                          ),
                                                                         ),
                                                                       ),
                                                                     ),
-                                                                  )),
-                                                    direction: DismissDirection
-                                                        .horizontal,
-                                                    onDismissed: (direction) {
-                                                      if (direction ==
-                                                          DismissDirection
-                                                              .startToEnd) {
-                                                        viewModel
-                                                            .toggleCompletedUTask(
-                                                                taskList[index]
-                                                                    .id,
-                                                                taskList[index][
-                                                                    'completed']);
-                                                      } else {
-                                                        viewModel.isEdit
-                                                            ? viewModel
-                                                                .deleteUTask(
+                                                              secondaryBackground: viewModel
+                                                                      .isEdit
+                                                                  ? Padding(
+                                                                      padding: const EdgeInsets
+                                                                              .all(
+                                                                          10.0),
+                                                                      child:
+                                                                          Container(
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(10),
+                                                                          color: Theme.of(context).brightness == Brightness.light
+                                                                              ? AppColors.lightRed
+                                                                              : AppColors.darkRed,
+                                                                        ),
+                                                                        child:
+                                                                            Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.all(10.0),
+                                                                          child:
+                                                                              Column(
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.end,
+                                                                            children: [
+                                                                              LableTextWidget(
+                                                                                lable: 'Delete!',
+                                                                                color: Colors.white,
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    )
+                                                                  : (taskList[index]
+                                                                          [
+                                                                          'completed']
+                                                                      ? Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.all(10.0),
+                                                                          child:
+                                                                              Container(
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              borderRadius: BorderRadius.circular(10),
+                                                                              color: Theme.of(context).brightness == Brightness.light ? AppColors.lightNote : AppColors.darkNote,
+                                                                            ),
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.all(10.0),
+                                                                              child: Column(
+                                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                                crossAxisAlignment: CrossAxisAlignment.end,
+                                                                                children: [
+                                                                                  LableTextWidget(
+                                                                                    lable: 'Not completed?',
+                                                                                    color: Theme.of(context).brightness == Brightness.light ? AppColors.darkGray : AppColors.white,
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        )
+                                                                      : Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.all(10.0),
+                                                                          child:
+                                                                              Container(
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              borderRadius: BorderRadius.circular(10),
+                                                                              color: Theme.of(context).brightness == Brightness.light ? AppColors.lightGreen : AppColors.darkGreen,
+                                                                            ),
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.all(10.0),
+                                                                              child: Column(
+                                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                                crossAxisAlignment: CrossAxisAlignment.end,
+                                                                                children: [
+                                                                                  LableTextWidget(
+                                                                                    lable: 'Done!',
+                                                                                    color: Colors.white,
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        )),
+                                                              direction:
+                                                                  DismissDirection
+                                                                      .horizontal,
+                                                              onDismissed:
+                                                                  (direction) {
+                                                                if (direction ==
+                                                                    DismissDirection
+                                                                        .startToEnd) {
+                                                                  viewModel.toggleCompletedUTask(
+                                                                      taskList[
+                                                                              index]
+                                                                          .id,
+                                                                      taskList[
+                                                                              index]
+                                                                          [
+                                                                          'completed']);
+                                                                } else {
+                                                                  viewModel
+                                                                          .isEdit
+                                                                      ? viewModel.deleteUTask(
+                                                                          taskList[index]
+                                                                              .id)
+                                                                      : viewModel.toggleCompletedUTask(
+                                                                          taskList[index]
+                                                                              .id,
+                                                                          taskList[index]
+                                                                              [
+                                                                              'completed']);
+                                                                }
+                                                              },
+                                                              child: TaskWidget(
+                                                                backgroundcolor: Theme.of(context)
+                                                                            .brightness ==
+                                                                        Brightness
+                                                                            .light
+                                                                    ? AppColors
+                                                                        .lightChallenge
+                                                                    : AppColors
+                                                                        .darkChallenge,
+                                                                task: Task.fromMap(
                                                                     taskList[
                                                                             index]
-                                                                        .id)
-                                                            : viewModel.toggleCompletedUTask(
-                                                                taskList[index]
-                                                                    .id,
-                                                                taskList[index][
-                                                                    'completed']);
-                                                      }
-                                                    },
-                                                    child: TaskWidget(
-                                                      backgroundcolor: Theme.of(
-                                                                      context)
-                                                                  .brightness ==
-                                                              Brightness.light
-                                                          ? AppColors
-                                                              .lightChallenge
-                                                          : AppColors
-                                                              .darkChallenge,
-                                                      task: Task.fromMap(
-                                                          taskList[index]
-                                                              .data()),
-                                                      onTap: () =>
-                                                          viewModel.taskTapped(
-                                                              taskList[index]
-                                                                  .id),
-                                                      togglecompleted: () => viewModel
-                                                          .toggleCompletedUTask(
-                                                              taskList[index]
-                                                                  .id,
-                                                              taskList[index][
-                                                                  'completed']),
-                                                    ),
-                                                  ),
+                                                                        .data()),
+                                                                onTap: () => viewModel
+                                                                    .taskTapped(
+                                                                        taskList[index]
+                                                                            .id),
+                                                                togglecompleted: () => viewModel.toggleCompletedUTask(
+                                                                    taskList[
+                                                                            index]
+                                                                        .id,
+                                                                    taskList[
+                                                                            index]
+                                                                        [
+                                                                        'completed']),
+                                                              ),
+                                                            ),
                                                 ),
                                                 shrinkWrap: true,
                                                 physics: ScrollPhysics(),
