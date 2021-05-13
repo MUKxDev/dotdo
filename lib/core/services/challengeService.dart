@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 // import '../../../../../flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore-2.0.0/lib/cloud_firestore.dart';
 import '../locator.dart';
@@ -212,11 +213,50 @@ class ChallengeService {
   // *update --------------------------------
   Future updateUChalllange(String challengeId, Challenge challenge) async {
     String _userId = await _authService.getCurrentUserId();
-    _firestoreService.users
+    await _firestoreService.users
         .doc(_userId)
         .collection('UChallenges')
         .doc(challengeId)
         .update(challenge.toMap());
+    await deleteUnwantedTasks(
+        challengeId: challengeId,
+        userId: _userId,
+        startDate: challenge.startDate.millisecondsSinceEpoch,
+        endDate: challenge.endDate.millisecondsSinceEpoch);
+  }
+
+  Future deleteUnwantedTasks(
+      {@required String challengeId,
+      @required String userId,
+      @required int startDate,
+      @required int endDate}) async {
+    QuerySnapshot<Map<String, dynamic>> graterThanEndDate =
+        await _firestoreService.users
+            .doc(userId)
+            .collection('UChallenges')
+            .doc(challengeId)
+            .collection('UCTasks')
+            .where('dueDate', isGreaterThan: endDate)
+            .get();
+    QuerySnapshot<Map<String, dynamic>> lessThanStartDate =
+        await _firestoreService.users
+            .doc(userId)
+            .collection('UChallenges')
+            .doc(challengeId)
+            .collection('UCTasks')
+            .where('dueDate', isLessThan: startDate)
+            .get();
+
+    if (graterThanEndDate.size > 0) {
+      for (var doc in graterThanEndDate.docs) {
+        await deleteUCTask(doc.id, challengeId);
+      }
+    }
+    if (lessThanStartDate.size > 0) {
+      for (var doc in lessThanStartDate.docs) {
+        await deleteUCTask(doc.id, challengeId);
+      }
+    }
   }
 
   Future<bool> updateUCTask(
