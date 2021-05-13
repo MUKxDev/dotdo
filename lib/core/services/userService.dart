@@ -45,6 +45,7 @@ class UserService {
   Stream<QuerySnapshot> getUserLeaderboard() async* {
     yield* _firestoreService.users
         .orderBy('dots', descending: true)
+        .where('dots', isGreaterThan: 0)
         .limit(10)
         .snapshots();
   }
