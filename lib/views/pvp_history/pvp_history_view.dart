@@ -127,11 +127,17 @@ class PvpHistoryView extends StatelessWidget {
                                                       : (pvpChallenge
                                                                   .challangeWinner ==
                                                               viewModel.userAId
-                                                          ? DescriptionTextWidget(
-                                                              description: viewModel
-                                                                      .userA
-                                                                      .userName ??
-                                                                  'Null')
+                                                          ? Expanded(
+                                                              child:
+                                                                  UserCardWidget(
+                                                                user: viewModel
+                                                                    .userA,
+                                                                backgroundcolor:
+                                                                    Theme.of(
+                                                                            context)
+                                                                        .scaffoldBackgroundColor,
+                                                              ),
+                                                            )
                                                           : Expanded(
                                                               child:
                                                                   UserCardWidget(
