@@ -9,7 +9,9 @@ const appBarShapeBorder = RoundedRectangleBorder(
 );
 
 const List<IconData> iconDataList = [
+  FontAwesomeIcons.redo,
   FontAwesomeIcons.virus,
+  FontAwesomeIcons.brain,
   FontAwesomeIcons.crosshairs,
   FontAwesomeIcons.tasks,
   FontAwesomeIcons.water,
@@ -41,6 +43,9 @@ const List<IconData> iconDataList = [
   FontAwesomeIcons.arrowsAlt,
   FontAwesomeIcons.bolt,
   FontAwesomeIcons.bone,
+  FontAwesomeIcons.airFreshener,
+  FontAwesomeIcons.walking,
+  FontAwesomeIcons.dumbbell,
   FontAwesomeIcons.bicycle,
   FontAwesomeIcons.bus,
   FontAwesomeIcons.car,

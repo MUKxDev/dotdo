@@ -44,7 +44,7 @@ class NewRoutineViewModel extends BaseViewModel {
   int _noOfCompletedTasks = 0;
   int _noOfLikes = 0;
 
-  IconData _iconData = FontAwesomeIcons.crosshairs;
+  IconData _iconData = FontAwesomeIcons.redo;
   IconData get iconData => _iconData;
 
   Color _iconColor = AppColors.darkPurple;
