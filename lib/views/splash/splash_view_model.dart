@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:dotdo/core/locator.dart';
 import 'package:dotdo/core/router_constants.dart';
 import 'package:dotdo/core/services/authService.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dotdo/core/logger.dart';
@@ -26,9 +27,14 @@ class SplashViewModel extends BaseViewModel {
   }
 
   Future handelStartup() async {
+    User _currentUser = await _authService.getCurrentUser();
     // bool _isExist = await _authService.userExist();
     if (await _authService.hasUser) {
-      navigateToHome();
+      if (_currentUser.emailVerified) {
+        navigateToHome();
+      } else {
+        _navigationService.pushNamedAndRemoveUntil(verifyEmailViewRoute);
+      }
     } else {
       navigateToAuthPage();
     }
