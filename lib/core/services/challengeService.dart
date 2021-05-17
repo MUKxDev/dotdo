@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
-// import '../../../../../flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore-2.0.0/lib/cloud_firestore.dart';
 import '../locator.dart';
 import '../models/challenge.dart';
 import '../models/task.dart';
@@ -274,17 +272,6 @@ class ChallengeService {
   }
 
   // *get --------------------------------
-  //
-  // Stream<QuerySnapshot> getHomeActiveUChallenge() async* {
-  //   String _userId = await _authService.getCurrentUserId();
-  //   DateTime date = DateTime.now();
-  //   yield* _firestoreService.users
-  //       .doc(_userId)
-  //       .collection('UChallenges')
-  //       .where('endDate', isGreaterThanOrEqualTo: date.millisecondsSinceEpoch)
-  //       .where('completed', isEqualTo: false)
-  //       .snapshots();
-  // }
 
   Stream<QuerySnapshot> getActiveUChallenge() async* {
     String _userId = await _authService.getCurrentUserId();
