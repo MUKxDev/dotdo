@@ -33,7 +33,7 @@ class SplashViewModel extends BaseViewModel {
       if (_currentUser.emailVerified) {
         navigateToHome();
       } else {
-        _navigationService.pushNamedAndRemoveUntil(verifyEmailViewRoute);
+        navigateToAuthPage();
       }
     } else {
       navigateToAuthPage();
